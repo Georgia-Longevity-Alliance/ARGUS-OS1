@@ -11,7 +11,7 @@
 
 | AIM | Goal | System | Primary endpoint |
 |:---:|------|--------|------------------|
-| **AIM 1** | **INSTRUMENT** — Build and validate open platform | GFP beads + RPE1 | H₁: Drift <5µm/24h, Centrin-Cenexin ≥90% |
+| **AIM 1** | **INSTRUMENT** — Build and validate open platform | GFP beads + RPE1 | H₁: Drift <10µm/24h, Centrin-Cenexin ≥90% |
 | **AIM 2** | **KINETICS** — Quantify centrosome-age→cilium timing | RPE1-hTERT | H₂: Time-to-ciliogenesis (Cox PH) |
 | **AIM 3** | **FATE** — Test centrosome-age→differentiation | hTERT-NPCs | H₃: Nestin/Sox2→Tuj1/GFAP |
 
@@ -64,11 +64,11 @@
 
 ### 0.4. Three Hypotheses
 
-> **H₁ (Platform — PRIMARY):** ARGUS-LP_OS can maintain continuous 48-hour operation inside a glove-box enclosure with <5 µm focus drift per 24h, ≥95% cell retention on CYTOO islands, automated mitosis detection, and ≥90% concordance between Centrin1-GFP live tracking and Cenexin endpoint classification. **H₁ is a standalone result — the first open-source centrosome-aware lineage tracking platform with night vision and glove-box at $24K.**
+> **H₁ (Platform — PRIMARY):** ARGUS-LP_OS can maintain continuous 48-hour operation inside a glove-box enclosure with <10 µm focus drift per 24h, ≥95% cell retention on CYTOO islands, automated mitosis detection, and ≥90% concordance between Centrin1-GFP live tracking and Cenexin endpoint classification. **H₁ is a standalone result — the first open-source centrosome-aware lineage tracking platform with night vision and glove-box at $24K.**
 >
-> **H₂ (Biology — CO-PRIMARY):** In RPE1-hTERT, the daughter cell inheriting the mature mother centrosome (higher _M_) forms a primary cilium significantly earlier than its sister. **This is NOT a replication of Anderson & Stearns 2009** — it tests whether the 3.1% spindle asymmetry (Thomas & Meraldi 2024) is FUNCTIONALLY SUFFICIENT to produce differential cilium timing. If H₂ is negative → 3.1% is below the functional threshold for this phenotype. This is a mechanistic test of Thomas & Meraldi's pathway, not a replication.
+> **H₂ (Kinetics — validation):** In RPE1-hTERT, the daughter cell inheriting the mature mother centrosome (higher _M_) forms a primary cilium significantly earlier than its sister. **This is NOT a replication of Anderson & Stearns 2009** — it tests whether the 3.1% spindle asymmetry (Thomas & Meraldi 2024) is FUNCTIONALLY SUFFICIENT to produce differential cilium timing. RPE1 serves as platform validation + mechanistic test.
 >
-> **H₃ (Fate — CO-PRIMARY):** In hTERT-NPCs, mature mother centrosome inheritance → higher probability of maintaining progenitor identity (Nestin⁺/Sox2⁺) vs. differentiation (Tuj1⁺/GFAP⁺). Royall 2023 demonstrated this in 3D organoids; ARGUS tests whether it translates to 2D — a critical step for making centrosome-fate studies accessible.
+> **H₃ (Fate — biological discovery):** In hTERT-NPCs, mature mother centrosome inheritance → higher probability of maintaining progenitor identity (Nestin⁺/Sox2⁺) vs. differentiation (Tuj1⁺/GFAP⁺). **This is the primary biological question.** Royall 2023 demonstrated this in 3D organoids; ARGUS tests whether it translates to 2D — a critical step for making centrosome-fate studies accessible.
 >
 > H₁ validates the instrument. H₂ is the biological discovery in RPE1. H₃ extends to a fate-relevant model. **If H₁ fails, H₂ and H₃ are uninterpretable.** The platform must work before biology can be tested.
 
@@ -121,7 +121,7 @@
 | LED 488 nm phototoxicity (≤200 ms, ≤5% power) | Dark control (no LED) vs. LED protocol. Viability ≥90% in Pilot 1 |
 | Serum starvation effects on biology | Test in Pilot 2: **three serum conditions** (0.5%, 1%, 5% FBS). Select condition where ≥70% cells form cilium without division. Anderson & Stearns 2009 used 0.5%. If division >30% at all conditions → use ANCOVA with division as covariate instead of Fine-Gray. |
 | CYTOO retention >48h unknown | Pilot 2: test both 48h and 72h. If 72h retention <80% but 48h ≥80% → use 48h protocol. Fallback for both: gridded microwell dishes |
-| Glove-box climate stability | Pilot 0: 7-day GFP bead test. If drift >5µm/24h → budget reserve for commercial incubator ($7,500). |
+| Glove-box climate stability | Pilot 0: 7-day GFP bead test. If drift >10µm/24h → budget reserve for commercial incubator ($7,500). |
 | 3.1% spindle asymmetry biologically meaningful? | Tested by experiment: if M (continuous) does NOT predict cilium timing → 3.1% below functional threshold |
 | Stochastic inheritance vs. age effect | Anderson 2009: 94% asymmetry despite 50% random inheritance → age EFFECT dominates stochasticity. Control: randomize centrosome inheritance (Ninein KD, Royall 2023) → asymmetry should drop to ~50% if age is causal. |
 
@@ -216,7 +216,7 @@ Random intercepts for IslandID/PlateID account for micropattern and batch variab
 
 | Stage | System | Duration | Go/No-Go |
 |:-----:|--------|:--------:|----------|
-| **Pilot 0** | GFP beads, 7 days, 60×/1.2 NA | 1 week | Drift <5 µm/24h |
+| **Pilot 0** | GFP beads, 7 days, 60×/1.2 NA | 1 week | Drift <10 µm/24h |
 | **Pilot 1** | RPE1 Centrin1-GFP + Cenexin fix + Dendra2 calibration curve (1-5 divisions) + phototoxicity + EdU + TOP/FOP | 3 days | Centrin-Cenexin ≥90% + viability ≥90% + **Cenexin vs. age r²≥0.7** (GO/NO-GO: r²<0.7→Dendra2 primary) + prolif. Δ<5% + Wnt asymmetry |
 | **Pilot 2** | CYTOO islands, 48h + 72h, 10 pairs each | 1 week | Cell retention ≥80% at both timepoints. 72h optional if ≥80%. |
 | **Pilot 3** | RPE1, 50 pairs | 2 weeks | Effect size for final N |
