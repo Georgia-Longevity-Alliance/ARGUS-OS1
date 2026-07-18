@@ -48,13 +48,21 @@
 
 ### 0.5. Two Molecular Pathways (Mechanism)
 
-> Centrosome maturation state may influence daughter cell fate through two non-mutually-exclusive pathways:
+> Centrosome maturation state may influence daughter cell behavior through two non-mutually-exclusive pathways, both demonstrated in human cells:
 >
-> **Pathway A — Spindle asymmetry (Thomas & Meraldi 2024):** Cenexin → Plk1 → pericentrin/γ-tubulin/Cdk5Rap2 → 3.1% spindle length asymmetry → daughter cell size difference → differential cilium assembly kinetics.
+> **Pathway A — Spindle asymmetry (Thomas & Meraldi 2024, PMID 39012627):** Cenexin → Plk1 → pericentrin/γ-tubulin/Cdk5Rap2 → 3.1% spindle length asymmetry → daughter cell size difference → differential cilium assembly kinetics. Demonstrated in human RPE1 and MCF10A cells.
 >
-> **Pathway B — β-catenin/Wnt asymmetry (Valdes Michel & Phillips 2025):** Mother centrosome → SYS-1/β-catenin degradation during mitosis → asymmetric β-catenin inheritance → differential Wnt transcriptional program → divergent fate. This is the first direct demonstration of centrosome→transcription coupling in asymmetric division.
+> **Pathway B — Asymmetric protein degradation (Fuentealba et al. 2008, PMID 18511557):** Mother centrosome concentrates phospho-β-catenin and polyubiquitinated proteins targeted for proteasomal degradation → asymmetric inheritance of degradation-targeted proteins → differential Wnt/β-catenin signalling → divergent transcriptional programs. Demonstrated in human embryonic stem cells, Cos7, and Drosophila embryos. This is the first direct demonstration of centrosome→transcription coupling in mammalian asymmetric division.
 >
-> Both pathways predict the same observable: daughter inheriting the mature mother centrosome behaves differently. ARGUS-LP_OS measures the output. V2 (Odf2 KO) and V3 (ablation) dissect which pathway dominates.
+> Both pathways predict the same observable: daughter inheriting the mature mother centrosome behaves differently. ARGUS-LP_OS measures the output. Phase 2 (Odf2 KO with domain deletions) dissects which pathway dominates.
+
+### 0.6. Model System Clarification
+
+> **RPE1-hTERT** is an epithelial cell line used for **platform validation** and **cilium kinetics** (H₂). RPE1 does not undergo asymmetric fate-determining divisions — cilium formation is a cell cycle response (G1→G0), not a terminal fate decision. H₂ measures whether centrosome age predicts **timing of cilium assembly**, a quantitative, objectively measurable phenotype with a known baseline (Anderson & Stearns 2009: 94% asymmetric cilium growth).
+>
+> **hTERT-NPCs** are the **fate model** (H₃). Royall 2023 demonstrated that in human NPCs, mother centrosome → self-renewal via Ninein. H₃ measures whether centrosome age predicts **progenitor maintenance vs. differentiation** (Nestin/Sox2 → Tuj1/GFAP).
+>
+> This two-tier design separates **platform validation** (RPE1) from **biological discovery** (NPCs), de-risking both.
 
 ---
 
@@ -72,7 +80,11 @@
 | 6 | **Primary analysis:** time-to-ciliogenesis (Kaplan-Meier, hazard ratio) as function of _M_ |
 | 7 | **Secondary:** cilium presence (binary, McNemar) + Ki67 (proliferation status) |
 
-**Lineage design:** 72h = ~3 divisions. We track the full tree: which daughter inherits the mature centrosome at each division, and whether this predicts cilium timing and proliferation in subsequent generations. This addresses the concern that single-generation analysis may miss cumulative effects (Royall 2023 showed multi-generation effects in organoids).
+**Lineage design:** 72h = ~3 divisions. We track the full tree: which daughter inherits the mature centrosome at each division. **Centrosome age in generations 1-2** is inferred from the mitotic trajectory (mother centrosome identified at endpoint by Cenexin intensity → backtracked through Centrin1-GFP tracking). This inference is validated by the ≥90% concordance requirement in Pilot 1. Pairs with ambiguous backtracking are flagged and analysed separately as sensitivity check.
+
+**Mitosis detection:** H2B-GFP chromatin condensation triggers 1-2 min imaging, ensuring centriole distribution is captured at the critical moment.
+
+**Competing risks:** Cells that divide before forming a cilium are treated as competing events (Fine-Gray subdistribution hazard model, with division as the competing risk). Cells that neither divide nor form a cilium by 72h are right-censored.
 
 **CYTOO note:** No published data on 72h micropattern culture — 72h pilot included (Pilot 2). Fallback: gridded microwell dishes. **Micropipette separation is NOT used in Phase 1** — technical risk too high for a platform-validation experiment.
 
@@ -139,16 +151,23 @@ coxph(Surv(time_to_cilium, cilium_status) ~ M + CellArea + DivisionNumber + Ki67
 
 ---
 
-## 3. Phase 2 (v1.5): Odf2 KO + HDAC6i Rescue
+## 3. Phase 2 (v2.0): Odf2 Domain Deletions — Causality
 
-Odf2 KO abolishes distal and subdistal appendages (Ishikawa 2005). Different Odf2 domains control different appendage types (Tateishi 2013, PMID 24189274). Odf2 KO blocks ciliogenesis. **HDAC6i (tubacin 5 µM) restores cilia independently of appendages** (Wang 2025, PMID 40167251).
+Odf2 KO abolishes distal and subdistal appendages (Ishikawa 2005, PMID 15852003). Different Odf2 domains control different appendage types (Tateishi 2013, PMID 24189274):
+- aa 188-806 → transition fibers/distal appendages
+- aa 1-59 + 188-806 → basal feet/subdistal appendages
 
-| Group | Prediction |
-|:-----:|------------|
-| WT + DMSO | 94% cilium asymmetry |
-| Odf2⁻/⁻ + DMSO | No asymmetry, no cilia |
-| **Odf2⁻/⁻ + tubacin** | **Cilia restored. Asymmetry absent → Cenexin causal. Asymmetry present → cilium, not Cenexin.** |
-| Odf2⁺/⁻ + DMSO | Intermediate |
+**Experimental design (domain deletions, replacing HDAC6i hypothesis):**
+
+| Group | Construct | Prediction |
+|:-----:|-----------|------------|
+| WT + empty vector | — | 94% cilium asymmetry (baseline) |
+| Odf2⁻/⁻ + empty vector | — | No appendages, no cilia, no asymmetry |
+| **Odf2⁻/⁻ + Odf2(FL)** | Full-length Odf2-GFP | **Positive control:** appendages restored, cilia restored, asymmetry restored → phenotype is Odf2-specific |
+| **Odf2⁻/⁻ + Odf2(Δ1-59)** | Deletion of N-terminal 59 aa | Distal appendages ONLY (no subdistal). Cilia present? Asymmetry? → tests whether distal appendages sufficient |
+| **Odf2⁻/⁻ + Odf2(Δ188-806)** | Deletion of central domain | No appendages. Cilia absent. → domain essentiality control |
+
+**Why domain deletions replace HDAC6i:** Wang 2025 (PMID 40167251) is a review — no experimental data on Odf2⁻/⁻ rescue exists. PubMed search for "HDAC6 inhibitor cilia restoration Odf2 knockout" returns 0 results. Tateishi 2013 provides a validated genetic approach with domain-level resolution: which appendage type is required for centrosome-age-dependent asymmetry?
 
 ---
 
@@ -233,8 +252,10 @@ Odf2 KO abolishes distal and subdistal appendages (Ishikawa 2005). Different Odf
 23. Nayak SC, Radha V. *J Cell Sci* 133:jcs243113 (2020). **PMID: 32371504.**
 24. **Valdes Michel MF, Phillips BT.** SYS-1/β-catenin inheritance and regulation by Wnt signaling during asymmetric cell division. *Mol Biol Cell* 36(3):ar25 (2025). **PMID: 39813084.** — Centrosomal β-catenin degradation creates transcriptional asymmetry between daughters.
 25. **Goutas A, Trachana V.** Stem cells' centrosomes. *World J Stem Cells* 13(9):1177-1196 (2021). **PMID: 34630857.** — Review: centrosome-directed stem cell fate manipulation.
-26. **Barandun N et al.** Targeted localization of the mother centrosome in CD8+ T cells undergoing ACD promotes memory formation. *Cell Rep* 44(1):115127 (2025). **PMID: 39764850.** — Ninein-dependent mother centrosome inheritance → effector/memory fate.
+26. **Barandun N et al.** Targeted localization of the mother centrosome in CD8+ T cells undergoing ACD promotes memory formation. *Cell Rep* 44(1):115127 (2025). **PMID: 39764850.** — Mother centrosome → effector-like daughter (NOT memory) via ninein.
+27. **Fuentealba LC et al.** Asymmetric mitosis: Unequal segregation of proteins destined for degradation. *Proc Natl Acad Sci USA* 105(22):7732-7737 (2008). **PMID: 18511557.** — p-β-catenin and polyubiquitinated proteins concentrated at mother centrosome → asymmetric inheritance in human ESC, Cos7, and Drosophila.
+28. **Goutas A, Trachana V.** Stem cells' centrosomes. *World J Stem Cells* 13(9):1177-1196 (2021). **PMID: 34630857.** — Review: centrosome-directed stem cell fate manipulation.
 
 ---
 
-*Version 50 — 2026-07-19. Time-to-ciliogenesis primary endpoint. β-catenin/Wnt mechanism (Valdes Michel 2025). hTERT-NPCs in Phase 1. Lineage tree design. H₁ strengthened as standalone platform result. 26 references.*
+*Version 51 — 2026-07-19. Fuentealba 2008 (human p-β-catenin+centrosome) replaces C. elegans mechanism. Barandun 2025 interpretation corrected (mother→effector). HDAC6i replaced by Odf2 domain deletions (Tateishi 2013). RPE1 clarified as kinetics model, NPCs as fate model. Fine-Gray competing risks added. 28 references.*

@@ -27,8 +27,7 @@ ARGUS-LP_OS is an autonomous robotic platform for 24/7 centrosome-aware lineage 
 - Engineering here (hardware, software, firmware); science there (theory, grants, articles)
 - Minimum 2 commits/week (activity for OSC)
 
-## Current Status (v50)
-- CONCEPT.md v50 — 8 peer reviews processed. Time-to-ciliogenesis primary. β-catenin/Wnt mechanism. hTERT-NPCs in Phase 1.
-- 26 verified PMIDs. Budget $24,053. RPE1-hTERT + hTERT-NPCs.
-- Lineage tree (3 generations). Kaplan-Meier + Cox PH. Night vision standard.
-- Platform versions: v1.0 (first grant, no laser) → v2.0 (causality, ARGUS-OS2) → v3.0 (ablation, ARGUS-OS3).
+## Current Status (v51)
+- CONCEPT.md v51 — 9 peer reviews. Fuentealba 2008 (human) mechanism. Odf2 domain deletions. Barandun corrected. Fine-Gray competing risks.
+- 28 verified PMIDs. Budget $24,053.
+- RPE1 = kinetics (H₂). NPCs = fate (H₃). Platform versions: v1.0/v2.0/v3.0.

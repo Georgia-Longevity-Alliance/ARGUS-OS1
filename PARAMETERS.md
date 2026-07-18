@@ -1,6 +1,6 @@
 # PARAMETERS — ARGUS-LP_OS
 
-**Version:** 50.0 — Synchronised with CONCEPT v50
+**Version:** 51.0 — Synchronised with CONCEPT v51
 **Date:** 2026-07-19
 
 ## Phase 1 (v1.0) — Sister Tracking (RPE1-hTERT)
@@ -25,7 +25,7 @@
 | **Secondary endpoints** | Cilium presence at 72h (binary, McNemar). Ki67 status (binary, McNemar). |
 | **Tertiary (NPCs)** | Differentiation: Nestin/Sox2 → Tuj1/GFAP (Fisher exact). |
 | **Lineage** | Full tree: mother→daughters→granddaughters→great-granddaughters (~3 cell cycles in 72h). |
-| **Statistics** | Primary: Cox PH (hazard ratio per unit _M_, cluster by MotherID). Secondary: McNemar + glmer(Cilium ~ M + DivisionNumber + Ki67 + (1+DivisionNumber\|MotherID) + (1\|PairID), family=binomial) |
+| **Statistics** | Primary: Fine-Gray subdistribution hazard (competing risk: division). Secondary: Cox PH (no competing risks). Binary: McNemar + glmer. |
 | **Power** | Primary: 80% at HR≥1.35 with N=200 pairs, ICC ρ=0.3, 20% attrition. Secondary: 80% at 15 pp difference (65:35 split). |
 | **Maturation state** | Cenexin ratio _M_ — continuous predictor. Binary _M>1.5_ calibrated via ROC in pilot. |
 
