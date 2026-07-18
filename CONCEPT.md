@@ -105,8 +105,9 @@
 | Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | Untagged RPE1 vs. GFP-RPE1: compare cilium kinetics in Pilot 1. Δ>10% → use lower-expression clone. **Loncarek 2008 (PMID 18297061):** Centrin1 overexpression → aberrant centriole duplication. Use weak promoter (EF1α-short) if needed. |
 | IR 850 nm prolonged exposure (48h) — phototoxicity, heating | IR-ON vs. IR-OFF arms in **Pilot 0.5**: viability (Live/Dead), proliferation (EdU), ROS (CellROX), apoptosis (caspase-3/7) at 0/24/48h. Δ>10% in any metric → reduce IR duty cycle or switch to pulsed mode (1s/10min). Kiepas et al. 2020 (PMID 32111840): 850 nm safe for long-term live-cell imaging. |
 | Water immersion objective evaporation → focus drift | Automated water dispenser + saturated humidity in glove-box. Monitor focus drift with GFP beads |
-| Cenexin appendages disassemble during mitosis | Pilot 1: Cenexin IF at interphase/prophase/metaphase/telophase in synchronized cells. If >20% variation → use Ninein co-stain |
-| Cenexin _M_ ≠ direct age measurement | Pilot 1: Centrin1-Dendra2 photoconversion calibration. Compare Dendra2-age vs. Cenexin-age. Concordance <90% → Dendra2 becomes primary age marker |
+| Cenexin appendages disassemble during mitosis | Pilot 1: Cenexin IF at interphase/prophase/metaphase/telophase. If >20% variation → Ninein co-stain |
+| Cenexin _M_ ≠ direct age | Pilot 1: Centrin1-Dendra2 photoconversion calibration |
+| Cenexin as MEDIATOR vs. MARKER of cilium asymmetry | Pilot 1: Odf2-Δ4/5 (DA+SA−, cilia form but abnormal per Tateishi 2013). If cilium asymmetry persists in Δ4/5 despite absent subdistal appendages → Cenexin is a CORRELATE not a mediator. H₂ then tests correlation, not causation. |
 | LED 488 nm phototoxicity (≤200 ms, ≤5% power) | Dark control (no LED) vs. LED protocol. Viability ≥90% in Pilot 1 |
 | Serum starvation effects on biology | Test in Pilot 2: ±serum conditions. If serum alters M→cilium → use cycling conditions |
 | CYTOO retention >48h unknown | Pilot 2: test both 48h and 72h. If 72h retention <80% but 48h ≥80% → use 48h protocol. Fallback for both: gridded microwell dishes |
@@ -182,7 +183,7 @@ H₀: P(cilium | mature mother) = P(cilium | immature mother) = 0.5
 
 **Multiple testing protocol (preregistered on OSF):** Hierarchical gatekeeping for primary→secondary. (1) Primary: time-to-cilium → if p<0.05, test secondaries. (2-4) Secondaries: cilium binary, Ki67, NPC markers — Benjamini-Hochberg FDR (q<0.1) within this level. If primary p≥0.05 → all secondaries descriptive only.
 
-**Power note:** At N=300 with ICC ρ=0.3, Fine-Gray competing risk model: effective N ≈ 129 pairs, power 82% at HR=1.35. Interim analysis at N=150: if HR<1.15 → escalate to N=400 or stop for futility.
+**ICC sensitivity:** N=300 assumes ICC ρ=0.3. If Pilot 3 shows ICC>0.4 → escalate to N=500 (effective N≈107 at ICC=0.5 vs. 129 at ICC=0.3). Final N determined after Pilot 3.
 
 **Stop-rule:** If Pilot 3 (50 pairs) shows HR<1.1 for time-to-ciliogenesis → the 3.1% spindle asymmetry is below functional threshold for this phenotype. Redesign (increase serum starvation, test NPCs). **Sensitivity:** If interim at N=150 shows HR<1.2 → escalate to N=500. At HR=1.2, N=500 with ICC=0.3 gives ~78% power.
 
