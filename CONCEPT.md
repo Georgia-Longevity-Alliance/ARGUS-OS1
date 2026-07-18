@@ -22,7 +22,7 @@
 | Probe | When | Task |
 |-------|------|------|
 | **Centrin1-GFP** | Live, every frame | **TRACKING** — where are the centrioles? Which cell inherited which centrosome? Follow positions through mitosis. |
-| **Cenexin antibody** | Endpoint (72h, fixed) | **CLASSIFICATION** — which centrosome was the mature mother? Cenexin-bright = old. |
+| **Cenexin antibody** | Endpoint (48h, fixed) | **CLASSIFICATION** — which centrosome was the mature mother? Cenexin-bright = old. |
 
 **Centrin1-GFP does NOT need to report centriole age.** It only needs to show POSITIONS. The age assignment is done retrospectively at endpoint with Cenexin antibody — the gold standard used by Anderson & Stearns 2009. Pilot 1 validates that Centrin1-GFP tracking is concordant with Cenexin classification (target: ≥90% concordance).
 
@@ -52,9 +52,9 @@
 
 ### 0.4. Three Hypotheses
 
-> **H₁ (Platform — PRIMARY):** ARGUS-LP_OS can maintain continuous 72-hour operation inside a glove-box enclosure with <5 µm focus drift per 24h, ≥95% cell retention on CYTOO islands, automated mitosis detection, and ≥90% concordance between Centrin1-GFP live tracking and Cenexin endpoint classification. **H₁ is a standalone result — the first open-source centrosome-aware lineage tracking platform with night vision and glove-box at $24K.**
+> **H₁ (Platform — PRIMARY):** ARGUS-LP_OS can maintain continuous 48-hour operation inside a glove-box enclosure with <5 µm focus drift per 24h, ≥95% cell retention on CYTOO islands, automated mitosis detection, and ≥90% concordance between Centrin1-GFP live tracking and Cenexin endpoint classification. **H₁ is a standalone result — the first open-source centrosome-aware lineage tracking platform with night vision and glove-box at $24K.**
 >
-> **H₂ (Biology — SECONDARY):** In RPE1-hTERT, the daughter cell inheriting the mature mother centrosome (higher _M_) forms a primary cilium significantly earlier than its sister (shorter time-to-ciliogenesis), after controlling for cell size.
+> **H₂ (Biology — SECONDARY):** In RPE1-hTERT, the daughter cell inheriting the mature mother centrosome (higher _M_) forms a primary cilium significantly earlier than its sister (shorter time-to-ciliogenesis within 48h), after controlling for cell size.
 >
 > **H₃ (Fate — TERTIARY, NPCs):** In hTERT-NPCs, mature mother centrosome inheritance → higher probability of maintaining progenitor identity (Nestin⁺/Sox2⁺) vs. differentiation (Tuj1⁺/GFAP⁺).
 >
@@ -85,12 +85,12 @@
 | Confound | Control |
 |----------|---------|
 | Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | Untagged RPE1 vs. GFP-RPE1: compare cilium kinetics in Pilot 1. Δ>10% → use lower-expression clone. **Loncarek 2008 (PMID 18297061):** Centrin1 overexpression → aberrant centriole duplication. Use weak promoter (EF1α-short) if needed. |
-| IR 850 nm prolonged exposure (72h) — phototoxicity, heating unknown | IR-ON vs. IR-OFF arms in Pilot 0. Measure viability + temperature probe in medium (ΔT<0.5°C). Use pulsed mode (1s every 5 min) if continuous IR heats >0.5°C |
+| IR 850 nm prolonged exposure (48h) — phototoxicity, heating unknown | IR-ON vs. IR-OFF arms in Pilot 0. Measure viability + temperature probe in medium (ΔT<0.5°C). Use pulsed mode (1s every 5 min) if continuous IR heats >0.5°C |
 | Water immersion objective evaporation → focus drift | Automated water dispenser + saturated humidity in glove-box. Monitor focus drift with GFP beads |
 | Cenexin appendages disassemble during mitosis | Pilot 1: Cenexin IF at interphase/prophase/metaphase/telophase in synchronized cells. If >20% variation → add Ninein co-stain |
 | LED 488 nm phototoxicity (≤200 ms, ≤5% power) | Dark control (no LED) vs. LED protocol. Viability ≥90% in Pilot 1 |
 | Serum starvation effects on biology | Test in Pilot 2: ±serum conditions. If serum alters M→cilium → use cycling conditions |
-| CYTOO retention >48h unknown | Pilot 2: 72h test. Fallback: gridded microwell dishes |
+| CYTOO retention >48h unknown | Pilot 2: test both 48h and 72h. If 72h retention <80% but 48h ≥80% → use 48h protocol. Fallback for both: gridded microwell dishes |
 | 3.1% spindle asymmetry biologically meaningful? | Tested by experiment: if M (continuous) does NOT predict cilium timing → 3.1% below functional threshold |
 
 ---
@@ -103,26 +103,28 @@
 |:----:|--------|
 | 1 | RPE1-hTERT Centrin1-GFP + H2B-GFP divide inside glove-box |
 | 2 | **Live tracking:** Centrin1-GFP follows centriole POSITIONS through mitosis |
-| 3 | Sisters tracked on CYTOO 2-cell islands for 72h (~3 cell cycles) |
+| 3 | Sisters tracked on CYTOO 2-cell islands for 48h (~2 cell cycles). 72h optional if Pilot 2 retention permits. |
 | 4 | **Lineage tree:** track mother→daughters→granddaughters→great-granddaughters |
 | 5 | **Endpoint:** fix, Cenexin antibody → CLASSIFY + acetylated tubulin → cilium |
 | 6 | **Primary analysis:** time-to-ciliogenesis (Kaplan-Meier, hazard ratio) as function of _M_ |
 | 7 | **Secondary:** cilium presence (binary, McNemar) + Ki67 (proliferation status) |
 
-**Lineage design:** 72h = ~3 divisions. We track the full tree: which daughter inherits the mature centrosome at each division. **Centrosome age in generations 1-2** is inferred from the mitotic trajectory (mother centrosome identified at endpoint by Cenexin intensity → backtracked through Centrin1-GFP tracking). This inference is validated by the ≥90% concordance requirement in Pilot 1. Pairs with ambiguous backtracking are flagged and analysed separately as sensitivity check.
+**Lineage design:** 48h = ~2 divisions. We track the full tree: which daughter inherits the mature centrosome at each division. **Centrosome age in generations 1-2** is inferred from the mitotic trajectory (mother centrosome identified at endpoint by Cenexin intensity → backtracked through Centrin1-GFP tracking). This inference is validated by the ≥90% concordance requirement in Pilot 1. Pairs with ambiguous backtracking are flagged and analysed separately as sensitivity check.
+
+**72h extension (optional):** If Pilot 2 confirms ≥80% retention at 72h on CYTOO → extend to 3 generations for richer lineage data. Otherwise, 48h provides sufficient data for H₁ (platform validation) and H₂ (cilium kinetics).
 
 **Mitosis detection:** H2B-GFP chromatin condensation triggers 1-2 min imaging, ensuring centriole distribution is captured at the critical moment.
 
-**Competing risks:** Cells that divide before forming a cilium are treated as competing events (Fine-Gray subdistribution hazard model, with division as the competing risk). Cells that neither divide nor form a cilium by 72h are right-censored.
+**Competing risks:** Cells that divide before forming a cilium are treated as competing events (Fine-Gray subdistribution hazard model, with division as the competing risk). Cells that neither divide nor form a cilium by 48h are right-censored.
 
-**CYTOO note:** No published data on 72h micropattern culture — 72h pilot included (Pilot 2). Fallback: gridded microwell dishes. **Micropipette separation is NOT used in Phase 1** — technical risk too high for a platform-validation experiment.
+**CYTOO note:** No published data on 72h micropattern culture. Primary protocol: 48h (within published CYTOO range). Pilot 2 tests both 48h and 72h. Fallback: gridded microwell dishes.
 
 ### 1.2. Endpoints
 
 | Endpoint | Type | Measurement | Analysis |
 |----------|:----:|-------------|----------|
 | **Time-to-ciliogenesis** | 🎯 Primary | Hours from cytokinesis to acetylated tubulin⁺ cilium ≥1 µm | Kaplan-Meier, Cox PH (hazard ratio per unit _M_) |
-| Cilium presence at 72h | Secondary | Binary (yes/no) | McNemar (paired) |
+| Cilium presence at 48h | Secondary | Binary (yes/no) | McNemar (paired) |
 | Ki67 status | Secondary | Binary (Ki67⁺/Ki67⁻) | McNemar (paired) |
 | Differentiation (NPCs) | Tertiary | Nestin/Sox2 → Tuj1/GFAP | Fisher exact |
 
@@ -153,7 +155,7 @@ H₀: P(cilium | mature mother) = P(cilium | immature mother) = 0.5
 **Power calculation for time-to-event:**
 - For hazard ratio 1.4 (40% faster cilium in mature-mother daughters), α=0.05, β=0.2
 - Events needed: ~65 cilium-positive cells
-- With 70% cilium rate at 72h: N = 65/0.7 = **93 pairs**
+- With 70% cilium rate at 48h: N = 65/0.7 = **93 pairs**
 - **With 20% attrition + ICC ρ≤0.3:** N_planned = 93/(0.8×0.77) ≈ **150 pairs**
 
 **Target: 200 pairs with interim analysis at N=100** — detects HR ≥1.35 with 80% power. If interim HR <1.15 → increase to **N=300** (futility boundary not crossed). For HR=1.2, N=300 provides 80% power at ICC ρ=0.3. ICC estimated in Pilot 3, final N adjusted accordingly.
@@ -175,9 +177,9 @@ coxph(Surv(time_to_cilium, cilium_status) ~ M + CellArea + DivisionNumber + Ki67
 |:-----:|--------|:--------:|----------|
 | **Pilot 0** | GFP beads, 7 days, 60×/1.2 NA | 1 week | Drift <5 µm/24h |
 | **Pilot 1** | RPE1 Centrin1-GFP + Cenexin fix + phototoxicity + EdU proliferation | 3 days | Centrin-Cenexin ≥90% + viability ≥90% vs dark + Cenexin cell cycle stability + GFP vs WT proliferation (EdU) Δ<5% |
-| **Pilot 2** | CYTOO islands, 72h, 10 pairs | 1 week | Cell retention ≥80% |
+| **Pilot 2** | CYTOO islands, 48h + 72h, 10 pairs each | 1 week | Cell retention ≥80% at both timepoints. 72h optional if ≥80%. |
 | **Pilot 3** | RPE1, 50 pairs | 2 weeks | Effect size for final N |
-| **Main RPE1** | RPE1-hTERT, 200 pairs, lineage tree (3 gen) | 4 weeks | Primary: time-to-ciliogenesis |
+| **Main RPE1** | RPE1-hTERT, 200 pairs, 48h (lineage tree, 2 gen). 72h optional. | 4 weeks | Primary: time-to-ciliogenesis |
 | **Main NPCs** | hTERT-NPCs, 100 pairs, lineage tree (3 gen) | 4 weeks | Primary: Nestin→Tuj1/GFAP fate |
 | **Phase 2 (v2.0)** | RPE1 Odf2 KO + HDAC6i | 4 weeks | Causality |
 | **Phase 3 (v3.0)** | hTERT-NPCs + ExM endpoint | 6 weeks | Progenitor map |
