@@ -7,6 +7,16 @@
 
 ## 0. The Science: Centrosome Maturation State as a Division History Marker
 
+### Project Structure (Grant Aims)
+
+| AIM | Goal | System | Primary endpoint |
+|:---:|------|--------|------------------|
+| **AIM 1** | **INSTRUMENT** — Build and validate open platform | GFP beads + RPE1 | H₁: Drift <5µm/24h, Centrin-Cenexin ≥90% |
+| **AIM 2** | **KINETICS** — Quantify centrosome-age→cilium timing | RPE1-hTERT | H₂: Time-to-ciliogenesis (Cox PH) |
+| **AIM 3** | **FATE** — Test centrosome-age→differentiation | hTERT-NPCs | H₃: Nestin/Sox2→Tuj1/GFAP |
+
+---
+
 ### Central Hypothesis
 
 > **The mother centrosome carries a distinct maturation state. Two parallel pathways may transduce this asymmetry: (1) Cenexin→Plk1→γ-tubulin→spindle asymmetry→daughter cell size (Thomas & Meraldi 2024, PMID 39012627, human RPE1/MCF10A, 3.1% asymmetry); (2) centrosomal concentration of phospho-β-catenin targeted for degradation→asymmetric inheritance→HYPOTHESIZED differential Wnt signalling (Fuentealba et al. 2008, PMID 18511557 — demonstrated asymmetric segregation of p-β-catenin in human ESC/Cos7, but transcriptional consequences NOT tested).**
@@ -185,9 +195,9 @@ H₀: P(cilium | mature mother) = P(cilium | immature mother) = 0.5
 
 **Multiple testing protocol (preregistered on OSF):** Hierarchical gatekeeping. (1) Primary: time-to-cilium → if p<0.05, test secondaries. (2-3) Secondaries: cilium binary, Shh/Gli1 asymmetry — Benjamini-Hochberg FDR (q<0.1). (4) NPC markers. If primary p≥0.05 → all secondaries descriptive only.
 
-**ICC sensitivity:** N=300 assumes ICC ρ=0.3. If Pilot 3 shows ICC>0.4 → escalate to N=500 (effective N≈107 at ICC=0.5 vs. 129 at ICC=0.3). Final N determined after Pilot 3.
+**ICC sensitivity:** N=300 assumes ICC ρ=0.3. **Adjusted formula:** N_adj = N_base / (1 - attrition) × (1 + (m-1)ρ). For m=2, ρ=0.3, 20% attrition: N_adj = 300 / 0.8 × 1.3 = 487. Conservative: N=500 if ICC>0.4.
 
-**Stop-rule:** If Pilot 3 (50 pairs) shows HR<1.1 for time-to-ciliogenesis → the 3.1% spindle asymmetry is below functional threshold for this phenotype. Redesign (increase serum starvation, test NPCs). **Sensitivity:** If interim at N=150 shows HR<1.2 → escalate to N=500. At HR=1.2, N=500 with ICC=0.3 gives ~78% power.
+**Interim analysis:** O'Brien-Fleming group sequential design. Single interim at N=150 (α spending: 0.005 at interim, 0.048 at final). Stop for efficacy if p<0.005; stop for futility if HR<1.15.
 
 **Model (full, multi-level):**
 ```
