@@ -30,7 +30,9 @@
 
 > **Maturation state is operationally defined as the Cenexin fluorescence intensity ratio: _M = I(Cenexin)ᵃ / I(Cenexin)ᵇ_.** _M_ is a continuous variable in all primary analyses. A binary threshold (_M > 1.5_) is calibrated via ROC analysis in Pilot 1.
 >
-> **⚠️ Mitosis caveat:** Distal/subdistal appendages partially disassemble during mitosis (reviewer comment on Thomas & Meraldi 2024). Cenexin staining intensity may fluctuate through the cell cycle. Pilot 1 validates Cenexin signal at different cell cycle stages (interphase, prophase, metaphase, telophase) in synchronized RPE1 cells. If Cenexin intensity varies >20% across cell cycle → use Ninein as secondary marker (Royall 2023 validated Ninein for NPCs).
+> **⚠️ Mitosis caveat:** Distal/subdistal appendages partially disassemble during mitosis (reviewer comment on Thomas & Meraldi 2024). Cenexin staining intensity may fluctuate through the cell cycle. Pilot 1 validates Cenexin signal at different cell cycle stages.
+>
+> **⚠️ Age calibration caveat:** Cenexin intensity _M_ is an OPERATIONAL proxy for centrosome age, not a direct chronometer. Anderson & Stearns 2009 validated the correlation in RPE1 population but did not calibrate _M_ vs. number of divisions survived. **Pilot 1 calibration:** Centrin1-Dendra2 photoconversion — photoconvert centrin in G1 → track through mitosis → red signal (photoconverted, pre-existing centrin) marks the older centriole. Compare Dendra2-based age assignment with Cenexin IF. If concordance <90% → _M_ is insufficient as age proxy; switch to Dendra2-based age tracking for main experiment.
 
 ### 0.3. Alternative Hypotheses
 
@@ -80,14 +82,31 @@
 
 ---
 
-## 1. Controls and Confounds
+## 1. Data Processing Pipeline
+
+| Step | Tool | Parameters |
+|:----:|------|------------|
+| 1. Image pre-processing | Fiji/ImageJ macro | Flat-field correction, bleach correction (exponential fit) |
+| 2. Centriole detection | CellPose 2.0 + custom tracker | TrackMate or Bayesian tracker. Min spot intensity >3σ above background |
+| 3. Mitosis detection | H2B-GFP threshold | Chromatin condensation → trigger 1-2 min imaging |
+| 4. Lineage assignment | Custom Python (NetworkX) | Mother→daughter links based on mitotic spindle orientation + proximity |
+| 5. Cenexin quantification | Fiji ROI | Mean intensity in 3×3 px ROI centered on Centrin1 spot. Normalized to FITC beads |
+| 6. Cilium detection | Acetylated tubulin IF | Length ≥1 µm, contiguous signal from centriole. Automated via Ilastik or manual validation |
+| 7. Tracking QC | Manual validation of 20% frames | Inter-rater agreement >95%. Ambiguous tracks flagged and excluded from primary analysis |
+
+**SNR thresholds:** Centrin1-GFP spot SNR ≥5 at ≤5% LED, ≤200 ms. Below → excluded. **Missing frames:** <5% → interpolation. >5% → pair excluded. **Data:** BioImage Archive / Zenodo (CC0) upon publication.
+
+---
+
+## 2. Controls and Confounds
 
 | Confound | Control |
 |----------|---------|
 | Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | Untagged RPE1 vs. GFP-RPE1: compare cilium kinetics in Pilot 1. Δ>10% → use lower-expression clone. **Loncarek 2008 (PMID 18297061):** Centrin1 overexpression → aberrant centriole duplication. Use weak promoter (EF1α-short) if needed. |
 | IR 850 nm prolonged exposure (48h) — phototoxicity, heating unknown | IR-ON vs. IR-OFF arms in Pilot 0. Measure viability + temperature probe in medium (ΔT<0.5°C). Use pulsed mode (1s every 5 min) if continuous IR heats >0.5°C |
 | Water immersion objective evaporation → focus drift | Automated water dispenser + saturated humidity in glove-box. Monitor focus drift with GFP beads |
-| Cenexin appendages disassemble during mitosis | Pilot 1: Cenexin IF at interphase/prophase/metaphase/telophase in synchronized cells. If >20% variation → add Ninein co-stain |
+| Cenexin appendages disassemble during mitosis | Pilot 1: Cenexin IF at interphase/prophase/metaphase/telophase in synchronized cells. If >20% variation → use Ninein co-stain |
+| Cenexin _M_ ≠ direct age measurement | Pilot 1: Centrin1-Dendra2 photoconversion calibration. Compare Dendra2-age vs. Cenexin-age. Concordance <90% → Dendra2 becomes primary age marker |
 | LED 488 nm phototoxicity (≤200 ms, ≤5% power) | Dark control (no LED) vs. LED protocol. Viability ≥90% in Pilot 1 |
 | Serum starvation effects on biology | Test in Pilot 2: ±serum conditions. If serum alters M→cilium → use cycling conditions |
 | CYTOO retention >48h unknown | Pilot 2: test both 48h and 72h. If 72h retention <80% but 48h ≥80% → use 48h protocol. Fallback for both: gridded microwell dishes |
@@ -217,7 +236,7 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 
 **Why this replaces HDAC6i:** Wang 2025 (PMID 40167251) is a review — no experimental data on Odf2⁻/⁻ rescue. PubMed search: 0 results for HDAC6i+Odf2 KO. Tateishi 2013 provides validated domain-level resolution. **Risk:** Tateishi used mouse F9 cells. Human RPE1 Odf2 constructs must be validated — this is a separate engineering task (6-8 weeks).
 
-**Centrosome age determination in Odf2-KO:** Without Cenexin/Odf2, the standard age marker is absent. **⚠️ Ninein localizes to subdistal appendages — which are also disrupted in Odf2-KO (Tateishi 2013).** Ninein may NOT serve as age proxy in Odf2-KO cells. Primary method: **Centrin1-GFP trajectory backtracking** (infer centrosome lineage from last Cenexin-positive division before KO). This is the only method not requiring appendage proteins.
+**Centrosome age determination in Odf2-KO:** Without Cenexin/Odf2, the standard age marker is absent. **⚠️ Constitutive KO cannot use backtracking** — cells never express Cenexin. Solution: **Inducible Odf2 KO** (tetracycline-inducible shRNA or auxin-inducible degron). Induce KO after 1-2 Cenexin-positive divisions → backtrack from last Cenexin⁺ frame. Alternative: Centrin1-Dendra2 photoconversion for direct age readout independent of appendage proteins.
 
 ---
 
@@ -225,11 +244,22 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 
 | Objective | Resolution | Centriole gap at MITOSIS (>5 µm) | Cost |
 |-----------|:----------:|:-------------------------------:|:----:|
-| **60×/1.2 NA WI** | ~248 nm | ✅ Easily resolved | $3,000 |
+| **60×/1.2 NA WI** | ~248 nm | ✅ Easily resolved | $3,500 |
 
-**Cenexin calibration:** FITC calibration beads (Spherotech, 2.5 µm) imaged in each experiment. Cenexin intensity normalized to bead fluorescence → cross-experiment comparable _M_. Threshold calibrated via ROC in Pilot 1.
+**Cenexin calibration:** FITC calibration beads (Spherotech, 2.5 µm) imaged in each experiment. Cenexin intensity normalized to bead fluorescence → cross-experiment comparable _M_. Threshold calibrated via ROC in Pilot 1. **Age validation:** Centrin1-Dendra2 photoconversion in Pilot 1 provides orthogonal age readout.
 
-**Phase 3 (v2.0) option:** Expansion microscopy (ExM, ~4× physical expansion) for super-resolved endpoint centriole analysis. 10+ PMIDs confirm ExM for centrioles.
+**Phase 3 (v3.0) option:** Expansion microscopy (ExM, ~4× physical expansion) for super-resolved endpoint centriole analysis.
+
+### 6.1. Comparison with Existing Platforms
+
+| System | Cost | 48h autonomy | Centrosome tracking | Open source |
+|--------|:----:|:-----------:|:-------------------:|:-----------:|
+| LUMICKS C-Trap | ~$200K | ❌ | ❌ | ❌ |
+| Molecular Devices ImageXpress | ~$150K | ✅ | ❌ | ❌ |
+| Nikon Ti2-E + OKO Lab | ~$80K | Partial | ❌ | ❌ |
+| **ARGUS-LP_OS** | **$24K** | **✅** | **✅** | **✅ GPLv3/CC-BY-SA** |
+
+> ARGUS-LP_OS is 3-8× cheaper and the ONLY platform designed for centrosome-aware lineage tracking. Open hardware enables community improvements impossible with proprietary systems.
 
 ---
 
