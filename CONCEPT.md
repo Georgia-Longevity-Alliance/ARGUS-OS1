@@ -109,7 +109,7 @@
 | Cenexin _M_ ≠ direct age | Pilot 1: Centrin1-Dendra2 photoconversion calibration |
 | Cenexin as MEDIATOR vs. MARKER of cilium asymmetry | Pilot 1: Odf2-Δ4/5 (DA+SA−, cilia form but abnormal per Tateishi 2013). If cilium asymmetry persists in Δ4/5 despite absent subdistal appendages → Cenexin is a CORRELATE not a mediator. H₂ then tests correlation, not causation. |
 | LED 488 nm phototoxicity (≤200 ms, ≤5% power) | Dark control (no LED) vs. LED protocol. Viability ≥90% in Pilot 1 |
-| Serum starvation effects on biology | Test in Pilot 2: ±serum conditions. If serum alters M→cilium → use cycling conditions |
+| Serum starvation effects on biology | Test in Pilot 2: **three serum conditions** (0.5%, 1%, 5% FBS). Select condition where ≥70% cells form cilium without division. Anderson & Stearns 2009 used 0.5%. If division >30% at all conditions → use ANCOVA with division as covariate instead of Fine-Gray. |
 | CYTOO retention >48h unknown | Pilot 2: test both 48h and 72h. If 72h retention <80% but 48h ≥80% → use 48h protocol. Fallback for both: gridded microwell dishes |
 | 3.1% spindle asymmetry biologically meaningful? | Tested by experiment: if M (continuous) does NOT predict cilium timing → 3.1% below functional threshold |
 | Stochastic inheritance vs. age effect | Anderson 2009: 94% asymmetry despite 50% random inheritance → age EFFECT dominates stochasticity. Control: randomize centrosome inheritance (Ninein KD, Royall 2023) → asymmetry should drop to ~50% if age is causal. |
@@ -199,7 +199,7 @@ coxph(Surv(time_to_cilium, cilium_status) ~ M + CellArea + DivisionNumber + Ki67
 | Stage | System | Duration | Go/No-Go |
 |:-----:|--------|:--------:|----------|
 | **Pilot 0** | GFP beads, 7 days, 60×/1.2 NA | 1 week | Drift <5 µm/24h |
-| **Pilot 1** | RPE1 Centrin1-GFP + Cenexin fix + phototoxicity + EdU + TOP/FOP Wnt reporter | 3 days | Centrin-Cenexin ≥90% + viability ≥90% + cell cycle stable + prolif. Δ<5% + Wnt asymmetry (exploratory) |
+| **Pilot 1** | RPE1 Centrin1-GFP + Cenexin fix + Dendra2 calibration curve (1-5 divisions) + phototoxicity + EdU + TOP/FOP | 3 days | Centrin-Cenexin ≥90% + viability ≥90% + **Cenexin vs. age r²≥0.7** (GO/NO-GO: r²<0.7→Dendra2 primary) + prolif. Δ<5% + Wnt asymmetry |
 | **Pilot 2** | CYTOO islands, 48h + 72h, 10 pairs each | 1 week | Cell retention ≥80% at both timepoints. 72h optional if ≥80%. |
 | **Pilot 3** | RPE1, 50 pairs | 2 weeks | Effect size for final N |
 | **Main RPE1** | RPE1-hTERT, 300 pairs, 48h (H₂: 1st cycle cilium timing) | 4 weeks | Primary: time-to-ciliogenesis |
@@ -238,6 +238,7 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | **Odf2⁻/⁻ + Odf2(Δ188-806)** | Central domain deletion | **DA+SA−.** Distal appendages present, subdistal absent. Cilia form but are abnormal (reduced frequency, shorter) | **Key experimental group.** Tests whether distal appendages ALONE sufficient for centrosome-age-dependent asymmetry |
 | **Odf2⁻/⁻ + Odf2(Δ1-59)** | N-terminal deletion | **No centriole recruitment.** Does NOT localize to basal bodies. No appendages, no cilia | **Negative control.** Confirms recruitment is required |
 | **Odf2⁻/⁻ + Odf2(ΔC)** | C-terminal deletion | Centrosome binding intact, but NO appendage formation | **Pharmacological control.** Separates centrosome binding from appendage function |
+| **WT + Ninein KD** | shNinein | Randomizes centrosome inheritance (Royall 2023). If asymmetry drops to ~50% → centrosome age is CAUSAL for fate | **Causality control.** Orthogonal to Odf2 — tests whether randomization abolishes asymmetry |
 
 **Why this replaces HDAC6i:** Wang 2025 (PMID 40167251) is a review — no experimental data on Odf2⁻/⁻ rescue. PubMed search: 0 results for HDAC6i+Odf2 KO. Tateishi 2013 provides validated domain-level resolution. **Risk:** Tateishi used mouse F9 cells. Human RPE1 Odf2 constructs must be validated — this is a separate engineering task (6-8 weeks).
 
@@ -323,7 +324,8 @@ A negative H₂ result is scientifically informative, not a failure:
 1. Anderson CT, Stearns T. *Curr Biol* 19:1498–1502 (2009). **PMID: 19682908.**
 2. Wang X et al. *Nature* 461:947–955 (2009). **PMID: 19829375.**
 3. Royall LN et al. *eLife* 12:e83157 (2023). **PMID: 37882444.**
-4. Yamashita YM et al. *Science* 315:518–521 (2007). **PMID: 17255513.**
+4. Yamashita YM et al. *Science* 315:518–521 (2007). **PMID: 17255513.** — First demonstration: mother centrosome → stem cell in Drosophila germline. Foundational work.
+5. Paridaen JT et al. *Cell* 155:333–344 (2013). **PMID: 24120134.** — Centrosome-associated cilium membrane directs ciliogenesis. Ninein as key marker.
 5. Paridaen JT et al. *Cell* 155:333–344 (2013). **PMID: 24120134.**
 6. Barandun N et al. *Cell Rep* 44:115127 (2025). **PMID: 39764850.**
 7. Reina J, Gonzalez C. *Phil Trans R Soc B* 369:20130466 (2014). **PMID: 25047620.**
