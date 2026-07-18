@@ -70,7 +70,7 @@
 >
 > **Pathway B — Asymmetric protein degradation (POSSIBLE EXPLANATION, NOT TESTED HERE):** Mother centrosome concentrates phospho-β-catenin and polyubiquitinated proteins targeted for proteasomal degradation → asymmetric inheritance → COULD influence Wnt transcriptional programs. Segregation demonstrated in human ESC/Cos7 (Fuentealba et al. 2008, PMID 18511557). **Transcription consequences NOT tested in human cells.** Valdes Michel & Phillips 2025 (PMID 39813084) shows analogous mechanism in C. elegans (SYS-1/β-catenin at centrosome). **ARGUS-LP_OS does NOT test this mechanism.** Our goal is to establish whether the centrosome age→fate CORRELATION exists. Molecular mechanism testing requires separate biochemical experiments beyond this platform's scope.
 >
-> Both pathways predict the same observable: daughter inheriting the mature mother centrosome behaves differently. ARGUS-LP_OS measures the output. Phase 2 (Odf2 KO with domain deletions) dissects which pathway dominates.
+> **Pathway C — Chromosome segregation bias (Gasic et al. 2015, PMID 26284603):** Centrosome age regulates kinetochore-microtubule stability → 85% of lagging chromosomes remain on the old centrosome side → Cenexin-dependent. This creates differential daughter cell genome stability — potentially explaining why mother centrosome retention maintains stemness (prevents mutation accumulation). Not tested by ARGUS-LP_OS; noted as an additional mechanism that may contribute to fate divergence.
 
 ### 0.6. Model System Clarification
 
@@ -164,7 +164,9 @@
 **Primary test (time-to-ciliogenesis):** Cox proportional hazards model.
 
 ```
-coxme(Surv(time_to_cilium, cilium_status) ~ M + CellArea + DivisionNumber + (1|MotherID) + (1|IslandID) + (1|PlateID))
+coxme(Surv(time_to_cilium, cilium_status) ~ M + CellArea + DivisionNumber + (1|PlateID/IslandID/MotherID))
+```
+Nested hierarchy: Plate→Island→Mother (cells from same island share microenvironment). **Competing risks:** Cox with censoring at division time (Fine-Gray incompatible with nested random effects in standard R packages). Sensitivity: compare censored vs. complete-case.
 ```
 
 **Secondary test (binary):** McNemar for paired binary outcome.
@@ -189,7 +191,7 @@ H₀: P(cilium | mature mother) = P(cilium | immature mother) = 0.5
 
 **Model (full, multi-level):**
 ```
-coxme(Surv(time_to_cilium, cilium_status) ~ M + CellArea + DivisionNumber + (1|MotherID) + (1|IslandID) + (1|PlateID))
+coxme(Surv(time_to_cilium, cilium_status) ~ M + CellArea + DivisionNumber + (1|PlateID/IslandID/MotherID))
 ```
 Random intercepts for IslandID/PlateID account for micropattern and batch variability. **Constant M:** Cenexin at endpoint is representative of division-time state (conservative — if M changes, noise ↑).
 
@@ -242,12 +244,12 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | **Odf2⁻/⁻ + Odf2(FL)** | Full-length Odf2-GFP | Full rescue: DA+SA+, cilia+ | **Positive control.** Appendages + cilia restored → asymmetry restored |
 | **Odf2⁻/⁻ + Odf2(Δ188-806)** | Central domain deletion | **DA+SA−.** Distal appendages present, subdistal absent. Cilia form but are abnormal (reduced frequency, shorter) | **Key experimental group.** Tests whether distal appendages ALONE sufficient for centrosome-age-dependent asymmetry |
 | **Odf2⁻/⁻ + Odf2(Δ1-59)** | N-terminal deletion | **No centriole recruitment.** Does NOT localize to basal bodies. No appendages, no cilia | **Negative control.** Confirms recruitment is required |
-| **Odf2⁻/⁻ + Odf2(ΔC)** | C-terminal deletion | Centrosome binding intact, but NO appendage formation | **Pharmacological control.** Separates centrosome binding from appendage function |
+| **Odf2⁻/⁻ + Odf2(ΔC)** | C-terminal deletion | Centrosome binding intact, but NO appendage formation | **Structural binding control.** Separates centrosome binding from appendage function |
 | **WT + Ninein KD** | shNinein | Randomizes centrosome inheritance (Royall 2023). If asymmetry drops to ~50% → centrosome age is CAUSAL for fate | **Causality control.** Orthogonal to Odf2 — tests whether randomization abolishes asymmetry |
 
 **Why this replaces HDAC6i:** Wang 2025 (PMID 40167251) is a review — no experimental data on Odf2⁻/⁻ rescue. PubMed search: 0 results for HDAC6i+Odf2 KO. Tateishi 2013 provides validated domain-level resolution. **Risk:** Tateishi used mouse F9 cells. Human RPE1 Odf2 constructs must be validated — this is a separate engineering task (6-8 weeks).
 
-**Centrosome age determination in Odf2-KO:** Without Cenexin/Odf2, the standard age marker is absent. **Primary alternative: Ninein** — validated by Royall 2023 (PMID 37882444) for NPCs, Barandun 2025 (PMID 39764850) for T cells. Ninein is a subdistal appendage protein that, unlike Cenexin, persists through mitosis and is NOT encoded by Odf2 (independent of the KO). **⚠️ Direct caveat:** No published data on Ninein localization or stability in Odf2-KO cells. This is an assumption requiring validation. If Ninein is ALSO disrupted by Odf2 loss (subdistal appendages require Odf2 per Tateishi 2013) → Plan B: Centrin1-Dendra2 photoconversion as primary age marker (independent of appendage proteins).
+**Centrosome age determination in Odf2-KO:** Without Cenexin/Odf2, the standard age marker is absent. **⚠️ Ninein WILL NOT WORK in Odf2-KO:** Tateishi 2013 showed subdistal appendages are absent in Odf2-KO, and Ninein is a subdistal appendage component — it cannot localize without the structure. Royall 2023 validated Ninein in WT NPCs, not Odf2-KO. **Phase 2 on v1.0 CANNOT determine centrosome AGE** — only structural necessity of Odf2. Age causality requires Centrin1-Dendra2 photoconversion (405 nm laser → v3.0/ARGUS-OS3). **Honest framing:** Phase 2 tests which appendage TYPE is required for asymmetry (structural dissection), not whether centrosome age is causal.
 
 ---
 
