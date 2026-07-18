@@ -9,7 +9,7 @@
 
 ### Central Hypothesis
 
-> **The mother centrosome carries a distinct maturation state. Two parallel pathways may transduce this asymmetry: (1) Cenexin→Plk1→γ-tubulin→spindle asymmetry→daughter cell size (Thomas & Meraldi 2024, PMID 39012627, human RPE1/MCF10A, 3.1% asymmetry); (2) centrosomal concentration of phospho-β-catenin targeted for degradation→asymmetric inheritance→differential Wnt signalling (Fuentealba et al. 2008, PMID 18511557 — demonstrated in human ESC and Cos7 cells: p-β-catenin and polyubiquitinated proteins asymmetrically segregate via the centrosome in mammalian mitosis).**
+> **The mother centrosome carries a distinct maturation state. Two parallel pathways may transduce this asymmetry: (1) Cenexin→Plk1→γ-tubulin→spindle asymmetry→daughter cell size (Thomas & Meraldi 2024, PMID 39012627, human RPE1/MCF10A, 3.1% asymmetry); (2) centrosomal concentration of phospho-β-catenin targeted for degradation→asymmetric inheritance→HYPOTHESIZED differential Wnt signalling (Fuentealba et al. 2008, PMID 18511557 — demonstrated asymmetric segregation of p-β-catenin in human ESC/Cos7, but transcriptional consequences NOT tested).**
 >
 > **🔴 CRITICAL: Thomas & Meraldi showed SPINDLE asymmetry (3.1%) in human cells — but the authors themselves noted "the functional significance is unclear." Fuentealba showed CENTROSOMAL ASYMMETRIC SEGREGATION in human cells. Neither tested FATE. ARGUS-LP_OS is the FIRST direct test of whether these mechanisms produce biologically meaningful fate divergence. We do not assume. We measure.**
 >
@@ -66,7 +66,7 @@
 >
 > **Pathway A — Spindle asymmetry (Thomas & Meraldi 2024, PMID 39012627):** Cenexin → Plk1 → pericentrin/γ-tubulin/Cdk5Rap2 → 3.1% spindle length asymmetry → daughter cell size difference → differential cilium assembly kinetics. Demonstrated in human RPE1 and MCF10A cells.
 >
-> **Pathway B — Asymmetric protein degradation (Fuentealba et al. 2008, PMID 18511557):** Mother centrosome concentrates phospho-β-catenin and polyubiquitinated proteins targeted for proteasomal degradation → asymmetric inheritance of degradation-targeted proteins → differential Wnt/β-catenin signalling → divergent transcriptional programs. Demonstrated in human embryonic stem cells, Cos7, and Drosophila embryos. This is the first direct demonstration of centrosome→transcription coupling in mammalian asymmetric division.
+> **Pathway B — Asymmetric protein degradation (HYPOTHESIS):** Mother centrosome concentrates phospho-β-catenin and polyubiquitinated proteins targeted for proteasomal degradation → asymmetric inheritance of degradation-targeted proteins → HYPOTHESIZED to influence Wnt transcriptional programs. Asymmetric segregation demonstrated in human ESC/Cos7 (Fuentealba et al. 2008, PMID 18511557). **Transcription consequences NOT tested in human cells — this pathway is a hypothesis, not established fact.**
 >
 > Both pathways predict the same observable: daughter inheriting the mature mother centrosome behaves differently. ARGUS-LP_OS measures the output. Phase 2 (Odf2 KO with domain deletions) dissects which pathway dominates.
 
@@ -84,7 +84,7 @@
 
 | Confound | Control |
 |----------|---------|
-| Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | Untagged RPE1 vs. GFP-RPE1: compare cilium kinetics in Pilot 1. Δ>10% → use lower-expression clone |
+| Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | Untagged RPE1 vs. GFP-RPE1: compare cilium kinetics in Pilot 1. Δ>10% → use lower-expression clone. **Loncarek 2008 (PMID 18297061):** Centrin1 overexpression → aberrant centriole duplication. Use weak promoter (EF1α-short) if needed. |
 | IR 850 nm prolonged exposure (72h) — phototoxicity, heating unknown | IR-ON vs. IR-OFF arms in Pilot 0. Measure viability + temperature probe in medium (ΔT<0.5°C). Use pulsed mode (1s every 5 min) if continuous IR heats >0.5°C |
 | Water immersion objective evaporation → focus drift | Automated water dispenser + saturated humidity in glove-box. Monitor focus drift with GFP beads |
 | Cenexin appendages disassemble during mitosis | Pilot 1: Cenexin IF at interphase/prophase/metaphase/telophase in synchronized cells. If >20% variation → add Ninein co-stain |
@@ -215,7 +215,7 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 
 **Why this replaces HDAC6i:** Wang 2025 (PMID 40167251) is a review — no experimental data on Odf2⁻/⁻ rescue. PubMed search: 0 results for HDAC6i+Odf2 KO. Tateishi 2013 provides validated domain-level resolution. **Risk:** Tateishi used mouse F9 cells. Human RPE1 Odf2 constructs must be validated — this is a separate engineering task (6-8 weeks).
 
-**Centrosome age determination in Odf2-KO:** Without Cenexin/Odf2, the standard age marker is absent. Alternative: **Ninein** (subdistal appendage protein, validated in Royall 2023 for NPCs) or **Centrin1-GFP tracking** (trajectory-based inference from last Cenexin-positive division). Pilot experiments will validate Ninein as age proxy in Odf2-KO RPE1.
+**Centrosome age determination in Odf2-KO:** Without Cenexin/Odf2, the standard age marker is absent. **⚠️ Ninein localizes to subdistal appendages — which are also disrupted in Odf2-KO (Tateishi 2013).** Ninein may NOT serve as age proxy in Odf2-KO cells. Primary method: **Centrin1-GFP trajectory backtracking** (infer centrosome lineage from last Cenexin-positive division before KO). This is the only method not requiring appendage proteins.
 
 ---
 
