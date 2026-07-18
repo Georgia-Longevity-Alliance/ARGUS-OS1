@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 52.0
+**Version:** 53.0
 **Date:** 2026-07-19
 
 ---
@@ -9,9 +9,9 @@
 
 ### Central Hypothesis
 
-> **The mother centrosome carries a distinct maturation state, written in its appendage proteins (Cenexin/Odf2, Ninein, Cep164) and tubulin PTMs (polyglutamylation). Two parallel pathways may transduce this asymmetry into fate: (1) Cenexin→Plk1→γ-tubulin→spindle asymmetry→daughter cell size difference (Thomas & Meraldi 2024, PMID 39012627, 3.1% asymmetry, p<0.0001); (2) centrosomal β-catenin degradation→Wnt signalling asymmetry→differential transcription (Valdes Michel & Phillips 2025, PMID 39813084 — mother centrosome degrades β-catenin during mitosis, creating transcriptional asymmetry between daughters).**
+> **The mother centrosome carries a distinct maturation state. Two parallel pathways may transduce this asymmetry: (1) Cenexin→Plk1→γ-tubulin→spindle asymmetry→daughter cell size (Thomas & Meraldi 2024, PMID 39012627, human RPE1/MCF10A, 3.1% asymmetry); (2) centrosomal concentration of phospho-β-catenin targeted for degradation→asymmetric inheritance→differential Wnt signalling (Fuentealba et al. 2008, PMID 18511557 — demonstrated in human ESC and Cos7 cells: p-β-catenin and polyubiquitinated proteins asymmetrically segregate via the centrosome in mammalian mitosis).**
 >
-> **🔴 CRITICAL: Thomas & Meraldi showed SPINDLE asymmetry. Valdes Michel showed CENTROSOMAL β-CATENIN PROCESSING. Neither tested FATE asymmetry directly. Whether these mechanisms change what a daughter cell becomes — that is the open question ARGUS-LP_OS exists to answer. We do not assume. We measure.**
+> **🔴 CRITICAL: Thomas & Meraldi showed SPINDLE asymmetry in human cells. Fuentealba showed CENTROSOMAL ASYMMETRIC SEGREGATION in human cells. Neither tested FATE asymmetry. Both mechanisms await validation specifically in RPE1 and NPCs. Whether these pathways change what a daughter cell becomes — that is the open question ARGUS-LP_OS exists to answer.**
 
 ### 0.1. Two Fluorescent Probes, Two Tasks
 
@@ -140,7 +140,9 @@ H₀: P(cilium | mature mother) = P(cilium | immature mother) = 0.5
 - With 70% cilium rate at 72h: N = 65/0.7 = **93 pairs**
 - **With 20% attrition + ICC ρ≤0.3:** N_planned = 93/(0.8×0.77) ≈ **150 pairs**
 
-**Target: 200 pairs** — detects HR ≥1.35 with 80% power, or 15 pp difference in binary cilium rate (consistent with v49 binary power calculation).
+**Target: 200 pairs with interim analysis at N=100** — detects HR ≥1.35 with 80% power. If interim HR <1.15 → increase to **N=300** (futility boundary not crossed). For HR=1.2, N=300 provides 80% power at ICC ρ=0.3. ICC estimated in Pilot 3, final N adjusted accordingly.
+
+**Multiple testing protocol (preregistered on OSF):** Hierarchical gatekeeping. (1) Primary: time-to-cilium → if p<0.05, test secondaries without correction. (2) Cilium binary. (3) Ki67. (4-5) NPC markers. If primary p≥0.05 → secondaries descriptive only.
 
 **Model (full):**
 ```
@@ -263,12 +265,12 @@ Odf2 KO abolishes distal and subdistal appendages (Ishikawa 2005, PMID 15852003)
 21. Zhao X et al. *Nat Commun* 16:10728 (2025). **PMID: 41315244.**
 22. Tozer S et al. *Neuron* 93:347–361 (2017). **PMID: 28132826.**
 23. Nayak SC, Radha V. *J Cell Sci* 133:jcs243113 (2020). **PMID: 32371504.**
-24. **Valdes Michel MF, Phillips BT.** SYS-1/β-catenin inheritance and regulation by Wnt signaling during asymmetric cell division. *Mol Biol Cell* 36(3):ar25 (2025). **PMID: 39813084.** — Centrosomal β-catenin degradation creates transcriptional asymmetry between daughters.
+24. **Valdes Michel MF, Phillips BT.** SYS-1/β-catenin inheritance and regulation by Wnt signaling during asymmetric cell division. *Mol Biol Cell* 36(3):ar25 (2025). **PMID: 39813084.** — **C. elegans.** Centrosomal SYS-1 degradation during ACD. Foundational mechanism paper (invertebrate). NOT human — do not cite as human mechanism.
 25. **Goutas A, Trachana V.** Stem cells' centrosomes. *World J Stem Cells* 13(9):1177-1196 (2021). **PMID: 34630857.** — Review: centrosome-directed stem cell fate manipulation.
 26. **Barandun N et al.** Targeted localization of the mother centrosome in CD8+ T cells undergoing ACD promotes memory formation. *Cell Rep* 44(1):115127 (2025). **PMID: 39764850.** — Mother centrosome → effector-like daughter (NOT memory) via ninein.
-27. **Fuentealba LC et al.** Asymmetric mitosis: Unequal segregation of proteins destined for degradation. *Proc Natl Acad Sci USA* 105(22):7732-7737 (2008). **PMID: 18511557.** — p-β-catenin and polyubiquitinated proteins concentrated at mother centrosome → asymmetric inheritance in human ESC, Cos7, and Drosophila.
+27. **Fuentealba LC et al.** Asymmetric mitosis: Unequal segregation of proteins destined for degradation. *Proc Natl Acad Sci USA* 105(22):7732-7737 (2008). **PMID: 18511557.** — Human ESC + Cos7 + Drosophila. p-β-catenin & polyubiquitinated proteins at mother centrosome → asymmetric inheritance. Transcription consequences NOT tested in human cells.
 28. **Goutas A, Trachana V.** Stem cells' centrosomes. *World J Stem Cells* 13(9):1177-1196 (2021). **PMID: 34630857.** — Review: centrosome-directed stem cell fate manipulation.
 
 ---
 
-*Version 51 — 2026-07-19. Fuentealba 2008 (human p-β-catenin+centrosome) replaces C. elegans mechanism. Barandun 2025 interpretation corrected (mother→effector). HDAC6i replaced by Odf2 domain deletions (Tateishi 2013). RPE1 clarified as kinetics model, NPCs as fate model. Fine-Gray competing risks added. 28 references.*
+*Version 53 — 2026-07-19. Central Hypothesis: Valdes Michel (C.elegans)→Fuentealba (human). Valdes Michel annotated as invertebrate. Fuentealba: transcriptional consequences NOT tested. Species caveats §0.6. Controls §1. H₂=kinetics. 28 refs.*
