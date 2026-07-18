@@ -115,7 +115,7 @@
 | Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | **CRISPR-KI preferred.** If lentiviral: Western blot (≤2× endogenous=GO), centriole count (≤2.2/G1), FRAP turnover (±20%). Loncarek 2008 (PMID 18297061). |
 | IR 850 nm prolonged exposure (48h) — phototoxicity, heating | IR-ON vs. IR-OFF arms in **Pilot 0.5**: viability (Live/Dead), proliferation (EdU), ROS (CellROX), apoptosis (caspase-3/7) at 0/24/48h. Δ>10% in any metric → reduce IR duty cycle or switch to pulsed mode (1s/10min). Kiepas et al. 2020 (PMID 32111840): 850 nm safe for long-term live-cell imaging. |
 | Water immersion objective evaporation → focus drift | Automated water dispenser + saturated humidity in glove-box. Monitor focus drift with GFP beads |
-| Cenexin appendages disassemble during mitosis | Pilot 1: Cenexin IF at interphase/prophase/metaphase/telophase. If >20% variation → Ninein co-stain |
+| Cenexin appendages disassemble during mitosis | Pilot 1 with synchronized cells (double thymidine): Cenexin IF at G1/S/G2/M. If M-phase variation >20% vs. G1 → Dendra2 primary. |
 | Cenexin _M_ ≠ direct age | Pilot 1: Centrin1-Dendra2 photoconversion calibration |
 | Cenexin as MEDIATOR vs. MARKER of cilium asymmetry | Pilot 1: Odf2-Δ4/5 (DA+SA−, cilia form but abnormal per Tateishi 2013). If cilium asymmetry persists in Δ4/5 despite absent subdistal appendages → Cenexin is a CORRELATE not a mediator. H₂ then tests correlation, not causation. |
 | LED 488 nm phototoxicity (≤200 ms, ≤5% power) | Dark control (no LED) vs. LED protocol. Viability ≥90% in Pilot 1 |
