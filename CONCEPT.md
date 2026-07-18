@@ -103,7 +103,7 @@
 | Confound | Control |
 |----------|---------|
 | Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | Untagged RPE1 vs. GFP-RPE1: compare cilium kinetics in Pilot 1. Δ>10% → use lower-expression clone. **Loncarek 2008 (PMID 18297061):** Centrin1 overexpression → aberrant centriole duplication. Use weak promoter (EF1α-short) if needed. |
-| IR 850 nm prolonged exposure (48h) — phototoxicity, heating | IR-ON vs. IR-OFF arms in Pilot 0. RPE1 viability, ROS (CellROX), proliferation rate. Pulsed mode (1s/5min). **Literature basis:** 850 nm is outside GFP absorption (488 nm peak) and water absorption minimum — minimal photodamage expected. Kiepas et al. 2020 (PMID 32111840): 850 nm NIR safe for long-term live-cell imaging. |
+| IR 850 nm prolonged exposure (48h) — phototoxicity, heating | IR-ON vs. IR-OFF arms in **Pilot 0.5**: viability (Live/Dead), proliferation (EdU), ROS (CellROX), apoptosis (caspase-3/7) at 0/24/48h. Δ>10% in any metric → reduce IR duty cycle or switch to pulsed mode (1s/10min). Kiepas et al. 2020 (PMID 32111840): 850 nm safe for long-term live-cell imaging. |
 | Water immersion objective evaporation → focus drift | Automated water dispenser + saturated humidity in glove-box. Monitor focus drift with GFP beads |
 | Cenexin appendages disassemble during mitosis | Pilot 1: Cenexin IF at interphase/prophase/metaphase/telophase in synchronized cells. If >20% variation → use Ninein co-stain |
 | Cenexin _M_ ≠ direct age measurement | Pilot 1: Centrin1-Dendra2 photoconversion calibration. Compare Dendra2-age vs. Cenexin-age. Concordance <90% → Dendra2 becomes primary age marker |
@@ -184,7 +184,7 @@ H₀: P(cilium | mature mother) = P(cilium | immature mother) = 0.5
 
 **Power note:** At N=300 with ICC ρ=0.3, Fine-Gray competing risk model: effective N ≈ 129 pairs, power 82% at HR=1.35. Interim analysis at N=150: if HR<1.15 → escalate to N=400 or stop for futility.
 
-**Stop-rule:** If Pilot 3 (50 pairs) shows HR<1.1 for time-to-ciliogenesis → the 3.1% spindle asymmetry is below functional threshold for this phenotype. Redesign experiment (e.g., increase serum starvation, test in NPCs instead) rather than publish null.
+**Stop-rule:** If Pilot 3 (50 pairs) shows HR<1.1 for time-to-ciliogenesis → the 3.1% spindle asymmetry is below functional threshold for this phenotype. Redesign (increase serum starvation, test NPCs). **Sensitivity:** If interim at N=150 shows HR<1.2 → escalate to N=500. At HR=1.2, N=500 with ICC=0.3 gives ~78% power.
 
 **Model (full):**
 ```
