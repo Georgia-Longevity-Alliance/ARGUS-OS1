@@ -1,8 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 67.0 FINAL
+**Version:** 68.0 FINAL
 **Date:** 2026-07-19
-> **v67:** Review #13 (final). All PMIDs re-confirmed. Sensitivity: Cox vs Fine-Gray comparison. H₁ = standalone deliverable. Funding: conditional on Pilot 0+0.5.
+> **v68:** Review #14. Barandun: mother→effector-like daughter (NOT memory — corrected per original text). Valdes Michel: moved to evolutionary parallels. ⚠️ Reviewer claim that Wang 2009, Conduit 2010, Januschke 2011, Paridaen 2013 are "missing from references" is ERRONEOUS — all four are present in §9 (refs #2, #9, #29, #5).
 > **v65:** Review #12: Dendra2-Centrin in Phase 1. Hypothesis: "structural-functional state." Odf2 = structural control. Secondary 6→3. SiR-Tubulin mitosis detection. 35 refs.*
 
 ---
@@ -441,7 +441,7 @@ A negative H₂ result is scientifically informative, not a failure:
 3. Royall LN et al. *eLife* 12:e83157 (2023). **PMID: 37882444.**
 4. Yamashita YM et al. *Science* 315:518–521 (2007). **PMID: 17255513.**
 5. Paridaen JT et al. *Cell* 155:333–344 (2013). **PMID: 24120134.**
-6. Barandun N et al. *Cell Rep* 44:115127 (2025). **PMID: 39764850.** — Mother centrosome → **memory formation** (NOT effector) in CD8+ T cells. Ninein-dependent.
+6. Barandun N et al. *Cell Rep* 44:115127 (2025). **PMID: 39764850.** — Mother centrosome → **effector-like daughter cell.** Ninein deletion impairs memory differentiation. ⚠️ NOT "mother→memory" — mother is inherited by effector-like daughter.
 7. Reina J, Gonzalez C. *Phil Trans R Soc B* 369:20130466 (2014). **PMID: 25047620.**
 8. Chatterjee A et al. *Cerebellum* 17:685–691 (2018). **PMID: 29663194.**
 9. Conduit PT, Raff JW. *Curr Biol* 20:2187–2192 (2010). **PMID: 21145745.**
