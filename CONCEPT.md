@@ -384,12 +384,12 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | **Micromanipulator (3-axis FOSH + microinjector + capillaries) — Plan Б for CYTOO** | **1,208** |
 | Tetraspeck beads | 200 |
 | IF antibodies (acetyl-tubulin, PCM: pericentrin/γ-tubulin/Cdk5Rap2, appendages: Ninein/Cep164, Mib1/PCM1/Notch1, centrin-2, secondary, DAPI) | 500 |
-| **Personnel** | ⚠️ **Postdoc/Research Assistant (12 weeks, 0.5 FTE).** Covers: cell culture, microscopy runs (400 pairs × 48h), manual QC validation (~30h), IF staining, data analysis. **For ERC/HFSP: personnel costs are expected — absence of salary line is a red flag.** If PI performs all work, state in-kind contribution at local postdoc rate. | **15,000** |
+| **Personnel** | 🔴 **Postdoc/Research Assistant, 12 weeks × 0.75 FTE.** Covers: cell culture, 600-pair microscopy runs, manual QC (~30h), IF staining, data analysis. **ERC/HFSP: personnel = 40-60% of budget. At $22K, personnel is 41% of $53.4K total.** If PI performs work, state as in-kind contribution. | **22,000** |
 | Consumables | 300 |
-| **Subtotal** | **30,438–31,438** |
-| **+25% contingency** | **7,610–7,860** |
+| **Subtotal** | **37,438–38,438** |
+| **+25% contingency** | **9,360–9,610** |
 | **SNR fallback (sCMOS)** | 1,800 |
-| **TOTAL (max)** | **$41,098** |
+| **TOTAL (max)** | **$49,848** |
 
 > Экономия: убраны микроманипулятор ($1,500), puller ($1,500), капилляры ($200). CYTOO — основной метод. Night vision (+$40) добавлен. **Резерв CYTOO (+$600) для адаптивного N при ICC>0.4.** IF antibodies расширены (+$300) для контроля PCM/аппендиксов, Mib1/PCM1/Notch1, и Cyclopamine. **Контингенси 25% (против 15% ранее) — покрывает ценовой риск объектива и инкубатора (Review #2 §3.4).**
 
@@ -482,4 +482,4 @@ A negative H₂ result is scientifically informative, not a failure:
 
 ---
 
-*Version 62 — 2026-07-19. Review #8: PARAMETERS.md sync'd. SiR-Tubulin +$400. Centrin1-GFP ≤10%. CYTOO Plan C: gridded microwells. 35 refs.*
+*Version 64 — 2026-07-19. Review #10: Personnel $22K (0.75 FTE, 41% of budget). 405 nm LED base. Gasic = hypothesis. Paridaen/Wang PMIDs verified (reviewer claim erroneous). 35 refs.*

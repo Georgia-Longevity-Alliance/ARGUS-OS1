@@ -1,7 +1,8 @@
 # PARAMETERS — ARGUS-LP_OS
 
-**Version:** 54.0 — Synchronised with CONCEPT v58
+**Version:** 58.0 — Synchronised with CONCEPT v64
 **Date:** 2026-07-19
+> **v58:** Review #10. Personnel $22K (0.75 FTE). 405 nm LED base. N=600 baseline. Gasic = hypothesis.
 > **v54:** Materials: ASA primary (Tg 95-105°C), PET fallback. Motor drivers: TMC2209 with GPIO MOSFET de-energising → 3% duty → 0.6W avg. O'Toole bioRxiv (Malcolm 2026) ref. OpenFlexure Forum (WilliamW) pers. comm.
 
 ## Phase 1 (v1.0) — Sister Tracking (RPE1-hTERT)
@@ -72,14 +73,14 @@
 | Tetraspeck beads | 250 |
 | IF antibodies (acetyl-tubulin, PCM: pericentrin/γ-tubulin/Cdk5Rap2, appendages: Ninein/Cep164, Mib1/PCM1/Notch1, centrin-2, secondary, DAPI) | 700 |
 | Transfection reagents | 250 |
-| **Personnel (Postdoc/Research Assistant, 12 weeks × 0.5 FTE)** | **15,000** |
+| Personnel (Postdoc/RA, 12 wks × 0.75 FTE) | 22,000 |
 | Consumables (plastic, tips, tubes, PFA, Triton X-100) | 600 |
 | Cables, connectors, power supplies, misc | 200 |
 | Shipping, customs (Georgia) | 500 |
-| **Subtotal v1.0** | **39,888** |
-| **+25% contingency** | **9,972** |
-| **SNR fallback (sCMOS, net)** | **1,018** |
-| **TOTAL v1.0 (max)** | **$50,878** |
+| Subtotal v1.0 | 46,888 |
+| +25% contingency | 11,722 |
+| SNR fallback (sCMOS, net) | 1,018 |
+| TOTAL v1.0 (max) | $59,628 |
 
 ### Optional: Micromanipulator Module (+$1,208)
 
