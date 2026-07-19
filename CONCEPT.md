@@ -1,7 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 65.0
+**Version:** 67.0 FINAL
 **Date:** 2026-07-19
+> **v67:** Review #13 (final). All PMIDs re-confirmed. Sensitivity: Cox vs Fine-Gray comparison. H₁ = standalone deliverable. Funding: conditional on Pilot 0+0.5.
 > **v65:** Review #12: Dendra2-Centrin in Phase 1. Hypothesis: "structural-functional state." Odf2 = structural control. Secondary 6→3. SiR-Tubulin mitosis detection. 35 refs.*
 
 ---
@@ -500,4 +501,4 @@ A negative H₂ result is scientifically informative, not a failure:
 
 ---
 
-*Version 66 — 2026-07-19. Review #12: Dendra2-Centrin in Phase 1. Hypothesis: "structural-functional state." Odf2 = structural control. Secondary 6→3. SiR-Tubulin mitosis detection. 35 refs.*
+*Version 67 FINAL — 2026-07-19. 13 reviews. All PMIDs verified. H₁ = standalone. Sensitivity: Cox vs Fine-Gray. Funding conditional on Pilot 0+0.5. 35 refs.*
