@@ -17,6 +17,7 @@
 | **Cell line (Phase 3 / v2.0)** | hTERT-NPCs (ReNcell/Lonza) |
 | **Markers (live)** | Centrin1-GFP + H2B-GFP (stable lentiviral) — TRACKING only |
 | **Markers (endpoint)** | Cenexin antibody — CLASSIFICATION + acetylated tubulin (cilium) |
+| **SiR-Tubulin (optional)** | 🟢 Fluorogenic SiR-Tubulin (Spirochrome SC002). No genetic modification. Live-cell microtubule/spindle marker. Alternative if Centrin1-GFP phototoxicity arises. +$400. |
 | **Sister isolation** | CYTOO 2-cell islands (fibronectin, PEG borders). **🔴 Micromanipulator in base budget (Review #6):** 3-axis FOSH-adapted + pneumatic microinjector + capillaries = **$1,208**. Plan Б if Pilot 2b shows CYTOO suppression. |
 | **Motor drivers** | 🔴 **TMC2209 UART (StealthChop + CoolStep) + GPIO MOSFET (IRLZ44N) on Vmot.** De-energise motors between imaging cycles. Duty: 3% (18s per 10min). Avg heat: 0.6W. DS18B20 temperature monitoring on motor housings. |
 | **Imaging interval** | 10 min (interphase) / 1 min (mitosis trigger) |

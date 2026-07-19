@@ -1,8 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 61.0
+**Version:** 62.0
 **Date:** 2026-07-19
-> **v61:** Review #7 applied. Pathway A = hypothetical (Thomas 2024 did not test cilium fate). Phase 2 explicitly outside v1.0 scope. N=400 QC: automated pre-filtering via CellPose 2.0 + Bayesian tracker (~30 human-hours). Pilot 0.5: +γH2AX, JC-1, ATP. Cox covariate: time_since_cytokinesis. Pilot 2: CYTOO cilium rate measured.
+> **v62:** Review #8: PARAMETERS.md synchronised (Fine-Gray→Cox+cluster, N=600, night vision optional). SiR-Tubulin alternative added. Centrin1-GFP threshold 20%→10%. Plan C: gridded microwells for CYTOO 72h.
 
 ---
 
@@ -481,4 +481,4 @@ A negative H₂ result is scientifically informative, not a failure:
 
 ---
 
-*Version 61 — 2026-07-19. Review #7: Pathway A = hypothetical (Thomas 2024 did not test cilium). Phase 2 outside v1.0. Automated QC (CellPose+Bayesian, ~30h). Pilot 0.5: +γH2AX/JC-1/ATP. Cox: +time_since_cytokinesis. CYTOO cilium rate in Pilot 2. 35 refs.*
+*Version 62 — 2026-07-19. Review #8: PARAMETERS.md sync'd. SiR-Tubulin +$400. Centrin1-GFP ≤10%. CYTOO Plan C: gridded microwells. 35 refs.*
