@@ -1,8 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 63.0
+**Version:** 65.0
 **Date:** 2026-07-19
-> **v63:** Review #9: Proof-of-Concept: 10→30 pairs. Cenexin AUC threshold: 0.80→0.85 (hard stop if fail). Gasic 2015 as default alternative mechanism if SAI weak. Primary analysis: first G1 only (multi-generation = descriptive). Personnel line added to budget.
+> **v65:** Review #11. Ninein = primary age marker. Cenexin = backup. BI2536 (Plk1i) chemical control. Platform: "first affordable open centrosome screening platform." §11 Limitations added. Nayak PMID 32371504 verified (reviewer claim erroneous).
 
 ---
 
@@ -39,7 +39,7 @@
 
 ### 0.2. Maturation State Definition
 
-> **Maturation state is operationally defined as the Cenexin fluorescence intensity ratio: _M = I(Cenexin)ᵃ / I(Cenexin)ᵇ_.** _M_ is a continuous variable in all primary analyses. ROC calibration in Pilot 1: **Go: AUC≥0.85, sensitivity≥85%, specificity≥85%** for _M_>1.5 vs. Dendra2-assigned age. If AUC<0.80 → Dendra2 becomes primary age marker for main experiment.
+> **Maturation state is operationally defined as the Ninein fluorescence intensity ratio: _M = I(Ninein)ᵃ / I(Ninein)ᵇ_.** Ninein is the PRIMARY age marker — subdistal appendage component, validated in human NPCs (Royall 2023, PMID 37882444) and CD8+ T cells (Barandun 2025, PMID 39764850). Ninein does NOT disassemble during mitosis (unlike Cenexin). **Cenexin = backup.** If Ninein vs. Cenexin concordance <90% in Pilot 1 → Cenexin becomes primary. ROC calibration: **Go: AUC≥0.85** for _M_>1.5 vs. Dendra2. If AUC<0.85 → Dendra2 primary (🔴 HARD STOP).
 >
 > **⚠️ Mitosis caveat:** Distal/subdistal appendages partially disassemble during mitosis (reviewer comment on Thomas & Meraldi 2024). Cenexin staining intensity may fluctuate through the cell cycle. Pilot 1 validates Cenexin signal at different cell cycle stages.
 >
@@ -118,7 +118,7 @@
 | Water immersion objective evaporation → focus drift | Automated water dispenser + saturated humidity in glove-box. Monitor focus drift with GFP beads |
 | Cenexin appendages disassemble during mitosis | Pilot 1 with synchronized cells (double thymidine): Cenexin IF at G1/S/G2/M. If M-phase variation >20% vs. G1 → Dendra2 primary. |
 | Cenexin _M_ ≠ direct age | Pilot 1: Centrin1-Dendra2 photoconversion calibration |
-| Cenexin as MEDIATOR vs. MARKER of cilium asymmetry | Pilot 1: Odf2-Δ4/5 (DA+SA−, cilia form but abnormal per Tateishi 2013, PMID 24189274). If cilium asymmetry persists in Δ4/5 despite absent subdistal appendages → Cenexin is a CORRELATE not a mediator. H₂ then tests correlation, not causation. **🔴 PCM/appendage integrity control:** if M↓ correlates with PCM fragmentation (pericentrin area >41.5 µm², per Thomas & Meraldi 2024) OR loss of appendage markers (Ninein, Cep164) → Cenexin insufficient as isolated age marker. Switch to Dendra2. |
+| Cenexin as MEDIATOR vs. MARKER of cilium asymmetry | Pilot 1: Odf2-Δ4/5 (DA+SA−, per Tateishi 2013, PMID 24189274). If cilium asymmetry persists in Δ4/5 → Cenexin is a CORRELATE not a mediator. **🔴 BI2536 (Plk1 inhibitor, 100 nM, 24h):** pharmacological suppression of Thomas pathway. If asymmetry persists under BI2536 → Thomas pathway is NOT the primary driver → Gasic (CIN) mechanism strengthened. |
 | LED 488 nm phototoxicity (≤200 ms, ≤5% power) | Dark control (no LED) vs. LED protocol. Viability ≥90% in Pilot 1 |
 | Serum starvation effects on biology | Test in Pilot 2: **three serum conditions** (0.5%, 1%, 5% FBS). Select condition where ≥70% cells form cilium without division. Anderson & Stearns 2009 used 0.5%. If division >30% at all conditions → use ANCOVA with division as covariate instead of Fine-Gray. |
 | CYTOO retention >48h unknown | Pilot 2: test both 48h and 72h. If 72h retention <80% but 48h ≥80% → use 48h protocol. Fallback for both: gridded microwell dishes |
@@ -290,6 +290,8 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 
 ### 6.1. Comparison with Existing Platforms
 
+> **ARGUS-LP_OS positioning:** The first **affordable open platform for centrosome-aware lineage screening.** Not a replacement for high-end commercial proof — an enabler of scalable hypothesis generation. Unique: (1) 48h autonomy at $24K, (2) centrosome tracking + fate readout integrated, (3) fully open (GPLv3/CC-BY-SA). Competitors: LUMICKS C-Trap (~$200K), ImageXpress (~$150K), Nikon Ti2-E (~$80K) — none combine all three features.
+
 | System | Cost | 48h autonomy | Centrosome tracking | Open source |
 |--------|:----:|:-----------:|:-------------------:|:-----------:|
 | LUMICKS C-Trap | ~$200K | ❌ | ❌ | ❌ |
@@ -415,6 +417,19 @@ A negative H₂ result is scientifically informative, not a failure:
 
 ---
 
+## 11. Limitations (Explicit)
+
+> **This study tests CORRELATION, not CAUSALITY.**
+>
+> 1. **Ninein/Cenexin are surrogate markers** — not direct chronometers. True age causality requires Dendra2-Centrin photoactivation (v3.0/ARGUS-OS3).
+> 2. **RPE1 = validation model.** Cilium formation = G0 entry, not fate. H₂ measures kinetics, not differentiation.
+> 3. **2D NPCs** may not recapitulate 3D organoid phenotype (Royall 2023). Pilot NPC mitigates but does not eliminate.
+> 4. **SAI ~3.1%** may be below biological threshold. Negative H₂ = valuable: establishes functional threshold, shifts focus to Gasic (CIN) or Paridaen (membrane).
+> 5. **Power** adequate for HR≥1.35 at N=600. Underpowered for HR=1.2. Acknowledged.
+> 6. **Generalizability:** tissue-specificity expected (Chatterjee 2018). RPE1/NPC results may not extend to other types.
+
+---
+
 ## 9. References
 
 1. Anderson CT, Stearns T. *Curr Biol* 19:1498–1502 (2009). **PMID: 19682908.**
@@ -482,4 +497,4 @@ A negative H₂ result is scientifically informative, not a failure:
 
 ---
 
-*Version 64 — 2026-07-19. Review #10: Personnel $22K (0.75 FTE, 41% of budget). 405 nm LED base. Gasic = hypothesis. Paridaen/Wang PMIDs verified (reviewer claim erroneous). 35 refs.*
+*Version 65 — 2026-07-19. Review #11: Ninein = primary marker. BI2536 control. Platform = "first affordable open centrosome screening." §11 Limitations. Nayak 32371504 verified. 35 refs.*
