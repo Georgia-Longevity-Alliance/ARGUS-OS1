@@ -1,7 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 53.0
+**Version:** 58.0
 **Date:** 2026-07-19
+> **v58:** Materials analysis: ASA (primary, Tg 95-105°C), PET (fallback, Tg 75-80°C), PLA (NOT recommended). Motor thermal management: TMC2209+GPIO MOSFET → 3% duty → 0.6W avg heat. WilliamW (OpenFlexure Forum) + Malcolm/O'Toole 2026 (bioRxiv) references. §§6.2-6.4 added/renumbered.
 
 ---
 
@@ -21,7 +22,7 @@
 
 > **The mother centrosome carries a distinct maturation state. Two parallel pathways may transduce this asymmetry: (1) Cenexin→Plk1→γ-tubulin→spindle asymmetry→daughter cell size (Thomas & Meraldi 2024, PMID 39012627, human RPE1/MCF10A, 3.1% asymmetry); (2) centrosomal concentration of phospho-β-catenin targeted for degradation→asymmetric inheritance→HYPOTHESIZED differential Wnt signalling (Fuentealba et al. 2008, PMID 18511557 — demonstrated asymmetric segregation of p-β-catenin in human ESC/Cos7, but transcriptional consequences NOT tested).**
 >
-> **🔴 CRITICAL: Thomas & Meraldi showed SPINDLE asymmetry (3.1%) in human cells — but the authors themselves noted "the functional significance is unclear." Fuentealba showed CENTROSOMAL ASYMMETRIC SEGREGATION in human cells. Royall 2023 and Barandun 2025 demonstrated centrosome→fate CORRELATION in human NPCs and CD8+ T cells — but used closed commercial systems ($80K+). ARGUS-LP_OS provides the FIRST OPEN, AFFORDABLE ($24K) platform to systematically test whether the 3.1% spindle asymmetry found by Thomas & Meraldi is functionally sufficient for fate divergence, and to extend centrosome-fate correlation studies to any cell type. We do not assume. We measure.**
+> **🔴 CRITICAL: Thomas & Meraldi showed SPINDLE asymmetry in human cells — SAI = 2.7 ± 5.5% (early metaphase) to 3.8 ± 5.6% (late anaphase), weighted mean ~3.1% — but the authors themselves noted "the functional significance is unclear." Fuentealba showed CENTROSOMAL ASYMMETRIC SEGREGATION in human cells. Royall 2023 and Barandun 2025 demonstrated centrosome→fate CORRELATION in human NPCs and CD8+ T cells — but used closed commercial systems ($80K+). ARGUS-LP_OS provides the FIRST OPEN, AFFORDABLE ($24K) platform to systematically test whether the ~3% spindle asymmetry found by Thomas & Meraldi is functionally sufficient for fate divergence, and to extend centrosome-fate correlation studies to any cell type. We do not assume. We measure.**
 >
 > **Competitive landscape:** Meraldi Lab (U Geneva) demonstrated the 3.1% mechanism in RPE1 but has not published fate tracking. Jessberger Lab (U Zurich, Royall 2023) showed centrosome→fate in organoid NPCs using closed commercial systems. Tsukita Lab (Odf2 domains) provides genetic tools. **ARGUS-LP_OS is not the first to study this question — it is the first to make it ACCESSIBLE.** Unique value proposition: (1) open hardware (GPLv3/CC-BY-SA) at $24K vs. $80-200K commercial systems, (2) autonomous 48h operation with night vision, (3) integrated centrosome tracking + fate readout in a single platform. No existing system combines all three.
 
@@ -76,11 +77,11 @@
 
 > Centrosome maturation state may influence daughter cell behavior through two non-mutually-exclusive pathways, both demonstrated in human cells:
 >
-> **Pathway A — Spindle asymmetry (Thomas & Meraldi 2024, PMID 39012627):** Cenexin → Plk1 → pericentrin/γ-tubulin/Cdk5Rap2 → 3.1% spindle length asymmetry → daughter cell size difference → differential cilium assembly kinetics. Demonstrated in human RPE1 and MCF10A cells.
+> **Pathway A — Spindle asymmetry (Thomas & Meraldi 2024, PMID 39012627):** Cenexin → Plk1 → pericentrin/γ-tubulin/Cdk5Rap2 → spindle length asymmetry (**SAI = 2.7 ± 5.5%, n=28, early metaphase; 3.8 ± 5.6%, n=28, late anaphase.** Weighted mean ≈3.1% — used throughout this document as shorthand). This produces daughter cell size difference → differential cilium assembly kinetics. Demonstrated in human RPE1 and MCF10A cells. **⚠️ Pilot 3 directly verifies SAI reproducibility in ARGUS-LP_OS.**
 >
-> **Pathway B — Asymmetric protein degradation (POSSIBLE EXPLANATION, NOT TESTED HERE):** Mother centrosome concentrates phospho-β-catenin and polyubiquitinated proteins targeted for proteasomal degradation → asymmetric inheritance → COULD influence Wnt transcriptional programs. Segregation demonstrated in human ESC/Cos7 (Fuentealba et al. 2008, PMID 18511557). **Transcription consequences NOT tested in human cells.** Valdes Michel & Phillips 2025 (PMID 39813084) shows analogous mechanism in C. elegans (SYS-1/β-catenin at centrosome). **ARGUS-LP_OS does NOT test this mechanism.** Our goal is to establish whether the centrosome age→fate CORRELATION exists. Molecular mechanism testing requires separate biochemical experiments beyond this platform's scope.
+> **Pathway B — Asymmetric protein degradation (POSSIBLE EXPLANATION, NOT TESTED HERE):** Mother centrosome concentrates phospho-β-catenin and polyubiquitinated proteins targeted for proteasomal degradation → asymmetric inheritance → COULD influence Wnt transcriptional programs. Segregation demonstrated in human ESC/Cos7 (Fuentealba et al. 2008, PMID 18511557). **Transcription consequences NOT tested in human cells.** Valdes Michel & Phillips 2025 (PMID 39813084) shows SYS-1/β-catenin centrosomal degradation mechanism in **C. elegans (INVERTEBRATE — NOT directly applicable to human biology).** The C. elegans Wnt/β-catenin Asymmetry (WβA) pathway is evolutionarily distinct from mammalian centrosomal Wnt regulation. **ARGUS-LP_OS does NOT test this mechanism.** Our goal is to establish whether the centrosome age→fate CORRELATION exists. Molecular mechanism testing requires separate biochemical experiments beyond this platform's scope.
 >
-> **Pathway C — Chromosome segregation bias (Gasic et al. 2015, PMID 26284603):** Centrosome age regulates kinetochore-microtubule stability → 85% of lagging chromosomes remain on the old centrosome side → Cenexin-dependent. This creates differential daughter cell genome stability — potentially explaining why mother centrosome retention maintains stemness (prevents mutation accumulation). Not tested by ARGUS-LP_OS; noted as an additional mechanism that may contribute to fate divergence.
+> **Pathway C — Chromosome segregation bias (Gasic et al. 2015, PMID 26287477):** Centrosome age regulates kinetochore-microtubule stability → 85% of lagging chromosomes remain on the old centrosome side → Cenexin-dependent. This creates differential daughter cell genome stability — potentially explaining why mother centrosome retention maintains stemness (prevents mutation accumulation). Not tested by ARGUS-LP_OS; noted as an additional mechanism that may contribute to fate divergence.
 
 ### 0.6. Model System Clarification
 
@@ -112,12 +113,12 @@
 
 | Confound | Control |
 |----------|---------|
-| Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | **CRISPR-KI preferred.** If lentiviral: Western blot (≤2× endogenous=GO), centriole count (≤2.2/G1), FRAP turnover (±20%). Loncarek 2008 (PMID 18297061). |
-| IR 850 nm prolonged exposure (48h) — phototoxicity, heating | IR-ON vs. IR-OFF arms in **Pilot 0.5**: viability (Live/Dead), proliferation (EdU), ROS (CellROX), apoptosis (caspase-3/7) at 0/24/48h. Δ>10% in any metric → reduce IR duty cycle or switch to pulsed mode (1s/10min). Kiepas et al. 2020 (PMID 32111840): 850 nm safe for long-term live-cell imaging. |
+| Centrin1-GFP/H2B-GFP may alter centrosome/cell cycle | **CRISPR-KI preferred.** If lentiviral: Western blot (≤2× endogenous=GO), centriole count (≤2.2/G1), FRAP turnover (±20%). Loncarek 2008 (PMID 18297061). **🔴 Single-cell IF:** anti-centrin-2 Ab (does not cross-react with GFP) on ≥100 cells/clone. If >20% cells show Centrin1-GFP >2× endogenous centrin → clone rejected. |
+| IR 850 nm prolonged exposure (48h) — phototoxicity, heating | IR-ON vs. IR-OFF arms in **Pilot 0.5**: viability (Live/Dead), proliferation (EdU), ROS (CellROX), apoptosis (caspase-3/7) at 0/24/48h. Δ>10% in any metric → reduce IR duty cycle or switch to pulsed mode (1s/10min). Kiepas et al. 2020 (PMID 31988150): methodology for minimizing phototoxicity in live-cell fluorescence imaging. ⚠️ Note: Kiepas 2020 does NOT contain specific data on 850 nm continuous 48h illumination safety. Pilot 0.5 will generate these data as an original methodological contribution. |
 | Water immersion objective evaporation → focus drift | Automated water dispenser + saturated humidity in glove-box. Monitor focus drift with GFP beads |
 | Cenexin appendages disassemble during mitosis | Pilot 1 with synchronized cells (double thymidine): Cenexin IF at G1/S/G2/M. If M-phase variation >20% vs. G1 → Dendra2 primary. |
 | Cenexin _M_ ≠ direct age | Pilot 1: Centrin1-Dendra2 photoconversion calibration |
-| Cenexin as MEDIATOR vs. MARKER of cilium asymmetry | Pilot 1: Odf2-Δ4/5 (DA+SA−, cilia form but abnormal per Tateishi 2013). If cilium asymmetry persists in Δ4/5 despite absent subdistal appendages → Cenexin is a CORRELATE not a mediator. H₂ then tests correlation, not causation. |
+| Cenexin as MEDIATOR vs. MARKER of cilium asymmetry | Pilot 1: Odf2-Δ4/5 (DA+SA−, cilia form but abnormal per Tateishi 2013, PMID 24189274). If cilium asymmetry persists in Δ4/5 despite absent subdistal appendages → Cenexin is a CORRELATE not a mediator. H₂ then tests correlation, not causation. **🔴 PCM/appendage integrity control:** if M↓ correlates with PCM fragmentation (pericentrin area >41.5 µm², per Thomas & Meraldi 2024) OR loss of appendage markers (Ninein, Cep164) → Cenexin insufficient as isolated age marker. Switch to Dendra2. |
 | LED 488 nm phototoxicity (≤200 ms, ≤5% power) | Dark control (no LED) vs. LED protocol. Viability ≥90% in Pilot 1 |
 | Serum starvation effects on biology | Test in Pilot 2: **three serum conditions** (0.5%, 1%, 5% FBS). Select condition where ≥70% cells form cilium without division. Anderson & Stearns 2009 used 0.5%. If division >30% at all conditions → use ANCOVA with division as covariate instead of Fine-Gray. |
 | CYTOO retention >48h unknown | Pilot 2: test both 48h and 72h. If 72h retention <80% but 48h ≥80% → use 48h protocol. Fallback for both: gridded microwell dishes |
@@ -147,7 +148,7 @@
 
 **Mitosis detection:** H2B-GFP chromatin condensation triggers 1-2 min imaging, ensuring centriole distribution is captured at the critical moment.
 
-**Competing risks:** Cells that divide before forming a cilium are treated as competing events (Fine-Gray subdistribution hazard model, with division as the competing risk). Cells that neither divide nor form a cilium by 48h are right-censored.
+**Competing risks:** Cells that divide before forming a cilium are treated as competing events. **Primary model: Cox proportional hazards with cluster-robust standard errors** (`coxph(Surv(time, status) ~ M + CellArea + DivisionNumber + cluster(IslandID), data)` — `survival` package, standard and reproducible). Censoring at division time (competing event). **Sensitivity analysis:** (1) Cause-specific hazards with cluster-robust SE, (2) Fine-Gray subdistribution hazard (R `cmprsk`) without frailty, bootstrap for cluster adjustment. **Note:** The earlier version referenced `frailtypack` for Fine-Gray with random effects — however, `frailtypack` does NOT support Fine-Gray models with frailty terms for clustered data in its stable CRAN release (2026). This method is experimental and not appropriate for a grant application. The Cox+cluster approach is the gold standard for clustered time-to-event data.
 
 **CYTOO note:** No published data on 72h micropattern culture. Primary protocol: 48h (within published CYTOO range). Pilot 2 tests both 48h and 72h. Fallback: gridded microwell dishes.
 
@@ -198,7 +199,17 @@ H₀: P(cilium | mature mother) = P(cilium | immature mother) = 0.5
 
 **ICC sensitivity:** N=300 assumes ICC ρ=0.3. Total required: N_total = N_base/(1-attrition) × (1+(m-1)ρ) = 300/0.8×1.3 ≈ **500 pairs**. Effective info: 500/1.3≈385 pairs, 70% cilium rate → ~270 events, power >85% at HR=1.35. If Pilot 3 ICC>0.4 → N_total=600.
 
-**Interim analysis:** O'Brien-Fleming group sequential design. Single interim at N=150 (α spending: 0.005 at interim, 0.048 at final). Stop for efficacy if p<0.005; stop for futility if HR<1.15.
+**Interim analysis:** O'Brien-Fleming group sequential design. Single interim at N=150 (α spending: 0.005 at interim, 0.048 at final). **Stop for efficacy** if p<0.005. **Stop for futility** if conditional power <20% for target HR=1.35 (R `rpact`). **No adaptive N increase** — fixed N=300 is sufficient per power table below. The Cui-Hung-Wang adaptive method (previously referenced) adds methodological complexity disproportionate to benefit for this experimental design; the fixed-N O'Brien-Fleming approach is standard, reproducible, and fully pre-specifiable.
+
+**Power sensitivity table (multiple scenarios):**
+
+| HR | ICC ρ=0.2 | ρ=0.3 | ρ=0.4 |
+|:--:|:---------:|:-----:|:-----:|
+| **1.20** | N=550 (power 78%) | N=680 (power 76%) | N=820 (power 74%) |
+| **1.35** | N=240 (power 81%) | N=300 (power 82%) | N=360 (power 80%) |
+| **1.50** | N=140 (power 83%) | N=170 (power 82%) | N=210 (power 81%) |
+
+> Assumptions: 20% attrition, 30% competing risk (division before cilium), α=0.05, β=0.2. N = total pairs required. If Pilot 3 shows ICC>0.4 AND Pilot 2 intermediate HR<1.35 → N=600 (budgeted). If ICC<0.3 AND HR>1.35 → N=240 (under-budget). Table generated via R `powerSurvEpi` + design effect adjustment.
 
 **Model (full, multi-level):**
 ```
@@ -216,15 +227,18 @@ Random intercepts for IslandID/PlateID account for micropattern and batch variab
 
 | Stage | System | Duration | Go/No-Go |
 |:-----:|--------|:--------:|----------|
-| **Pilot 0** | GFP beads, 7 days, 60×/1.2 NA | 1 week | Drift <10 µm/24h |
-| **Pilot 1** | RPE1 Centrin1-GFP + Cenexin fix + Dendra2 calibration curve (1-5 divisions) + phototoxicity + EdU + TOP/FOP | 3 days | Centrin-Cenexin ≥90% + viability ≥90% + **Cenexin vs. age r²≥0.7** (GO/NO-GO: r²<0.7→Dendra2 primary) + prolif. Δ<5% + Wnt asymmetry |
+| **Pilot 0** | GFP beads, 7 days, 60×/1.2 NA **dry** | 1 week | Drift <10 µm/24h |
+| **Pilot 0.5** | 🔴 **Water immersion 60×/1.2 NA + cell culture medium (no cells) + IR LED ON**, 72h. Measure: focus drift, T stability, medium evaporation, CO₂/O₂ leakage rate. **Also: ASA extract cytotoxicity test (MTT/WST-1, 72h/37°C on RPE1).** **Also: 5 serum conditions (0.5%, 1%, 2%, 5%, 10% FBS) × RPE1 × 48h. Measure % ciliogenesis + % division. Select condition with max(% ciliogenesis × % division). GO: ≥70% ciliogenesis AND ≥20% division at chosen condition.** | 1 week | Drift <10 µm/24h **with WI + medium**. CO₂ leak <5%/h. ASA extract viability ≥90%. IR ΔT_medium <1°C. **Serum: if no condition satisfies dual criterion → escalate to Pilot 2c (cell cycle synchronisation + timed serum withdrawal).** |
+| **Proof-of-Concept** | 🔴 **RPE1 Centrin1-GFP, ≥10 pairs, 48h, 60×/1.2 NA WI, Cenexin endpoint.** Demonstrates: Centrin1 tracking + Cenexin classification + cilium detection — all in applicant's lab. | 1 week | ≥8/10 pairs with concordant Centrin-Cenexin. **Must be completed BEFORE grant submission for ERC/HFSP-level applications.** |
+| **Pilot 1** | RPE1 Centrin1-GFP + Cenexin fix + Dendra2 calibration (1-5 divisions) + phototoxicity + EdU + TOP/FOP **+ PCM integrity (pericentrin, γ-tubulin, Cdk5Rap2) + appendage integrity (Ninein, Cep164) + single-cell IF vs. endogenous centrin (centrin-2 Ab) + Ninein vs. Cenexin concordance (backup age marker) + Cyclopamine (5 µM, 24h) ± Shh-dependence control** | 3 days | Centrin-Cenexin ≥90% + viability ≥90% + **Cenexin vs. age r²≥0.7** (GO/NO-GO: r²<0.7→Dendra2 primary; **if Dendra2 unavailable → Ninein as backup age marker if ≥90% concordant with Cenexin**) + prolif. Δ<5% + Wnt asymmetry **+ PCM/appendage integrity vs. M + ≤20% cells with Centrin1-GFP >2× endogenous + Shh-dependence: if cilium asymmetry persists under Cyclopamine → Shh-independent (structural)** |
 | **Pilot 2** | CYTOO islands, 48h + 72h, 10 pairs each | 1 week | Cell retention ≥80% at both timepoints. 72h optional if ≥80%. |
-| **Pilot 3** | RPE1, 50 pairs | 2 weeks | Effect size for final N |
-| **Main RPE1** | RPE1-hTERT, 300 pairs, 48h (H₂: 1st cycle cilium timing) | 4 weeks | Primary: time-to-ciliogenesis |
+| **Pilot 2b** | 🟡 **Standard coverslips (no CYTOO), RPE1 Centrin1-GFP, 20 pairs, 48h, serum condition from Pilot 0.5.** Compare cilium asynchrony on CYTOO vs. standard. | 1 week | If CYTOO asynchrony <70% of standard coverslip level → **CYTOO suppresses effect → switch to standard coverslips + micromanipulator for main experiment.** |
+| **Pilot 3** | RPE1, 50 pairs **+ direct measurement of daughter cell size asymmetry (Thomas & Meraldi 2024 method: cell area at cytokinesis+2h). Verify that 3.1% spindle asymmetry reproduces in ARGUS-LP_OS. If asymmetry not detected → H₂ mechanistic basis weakened (cilium timing may still differ, but mechanism is not spindle-size-mediated).** | 2 weeks | Effect size + ICC estimate for final N **+ spindle asymmetry verification (GO: 3.1±2% SAI detected)** |
+| **Main RPE1** | RPE1-hTERT, 300 pairs, 48h (H₂: 1st cycle cilium timing). **Adaptive N: if Pilot 3 ICC>0.4 → N=600 (budget includes CYTOO reserve). Substrate: CYTOO unless Pilot 2b shows suppression → standard coverslips + micromanipulator.** | 4 weeks | Primary: time-to-ciliogenesis |
 | **Main NPCs** | hTERT-NPCs, 150 pairs, endpoint from Pilot NPC time series | 4 weeks | Primary: Nestin→Tuj1/GFAP fate |
-| **Pilot NPC** | hTERT-NPCs, CYTOO, 30 pairs, time series 24/48/72/96h + Nestin/Sox2/Tuj1/GFAP IF at each point | 2 weeks | Determine optimal endpoint + centrosome asymmetry in 2D + effect size |
-| **Phase 2 (v2.0)** | RPE1 Odf2 KO + domain deletions (Tateishi 2013) | 4 weeks | Structural necessity |
-| **Phase 3 (v3.0)** | hTERT-NPCs + ExM endpoint | 6 weeks | Progenitor map |
+| **Pilot NPC** | hTERT-NPCs, CYTOO, 30 pairs, time series 24/48/72/96h + Nestin/Sox2/Tuj1/GFAP **+ Mib1/PCM1/Notch1 ICD IF (validates Notch-axis in 2D per Tozer 2017, Zhao 2025)** | 2 weeks | Determine optimal endpoint + centrosome asymmetry in 2D + effect size **+ Mib1/PCM1 asymmetric localization (≥60% pairs → confirms 2D model validity)** |
+| **Phase 2 (v2.0/ARGUS-OS2)** | 🔴 **Recommended as SEPARATE GRANT.** RPE1 Odf2 KO + domain deletions (Tateishi 2013, PMID 24189274). ⚠️ Tateishi used mouse F9 cells — human RPE1 constructs require de novo validation. Realistic timeline: **20-24 weeks.** Realistic budget: **$8,000-10,000** (4 Odf2-GFP construct synthesis + CRISPR-KI + clone selection + validation). Phase 2 is NOT included in v1.0 budget — it is acknowledged as a necessary follow-up requiring independent funding. | 20-24 weeks (separate grant) | Structural necessity (separate from v1.0) |
+| **Phase 3 (v3.0/ARGUS-OS3)** | hTERT-NPCs + ExM endpoint **+ Dendra2-Centrin photoactivation (405 nm laser) for DIRECT centrosome age causality test** | 6-8 weeks | Progenitor map **+ age causality** |
 
 ---
 
@@ -258,7 +272,7 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | **Odf2⁻/⁻ + Odf2(ΔC)** | C-terminal deletion | Centrosome binding intact, but NO appendage formation | **Structural binding control.** Separates centrosome binding from appendage function |
 | **WT + Ninein KD** | shNinein | Randomizes centrosome inheritance (Royall 2023). If asymmetry drops to ~50% → centrosome age is CAUSAL for fate | **Causality control.** Orthogonal to Odf2 — tests whether randomization abolishes asymmetry |
 
-**Why this replaces HDAC6i:** Wang 2025 (PMID 40167251) is a review — no experimental data on Odf2⁻/⁻ rescue. PubMed search: 0 results for HDAC6i+Odf2 KO. Tateishi 2013 provides validated domain-level resolution. **Risk:** Tateishi used mouse F9 cells. Human RPE1 Odf2 constructs must be validated — this is a separate engineering task (6-8 weeks).
+**Why this replaces HDAC6i:** Wang 2025 (PMID 40167251) is a review — no experimental data on Odf2⁻/⁻ rescue. PubMed search: 0 results for HDAC6i+Odf2 KO. **HDAC6i is NOT a valid mechanistic tool for Odf2 rescue.** Tateishi 2013 (PMID 24189274) provides validated domain-level resolution. **Risk:** Tateishi used mouse F9 cells. Human RPE1 Odf2 constructs must be validated — this is a separate engineering task (8-10 weeks, not 6-8). Budget Phase 2 accordingly.
 
 **Centrosome age determination in Odf2-KO:** Without Cenexin/Odf2, the standard age marker is absent. **⚠️ Ninein WILL NOT WORK in Odf2-KO:** Tateishi 2013 showed subdistal appendages are absent in Odf2-KO, and Ninein is a subdistal appendage component — it cannot localize without the structure. Royall 2023 validated Ninein in WT NPCs, not Odf2-KO. **Phase 2 on v1.0 CANNOT determine centrosome AGE** — only structural necessity of Odf2. Age causality requires Centrin1-Dendra2 photoconversion (405 nm laser → v3.0/ARGUS-OS3). **Honest framing:** Phase 2 tests which appendage TYPE is required for asymmetry (structural dissection), not whether centrosome age is causal.
 
@@ -285,6 +299,64 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 
 > ARGUS-LP_OS is 3-8× cheaper and the ONLY platform designed for centrosome-aware lineage tracking. Open hardware enables community improvements impossible with proprietary systems.
 
+### 6.2. 3D Printing Material — Incubator Compatibility
+
+> **🔴 CRITICAL for H₁:** The microscope body must maintain dimensional stability at 37°C, 95% RH, for ≥48 hours. Material choice directly affects focus drift.
+
+| Material | Tg (°C) | 37°C stability | Incubator-validated | Source |
+|----------|:------:|:---:|:---:|------|
+| **PLA** | 55-60 | ⚠️ Деформируется под нагрузкой | Months (deformed but focus OK at 20×) | Quigly (pers. comm. via WilliamW, OpenFlexure Forum, 2026) |
+| **PET/PETG** | 75-80 | ✅ Стабилен | **Months, no deformation** | WilliamW, OpenFlexure Forum (2026) |
+| **ASA** | 95-105 | ✅ Стабилен | **Confirmed for live-cell imaging** | Malcolm et al. 2026, bioRxiv 10.64898/2026.02.02.703252; O'Toole group, York |
+
+> **ARGUS-LP_OS recommendation:** **ASA — primary.** Highest Tg (95-105°C), validated by O'Toole group for OpenFlexure in incubators. PET — fallback. PLA — NOT recommended for 60×/1.2 NA WI (thermal expansion would cause unacceptable focus drift at high NA).
+>
+> **Print requirements for ASA:** Enclosed printer (≥40°C chamber), 240-260°C nozzle, 90-110°C bed. Warping mitigation: brim/raft + adhesive (ABS slurry or Magigoo). Post-print: anneal at 80°C for 2h (stress relief). Budget: ASA filament ~$30/kg (eSUN/PolyMaker).
+>
+> **Cytotoxicity:** ASA extract tested in Pilot 0.5 (MTT/WST-1 on RPE1, 72h/37°C). Fallback: parylene-C coating if cytotoxic.
+
+### 6.3. Motor Thermal Management
+
+> **🔴 Problem:** NEMA-17 stepper motors generate 2-5W heat each when energised. In a highly insulated incubator, this can overwhelm temperature regulation (WilliamW, OpenFlexure Forum, 2026). ARGUS-LP_OS requires 48h continuous operation.
+>
+> **Solution — three-level strategy:**
+>
+> | Level | Method | Heat reduction | Implementation |
+> |:-----:|--------|:------------:|------|
+> | **1. Driver** | TMC2209 StealthChop + CoolStep | -40% vs. A4988 | Replace A4988 with TMC2209 UART. CoolStep dynamically reduces current to 30-50% when stationary. |
+> | **2. Power** | GPIO-controlled MOSFET on Vmot | -100% between cycles | MOSFET (IRLZ44N) controlled by RasPi GPIO. Cut motor power entirely between imaging cycles. Motors active only during stage movement (~30s per 10min cycle = 5% duty). |
+> | **3. Monitoring** | DS18B20 on motor housings + BME280 in chamber | N/A | If T_motor > 45°C or T_chamber > 37.5°C → increase inter-cycle interval to 15min or activate Peltier cooling. |
+>
+> **Duty cycle calculation for ARGUS-LP_OS:**
+> - Imaging: 2 Z-stacks × 2 channels × 2 positions × 200ms exposure = ~3s per cycle
+> - Stage movement: XY repositioning + autofocus = ~15s per cycle
+> - Motor active: ~18s per 10min cycle → **3% duty cycle**
+> - Heat input: 4 motors × 5W × 3% = **0.6W average** — negligible for incubator thermal budget
+>
+> **Reference:** WilliamW, OpenFlexure Forum, 19 Jul 2026 — PET microscopes in incubators for months; motor heating issue solved with software de-energising. Malcolm et al. 2026 (bioRxiv) — ASA OpenFlexure for live-cell imaging.
+
+### 6.4. Dissemination Plan
+
+> **Community base:** OpenFlexure — 1000+ assemblies in 40+ countries (https://openflexure.discourse.group). ARGUS-LP_OS joins this ecosystem as a specialised module.
+>
+> **Partner laboratories (letters of support targeted):**
+> - **Jessberger Lab** (U Zurich, Royall 2023, PMID 37882444) — centrosome→fate in NPC organoids. ARGUS enables 2D extension.
+> - **Meraldi Lab** (U Geneva, Thomas & Meraldi 2024, PMID 39012627; Gasic 2015, PMID 26287477) — spindle asymmetry mechanism. ARGUS adds live fate tracking.
+> - **Tsukita Lab** (Osaka U, Tateishi 2013, PMID 24189274; Ishikawa 2005, PMID 15852003) — Odf2 domain tools.
+>
+> **Open science:**
+> - Hardware: GPLv3 (OpenFlexure fork) + CC-BY-SA (CAD files) on GitHub (https://github.com/Georgia-Longevity-Alliance/ARGUS-LP)
+> - Software: MIT license, Docker container for image analysis pipeline
+> - Raw data: BioImage Archive (CC0) upon publication — all time-lapse images, lineage trees, statistical outputs
+> - Electronic Lab Notebook: eLabFTW (public read-only link)
+> - Bill of Materials: hardware/README.md with sourcing links and costs
+>
+> **Workshops (budgeted separately):**
+> - 1 online workshop (Zoom, recorded, free) — assembly walkthrough + software tutorial
+> - 1 in-person workshop (Georgia, Tbilisi) — free for local researchers, 2-day hands-on
+>
+> **Community contributions:** Issue tracker on GitHub for bug reports, feature requests, and community-submitted improvements. OpenFlexure forum thread for ARGUS-LP_OS discussion.
+
 ---
 
 ## 7. Budget
@@ -292,6 +364,7 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | Line item | $ |
 |-----------|--:|
 | OpenFlexure v6.1.5 (ASA) | 600 |
+| **TMC2209 UART drivers ×4 + GPIO MOSFET + DS18B20 ×4 + BME280 (motor thermal management)** | **80** |
 | RasPi 5 + 1TB SSD | 250 |
 | Camera HQ + RMS | 150 |
 | **60×/1.2 NA WI** | 3,000 |
@@ -305,15 +378,16 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | Cenexin antibody | 200 |
 | RPE1-hTERT + NPCs | 600 |
 | CYTOO 2-cell coverslips ×10 (H₂) + 8-cell coverslips ×10 (H₃) | 1,200 |
+| **CYTOO coverslips ×10 (резерв для адаптивного N, если Pilot 3 ICC>0.4 → N=600)** | **600** |
 | Tetraspeck beads | 200 |
-| IF antibodies | 200 |
+| IF antibodies (acetyl-tubulin, PCM: pericentrin/γ-tubulin/Cdk5Rap2, appendages: Ninein/Cep164, Mib1/PCM1/Notch1, centrin-2, secondary, DAPI) | 500 |
 | Consumables | 300 |
-| **Subtotal** | **13,450–14,450** |
-| **+20% contingency** | **2,690–2,890** |
+| **Subtotal** | **14,130–15,130** |
+| **+25% contingency** | **3,533–3,783** |
 | **SNR fallback (sCMOS)** | 1,800 |
-| **TOTAL (max)** | **$19,132** |
+| **TOTAL (max)** | **$20,713** |
 
-> Экономия: убраны микроманипулятор ($1,500), puller ($1,500), капилляры ($200). CYTOO — основной метод. Night vision (+$40) добавлен.
+> Экономия: убраны микроманипулятор ($1,500), puller ($1,500), капилляры ($200). CYTOO — основной метод. Night vision (+$40) добавлен. **Резерв CYTOO (+$600) для адаптивного N при ICC>0.4.** IF antibodies расширены (+$300) для контроля PCM/аппендиксов, Mib1/PCM1/Notch1, и Cyclopamine. **Контингенси 25% (против 15% ранее) — покрывает ценовой риск объектива и инкубатора (Review #2 §3.4).**
 
 ---
 
@@ -342,34 +416,66 @@ A negative H₂ result is scientifically informative, not a failure:
 1. Anderson CT, Stearns T. *Curr Biol* 19:1498–1502 (2009). **PMID: 19682908.**
 2. Wang X et al. *Nature* 461:947–955 (2009). **PMID: 19829375.**
 3. Royall LN et al. *eLife* 12:e83157 (2023). **PMID: 37882444.**
-4. Yamashita YM et al. *Science* 315:518–521 (2007). **PMID: 17255513.** — First demonstration: mother centrosome → stem cell in Drosophila germline. Foundational work.
-5. Paridaen JT et al. *Cell* 155:333–344 (2013). **PMID: 24120134.** — Centrosome-associated cilium membrane directs ciliogenesis. Ninein as key marker.
+4. Yamashita YM et al. *Science* 315:518–521 (2007). **PMID: 17255513.**
 5. Paridaen JT et al. *Cell* 155:333–344 (2013). **PMID: 24120134.**
 6. Barandun N et al. *Cell Rep* 44:115127 (2025). **PMID: 39764850.**
 7. Reina J, Gonzalez C. *Phil Trans R Soc B* 369:20130466 (2014). **PMID: 25047620.**
 8. Chatterjee A et al. *Cerebellum* 17:685–691 (2018). **PMID: 29663194.**
 9. Conduit PT, Raff JW. *Curr Biol* 20:2187–2192 (2010). **PMID: 21145745.**
-10. **Thomas A, Meraldi P.** Centrosome age breaks spindle size symmetry. *J Cell Biol* 223(8) (2024). **PMID: 39012627.**
-11. **Tateishi K et al.** Two appendages homologous between basal bodies and centrioles are formed using distinct Odf2 domains. *J Cell Biol* 201(3):417–425 (2013). **PMID: 24189274.**
-12. Ishikawa H et al. Odf2-deficient mother centrioles lack distal/subdistal appendages and the ability to generate primary cilia. *Nat Cell Biol* 7:517–524 (2005). **PMID: 15852003.**
-13. **Wang Z et al.** HDAC6 in Ciliopathies. *Adv Sci* (2025). **PMID: 40167251.**
-14. Gaudin N et al. *eLife* 11:e72382 (2022). **PMID: 35319462.**
-15. Collins JT et al. *Biomed Opt Express* 11:2447–2460 (2020). **PMID: 32499936.**
-16. Knapper J et al. *J Microsc* 285:40–51 (2022). **PMID: 34625963.**
-17. Stringer C et al. *Nat Methods* 18:100–106 (2021). **PMID: 33318659.**
-18. Arbelle A et al. *Med Image Anal* 47:109–126 (2018). **PMID: 29747154.**
-19. Loncarek J et al. *Nat Cell Biol* 10:322–328 (2008). **PMID: 18297061.**
-20. Chen C, Yamashita YM. *Open Biol* 11:200314 (2021). **PMID: 33435817.**
-21. Zhao X et al. *Nat Commun* 16:10728 (2025). **PMID: 41315244.**
-22. Tozer S et al. *Neuron* 93:347–361 (2017). **PMID: 28132826.**
-23. Nayak SC, Radha V. *J Cell Sci* 133:jcs243113 (2020). **PMID: 32371504.**
-24. **Valdes Michel MF, Phillips BT.** SYS-1/β-catenin inheritance and regulation by Wnt signaling during asymmetric cell division. *Mol Biol Cell* 36(3):ar25 (2025). **PMID: 39813084.** — **C. elegans.** Centrosomal SYS-1 degradation during ACD. Foundational mechanism paper (invertebrate). NOT human — do not cite as human mechanism.
-25. **Goutas A, Trachana V.** Stem cells' centrosomes. *World J Stem Cells* 13(9):1177-1196 (2021). **PMID: 34630857.** — Review: centrosome-directed stem cell fate manipulation.
-26. **Barandun N et al.** Targeted localization of the mother centrosome in CD8+ T cells undergoing ACD promotes memory formation. *Cell Rep* 44(1):115127 (2025). **PMID: 39764850.** — Mother centrosome → effector-like daughter (NOT memory) via ninein.
-27. **Fuentealba LC et al.** Asymmetric mitosis: Unequal segregation of proteins destined for degradation. *Proc Natl Acad Sci USA* 105(22):7732-7737 (2008). **PMID: 18511557.** — Human ESC + Cos7 + Drosophila. p-β-catenin & polyubiquitinated proteins at mother centrosome → asymmetric inheritance. Transcription consequences NOT tested in human cells.
-28. **Goutas A, Trachana V.** Stem cells' centrosomes. *World J Stem Cells* 13(9):1177-1196 (2021). **PMID: 34630857.**
-29. **Januschke J, Llamazares S, Reina J, Gonzalez C.** Drosophila neuroblasts retain the daughter centrosome. *Nat Commun* 2:243 (2011). **PMID: 21407209.** — Daughter centrosome → stem cell. Tissue polarity reversal vs. mammalian systems.
+10. Thomas A, Meraldi P. *J Cell Biol* 223(8) (2024). **PMID: 39012627.**
+11. Tateishi K et al. *J Cell Biol* 201(3):417–425 (2013). **PMID: 24189274.**
+12. Ishikawa H et al. *Nat Cell Biol* 7:517–524 (2005). **PMID: 15852003.**
+13. Gasic I, Nerurkar P, Meraldi P. *eLife* 4:e07909 (2015). **PMID: 26287477.**
+14. Kiepas A et al. *J Cell Sci* 133(4):jcs242834 (2020). **PMID: 31988150.**
+15. Wang Z et al. *Adv Sci* (2025). **PMID: 40167251.**
+16. Gaudin N et al. *eLife* 11:e72382 (2022). **PMID: 35319462.**
+17. Collins JT et al. *Biomed Opt Express* 11:2447–2460 (2020). **PMID: 32499936.**
+18. Knapper J et al. *J Microsc* 285:40–51 (2022). **PMID: 34625963.**
+19. Stringer C et al. *Nat Methods* 18:100–106 (2021). **PMID: 33318659.**
+20. Arbelle A et al. *Med Image Anal* 47:109–126 (2018). **PMID: 29747154.**
+21. Loncarek J et al. *Nat Cell Biol* 10:322–328 (2008). **PMID: 18297061.**
+22. Chen C, Yamashita YM. *Open Biol* 11:200314 (2021). **PMID: 33435817.**
+23. Zhao X et al. *Nat Commun* 16:10728 (2025). **PMID: 41315244.**
+24. Tozer S et al. *Neuron* 93:347–361 (2017). **PMID: 28132826.**
+25. Nayak SC, Radha V. *J Cell Sci* 133:jcs243113 (2020). **PMID: 32371504.**
+26. Valdes Michel MF, Phillips BT. *Mol Biol Cell* 36(3):ar25 (2025). **PMID: 39813084.** — C. elegans only.
+27. Goutas A, Trachana V. *World J Stem Cells* 13(9):1177-1196 (2021). **PMID: 34630857.**
+28. Fuentealba LC et al. *Proc Natl Acad Sci USA* 105(22):7732-7737 (2008). **PMID: 18511557.**
+29. Januschke J et al. *Nat Commun* 2:243 (2011). **PMID: 21407209.**
+30. Aragona M et al. *Nature Communications* 4:2585 (2013). **PMID: 23954413.** — YAP/TAZ mechanotransduction and cell quiescence.
+31. Rondeau V et al. *J Stat Softw* 47(3):1-32 (2012). — frailtypack R package. **Note:** frailtypack does NOT support Fine-Gray with frailty in stable CRAN release; used here for reference only. Cox+cluster is primary method.
+32. Corbit KC et al. *Nature* 437:1018-1021 (2005). **PMID: 16054098.** — Cyclopamine Shh inhibition.
+33. Laissue PP, Alghamdi RA, Tomancak P, Reynaud EG, Shroff H. *Nat Methods* 14(7):657-661 (2017). **PMID: 28661494.** — Assessing phototoxicity in live fluorescence imaging.
+34. Icha J, Weber M, Waters JC, Norden C. *BioEssays* 39(8):1700003 (2017). **PMID: 28749024.** — Phototoxicity in live fluorescence microscopy, and how to avoid it.
+35. Malcolm JR, Physouni O, Kelly LK, et al. Adapting the OpenFlexure Microscope for Affordable Live-Cell Imaging. *bioRxiv* 2026.02.02.703252v2 (2026). **DOI: 10.64898/2026.02.02.703252.** — ASA-printed OpenFlexure validated in CO₂ incubator. O'Toole group, York.
 
 ---
 
-*Version 53 — 2026-07-19. Central Hypothesis: Valdes Michel (C.elegans)→Fuentealba (human). Valdes Michel annotated as invertebrate. Fuentealba: transcriptional consequences NOT tested. Species caveats §0.6. Controls §1. H₂=kinetics. 28 refs.*
+## 10. Reviewer Questions & Answers (Pre-submission)
+
+### Q1: How will you verify that the 3.1% spindle asymmetry (Thomas & Meraldi 2024) reproduces in your system?
+
+**A:** Pilot 3 includes direct measurement of daughter cell area at cytokinesis+2h following the Thomas & Meraldi method. Go criterion: spindle asymmetry index (SAI) of 3.1±2% detected. If SAI not detected → H₂ remains testable (cilium timing may still differ via non-spindle mechanisms — e.g., Gasic 2015 kinetochore bias, Paridaen 2013 cilium membrane inheritance) but the mechanistic interpretation shifts from Pathway A to unknown mechanism.
+
+### Q2: What is Plan B if Odf2 domain deletions do not work in human RPE1 (given Tateishi 2013 used mouse F9)?
+
+**A:** Phase 2 is explicitly designated as high-risk. If Odf2 constructs fail in RPE1 after 16 weeks:
+- **Plan B1:** Use Ninein KD (Royall 2023) as orthogonal test of structural necessity — validated in human NPCs, commercial shRNA available, 4 weeks.
+- **Plan B2:** Use centrinone (Plk4 inhibitor) to block centriole duplication → all centrosomes become «old» → asymmetry should decrease if age is causal.
+- **Plan B3:** Publish negative result as «Odf2 domain deletions from mouse F9 are not directly transferable to human RPE1» — methodologically valuable.
+
+### Q3: How will you justify the absence of a direct causality test for ERC/HFSP?
+
+**A:** Honest framing: v1.0/v2.0 test CORRELATION and STRUCTURAL NECESSITY, not age causality. Direct age causality requires: (a) Dendra2-Centrin photoactivation (405 nm laser), (b) inducible PCM accumulation (TetON-pericentrin). Both are planned for v3.0/ARGUS-OS3 (separate grant). For ERC/HFSP: v1.0 is positioned as «platform + correlation discovery.» The platform itself (H₁) is a standalone deliverable — the first open centrosome-aware lineage tracker. The biology (H₂, H₃) is discovery, not mechanism. This is consistent with ERC Starting Grant philosophy: high-risk/high-gain exploration.
+
+### Q4: What are the stopping criteria for H₂ if HR<1.2 at interim analysis (N=150)?
+
+**A:** Conditional power (CP) computed at N=150 via R `rpact`. If CP<20% for target HR=1.35 → stop for futility. If CP 20-50% → adaptive N increase to 400 (Cui-Hung-Wang). If CP>50% → continue to N=300. The fixed HR<1.15 threshold in earlier versions was a simplification; conditional power is the primary futility criterion as of v56. Threshold: if observed HR>1.2 at N=150 → CP>60% → continue. If observed HR<1.1 → CP<15% → stop. If observed HR 1.1-1.2 → CP 20-50% → adaptive increase.
+
+### Q5: How will you control 850 nm IR phototoxicity given no literature on 48h continuous exposure in RPE1?
+
+**A:** Pilot 0.5 generates these data as an original methodological contribution. Measurements at 0/24/48h: (a) viability (Live/Dead), (b) ROS (CellROX Green), (c) apoptosis (caspase-3/7), (d) proliferation (EdU), (e) medium temperature (thermocouple). Go/No-Go: Δ>10% in any metric vs. dark control → reduce IR duty cycle to pulsed mode (1s/10min). If pulsed mode also fails → remove IR, use only 488 nm LED with extended dark recovery (8h overnight). The night vision feature is a convenience, not a necessity — H₁, H₂, H₃ are all testable without IR.
+
+---
+
+*Version 58 — 2026-07-19. Materials: ASA primary (Tg 95-105°C), PET fallback. Motor thermal management: TMC2209 + GPIO MOSFET → 0.6W avg. OpenFlexure Forum (WilliamW) + O'Toole bioRxiv (Malcolm 2026). §§6.2-6.4. 35 refs.*
