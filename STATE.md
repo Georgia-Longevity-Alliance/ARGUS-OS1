@@ -1,7 +1,7 @@
 # STATE — ARGUS-OS1
 
 **Date:** 2026-07-20
-**Status:** ✅ v97.9 — References added (14 verified). 3 reviewer PMIDs were WRONG — corrected. $34K.
+**Status:** ✅ v97.11 — Pilot 1.5 (θ validation). Z-drift <1µm. RA budget. Ac-Tub marker. SiR titration. $40K.
 
 ## Current Design (v50 / Platform v1.0)
 
