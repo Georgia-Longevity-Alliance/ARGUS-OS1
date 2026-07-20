@@ -1,8 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 70.0
+**Version:** 71.0
 **Date:** 2026-07-20
-> **v70:** Review #16. Wang 2009 = MOUSE neocortex (NOT Drosophila — reviewer confused with Yamashita 2007). Pilot 0.5: simultaneous integration test of ALL subsystems × 72h.
+> **v71:** Review #17. Ninein KD added as formal v2.0 alternative to Odf2-KO (validated in human NPCs, Royall 2023). N=600 confirmed as baseline. All PMIDs re-verified.
 > **v68:** Review #14. Barandun: mother→effector-like daughter (NOT memory — corrected per original text). Valdes Michel: moved to evolutionary parallels. ⚠️ Reviewer claim that Wang 2009, Conduit 2010, Januschke 2011, Paridaen 2013 are "missing from references" is ERRONEOUS — all four are present in §9 (refs #2, #9, #29, #5).
 > **v65:** Review #12: Dendra2-Centrin in Phase 1. Hypothesis: "structural-functional state." Odf2 = structural control. Secondary 6→3. SiR-Tubulin mitosis detection. 35 refs.*
 
@@ -256,7 +256,7 @@ Random intercepts for IslandID/PlateID account for micropattern and batch variab
 >
 > **What Odf2 domain deletions DO test:** Which appendage TYPE (distal vs. subdistal) is required for asymmetry. This is structural dissection, not age manipulation.
 >
-> **What WOULD test age causality:** Inducible PCM accumulation (tetracycline-inducible pericentrin to artificially "age" a centrosome), forced degradation of aged centrosomal proteins, or photoconversion-based age tracking (Dendra2-Centrin as in Valdes Michel 2025). These are beyond v1.0 scope — they require v3.0 (ARGUS-OS3) laser capabilities.
+> **Alternative path to causality (v2.0): Ninein KD.** shRNA-mediated Ninein knockdown (validated in human NPCs by Royall 2023, PMID 37882444) randomizes centrosome inheritance → if asymmetry drops to ~50%, centrosome age is causal for fate. **This is faster and lower-risk than Odf2-KO** — Ninein shRNA is commercially available, works in human cells without species barrier, and requires 4-6 weeks vs. 20-24 for Odf2-KO construct validation. Odf2 domain deletions remain as structural dissection (which appendage type), Ninein KD as causality test (does randomization abolish effect). **Both are v2.0, separate grant from v1.0.**
 >
 > **Honest framing for grant committees:** Phase 2 answers "Which centrosome substructure transmits the asymmetry signal?" — a structural question. Phase 3 answers "Is the centrosome age signal causal for fate?" — a causal question requiring ablation-capable hardware.
 
