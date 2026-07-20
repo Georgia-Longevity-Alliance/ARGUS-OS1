@@ -1,7 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 79.0
+**Version:** 81.0
 **Date:** 2026-07-20
+> **v81:** Review #28. Personnel $45K (6mo×0.75FTE). Dendra2 base. Stats simplified. Causality = CORRELATION ONLY.
 > **v79:** Review #25. Ninein KD = structural necessity (NOT age causality). β-catenin: C. elegans = principle only. N=800. CYTOO 2b: 100 pairs. Dendra2 vs RITE. 36 refs.
 > **v77:** Review #23. Personnel: 0.75→1.0 FTE. Autofocus: closed-loop with reflective 850 nm beads. Ninein KD in Phase 1 as rapid causality test.
 > **v76:** Review #22. N=500 (AUC correction: 15% classification error→HR dilution). Sham-manipulated control. NPC 80%.
@@ -395,12 +396,12 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | **Micromanipulator (3-axis FOSH + microinjector + capillaries) — Plan Б for CYTOO** | **1,208** |
 | Tetraspeck beads | 200 |
 | IF antibodies (acetyl-tubulin, PCM: pericentrin/γ-tubulin/Cdk5Rap2, appendages: Ninein/Cep164, Mib1/PCM1/Notch1, centrin-2, secondary, DAPI) | 500 |
-| **Personnel** | 🔴 **Postdoc/Research Assistant, 12 weeks × 1.0 FTE.** Covers: cell culture, 500-pair microscopy, manual QC (~30h), IF, data analysis, writing. **Realistic workload: ~800-1000h. 1.0 FTE = ~480h in 12 weeks — tight but feasible with automated QC.** | **30,000** |
+| **Personnel** | 🔴 **Postdoc/RA, 6 months × 0.75 FTE.** 800-pair microscopy ~800-1000h. 0.75FTE×26wks=780h. **$45,000.** |
 | Consumables | 300 |
-| **Subtotal** | **45,438–46,438** |
-| **+25% contingency** | **11,360–11,610** |
+| **Subtotal** | **60,438–61,438** |
+| **+25% contingency** | **15,110–15,360** |
 | **SNR fallback (sCMOS)** | 1,800 |
-| **TOTAL (max)** | **$59,848** |
+| **TOTAL (max)** | **$78,598** |
 
 > Экономия: убраны микроманипулятор ($1,500), puller ($1,500), капилляры ($200). CYTOO — основной метод. Night vision (+$40) добавлен. **Резерв CYTOO (+$600) для адаптивного N при ICC>0.4.** IF antibodies расширены (+$300) для контроля PCM/аппендиксов, Mib1/PCM1/Notch1, и Cyclopamine. **Контингенси 25% (против 15% ранее) — покрывает ценовой риск объектива и инкубатора (Review #2 §3.4).**
 
