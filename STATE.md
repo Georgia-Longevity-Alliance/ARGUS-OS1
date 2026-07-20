@@ -1,7 +1,7 @@
 # STATE — ARGUS-OS1
 
 **Date:** 2026-07-20
-**Status:** ✅ v97.5 — XYZ→position. SiR 100nM. Autofocus. Alt hypotheses noted.
+**Status:** ✅ v97.9 — References added (14 verified). 3 reviewer PMIDs were WRONG — corrected. $34K.
 
 ## Current Design (v50 / Platform v1.0)
 
