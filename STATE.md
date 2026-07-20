@@ -1,7 +1,7 @@
 # STATE — ARGUS-OS1
 
 **Date:** 2026-07-20
-**Status:** ✅ v97.11 — Pilot 1.5 (θ validation). Z-drift <1µm. RA budget. Ac-Tub marker. SiR titration. $40K.
+**Status:** ✅ v98 — Возраст = время от создания (часы), не n_divisions. |
 
 ## Current Design (v50 / Platform v1.0)
 
