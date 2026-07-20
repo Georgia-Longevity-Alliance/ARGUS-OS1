@@ -1,10 +1,8 @@
 # ARGUS-OS1
 
-**Centriole pedigree → дифференцировка.**
+C. elegans only. Centriole pedigree (∥/⟂) → centriole fate.
 
-Фаза 1: C. elegans (полная клеточная карта, 959 клеток).
-Фаза 2: RPE1 (перенос на млекопитающих).
+959 cells. 68 retain centrioles. ~88% eliminate (Kalbfuss 2023).
+Stochastic segregation (Gönczy 2023). $10K.
 
-2 маркера: Centrin1-GFP + SiR-Tubulin.
-Бюджет: $40K.
 OS1 → OS2 → OS3.
