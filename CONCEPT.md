@@ -242,7 +242,7 @@ Random intercepts for IslandID/PlateID account for micropattern and batch variab
 | **Pilot 3** | RPE1, 50 pairs **+ direct measurement of daughter cell size asymmetry (Thomas & Meraldi 2024 method: cell area at cytokinesis+2h). Verify that 3.1% spindle asymmetry reproduces in ARGUS-LP_OS. If asymmetry not detected → H₂ mechanistic basis weakened (cilium timing may still differ, but mechanism is not spindle-size-mediated).** | 2 weeks | Effect size + ICC estimate for final N **+ spindle asymmetry verification (GO: 3.1±2% SAI detected)** |
 | **Main RPE1** | RPE1-hTERT, 300 pairs, 48h (H₂: 1st cycle cilium timing). **Adaptive N: if Pilot 3 ICC>0.4 → N=600 (budget includes CYTOO reserve). Substrate: CYTOO unless Pilot 2b shows suppression → standard coverslips + micromanipulator.** | 4 weeks | Primary: time-to-ciliogenesis |
 | **Main NPCs** | hTERT-NPCs, 150 pairs, endpoint from Pilot NPC time series | 4 weeks | Primary: Nestin→Tuj1/GFAP fate |
-| **Pilot NPC** | hTERT-NPCs, CYTOO, 30 pairs, time series 24/48/72/96h + Nestin/Sox2/Tuj1/GFAP **+ Mib1/PCM1/Notch1 ICD IF (validates Notch-axis in 2D per Tozer 2017, Zhao 2025)** | 2 weeks | Determine optimal endpoint + centrosome asymmetry in 2D + effect size **+ Mib1/PCM1 asymmetric localization (≥60% pairs → confirms 2D model validity)** |
+| **Pilot NPC** | hTERT-NPCs, CYTOO, 30 pairs, time series 24/48/72/96h + Nestin/Sox2/Tuj1/GFAP **+ Mib1/PCM1/Notch1 ICD IF (validates Notch-axis in 2D per Tozer 2017, Zhao 2025)** | 2 weeks | Determine optimal endpoint + centrosome asymmetry in 2D + effect size **+ Mib1/PCM1 asymmetric localization (≥75% pairs — stricter threshold per Review #21, reflecting strong 3D effect in Royall 2023)** |
 | **Phase 2 (v2.0/ARGUS-OS2)** | 🔴 **Recommended as SEPARATE GRANT.** RPE1 Odf2 KO + domain deletions (Tateishi 2013, PMID 24189274). ⚠️ Tateishi used mouse F9 cells — human RPE1 constructs require de novo validation. Realistic timeline: **20-24 weeks.** Realistic budget: **$8,000-10,000** (4 Odf2-GFP construct synthesis + CRISPR-KI + clone selection + validation). Phase 2 is NOT included in v1.0 budget — it is acknowledged as a necessary follow-up requiring independent funding. | 20-24 weeks (separate grant) | Structural necessity (separate from v1.0) |
 | **Phase 3 (v3.0/ARGUS-OS3)** | hTERT-NPCs + ExM endpoint **+ Dendra2-Centrin photoactivation (405 nm laser) for DIRECT centrosome age causality test** | 6-8 weeks | Progenitor map **+ age causality** |
 
@@ -262,8 +262,8 @@ Random intercepts for IslandID/PlateID account for micropattern and batch variab
 > **Honest framing for grant committees:** Phase 2 answers "Which centrosome substructure transmits the asymmetry signal?" — a structural question. Phase 3 answers "Is the centrosome age signal causal for fate?" — a causal question requiring ablation-capable hardware.
 
 Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogenesis (Ishikawa 2005, PMID 15852003 — mouse F9 cells).
-- aa 188-806 → transition fibers/distal appendages (DA). Deletion → DA+SA− (distal present, subdistal absent). Cilia form but are abnormal.
-- aa 1-59 (N-terminal) → centriole recruitment. Deletion → no localization, no appendages, no cilia.
+- **Odf2(Δ4/5)** [previously referred to as Δ188-806] → transition fibers/distal appendages (DA). Deletion → DA+SA− (distal present, subdistal absent). Cilia form but are abnormal. Per Tateishi 2013 nomenclature: Δ4/5 and Δ6/7 are the standard construct names.
+- aa 1-59 (N-terminal) → centriole recruitment. Deletion (Δ1-59 / ΔN) → no localization, no appendages, no cilia.
 - C-terminal domain → appendage formation after recruitment. Deletion → centrosome binding intact, appendages absent.
 
 **Experimental design (domain deletions, structural phenotypes per Tateishi 2013; asymmetry predictions are OUR HYPOTHESIS — NOT tested by Tateishi):**
@@ -273,8 +273,8 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | WT | — | Normal appendages + cilia | 94% asymmetry (baseline) |
 | Odf2⁻/⁻ | — | No appendages, no cilia | No cilia, no asymmetry |
 | **Odf2⁻/⁻ + Odf2(FL)** | Full-length Odf2-GFP | Full rescue: DA+SA+, cilia+ | **Positive control.** Appendages + cilia restored → asymmetry restored |
-| **Odf2⁻/⁻ + Odf2(Δ188-806)** | Central domain deletion | **DA+SA−.** Distal appendages present, subdistal absent. Cilia form but are abnormal (reduced frequency, shorter) | **Key experimental group.** Tests whether distal appendages ALONE sufficient for centrosome-age-dependent asymmetry |
-| **Odf2⁻/⁻ + Odf2(Δ1-59)** | N-terminal deletion | **No centriole recruitment.** Does NOT localize to basal bodies. No appendages, no cilia | **Negative control.** Confirms recruitment is required |
+| **Odf2⁻/⁻ + Odf2(Δ4/5)** | Central domain deletion (Tateishi Δ4/5) | **DA+SA−.** Distal appendages present, subdistal absent. Cilia form but are abnormal (reduced frequency, shorter) | **Key experimental group.** Tests whether distal appendages ALONE sufficient for centrosome-age-dependent asymmetry |
+| **Odf2⁻/⁻ + Odf2(Δ1-59)** | N-terminal deletion (ΔN) | **No centriole recruitment.** Does NOT localize to basal bodies. No appendages, no cilia | **Negative control.** Confirms recruitment is required |
 | **Odf2⁻/⁻ + Odf2(ΔC)** | C-terminal deletion | Centrosome binding intact, but NO appendage formation | **Structural binding control.** Separates centrosome binding from appendage function |
 | **WT + Ninein KD** | shNinein | Randomizes centrosome inheritance (Royall 2023). If asymmetry drops to ~50% → centrosome age is CAUSAL for fate | **Causality control.** Orthogonal to Odf2 — tests whether randomization abolishes asymmetry |
 
