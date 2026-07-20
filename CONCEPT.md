@@ -55,7 +55,7 @@ OS3: прогениторные карты = граф
 | Confound | Control |
 |----------|---------|
 | Centrin1-GFP overexpression | WB ≤2× endogenous. Δ>10% division rate vs WT → reject clone. |
-| SiR-Tubulin 100 nM | Titration 50/100/200 nM. Control without SiR. |
+| SiR-Tubulin 100 nM — live-cell MT marker. **Validated for RPE1 at 100 nM** (Spirochrome protocol: ≤100 nM for long-term imaging). Titration 50/100/200 nM. Control without SiR. |
 | 488+640 nm phototoxicity | Pilot 0.5: 72h, viability, ROS, γH2AX. Δ>10% → reduce duty cycle. |
 | Z-drift | Autofocus (Knapper 2022) + GFP beads. Recalibration every 1-2h. Target <1µm/24h. |
 
@@ -65,8 +65,8 @@ OS3: прогениторные карты = граф
 
 | Параметр | Значение |
 |----------|----------|
-| Primary test | Logistic regression: divides_again ~ centriole_age_hours + trajectory_θ |
-| N | 600 пар (interim at 300) |
+| Primary test | Logistic regression: divides_again ~ trajectory_θ + centriole_age_hours |
+| N | 600 пар (interim at 300). **AI-автоматизация: ~2.6M кадров → CellPose + Bayesian tracker обрабатывают без ручного вмешательства.** |
 | Power | 82% at OR≥1.5, ICC ρ=0.3 |
 
 ---
