@@ -1,4 +1,4 @@
-# Firmware — ARGUS-LP_OS
+# Firmware — ARGUS-OS1
 
 ## Climate Controller (RasPi Pico W) — v1.0 + v2.0
 

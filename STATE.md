@@ -1,7 +1,7 @@
-# STATE — ARGUS-LP_OS
+# STATE — ARGUS-OS1
 
 **Date:** 2026-07-20
-**Status:** 🟡 v59 — Comprehensive audit: v2.0 (20 refs ✓, 10 weak spots) + v3.0 (8 refs добавлены). CONCEPT.md: PMID 7544801→7642707 исправлено. 28 источников всего.
+**Status:** ✅ v64 — ARGUS-OS2 CONCEPT v3.0 (🔴 CRITICAL REVISION: Odf2-KO RPE1 preserves cilia per Viol 2020. SDA paradigm. ODF2-FL rescue). Systematic review: 10 studies. All refs verified.
 
 ## Current Design (v50 / Platform v1.0)
 

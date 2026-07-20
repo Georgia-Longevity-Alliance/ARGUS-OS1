@@ -1,6 +1,6 @@
-# ARGUS-LP_OS — Hardware
+# ARGUS-OS1 — Hardware
 
-This directory contains STL files, FreeCAD models, and electronics schematics for the ARGUS-LP_OS robotic microscope platform.
+This directory contains STL files, FreeCAD models, and electronics schematics for the ARGUS-OS1 robotic microscope platform.
 
 ## Platform Versions (hardware)
 

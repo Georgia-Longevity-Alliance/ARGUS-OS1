@@ -1,4 +1,4 @@
-# ФАКТ-ЧЕК PEER REVIEW #2 — ARGUS-LP_OS v35.0
+# ФАКТ-ЧЕК PEER REVIEW #2 — ARGUS-OS1 v35.0
 
 **Дата:** 2026-07-17
 **Проверено:** 8 новых ссылок через PubMed
@@ -26,7 +26,7 @@
 
 > «LRRCC1 and C2CD3 delineate a structure reminiscent of a filamentous density... rotational asymmetry is an ancient property of centrioles broadly conserved in human cells.»
 
-**Влияние на ARGUS-LP_OS:** Ротационная асимметрия означает, что Cenexin-сигнал может зависеть от ориентации центриоли относительно объектива. Z-stack уменьшает, но не устраняет эту проблему.
+**Влияние на ARGUS-OS1:** Ротационная асимметрия означает, что Cenexin-сигнал может зависеть от ориентации центриоли относительно объектива. Z-stack уменьшает, но не устраняет эту проблему.
 
 **Решение:** 3D-реконструкция центриолей из z-stack (деконволюция + изотропная интерполяция). Не 3D-SIM — достаточно computational approach. Gaudin 2022 использовал U-ExM + confocal z-stacks с 3D-реконструкцией, не SIM. 
 

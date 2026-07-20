@@ -1,4 +1,4 @@
-# ОТВЕТ НА РЕЦЕНЗИЮ #4 — ARGUS-LP_OS v57
+# ОТВЕТ НА РЕЦЕНЗИЮ #4 — ARGUS-OS1 v57
 
 **Дата:** 2026-07-19
 **Рецензия:** Review #4 (Expert Council, сверхстрогая)
@@ -41,7 +41,7 @@ Thomas & Meraldi 2024 (PMID 39012627) сообщают:
 **Исправление (v57):**
 - Central Hypothesis: «SAI = 2.7 ± 5.5% (early metaphase) to 3.8 ± 5.6% (late anaphase), weighted mean ≈3.1%»
 - Pathway A: явно указаны оба значения с n и P
-- Pilot 3: прямое измерение SAI в ARGUS-LP_OS для верификации воспроизводимости
+- Pilot 3: прямое измерение SAI в ARGUS-OS1 для верификации воспроизводимости
 
 ---
 

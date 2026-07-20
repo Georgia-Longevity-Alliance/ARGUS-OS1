@@ -1,7 +1,7 @@
-# ARGUS-LP_OS — Deep Audit: Evidence Review, Weak Spots, and Solutions
+# ARGUS-OS1 — Deep Audit: Evidence Review, Weak Spots, and Solutions
 
 > **Дата:** 2026-07-18
-> **Проект:** ARGUS-LP_OS (~/Desktop/Marketing/ARGUS-LP_OS/)
+> **Проект:** ARGUS-OS1 (~/Desktop/Marketing/ARGUS-OS1/)
 > **Анализ:** CONCEPT.md v42.0 (580 строк, 28 PMID)
 > **Всего проверено PMID:** 28/28 ✅ (100% подтверждены через PubMed API)
 > **Дополнительно найдено:** 8 статей
@@ -51,7 +51,7 @@
 
 **Проблема:** PubMed поиск «live cell lineage tracing centriole inheritance» возвращает **0 результатов**. Это одновременно и сильная сторона (абсолютная новизна), и слабая (нет прецедентов — нет доказательств что это вообще работает).
 
-**Решение:** Это явно указано в CONCEPT.md как «NEVER MEASURED». V1 должен доказать feasibility. Go/No-Go гейты прописаны корректно. **Рекомендация:** добавить в CONCEPT.md явное утверждение: «To our knowledge, no published study has tracked centriole inheritance across multiple divisions in live human cells. This is both the novelty and the risk of ARGUS-LP_OS.»
+**Решение:** Это явно указано в CONCEPT.md как «NEVER MEASURED». V1 должен доказать feasibility. Go/No-Go гейты прописаны корректно. **Рекомендация:** добавить в CONCEPT.md явное утверждение: «To our knowledge, no published study has tracked centriole inheritance across multiple divisions in live human cells. This is both the novelty and the risk of ARGUS-OS1.»
 
 ### 🔴 CRITICAL #2: Конкурирующие open-source платформы СУЩЕСТВУЮТ
 
@@ -63,7 +63,7 @@
 
 **Проблема:** CONCEPT.md не упоминает Incubot и ATLIS как конкурентов. UC2 упомянут в ref [11] но не сравнивается.
 
-**Решение:** Добавить таблицу сравнения ARGUS-LP_OS vs Incubot vs ATLIS vs UC2 vs коммерческие (IncuCyte, Cytation). Ключевое отличие: **НИ ОДНА из этих платформ не делает centriole-based lineage tracking.** Все они — general-purpose микроскопы.
+**Решение:** Добавить таблицу сравнения ARGUS-OS1 vs Incubot vs ATLIS vs UC2 vs коммерческие (IncuCyte, Cytation). Ключевое отличие: **НИ ОДНА из этих платформ не делает centriole-based lineage tracking.** Все они — general-purpose микроскопы.
 
 ### 🔴 CRITICAL #3: Anderson & Stearns 2009 — 33/35 пар, НО это NIH/3T3, не NPC
 
@@ -134,9 +134,9 @@
 
 ## §4 Мета-анализ доказательной базы
 
-### 4.1 Сильные стороны ARGUS-LP_OS
+### 4.1 Сильные стороны ARGUS-OS1
 
-1. **Абсолютная новизна:** PubMed подтверждает — НЕТ published live-cell lineage tracking с centriole age. ARGUS-LP_OS создаёт новое поле.
+1. **Абсолютная новизна:** PubMed подтверждает — НЕТ published live-cell lineage tracking с centriole age. ARGUS-OS1 создаёт новое поле.
 
 2. **Биологический фундамент — сильный:**
    - Centriole age → cilium asymmetry (Anderson & Stearns 2009: 94%, 33/35) — **доказано в NIH/3T3**
@@ -178,7 +178,7 @@
 
 ## §5 Сравнение с конкурентами
 
-| Параметр | ARGUS-LP_OS | Incubot | ATLIS | UC2 | IncuCyte S3 |
+| Параметр | ARGUS-OS1 | Incubot | ATLIS | UC2 | IncuCyte S3 |
 |----------|:----------:|:-------:|:-----:|:---:|:-----------:|
 | Цена | $15-20K | ~$1K | ~$500 | ~$3K | €100K+ |
 | Open source | ✅ GPLv3 | ✅ | ✅ | ✅ | ❌ |
@@ -190,7 +190,7 @@
 | Автономность | 24/7 | 🔲 | 🔲 | 🔲 | ✅ |
 | Готовность | Прототип | Прототип | Прототип | Готов | Готов |
 
-**Ключевое отличие ARGUS-LP_OS:** специализирован под centriole lineage tracking. Все остальные — general-purpose.
+**Ключевое отличие ARGUS-OS1:** специализирован под centriole lineage tracking. Все остальные — general-purpose.
 
 ---
 

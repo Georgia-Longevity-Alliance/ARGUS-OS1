@@ -1,4 +1,4 @@
-# ФАКТ-ЧЕК PEER REVIEW #4 — ARGUS-LP_OS v37.0
+# ФАКТ-ЧЕК PEER REVIEW #4 — ARGUS-OS1 v37.0
 
 **Дата:** 2026-07-17
 

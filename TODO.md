@@ -1,6 +1,7 @@
-# TODO — ARGUS-LP_OS
+# TODO — ARGUS-OS1
 
-**Version:** 50 — Synchronised with CONCEPT v50
+**Version:** 51 — Synchronised with CONCEPT v94
+**Date:** 2026-07-20
 **Date:** 2026-07-19
 
 ## Now — Pre-Grant Validation

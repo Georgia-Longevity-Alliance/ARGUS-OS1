@@ -1,7 +1,7 @@
-# VALIDATION PLAN — ARGUS-LP_OS
+# VALIDATION PLAN — ARGUS-OS1
 
 **Date:** 2026-07-16  
-**Purpose:** Prove that each version of ARGUS-LP_OS does what it claims.
+**Purpose:** Prove that each version of ARGUS-OS1 does what it claims.
 
 ---
 
@@ -84,7 +84,7 @@ Prove LLM-based post-hoc analysis adds value without compromising system reliabi
 ## Centriolar Hypothesis Validation (Cross-Version)
 
 ### Objective
-Prove ARGUS-LP_OS can test the centriolar asymmetry hypothesis.
+Prove ARGUS-OS1 can test the centriolar asymmetry hypothesis.
 
 | # | Test | Method | Pass Threshold |
 |---|------|--------|:--------------:|

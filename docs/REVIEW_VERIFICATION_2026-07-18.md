@@ -30,7 +30,7 @@
 
 | Утверждение | Факт |
 |-------------|------|
-| «Anderson & Stearns 2009 не устанавливали количественный порог» | **Верно.** Порог 1.5 НЕ указан в Anderson 2009. Но Anderson 2009 Fig. 3A показывает, что Cenexin signal brighter на older mother centriole. Порог >1.5 — это операциональное определение ARGUS-LP_OS, а не цитата из литературы. Рецензент прав. |
+| «Anderson & Stearns 2009 не устанавливали количественный порог» | **Верно.** Порог 1.5 НЕ указан в Anderson 2009. Но Anderson 2009 Fig. 3A показывает, что Cenexin signal brighter на older mother centriole. Порог >1.5 — это операциональное определение ARGUS-OS1, а не цитата из литературы. Рецензент прав. |
 
 ---
 
@@ -123,7 +123,7 @@ Zhao 2025 (PMID 41315244) показывает PCM1-Notch связь в **zebraf
 
 **Оценка рецензента: СПРАВЕДЛИВО.**
 
-Anderson & Stearns 2009 НЕ устанавливали порог 1.5. Это операциональное определение ARGUS-LP_OS.
+Anderson & Stearns 2009 НЕ устанавливали порог 1.5. Это операциональное определение ARGUS-OS1.
 
 **Решение для CONCEPT v45:**
 1. Изменить текст: «We operationally define the mature mother centrosome as the one with Cenexin intensity ratio _M > 1.5_. This threshold is consistent with Anderson & Stearns 2009 (Fig. 3A) who showed Cenexin signal is brighter on the older mother centriole in 33/35 pairs, but the specific value of 1.5 will be calibrated in pilot experiments.»

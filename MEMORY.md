@@ -1,4 +1,18 @@
-# MEMORY — ARGUS-LP_OS
+# MEMORY — ARGUS-OS1
+
+## 🔴 v51 — Renamed ARGUS-LP_OS → ARGUS-OS1 (2026-07-20)
+
+> Comprehensive audit. ARGUS-OS2 and ARGUS-OS3 = separate projects. All 28 references verified. PMID error (7544801→7642707) fixed.
+
+### Ключевые изменения:
+1. ✅ **Переименование:** ARGUS-LP_OS → ARGUS-OS1
+2. ✅ **ARGUS-OS2 (v2.0):** Causality — Ninein KD + Odf2 domain deletions
+3. ✅ **ARGUS-OS3 (v3.0):** Progenitor maps — fs-laser + manipulators + mtDNA
+4. ✅ **28 источников проверены** через PubMed (docs/COMPREHENSIVE_AUDIT_2026-07-20.md)
+5. ✅ **PMID 7544801→7642707** (Lange & Gull 1995)
+6. ✅ **letters/ исключён** из публичного GitHub
+
+---
 
 ## 🔴 v50 — Peer Review #8 Response + Mechanism + Time-to-Ciliogenesis (2026-07-19)
 
@@ -124,7 +138,7 @@
 
 **Translation:** We are building a dialogical, evolutionary-abductive research machine. One participant throws out semantically dense, not-yet-formalized candidates; the second broadly reconstructs them; both criticize not only results but the operational frames of the search itself; and the surviving structures remain as a shared network, altering the form of the next search.
 
-**Applied to ARGUS-LP_OS:** Jaba → concept/intuition. AI/system → literature reconstruction, methodology, peer review simulation. Both → criticize framing ("is this an instrument grant or a causality claim?"). Surviving structures (v38 framework: centriole=barcode, map=deliverable) → baseline for next iteration.
+**Applied to ARGUS-OS1:** Jaba → concept/intuition. AI/system → literature reconstruction, methodology, peer review simulation. Both → criticize framing ("is this an instrument grant or a causality claim?"). Surviving structures (v38 framework: centriole=barcode, map=deliverable) → baseline for next iteration.
 
 **This is the method.** Not hypothesis-testing. Not engineering. It is dialogical evolutionary abduction — Peircean logic implemented as human-AI collaboration. Reply sent to ცომაია 2026-07-17.
 
@@ -210,10 +224,10 @@ Added to: `_pi.md`, `~/.pi/agent/AGENTS.md`.
 **Priority for OSC resubmit (~1 Aug):** items 1-3 (hypothesis, references, validation).
 Rest — during V1 build.
 
-### 2026-07-15: Renamed → ARGUS-LP_OS
+### 2026-07-15: Renamed → ARGUS-OS1
 
 **Trigger:** Analysis — grant project identity needed in name.
-**Decision:** ARGUS-LP → ARGUS-LP_OS (Open Science). All core files, AGENTS.md, Marketing updated.
+**Decision:** ARGUS-LP → ARGUS-OS1 (Open Science). All core files, AGENTS.md, Marketing updated.
 
 ### 2026-07-15: Restart — org, fork, real budgets
 
@@ -236,6 +250,6 @@ Upright beats inverted. Water immersion objective from above → gravity holds w
 
 Alex — IT entrepreneur with robotics team. Agreed: he funds + provides engineers, Jaba provides scientific direction. BOM v2.0 (54 line items).
 
-### 2026-06-16: ARGUS-LP_OS split from Aubrey
+### 2026-06-16: ARGUS-OS1 split from Aubrey
 
-Became standalone grant project under Marketing. Previously embedded in LC/MCARA/Aubrey. Renamed ARGUS-LP_OS 2026-07-15.
+Became standalone grant project under Marketing. Previously embedded in LC/MCARA/Aubrey. Renamed ARGUS-OS1 2026-07-15.

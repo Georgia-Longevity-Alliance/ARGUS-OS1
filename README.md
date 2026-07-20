@@ -1,4 +1,4 @@
-# ARGUS-LP_OS — centrosome maturation state as a division history marker
+# ARGUS-OS1 — centrosome maturation state as a division history marker
 
 An open-source robotic microscope that tracks centrosome maturation state across divisions — asking whether the daughter cell that inherits the mature mother centrosome follows a different trajectory than its sister.
 
@@ -8,7 +8,7 @@ Built on [OpenFlexure](https://openflexure.org/) v6.1.5 inside a standard CO₂ 
 
 | Version | Project | Hardware | Experiment | Laser | Budget |
 |:-------:|---------|----------|------------|:-----:|:------:|
-| **v1.0** | [ARGUS-LP_OS](./) | OF v6.1.5, 60×/1.2 NA WI, LED 488, glove-box (HEPA H13), night vision | RPE1 observation | ❌ | **$24,053** |
+| **v1.0** | [ARGUS-OS1](./) | OF v6.1.5, 60×/1.2 NA WI, LED 488, glove-box (HEPA H13), night vision | RPE1 observation | ❌ | **$24,053** |
 | **v2.0** | [ARGUS-OS2](../ARGUS-OS2/) | Same as v1.0 + Odf2 domain deletion reagents (Tateishi 2013) | Causality (Odf2 KO + FL/Δ188-806/Δ1-59/ΔC rescue) | ❌ | +$6,000 |
 | **v3.0** | [ARGUS-OS3](../ARGUS-OS3/) | v1.0 + micromanipulator, fs laser, sCMOS, UV-C, Mac M4 Pro | NPC ablation + injection | ✅ | **$40,600** |
 

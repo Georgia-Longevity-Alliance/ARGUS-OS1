@@ -1,4 +1,4 @@
-# ARGUS-LP_OS Software
+# ARGUS-OS1 Software
 
 Control software for the autonomous 24/7 cell lineage tracking microscope.
 

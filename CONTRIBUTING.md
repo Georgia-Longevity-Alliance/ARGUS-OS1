@@ -1,4 +1,4 @@
-# Contributing to ARGUS-LP_OS
+# Contributing to ARGUS-OS1
 
 We're building an open-source robotic microscope that watches cells for weeks and tracks centrosome inheritance across divisions. If that sounds like fun, jump in.
 
@@ -17,8 +17,8 @@ We're building an open-source robotic microscope that watches cells for weeks an
 ## Getting set up
 
 ```bash
-git clone git@github.com:Georgia-Longevity-Alliance/ARGUS-LP.git
-cd ARGUS-LP_OS
+git clone git@github.com:Georgia-Longevity-Alliance/ARGUS-OS1.git
+cd ARGUS-OS1
 pip install -r requirements.txt
 ```
 
@@ -42,4 +42,4 @@ pip install -r requirements.txt
 
 ## Stuck?
 
-Open a [Discussion](https://github.com/Georgia-Longevity-Alliance/ARGUS-LP/discussions) or email jaba@longevity.ge.
+Open a [Discussion](https://github.com/Georgia-Longevity-Alliance/ARGUS-OS1/discussions) or email jaba@longevity.ge.

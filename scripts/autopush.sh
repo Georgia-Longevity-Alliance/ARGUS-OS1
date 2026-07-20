@@ -1,11 +1,9 @@
 #!/bin/bash
-# ARGUS-LP_OS auto-push script
-# Place: ~/Desktop/Marketing/ARGUS-LP_OS/scripts/autopush.sh
+# ARGUS-OS1 auto-push script
 # Usage: bash scripts/autopush.sh [commit message]
-# Run after making changes. Automatically stages, commits, and pushes.
 
 set -e
-cd ~/Desktop/Marketing/ARGUS-LP_OS
+cd ~/Desktop/Marketing/ARGUS-OS1
 
 MSG="${1:-auto: $(date '+%Y-%m-%d %H:%M')}"
 
@@ -16,4 +14,4 @@ if git diff --cached --quiet; then
 fi
 git commit -m "$MSG"
 git push origin main
-echo "✅ Pushed to Georgia-Longevity-Alliance/ARGUS-LP (public)"
+echo "✅ Pushed to Georgia-Longevity-Alliance/ARGUS-OS1"

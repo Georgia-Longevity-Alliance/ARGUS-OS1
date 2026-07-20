@@ -141,6 +141,38 @@ v3.0 = подход 2 (primary) + подход 3 (secondary) + подход 1 (h
 | Анализ + публикация | 8 |
 | **Всего** | **~36 недель** |
 
+## Power Analysis (Добавлено 2026-07-20)
+
+### Primary Endpoint: Proportion of asymmetric divisions detected
+
+**H₀:** P(asymmetric) = 50% (random — no age effect)
+**H₁:** P(asymmetric) > 50% (centrosome age drives fate)
+
+| True P(asymmetric) | N (pairs) | Power (α=0.05, one-sided binomial) |
+|:---:|:---:|:---:|
+| 60% | 100 | 38% |
+| 65% | 100 | 67% |
+| 70% | 100 | 89% |
+| 60% | 200 | 63% |
+| 65% | 200 | 90% |
+| 70% | 200 | 99% |
+
+> **N=200 пар для 80%+ power при P(asymmetric)≥65%.** Эффект меньше 65% — underpowered.
+
+### Secondary: Progenitor Map Coverage
+
+Цель: построить полное прогениторное дерево для ≥80% клеток.
+При 200 парах × 3 поколения = ~1400 клеток в дереве.
+
+## Go/No-Go Gates
+
+| Gate | Критерий | Действие при провале |
+|------|----------|---------------------|
+| FS-laser calibration | Viability ≥90% после разрезания, n=50 | Сменить длину волны / мощность |
+| Manipulator precision | Успешное разделение ≥80% пар, n=30 | Перейти на оптические пинцеты |
+| Pilot viability | ≥70% клеток живы через 48h после разделения | Оптимизировать протокол / сократить до 24h |
+| Main | P(asymmetric) significantly >50% при N=200 | Если p>0.05 → публиковать null |
+
 ---
 
 ## РЕШЕНИЕ

@@ -1,4 +1,4 @@
-# МЕТА-АНАЛИЗ ДВУХ PEER REVIEW — ARGUS-LP_OS v54
+# МЕТА-АНАЛИЗ ДВУХ PEER REVIEW — ARGUS-OS1 v54
 
 **Дата:** 2026-07-19
 **Рецензии:** Review #1 (pi, 2026-07-18/19) + Review #2 (Grant Committee, 2026-07-19)

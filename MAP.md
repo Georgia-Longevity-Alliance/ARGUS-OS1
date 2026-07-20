@@ -1,7 +1,7 @@
-# MAP — ARGUS-LP_OS
+# MAP — ARGUS-OS1
 
 ```
-ARGUS-LP_OS/
+ARGUS-OS1/
 ├── README.md               # Homepage (platform versions table)
 ├── CONCEPT.md              # Concept (v49 — hypothesis + 23 refs)
 ├── PARAMETERS.md           # Budget, technical specs, timeline
@@ -79,7 +79,7 @@ Planned subdirectories (created during build):
 
 ## Links
 - **Scientific basis:** `~/Desktop/LC/MCARA/CEDAR/` (centriolar hypothesis)
-- **Old version:** `~/Desktop/LC/MCARA/ARGUS-LP/` (archive)
+- **Old version:** `~/Desktop/LC/MCARA/ARGUS-OS1/` (archive)
 - **EIC Pathfinder:** `~/Desktop/Marketing/MCARA_EIC_Pathfinder/wp2_argus/`
 - **OpenFlexure upstream:** `https://github.com/openflexure/openflexure-microscope`
-- **GitHub:** `https://github.com/Georgia-Longevity-Alliance/ARGUS-LP`
+- **GitHub:** `https://github.com/Georgia-Longevity-Alliance/ARGUS-OS1`

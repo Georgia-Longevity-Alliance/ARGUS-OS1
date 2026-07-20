@@ -1,8 +1,8 @@
-# PARAMETERS — ARGUS-LP_OS
+# PARAMETERS — ARGUS-OS1
 
-**Version:** 59.0 — Synchronised with CONCEPT v80
+**Version:** 60.0 — Synchronised with CONCEPT v94
 **Date:** 2026-07-20
-> **v59:** Synced with CONCEPT v80. N=800 baseline. Combined phototoxicity (IR+488+405). Two-stage funding model. 36 refs.
+> **v60:** Renamed ARGUS-LP_OS → ARGUS-OS1. Synced with CONCEPT v94.
 > **v54:** Materials: ASA primary (Tg 95-105°C), PET fallback. Motor drivers: TMC2209 with GPIO MOSFET de-energising → 3% duty → 0.6W avg. O'Toole bioRxiv (Malcolm 2026) ref. OpenFlexure Forum (WilliamW) pers. comm.
 
 ## Phase 1 (v1.0) — Sister Tracking (RPE1-hTERT)

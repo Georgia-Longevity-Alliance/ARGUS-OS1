@@ -1,4 +1,4 @@
-# ФАКТ-ЧЕК PEER REVIEW — ARGUS-LP_OS v34.0
+# ФАКТ-ЧЕК PEER REVIEW — ARGUS-OS1 v34.0
 
 **Дата:** 2026-07-17
 **Проверено:** 10 ссылок через PubMed + прямой поиск
@@ -48,9 +48,9 @@ PMID: 29663194. Cerebellum. 2018 Oct;17(5):685-691.
 > «Centrosome Inheritance Does Not Regulate Cell Fate in Granule Neuron Progenitors of the Developing Cerebellum»
 Вывод: в гранулярных нейральных прогениторах мозжечка (CGNPs) **центросомное наследование НЕ коррелирует с судьбой клетки**. Mother и daughter centrosomes существуют (разное количество PCM), но какая клетка какую наследует — не определяет дифференцировку.
 
-**Почему это серьёзно для ARGUS-LP:**
+**Почему это серьёзно для ARGUS-OS1:**
 - Wang 2009 — неокортекс, Chatterjee 2018 — мозжечок. Разные регионы мозга → разная зависимость от centrosome inheritance.
-- ARGUS-LP планирует использовать NPC (передний мозг), но в humans (Royall 2023 — forebrain organoids, eLife). Royall 2023 **подтверждает** asymmetric inheritance в human NPCs.
+- ARGUS-OS1 планирует использовать NPC (передний мозг), но в humans (Royall 2023 — forebrain organoids, eLife). Royall 2023 **подтверждает** asymmetric inheritance в human NPCs.
 - Chatterjee НЕ опровергает Wang/Royall — он показывает, что механизм НЕ универсален для всех neural progenitors.
 
 ### Статистическая мощность — реальная проблема

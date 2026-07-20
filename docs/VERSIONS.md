@@ -1,4 +1,4 @@
-# VERSIONS — ARGUS-LP (инженерные)
+# VERSIONS — ARGUS-OS1 (инженерные)
 
 **Date:** 2026-07-20
 

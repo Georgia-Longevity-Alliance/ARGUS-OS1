@@ -1,4 +1,4 @@
-# ARGUS-LP_OS — Action Plan, July 2026
+# ARGUS-OS1 — Action Plan, July 2026
 
 ## 1. Pilot: Centrin1-GFP SNR — 4 weeks, ~$1,650
 
@@ -20,7 +20,7 @@
 
 **Go/No-Go:** SNR ≥ 5 at ≤5% LED → proceed. SNR < 5 → reconsider optical design.
 
-Full protocol: `~/Desktop/Marketing/ARGUS-LP_OS/docs/PILOT_CENTRIN1_SNR_PLAN.md`
+Full protocol: `~/Desktop/Marketing/ARGUS-OS1/docs/PILOT_CENTRIN1_SNR_PLAN.md`
 
 ---
 

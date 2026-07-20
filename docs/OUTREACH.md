@@ -1,4 +1,4 @@
-# ARGUS-LP_OS — Outreach & Validation Materials
+# ARGUS-OS1 — Outreach & Validation Materials
 
 > Создано: 2026-07-18
 > Папка содержит все материалы для внешних контактов и валидации платформы

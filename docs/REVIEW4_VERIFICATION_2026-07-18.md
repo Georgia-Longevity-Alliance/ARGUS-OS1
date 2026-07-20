@@ -20,4 +20,4 @@
 **Thomas & Meraldi 2024:** асимметрия веретена 2-5%. **Асимметрия СУДЬБЫ НЕ ПОКАЗАНА.**
 
 Это честный логический разрыв. v48 должен явно признать:
-> «Thomas & Meraldi demonstrate spindle asymmetry. Whether this translates to fate asymmetry is UNKNOWN. ARGUS-LP_OS tests this translation.»
+> «Thomas & Meraldi demonstrate spindle asymmetry. Whether this translates to fate asymmetry is UNKNOWN. ARGUS-OS1 tests this translation.»

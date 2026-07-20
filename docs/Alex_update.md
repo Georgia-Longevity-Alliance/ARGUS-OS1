@@ -15,5 +15,5 @@
 - STL печатаются. Hardware/README, software/README, MAP.md — всё синхронизировано под v49.
 - На форуме OpenFlexure — двое интересуются (teh, WilliamW).
 - Статья в RSI (Review of Scientific Instruments) на рецензии — задержка с рецензентами.
-- GitHub: https://github.com/Georgia-Longevity-Alliance/ARGUS-LP — активность пошла.
+- GitHub: https://github.com/Georgia-Longevity-Alliance/ARGUS-OS1 — активность пошла.
 Если твоему инженеру нужны конкретные STL или спецификации — скину.
