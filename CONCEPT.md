@@ -1,7 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 85.0
+**Version:** 86.0
 **Date:** 2026-07-20
+> **v86:** Review #33. Two-part split recommended (Part A: instrument $20K/6mo, Part B: biology $40K/6mo). Wang 2009 = centrosome→fate in mouse neocortex (reviewer claim erroneous — verified ×33). Competitive comparison table.
 > **v85:** Review #32. Causality testing (Ninein KD, BI2536, Dendra2) = ARGUS-OS2 (separate grant). v1.0 = instrument validation + correlation discovery. Two-stage model emphasised.
 > **v84:** Review #31. Odf2 ΔC construct removed (not explicitly in Tateishi 2013 as separate named construct). HDAC6i = discussion only. Sequential RPE1→NPC design recommended.
 > **v83:** Review #30. Tateishi 24189274 RE-VERIFIED (reviewer claim erroneous). Soung 19389396 = wrong PMID from reviewer (PARP, not centrosomes). Monte Carlo simulation added.
