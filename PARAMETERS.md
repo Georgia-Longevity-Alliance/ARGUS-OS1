@@ -11,7 +11,7 @@
 | Objective | 60×/1.2 NA WI |
 | Camera | RasPi Camera HQ |
 | Markers | Centrin1-GFP + SiR-Tubulin (live), Arl13B (endpoint) |
-| Trajectory | Binary: ∥ (along) or ⟂ (perpendicular) per division |
+| Spindle orientation pedigreey | Binary: ∥ (along) or ⟂ (perpendicular) per division |
 | Age | Number of divisions survived |
 
 ## Experiment
@@ -27,4 +27,4 @@
 
 ## OS1 → OS2 → OS3
 
-OS1 collects trajectory + fate data → OS2 tests convergence → OS3 builds progenitor maps.
+OS1 collects spindle orientation pedigreey + fate data → OS2 tests convergence → OS3 builds progenitor maps.
