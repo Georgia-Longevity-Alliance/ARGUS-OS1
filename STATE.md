@@ -1,7 +1,7 @@
 # STATE — ARGUS-LP_OS
 
 **Date:** 2026-07-20
-**Status:** 🟡 v54 — v1.0 (V0+V6): наблюдение. v2.0 (V7): поиск причин (водная иммерсия 60×, локальный AI). v3.0: абляция + манипуляторы. Научная платформа: CONCEPT.md. Инженерные: docs/VERSIONS.md.
+**Status:** 🟡 v55 — v1.0 (V0+V6): наблюдение. v2.0 (V7): поиск причин — Ninein KD + Odf2 Δ4/5. v3.0: абляция + манипуляторы + лазерные пинцеты (прогениторные карты). Docs: VERSIONS.md, V0_PROTOTYPE_ALEX.md, V6_PROTOTYPE_ALEX.md, V2_CAUSALITY.md.
 
 ## Current Design (v50 / Platform v1.0)
 
