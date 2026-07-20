@@ -2,7 +2,7 @@
 
 **Version:** 93.0
 **Date:** 2026-07-20
-> **v93:** Review #40. RECOMMENDED FOR FUNDING (9.1/10). +Lange & Gull 1995 (PMID 7544801): cenexin marks G₂/M-transition maturity, not chronological age. 37 refs.
+> **v93:** Review #40. RECOMMENDED FOR FUNDING (9.1/10). +Lange & Gull 1995 (PMID 7642707): cenexin marks G₂/M-transition maturity, not chronological age. 37 refs.
 > **v92:** Review #39. Barandun: "promotes memory formation" per original title — mother→effector-like daughter, outcome = memory. Tateishi Δ4/5 = DA+SA− RE-VERIFIED (reviewer claim of DA−SA− ERRONEOUS).
 > **v91:** RECOMMENDED FOR FUNDING. Cox+cluster = PRIMARY. Fine-Gray = sensitivity.
 > **v90:** Review #37. 405 nm: laser diode module (not LED) — $500 adequate for Thorlabs DJ405-10. Duplicate Alternative Hypotheses table removed.

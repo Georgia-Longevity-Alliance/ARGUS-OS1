@@ -93,7 +93,7 @@
 
 **Вердикт:** годится для **lineage tracing** в масштабе всей популяции. Для v3.0 — **secondary валидация**, не primary метод. Разрешение недостаточно для sister-cell судьбы.
 
-**Ключевая статья:** Lareau CA et al. *Nature Methods* 20:1326-1336 (2023) — mitochondrial lineage tracing in human haematopoiesis. PMID: 37592179.
+**Ключевая статья:** Lareau CA et al. *Nat Biotechnol* 38:1197-1206 (2020). PMID: **32788668.** — mtscATAC-seq технология. Ludwig LS et al. *Cell* 176:1325-1339 (2019). PMID: **30827679.** — mtDNA lineage tracing in human haematopoiesis.
 
 ---
 
