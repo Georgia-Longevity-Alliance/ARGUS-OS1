@@ -1,7 +1,7 @@
 # STATE — ARGUS-OS1
 
 **Date:** 2026-07-20
-**Status:** ✅ v64 — ARGUS-OS2 CONCEPT v3.0 (🔴 CRITICAL REVISION: Odf2-KO RPE1 preserves cilia per Viol 2020. SDA paradigm. ODF2-FL rescue). Systematic review: 10 studies. All refs verified.
+**Status:** ✅ v66 — OS2: НОВАЯ КОНЦЕПЦИЯ v4.0 (центриоль как lineage-память). C. elegans = визуализация принципа, RPE1 = тест носителя. 2 фазы, $17K. OS3: прогениторные карты на основе траекторий.
 
 ## Current Design (v50 / Platform v1.0)
 
