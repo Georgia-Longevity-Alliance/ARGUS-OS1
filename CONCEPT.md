@@ -1,7 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 83.0
+**Version:** 84.0
 **Date:** 2026-07-20
+> **v84:** Review #31. Odf2 ΔC construct removed (not explicitly in Tateishi 2013 as separate named construct). HDAC6i = discussion only. Sequential RPE1→NPC design recommended.
 > **v83:** Review #30. Tateishi 24189274 RE-VERIFIED (reviewer claim erroneous). Soung 19389396 = wrong PMID from reviewer (PARP, not centrosomes). Monte Carlo simulation added.
 > **v81:** Review #28. Personnel $45K (6mo×0.75FTE). Dendra2 base. Stats simplified. Causality = CORRELATION ONLY.
 > **v79:** Review #25. Ninein KD = structural necessity (NOT age causality). β-catenin: C. elegans = principle only. N=800. CYTOO 2b: 100 pairs. Dendra2 vs RITE. 36 refs.
@@ -280,7 +281,7 @@ Odf2 KO causes severe defects in distal/subdistal appendages and blocks ciliogen
 | **Odf2⁻/⁻ + Odf2(FL)** | Full-length Odf2-GFP | Full rescue: DA+SA+, cilia+ | **Positive control.** Appendages + cilia restored → asymmetry restored |
 | **Odf2⁻/⁻ + Odf2(Δ4/5)** | Central domain deletion (Tateishi Δ4/5) | **DA+SA−.** Distal appendages present, subdistal absent. Cilia form but are abnormal (reduced frequency, shorter) | **Key experimental group.** Tests whether distal appendages ALONE sufficient for centrosome-age-dependent asymmetry |
 | **Odf2⁻/⁻ + Odf2(Δ1-59)** | N-terminal deletion (ΔN) | **No centriole recruitment.** Does NOT localize to basal bodies. No appendages, no cilia | **Negative control.** Confirms recruitment is required |
-| **Odf2⁻/⁻ + Odf2(ΔC)** | C-terminal deletion | Centrosome binding intact, but NO appendage formation | **Structural binding control.** Separates centrosome binding from appendage function |
+| **Odf2⁻/⁻ + Odf2(ΔC)** | C-terminal deletion (note: not explicitly named in Tateishi 2013 as separate construct; inferred from domain analysis) | Centrosome binding intact, appendage formation impaired | **Exploratory binding control.** Separates centrosome binding from appendage function. ⚠️ Requires de novo construct design. |
 | **WT + Ninein KD** | shNinein | Randomizes centrosome inheritance (Royall 2023). If asymmetry drops to ~50% → centrosome age is CAUSAL for fate | **Causality control.** Orthogonal to Odf2 — tests whether randomization abolishes asymmetry |
 
 **Why this replaces HDAC6i:** Wang 2025 (PMID 40167251) is a review — no experimental data on Odf2⁻/⁻ rescue. PubMed search: 0 results for HDAC6i+Odf2 KO. **HDAC6i is NOT a valid mechanistic tool for Odf2 rescue.** Tateishi 2013 (PMID 24189274) provides validated domain-level resolution. **Risk:** Tateishi used mouse F9 cells. Human RPE1 Odf2 constructs must be validated — this is a separate engineering task (8-10 weeks, not 6-8). Budget Phase 2 accordingly.
