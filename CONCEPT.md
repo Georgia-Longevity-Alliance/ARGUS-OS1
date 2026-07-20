@@ -1,7 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 84.0
+**Version:** 85.0
 **Date:** 2026-07-20
+> **v85:** Review #32. Causality testing (Ninein KD, BI2536, Dendra2) = ARGUS-OS2 (separate grant). v1.0 = instrument validation + correlation discovery. Two-stage model emphasised.
 > **v84:** Review #31. Odf2 ΔC construct removed (not explicitly in Tateishi 2013 as separate named construct). HDAC6i = discussion only. Sequential RPE1→NPC design recommended.
 > **v83:** Review #30. Tateishi 24189274 RE-VERIFIED (reviewer claim erroneous). Soung 19389396 = wrong PMID from reviewer (PARP, not centrosomes). Monte Carlo simulation added.
 > **v81:** Review #28. Personnel $45K (6mo×0.75FTE). Dendra2 base. Stats simplified. Causality = CORRELATION ONLY.
