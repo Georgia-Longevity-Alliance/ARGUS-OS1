@@ -1,7 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 68.0 FINAL
-**Date:** 2026-07-19
+**Version:** 70.0
+**Date:** 2026-07-20
+> **v70:** Review #16. Wang 2009 = MOUSE neocortex (NOT Drosophila — reviewer confused with Yamashita 2007). Pilot 0.5: simultaneous integration test of ALL subsystems × 72h.
 > **v68:** Review #14. Barandun: mother→effector-like daughter (NOT memory — corrected per original text). Valdes Michel: moved to evolutionary parallels. ⚠️ Reviewer claim that Wang 2009, Conduit 2010, Januschke 2011, Paridaen 2013 are "missing from references" is ERRONEOUS — all four are present in §9 (refs #2, #9, #29, #5).
 > **v65:** Review #12: Dendra2-Centrin in Phase 1. Hypothesis: "structural-functional state." Odf2 = structural control. Secondary 6→3. SiR-Tubulin mitosis detection. 35 refs.*
 
