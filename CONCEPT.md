@@ -1,7 +1,8 @@
 # CONCEPT — ARGUS-LP_OS
 
-**Version:** 73.0
+**Version:** 76.0
 **Date:** 2026-07-20
+> **v76:** Review #22. N=500 (AUC correction: 15% classification error→HR dilution). Sham-manipulated control. NPC 80%.
 > **v73:** Review #19. NPC N 150→300. IR strict criteria (ROS<20%, ΔT<1°C). Ninein cell-cycle calibration. coxme lineage RE.
 > **v71:** Review #17. Ninein KD added as formal v2.0 alternative to Odf2-KO (validated in human NPCs, Royall 2023). N=600 confirmed as baseline. All PMIDs re-verified.
 > **v68:** Review #14. Barandun: mother→effector-like daughter (NOT memory — corrected per original text). Valdes Michel: moved to evolutionary parallels. ⚠️ Reviewer claim that Wang 2009, Conduit 2010, Januschke 2011, Paridaen 2013 are "missing from references" is ERRONEOUS — all four are present in §9 (refs #2, #9, #29, #5).
