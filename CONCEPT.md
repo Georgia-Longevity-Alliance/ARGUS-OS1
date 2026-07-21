@@ -72,13 +72,13 @@ Control: age → function quality (Anderson 2009).
 | **Neoprene gloves (spare set) + mounting rings** | 200 |
 | **Femtosecond laser NIR 800 nm (dissection/ablation)** | 15,000 |
 | **405 nm laser (Dendra2 photoconversion)** | 800 |
-| **Optical tweezers: 1064 nm CW laser + spatial light modulator** | 18,000 |
+| **Optical tweezers: 2× 1064 nm CW traps (AOD-split) — dual manipulation** | 22,000 |
 | **3-axis micromanipulator ×2 + microcapillaries + pneumatic injector — AI-controlled (Jetson AGX)** | 8,000 |
 | **Internal shelves (reagents, tools) + UV-C sterilization lamp** | 1,000 |
 | C. elegans strains + reagents + consumables | 1,500 |
 | Data analysis (compute + software) | 5,000 |
-| Contingency (20%) | 17,600 |
-| **Total** | **~105,600** |
+| Contingency (20%) | 18,400 |
+| **Total** | **~110,400** |
 
 ### Comparison with equivalent systems
 

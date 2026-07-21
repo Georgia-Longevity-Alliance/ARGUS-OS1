@@ -15,7 +15,7 @@ Centriole segregation is stochastic (Gönczy & Balestra, 2023). This is good —
 | V0 | Minimal — stock OpenFlexure (Alex's suggestion) | ~$930 |
 | V6 | Dry 40×/0.75 | $3-4K |
 | V7 | Water immersion 60×/1.2 NA, local AI | ~$15K |
-| **V8** | **Light-sheet. All new, best components. LLSM equivalent.** | **~$106,000** |
+| **V8** | **Light-sheet. All new, best components. LLSM equivalent.** | **~$110,000** |
 
 ARGUS V8 costs 14 times less than a lattice light-sheet microscope ($500K) and delivers comparable SNR for C. elegans embryos. It's the only open platform with both 3D time-lapse and centriole tracking.
 
