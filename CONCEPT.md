@@ -59,8 +59,8 @@ Control: age → function quality (Anderson 2009).
 
 | Item | $ |
 |------|--:|
-| 60×/1.2 NA WI objective (new) | 9,000 |
-| sCMOS camera (mid-range) | 4,000 |
+| 60×/1.2 NA WI objective (Nikon CFI Plan Apo, new) | 12,000 |
+| sCMOS camera (Hamamatsu ORCA-Fusion BT, new) | 15,000 |
 | 488 nm LED | 500 |
 | Microfluidic chip + pressure system | 2,500 |
 | Frame + stage: Aluminum 7075 + thermal stabilization | 4,000 |
@@ -70,8 +70,8 @@ Control: age → function quality (Anderson 2009).
 | PI salary (25% FTE, 12 months) | 15,000 |
 | Engineer salary (50% FTE, 12 months) | 25,000 |
 | Lab space rental (Abastumani, 12 months) | 5,000 |
-| Contingency (20%) | 13,500 |
-| **Total (ARGUS V7)** | **~81,000** |
+| Contingency (20%) | 16,400 |
+| **Total (ARGUS V7)** | **~98,000** |
 
 **V8 upgrade (light-sheet, future):** +$117,000 (total ~$198,000).
 | 3-axis micromanipulator ×2 + injector — AI-controlled | 8,000 |
