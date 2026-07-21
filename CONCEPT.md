@@ -128,4 +128,4 @@ Control: age → function quality (Anderson 2009).
 
 ---
 
-*C. elegans only. Pedigree = ∥/⟂. V8 light-sheet. $35K. 10 refs.*
+*C. elegans only. Pedigree = 3D angle. V8 light-sheet. $177K. 12 refs.*
