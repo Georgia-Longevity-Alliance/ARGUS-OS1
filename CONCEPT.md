@@ -10,7 +10,7 @@
 
 **Centriole pedigree (∥/⟂) → centriole fate (retained/eliminated).**
 
-In C. elegans, ~88% of cells eliminate centrioles during embryogenesis. ~68 cells retain them: 41 proliferating + 20 intestinal + 7 terminally differentiated (Kalbfuss & Gönczy 2023, PMID 37256957). Centrioles segregate STOCHASTICALLY at 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and in ABpr lineage (Erpf & Mikeladze-Dvali 2020). Extrapolated to full embryogenesis — testable in this project.
+In C. elegans, ~88% of cells eliminate centrioles during embryogenesis. ~68 cells retain them: 41 proliferating + 20 intestinal + 7 terminally differentiated (Kalbfuss & Gönczy 2023, PMID 37256957; EM confirmation in Croisier et al. 2025, PMID 40475707). **Note:** intestinal cells later lose centrioles during endoreduplication (Lu & Roy 2014). Centrioles segregate STOCHASTICALLY at 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and in ABpr lineage (Erpf & Mikeladze-Dvali 2020). Extrapolated to full embryogenesis — testable in this project.
 
 **Stochastic segregation makes age ORTHOGONAL to pedigree.** If which centriole goes where is random, age and pedigree are statistically independent. This eliminates age as a confound — any observed pedigree↔fate effect must come from the pedigree itself.
 
@@ -111,6 +111,8 @@ Control: age → function quality (Anderson 2009).
 | 8 | Januschke et al. (2011) — Drosophila NB | 21407209 |
 | 9 | Wang et al. (2009) — mouse radial glia | 19829375 |
 | 10 | Coffman et al. (2016) — MT asymmetry in C. elegans, MBoC | 27733624 |
+| 11 | Kalbfuss & Gönczy (2023) — centriole elimination review, Open Biol | 37963546 |
+| 12 | Croisier et al. (2025) — EM confirms centrioles in rectal cells, microPublication | 40475707 |
 
 > **Marker note:** SAS-4::GFP (Gönczy lab) is validated for centriole tracking in C. elegans. Centrin1-GFP is the alternative. Pilot will compare both.
 
