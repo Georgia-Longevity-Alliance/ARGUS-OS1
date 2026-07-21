@@ -1,10 +1,8 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 112.0 (ENGLISH)
+**Version:** 118.0
 **Date:** 2026-07-21
-> **v112:** All files in English.
-> **v111:** Comparison table — ARGUS V8 vs LLSM/Nikon/IncuCyte.
-> **v110:** Pedigree threshold. Light-sheet V8.
+> **v118:** Anderson 2009 confirmed EXPERIMENTAL. +Erpf 2020, +Balestra 2015. 12 refs.
 
 ---
 
@@ -104,8 +102,9 @@ Control: age → function quality (Anderson 2009).
 | 2 | Kalbfuss & Gönczy (2023) — 88% eliminate, Science Advances | 37256957 |
 | 3 | Kalbfuss, Berger & Gönczy (2023) — cell fate determines centriole fate, Dev Biol | 37414202 |
 | 4 | Gönczy & Balestra (2023) — stochastic segregation | 36988082 |
-| 5 | Anderson & Stearns (2009) — age | 19682908 |
-| 6 | Magescas & Feldman (2025) — MTOC protects, bioRxiv | preprint |
+| 5 | Anderson & Stearns (2009) — age → cilium timing (EXPERIMENTAL, NIH/3T3) | 19682908 |
+| 6 | Erpf & Mikeladze-Dvali (2020) — Dendra2::SAS-4 centriole tracking | microPublication |
+| 7 | Balestra et al. (2015) — SAS-4::GFP stability in embryos, Cell Research | 25892868 |
 | 7 | Yamashita et al. (2007) — Drosophila mGSC | 17255513 |
 | 8 | Januschke et al. (2011) — Drosophila NB | 21407209 |
 | 9 | Wang et al. (2009) — mouse radial glia | 19829375 |
