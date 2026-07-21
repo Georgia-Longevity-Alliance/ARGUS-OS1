@@ -18,7 +18,7 @@ In C. elegans, ~88% of cells eliminate centrioles during differentiation. ~68 ce
 
 **Two nested hypotheses:**
 - **H₁ (known, Kalbfuss 2023):** pedigree correlates with centriole fate THROUGH cell type.
-- **H₂ (tested here):** pedigree adds predictive power BEYOND cell type. Different centrioles within the SAME cell type may have different pedigrees.
+- **H₂ (tested here):** pedigree adds predictive power BEYOND cell type. **Primary test: sister-cell pairs.** When a cell divides, the two daughters are the same type — one gets the older centriole, one gets the younger. Their fates may diverge. This is the only natural experiment in C. elegans where pedigree varies while cell type is held constant. (Erpf 2020).
 
 > **Speculative mechanism (MCARA/DID, future work):** differentiation-inducing factors associated with centriole, released at trajectory nodes. Not required for Phase 1 hypothesis test.
 
@@ -52,7 +52,7 @@ Control: age → function quality (Anderson 2009).
 | 3 | 3D time-lapse from zygote to ~100 cells (~3h, 30°C). **Dark control: parallel embryos, lasers OFF — compare hatching rate.** |
 | 4 | **Pedigree: continuous 3D angle (not binary).** Full history per centriole. Pilot: validate angle measurement on 5 embryos. |
 | 5 | Centriole fate — retained or eliminated |
-| 6 | **Mixed-effects logistic regression.** fate ~ angle_3d + age + cell_type + (1|embryo). **Plan B (VIF>5):** compare centrioles within SAME sister-cell pair — controls cell type perfectly (Erpf 2020). |
+| 6 | **Primary test: sister-cell pairs.** Compare centriole fate in sister cells — same type, different centriole age/pedigree. Mixed-effects logistic regression. Plan B (whole-population): fate ~ angle_3d + age + cell_type + (1|embryo). |
 
 ---
 
