@@ -18,7 +18,7 @@ In C. elegans, ~88% of cells eliminate centrioles during differentiation. ~68 ce
 
 **Question:** does centriole pedigree independently predict fate after controlling for age and cell type? **Null hypothesis:** pedigree does NOT predict fate. Rejecting H₀ = breakthrough.
 
-**Возможный механизм (MCARA/DID):** на центриоли ассоциированы дифференцировочно-индуцирующие факторы (DID). При прохождении узлов траектории DID отщепляются → включение генных сетей → дифференцировка. Centriole pedigree определяет момент и порядок отщепления.
+> **Speculative mechanism (MCARA/DID, future work):** differentiation-inducing factors associated with centriole, released at trajectory nodes. Not required for Phase 1 hypothesis test.
 
 ---
 
