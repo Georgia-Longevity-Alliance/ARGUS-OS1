@@ -10,7 +10,9 @@
 
 **Centriole pedigree (∥/⟂) → centriole fate (retained/eliminated).**
 
-In C. elegans, ~88% of cells eliminate centrioles during differentiation. ~68 cells retain them (Kalbfuss & Gönczy 2023, PMID 37256957). Centrioles segregate STOCHASTICALLY (Gönczy & Balestra 2023, PMID 36988082) — any pedigree↔fate correlation cannot be a segregation artifact.
+In C. elegans, ~88% of cells eliminate centrioles during differentiation. ~68 cells retain them (Kalbfuss & Gönczy 2023, PMID 37256957). Centrioles segregate STOCHASTICALLY (Gönczy & Balestra 2023, PMID 36988082; Erpf & Mikeladze-Dvali 2020).
+
+**Stochastic segregation STRENGTHENS the hypothesis.** If centriole distribution is random, age cannot explain any pedigree↔fate correlation. The correlation must come from the pedigree itself — the sequence of division orientations. Randomness eliminates the main confound.
 
 MTOC inactivation protects centrioles from elimination (Magescas & Feldman 2025, preprint). This provides mechanistic support.
 
