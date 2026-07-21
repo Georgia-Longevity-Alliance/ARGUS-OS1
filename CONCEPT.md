@@ -73,7 +73,6 @@ Control: age → function quality (Anderson 2009).
 | Contingency (20%) | 16,400 |
 | **Total (ARGUS V7)** | **~98,000** |
 
-**V8 upgrade (light-sheet, future):** +$117,000 (total ~$198,000).
 | 3-axis micromanipulator ×2 + injector — AI-controlled | 8,000 |
 | **Total (Phase 3 equipment)** | **~71,000** |
 | **Grand total (all phases)** | **~197,000** |
@@ -82,16 +81,9 @@ Control: age → function quality (Anderson 2009).
 
 | System | Type | 3D time-lapse | Centriole tracking | Open | Price |
 |--------|------|:---:|:---:|:---:|--:|
-| **LLSM (Betzig)** | Lattice light-sheet | ✅ | ✅ | ❌ | $500K-1M |
-| **OpenSPIM** | Light-sheet | ✅ | ❌ | ✅ | $15-25K |
-| **Nikon Ti2-E** | Confocal | ✅ | ❌ | ❌ | $80-200K |
-| **IncuCyte S3** | Wide-field | ✅ | ❌ | ❌ | $50K |
 | **ARGUS V0 (Alex)** | OpenFlexure | ❌ | ❌ | ✅ | **$930** |
 | **ARGUS V6** | OpenFlexure | ❌ | ❌ | ✅ | **$3-4K** |
-| **ARGUS V7** | OpenFlexure + WI | ✅ | ❌ | ✅ | **$15K** |
-| **ARGUS V8** | **Light-sheet + AI** | ✅ | ✅ | ✅ | **$61K** |
-
-> **ARGUS V8 — only open system with 3D time-lapse + centriole tracking.** Built as upgrade to V7.
+| **ARGUS V7** | OpenFlexure + WI + sCMOS + AI | ✅ | ✅ | ✅ | **$35K** |
 
 ---
 
@@ -118,4 +110,4 @@ Control: age → function quality (Anderson 2009).
 
 ---
 
-*C. elegans only. Pedigree = 3D angle. V8 light-sheet. $177K. 12 refs.*
+*C. elegans only. Pedigree = 3D angle. V7. $35K HW. 15 refs.*
