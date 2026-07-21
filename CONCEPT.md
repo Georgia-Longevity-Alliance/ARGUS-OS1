@@ -17,8 +17,10 @@ In C. elegans, ~88% of cells eliminate centrioles during differentiation. ~68 ce
 **Pedigree definition:** time-ordered sequence of division orientations (3D angles) of all cells the centriole has passed through. Measured via SAS-4::GFP tracking. Age measured via Dendra2::SAS-4 photoconversion (Erpf & Mikeladze-Dvali 2020).
 
 **Two nested hypotheses:**
-- **H₁ (trivial, known):** pedigree correlates with centriole fate THROUGH cell type (Kalbfuss 2023).
-- **H₂ (tested here):** pedigree adds predictive power BEYOND cell type. Mixed-effects model with cell_type as fixed effect tests this directly. If pedigree remains significant after controlling for cell_type → H₂ supported. If not → pedigree is a proxy for cell type.
+- **H₁ (known, Kalbfuss 2023):** pedigree correlates with centriole fate THROUGH cell type.
+- **H₂ (tested here):** pedigree adds predictive power BEYOND cell type. Different centrioles within the SAME cell type may have different pedigrees (different histories through that lineage branch). Kalbfuss showed cell type → fate at the level of cell identity. We test whether within-type pedigree variation also matters.
+
+**Alternative MTOC mechanism (Feldman 2025):** PCM/MTOC activity protects centrioles. Secondary measurement: SPD-5::GFP intensity per centriole to test whether pedigree → PCM state.
 
 > **Speculative mechanism (MCARA/DID, future work):** differentiation-inducing factors associated with centriole, released at trajectory nodes. Not required for Phase 1 hypothesis test.
 
