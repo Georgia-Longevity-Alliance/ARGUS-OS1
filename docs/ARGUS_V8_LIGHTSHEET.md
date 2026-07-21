@@ -1,4 +1,4 @@
-# ARGUS v9 — Light-Sheet на базе OpenFlexure
+# ARGUS V8 — Light-Sheet на базе OpenFlexure
 
 **Концепт.** 2026-07-21.
 
@@ -16,7 +16,7 @@
 
 ## Отличия от LLSM
 
-| | LLSM (Betzig) | ARGUS v9 |
+| | LLSM (Betzig) | ARGUS V8 |
 |---|---|---|
 | Решётка | Spatial light modulator ($50K) | Нет |
 | Лист | Lattice pattern | Gaussian (цилиндрическая линза) |
@@ -37,7 +37,7 @@
 | OpenFlexure база (60×/1.2 NA WI) | 8,000 |
 | Микрофлюидный чип | 2,000 |
 | Остальное | 3,000 |
-| **Total ARGUS v9** | **~15,000** |
+| **Total ARGUS V8** | **~15,000** |
 
 ## Преимущества
 
