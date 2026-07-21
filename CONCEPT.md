@@ -10,7 +10,7 @@
 
 **Centriole pedigree (∥/⟂) → centriole fate (retained/eliminated).**
 
-In C. elegans, ~88% of cells eliminate centrioles during embryogenesis. ~68 cells retain them: 41 proliferating + 20 intestinal + 7 terminally differentiated (Kalbfuss & Gönczy 2023, PMID 37256957). Centrioles segregate STOCHASTICALLY (Gönczy & Balestra 2023, PMID 36988082; Erpf & Mikeladze-Dvali 2020).
+In C. elegans, ~88% of cells eliminate centrioles during embryogenesis. ~68 cells retain them: 41 proliferating + 20 intestinal + 7 terminally differentiated (Kalbfuss & Gönczy 2023, PMID 37256957). Centrioles segregate STOCHASTICALLY at 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and in ABpr lineage (Erpf & Mikeladze-Dvali 2020). Extrapolated to full embryogenesis — testable in this project.
 
 **Stochastic segregation makes age ORTHOGONAL to pedigree.** If which centriole goes where is random, age and pedigree are statistically independent. This eliminates age as a confound — any observed pedigree↔fate effect must come from the pedigree itself.
 
@@ -18,7 +18,7 @@ In C. elegans, ~88% of cells eliminate centrioles during embryogenesis. ~68 cell
 
 **Two nested hypotheses:**
 - **H₁ (known, Kalbfuss 2023):** pedigree correlates with centriole fate THROUGH cell type.
-- **H₂ (tested here):** pedigree adds predictive power BEYOND cell type. **Primary test: sister-cell pairs.** When a cell divides, the two daughters are the same type — one gets the older centriole, one gets the younger. Their fates may diverge. This is the only natural experiment in C. elegans where pedigree varies while cell type is held constant. (Erpf 2020).
+- **H₂ (tested here):** pedigree adds predictive power BEYOND cell type. **Primary test: sister-cell pairs.** When a cell divides symmetrically (same-type daughters — rare in C. elegans, exact frequency to be determined in Pilot), one gets the older centriole, one gets the younger. If their centriole fates diverge, pedigree is the explanation. **Caveat:** most C. elegans divisions are asymmetric (different daughter types). Pilot will quantify available same-type sister pairs.
 
 
 ---
@@ -101,8 +101,8 @@ Control: age → function quality (Anderson 2009).
 |---|-----------|------|
 | 1 | Sulston & Horvitz (1977) — post-embryonic lineage | 838129 |
 | 2 | Sulston et al. (1983) — embryonic lineage | 6684600 |
-| 2 | Kalbfuss & Gönczy (2023) — 88% eliminate, Science Advances | 37256957 |
-| 3 | Kalbfuss, Berger & Gönczy (2023) — cell fate determines centriole fate, Dev Biol | 37414202 |
+| 2 | Kalbfuss & Gönczy (2023) — 88% eliminate, cell fate→centriole fate, Sci Adv | 37256957 |
+| 3 | Kalbfuss, Berger & Gönczy (2023) — centriolar protein mapping, Dev Biol | 37414202 |
 | 4 | Gönczy & Balestra (2023) — stochastic segregation | 36988082 |
 | 5 | Anderson & Stearns (2009) — age → cilium timing (EXPERIMENTAL, NIH/3T3) | 19682908 |
 | 6 | Erpf & Mikeladze-Dvali (2020) — Dendra2::SAS-4 centriole tracking | microPublication |

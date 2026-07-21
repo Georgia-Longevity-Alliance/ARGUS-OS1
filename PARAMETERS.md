@@ -8,7 +8,7 @@
 | Parameter | Value |
 |-----------|-------|
 | Organism | C. elegans (N2 Bristol, hermaphrodite) |
-| Stage | Embryo, zygote → ~100 cells (~3h at 30°C) |
+| Stage | Embryo, zygote → ~100 cells (~3h at 25°C) |
 | Cells retaining centrioles | 41 proliferating + 20 intestinal + 7 terminally differentiated = **68 total** |
 | Cells eliminating centrioles | ~490 (~88%) |
 | Pedigree | ∥/⟂ relative to A/P axis at anaphase. Full history per centriole. |
@@ -34,6 +34,6 @@
 |-----------|-------|
 | N | 30-50 embryos |
 | Duration | ~3h per embryo |
-| Temperature | 30°C |
+| Temperature | 25°C |
 | Analysis | Mixed-effects logistic regression: fate ~ pedigree + age + (1|embryo) |
 | Budget | ~$126,000 (Core Phase 1), ~$197,000 (all phases) |
