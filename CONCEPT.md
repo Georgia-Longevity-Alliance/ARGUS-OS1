@@ -12,7 +12,7 @@
 
 In C. elegans, ~88% of cells eliminate centrioles during differentiation. ~68 cells retain them (Kalbfuss & Gönczy 2023, PMID 37256957). Centrioles segregate STOCHASTICALLY (Gönczy & Balestra 2023, PMID 36988082; Erpf & Mikeladze-Dvali 2020).
 
-**Stochastic segregation STRENGTHENS the hypothesis.** If centriole distribution is random, age cannot explain any pedigree↔fate correlation. The correlation must come from the pedigree itself — the sequence of division orientations. Randomness eliminates the main confound.
+**Stochastic segregation STRENGTHENS the hypothesis.** If which centriole (old/young) goes to which daughter is random, then age cannot explain any pedigree↔fate correlation. Pedigree (= division orientation) is INDEPENDENT of which centriole goes where. The orientation determines the tissue context → cell fate (Kalbfuss 2023). The centriole is a passenger — but its pedigree records the journey. Randomness of passenger assignment eliminates age as confound.
 
 **Age measurement in C. elegans:** via Dendra2::SAS-4 photoconversion (Erpf & Mikeladze-Dvali 2020). Alternatively, computed from known lineage. Age is a CONTROL variable — not the primary test. Pedigree is the primary predictor. Anderson 2009 (NIH/3T3 mouse cells) demonstrates the principle that age affects function, not a direct C. elegans measurement.
 
@@ -108,7 +108,7 @@ Control: age → function quality (Anderson 2009).
 | # | Reference | PMID |
 |---|-----------|------|
 | 1 | Sulston & Horvitz (1977) — post-embryonic lineage | 838129 |
-| 2 | Sulston et al. (1983) — embryonic lineage | 3320053 |
+| 2 | Sulston et al. (1983) — embryonic lineage | 6684600 |
 | 2 | Kalbfuss & Gönczy (2023) — 88% eliminate, Science Advances | 37256957 |
 | 3 | Kalbfuss, Berger & Gönczy (2023) — cell fate determines centriole fate, Dev Biol | 37414202 |
 | 4 | Gönczy & Balestra (2023) — stochastic segregation | 36988082 |
