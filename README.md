@@ -22,9 +22,12 @@ ARGUS V8 costs 14 times less than a lattice light-sheet microscope ($500K) and d
 ## The bigger picture
 
 ```
-OS1 — measure pedigrees + fate in C. elegans (this project)
+OS1 — measure centriole pedigrees + fate in C. elegans (this project)
 OS2 — test convergence: different pedigrees → same fate?
 OS3 — build progenitor maps as graphs with genetic networks
+
+MCARA — centriole counter reset → totipotency from any cell
+         ARGUS V8 provides the platform for this.
 ```
 
 ## Key numbers
