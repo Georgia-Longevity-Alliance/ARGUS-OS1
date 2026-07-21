@@ -51,7 +51,7 @@ Control: age → function quality (Anderson 2009).
 | 3 | 3D time-lapse from zygote to ~100 cells (~3h, **25°C standard**). **Adaptive illumination — not continuous. Dark control: parallel embryos, lasers OFF.** |
 | 4 | **Pedigree: continuous 3D angle.** Full history. Pilot validates angle measurement (5 embryos) with fiducial bead calibration. **Negative control:** RNAi-PLK-4 embryos (centrioles not formed) — confirms signal specificity. |
 | 5 | Centriole fate — retained or eliminated |
-| 6 | **Primary test: sister-cell pairs.** Compare centriole fate in sister cells — same type, different centriole age/pedigree. Mixed-effects logistic regression. **Power: N≈40 pairs needed for OR≥1.5, α=0.05, β=0.2. Pilot quantifies available same-type pairs.** **Blinding: analyst scoring centriole fate blinded to pedigree.** **Pre-registration: OSF before data collection.** |
+| 6 | **Primary test: sister-cell pairs.** Compare centriole fate in sister cells. Mixed-effects logistic regression. **Power: N≈40 pairs for OR≥1.5 (α=0.05, β=0.2). OR≥1.5 justified by Kalbfuss 2023: cell type explains ~80% of fate variance — pedigree expected to explain residual 20% (OR≈1.5-2.0). Pilot quantifies available same-type pairs. Blinding: analyst blinded to pedigree. Pre-registration: OSF.** |
 
 ---
 
