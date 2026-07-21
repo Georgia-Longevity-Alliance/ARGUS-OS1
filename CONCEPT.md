@@ -58,13 +58,13 @@ Control: age → function quality (Anderson 2009).
 
 | Item | $ |
 |------|--:|
-| 60×/1.2 NA WI objective (new) | 8,000 |
-| sCMOS camera (Hamamatsu ORCA) | 8,000 |
+| 60×/1.2 NA WI objective (new) | 9,000 |
+| sCMOS camera (Hamamatsu ORCA-Fusion) | 12,000 |
 | 488 nm laser (single-mode) | 2,000 |
 | 561 nm laser | 2,000 |
-| Light-sheet optics (cyl. lens, scanning mirror, tube lens, dichroics, filters) | 5,000 |
+| Light-sheet optics (cyl. lens, galvo scanner, tube lenses ×2, dichroics, filters, mounts) | 15,000 |
 | 3-axis motorized stage + controller | 2,500 |
-| Anti-vibration optical table | 3,000 |
+| Anti-vibration optical table (used) | 5,000 |
 | Temperature-controlled enclosure (PID) | 2,000 |
 | Microfluidic chip + pressure system | 2,500 |
 | **Frame + stage: Aluminum 7075 (aerospace grade, CNC milled) + active thermal stabilization (PID)** | 4,000 |
@@ -73,17 +73,17 @@ Control: age → function quality (Anderson 2009).
 | **Internal surveillance: 2× cameras + LED lighting** | 400 |
 | **Glove-box isolator (acrylic, HEPA H13, neoprene gloves)** | 5,000 |
 | **Neoprene gloves (spare set) + mounting rings** | 200 |
-| **Femtosecond laser NIR 800 nm (Phase 3, optional)** | 15,000 |
+| **Femtosecond laser NIR 800 nm (Phase 3, optional)** | 40,000 |
 | **405 nm laser (Dendra2 photoconversion)** | 800 |
 | **Optical tweezers: 2× 1064 nm CW traps (AOD-split) — dual manipulation** | 22,000 |
 | **3-axis micromanipulator ×2 + microcapillaries + pneumatic injector — AI-controlled (Jetson AGX)** | 8,000 |
 | **Internal shelves (reagents, tools) + UV-C sterilization lamp** | 1,000 |
 | C. elegans strains + reagents + consumables | 1,500 |
 | Data analysis (compute + software) | 5,000 |
-| Contingency (20%) | 17,200 |
-| **Total (Phase 1 — Core)** | **~103,000** |
-| Femtosecond laser (Phase 3, optional) | +18,000 |
-| **Total (all phases)** | **~124,000** |
+| Contingency (20%) | 20,500 |
+| **Total (Phase 1 — Core)** | **~123,000** |
+| Femtosecond laser (Phase 3, optional) | +48,000 |
+| **Total (all phases)** | **~171,000** |
 
 ### Comparison with equivalent systems
 
