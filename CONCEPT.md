@@ -79,11 +79,13 @@ Control: age → function quality (Anderson 2009).
 | **3-axis micromanipulator ×2 + microcapillaries + pneumatic injector — AI-controlled (Jetson AGX)** | 8,000 |
 | **Internal shelves (reagents, tools) + UV-C sterilization lamp** | 1,000 |
 | C. elegans strains + reagents + consumables | 1,500 |
+| **PI salary (25% FTE, 12 months)** | 15,000 |
+| **Engineer salary (50% FTE, 12 months)** | 25,000 |
 | Data analysis (compute + software) | 5,000 |
-| Contingency (20%) | 20,500 |
-| **Total (Phase 1 — Core)** | **~123,000** |
+| Contingency (20%) | 28,500 |
+| **Total (Phase 1 — Core)** | **~171,000** |
 | Femtosecond laser (Phase 3, optional) | +48,000 |
-| **Total (all phases)** | **~171,000** |
+| **Total (all phases)** | **~219,000** |
 
 ### Comparison with equivalent systems
 
