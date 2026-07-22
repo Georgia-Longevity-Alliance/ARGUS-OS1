@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 181.0
+**Version:** 182.0
 **Date:** 2026-07-22
 
 ---
@@ -128,7 +128,7 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 | P5 | **Sister-pair quantification.** From Sulston 1983: count same-type sister pairs. **This is PRIMARY test candidate pool.** |
 | P6 | **SAS-1→SAS-4 latency + oogenesis comparison.** Compare somatic latency with published oogenesis data (Pierron 2023: SAS-1 lost in -10 oocyte). Test SPD-5 as alternative early PCM marker. In 10 embryos, measure time (min) between SAS-1::miRFP670 (670nm, far-red, NO GFP overlap) loss and SAS-4::GFP loss for ≥50 centrioles. **Validity thresholds:** (a) mean latency <15 min, (b) variance <30% of mean, (c) latency predicts SAS-4 loss in >80% of cells. If ALL three met → SAS-1 valid. Otherwise → descriptive only (STRICT: NOT "2 of 3"). |
 | P7 | **Ciliogenesis cross-check + exclusion validation.** Compare Kalbfuss 68 vs WormAtlas cilial neurons. >50% overlap → flag. Also validate CED-3::mKate2 (588nm) + histone::CFP morphology against Sulston 1983 apoptosis map. |
-| P8 | **Mother/daughter identification.** Validate Dendra2::SAS-4 signal ratio: older centriole = dimmer (diluted photoconverted protein). Compare with lineage-based age prediction. 5 embryos. |
+| P8 | **Mother/daughter identification.** Validate Dendra2::SAS-4 signal ratio: older centriole = RED (561nm channel) (diluted photoconverted protein). Compare with lineage-based age prediction. 5 embryos. |
 
 **Go/No-Go criteria:**
 - P1: ρ < 0.1 ✅ | ρ ≥ 0.1 ⚠️ | ρ ≥ 0.3 🔴
@@ -137,7 +137,7 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 - P5: ≥40 same-type pairs → sensitivity analysis viable
 - P6: ALL 3 criteria required → valid | ANY failure → descriptive only 🔴 🔴
 - P7: CED-3 + histone morphology correctly identifies apoptotic cells ✅ | >50% WormAtlas overlap → flag ciliogenesis alternative
-- P8: Dendra2 ratio correctly identifies mother in >90% of divisions ✅
+- P8: Dendra2 spectral separation (RED vs GREEN) correctly identifies mother in >90% of divisions ✅
 
 ---
 
