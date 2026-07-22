@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 170.0
+**Version:** 171.0
 **Date:** 2026-07-22
 
 ---
@@ -12,7 +12,7 @@
 1. ~88% of cells eliminate centrioles by the **comma stage** of C. elegans embryogenesis. ~68 cells retain them at that stage (Kalbfuss & Gönczy 2023, PMID 37256957). **Timing gap:** our imaging window (zygote→~100 cells, ~3h) ends BEFORE comma stage. Cells classified as "retained" at 100-cell stage may eliminate centrioles later. **We measure "retained at 100-cell window" — a snapshot, not final fate.**
 2. Centriole segregation is STOCHASTIC at the 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and ABpr lineage (Erpf & Mikeladze-Dvali 2020). Full-embryogenesis stochasticity is TESTED in Pilot P1 (NOT assumed).
 3. E-lineage (intestinal) cells lose centrioles during post-embryonic endoreduplication (Lu & Roy 2014, PMID 25360893). **EXCLUDED from primary analysis** (different elimination mechanism). Separate secondary analysis on E-lineage only.
-4. ~12% of embryonic cells undergo programmed cell death (Sulston 1983). **EXCLUDED via CED-3::mKate2 (588nm)** (competing risk in Cause-Specific Hazards model).
+4. ~17% (113/671 cells) undergo programmed cell death (Sulston 1983). **EXCLUDED via CED-3::mKate2 (588nm)** (competing risk in Cause-Specific Hazards model).
 5. Centriole elimination in oogenesis initiates with SAS-1 central tube loss (Magescas et al. 2023, PMID 37987153). **SAS-1::mNeonGreen (505nm) serves as an early marker** — SAS-1 disappearance precedes SAS-4 loss, providing an early signal of impending elimination. **Caveat:** Magescas (2023) studied primarily oocytes; somatic applicability tested in Pilot P6.
 6. Based on OToole (2003) centriole ultrastructure and Magescas (2023) SAS-1 dynamics, we HYPOTHESIZE PCM disassembles before the core. Tested via SPD-2::mCherry (PCM). Note: Fu & Glover (2012, Drosophila) place SPD-2 at centriole-PCM interface — C. elegans localization may differ. SPD-5 as alternative PCM marker in 5 embryos., PMID 14610052). SAS-4::GFP visualizes the core but NOT PCM. A "GFP-positive, PCM-negative" centriole is a ZOMBIE — structurally present, biologically dead. **Primary outcome: composite fate = (SAS-4+ AND SPD-2+). Loss of EITHER for >30 min = eliminated (Bobinnec 1998: PCM can regenerate).** This eliminates misclassification of zombie centrioles as "retained." SPD-2::mCherry tracked in ALL N=100. Exploratory: AIR-1::GFP in 20 embryos (Plourde 2025 — direct centrosome asymmetry measure). embryos.
 7. PAR proteins (PAR-2, PAR-3, PAR-6) establish cortical asymmetry and influence spindle orientation in early C. elegans embryos. **PAR-2::GFP + PAR-3::mCherry** quantify both posterior and anterior cytoplasmic asymmetry at each division.
@@ -24,6 +24,7 @@
 **H₁ (alternative):** Pedigree Score — a PCA composite of 5 division-orientation metrics — independently predicts whether a centriole is retained or eliminated at the 100-cell window.
 
 **Pedigree Score (PCA):** (a) fraction ∥ divisions, (b) mean 3D angle change, (c) angle variance, (d) orientation switches, (e) cumulative angular path → first principal component.
+**Operational definitions:** (a) fraction ∥ = count(∥ divisions)/total divisions, where ∥ = angle between division axis and A-P axis <30°. (b) Mean 3D angle = mean(arccos(|v₁·v₂|)) between consecutive divisions. (c) Angle variance = var(angles). (d) Orientation switches = count of ∥→⟂ or ⟂→∥ transitions. (e) Cumulative angular path = Σ arccos(|vᵢ·vᵢ₊₁|). All computed in embryo-centered coordinates. **PCA:** first principal component across 5 standardized metrics, computed per-embryo then pooled.
 
 **Primary test — Sister-cell pairs (eliminates ICC):**
 When a cell divides, one daughter gets the older centriole, one the younger. Both inherit identical cell type, cytoplasm, and lineage. **Pedigree difference IS the only systematic difference.** This is the cleanest causal design.
@@ -235,7 +236,7 @@ If Pedigree Score correlates with fate in OS1, OS2 tests causality via **centrio
 **Sensitivity:** Sister pairs. **Surrogate:** SAS-1 loss before SAS-4.
 **Timing note:** 100-cell window snapshot — NOT comma stage. Late eliminators flagged.
 **V8 light-sheet strongly recommended** for phototoxicity ceiling.
-*30 refs. Sister-pairs PRIMARY. Joint model (JMbayes2). Composite fate (SAS-4+SPD-2). $192K.*
+*31 refs. Sister-pairs PRIMARY. Joint model (JMbayes2). Composite fate (SAS-4+SPD-2). $192K.*
 
 ---
 
