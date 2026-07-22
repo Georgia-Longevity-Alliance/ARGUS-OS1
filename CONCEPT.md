@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 183.0
+**Version:** 184.0
 **Date:** 2026-07-22
 
 ---
@@ -10,7 +10,7 @@
 ### What is KNOWN (literature)
 
 1. ~88% of cells eliminate centrioles by the **comma stage** of C. elegans embryogenesis. ~68 cells retain them at that stage (Kalbfuss & Gönczy 2023, PMID 37256957). **Timing gap:** our imaging window (zygote→~100 cells, ~3h) ends BEFORE comma stage. Cells classified as "retained" at 100-cell stage may eliminate centrioles later. **We measure "retained at 100-cell window" — a snapshot, not final fate.**
-2. Centriole segregation is STOCHASTIC at the 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and ABpr lineage (Erpf & Mikeladze-Dvali 2020). Full-embryogenesis stochasticity is TESTED in Pilot P1. NOTE: Erpf (2020) found asymmetric inheritance in ABprpppap lineage (80/20 old→anterior daughter), suggesting pedigree-centriole fate link already exists in C. elegans — supporting H₁. Counterpoint: ABprpppaa line shows 57/43 (not different from random, Erpf 2020) — lineage-specific effects must be tested via lineage×PedigreeScore interaction.
+2. Centriole segregation is STOCHASTIC at the 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and ABpr lineage (Erpf & Mikeladze-Dvali 2020). Full-embryogenesis stochasticity is TESTED in Pilot P1. NOTE: Erpf (2020) found asymmetric inheritance in ABprpppap lineage (80/20 old→anterior daughter), suggesting pedigree-centriole fate link already exists in C. elegans — MOTIVATING the systematic test: Erpf (2020) shows centriole inheritance is random in most lineages (57/43 in ABprpppaa, n=7). The 80/20 in ABprpppap (n=5) may be a small-sample artifact. This randomness means Pedigree Score could be an independent predictor IF it captures information beyond stochastic segregation — exactly what ARGUS tests.
 3. E-lineage (intestinal) cells lose centrioles during post-embryonic endoreduplication (Lu & Roy 2014, PMID 25360893). **EXCLUDED from primary analysis** (different elimination mechanism). Separate secondary analysis on E-lineage only.
 4. ~17% (113/671 cells) undergo programmed cell death (Sulston 1983). **EXCLUDED via CED-3::mKate2 (588nm)** (competing risk in Cause-Specific Hazards model).
 5. Centriole elimination in oogenesis initiates with SAS-1 central tube loss (Magescas et al. 2023, PMID 37987153). **SAS-1::miRFP670 (670nm, far-red, NO GFP overlap) serves as an early marker** — SAS-1 disappearance precedes SAS-4 loss, providing an early signal of impending elimination. **Caveat:** Magescas (2023) studied primarily oocytes; somatic applicability tested in Pilot P6.
