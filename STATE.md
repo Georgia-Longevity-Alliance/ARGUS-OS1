@@ -1,7 +1,7 @@
 # STATE — ARGUS-OS1
 
 **Date:** 2026-07-22
-**Status:** ✅ v152 — Post peer-review. Budget realistic ($126K). Pilot validates stochasticity at all stages.
+**Status:** ✅ v153 — Post peer-review + PMID audit. $126K. Go/No-Go criteria. Bonferroni/FDR.
 
 ## Current
 
