@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 184.0
+**Version:** 185.0
 **Date:** 2026-07-22
 
 ---
@@ -110,7 +110,7 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 | 3 | Mordant: 2.5% iron-ammonium alum | 1-12 h |
 | 4 | Staining: 0.5% haematoxylin | 1-12 h |
 | 5 | Differentiation: 2.5% iron-ammonium alum (microscope control until background clear) | 5-30 min |
-| 6 | Dehydration + mounting | 30 min |
+| 6 | Dehydration + mounting. NOTE: protocol adapted from 2-5μm sections; whole-mount C. elegans requires differentiation monitoring per embryo to prevent overstaining. | 30 min |
 
 **Negative control:** RNAi-PLK-4 embryos (no centrioles → no black dots). **Reference:** Scheer 2014 (PMID 25047623).
 
