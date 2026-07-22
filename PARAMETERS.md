@@ -1,6 +1,6 @@
 # PARAMETERS — ARGUS-OS1
 
-**Version:** 159.0
+**Version:** 160.0
 **Date:** 2026-07-22
 
 ## Model
@@ -40,4 +40,4 @@
 | Intermediate | After 50 embryos: BF<3→N=200, BF>10→stop |
 | Controls | Negative: RNAi-PLK-4. Positive: spd-2(or165)/plk-1(RNAi) |
 | Blind protocol | AI tracks → human classifies fate → pedigree computed last |
-| Budget | ~$260000 (HW: ~$59.7K + personnel: $50K + contingency: $33K) |
+| Budget | ~$192000 (HW: ~$59.7K + personnel: $50K + contingency: $33K) |

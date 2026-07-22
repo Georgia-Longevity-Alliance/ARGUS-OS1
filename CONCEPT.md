@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 159.0
+**Version:** 160.0
 **Date:** 2026-07-22
 
 ---
@@ -149,30 +149,30 @@ fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 
 
 ---
 
-## 4. Budget (ARGUS V7+V8, 24 months)
+## 4. Budget (ARGUS V7, 24 months)
+
+**Platform:** Spinning disk confocal (CSU-W1) + sCMOS. V8 light-sheet deferred to OS2 (separate proposal).
 
 | Item | $ |
 |------|--:|
 | 60×/1.2 NA WI objective (Nikon CFI Plan Apo) | 13,500 |
 | sCMOS camera (Hamamatsu ORCA-Fusion BT) | 22,000 |
+| Spinning disk unit (Yokogawa CSU-W1) | 18,000 |
 | 405 nm + 488 nm + 561 nm + 640 nm lasers | 2,500 |
-| **Light-sheet module (V8) — MANDATORY** | 25,000 |
-| Light-sheet delivery + installation + calibration | 5,000 |
-| Phase contrast condenser + objectives | 2,500 |
 | Microfluidic chip + pressure system | 5,000 |
 | Frame + stage: Aluminum 7075 + thermal stabilization | 4,000 |
 | AI: Jetson AGX Orin 64GB (275 TOPS) | 3,000 |
-| Night vision: IR LED + NoIR + notch filters | 500 |
+| Night vision + phase contrast | 2,000 |
 | C. elegans strains (8 markers + RNAi + mutants) + reagents | 10,000 |
-| Equipment maintenance (2 years) | 10,000 |
-| Consumables (coverslips, agarose, plates, 2 years) | 5,000 |
-| Conference travel + collaboration visits | 5,000 |
-| Open Access publication fees | 5,000 |
+| Equipment maintenance (2 years) | 8,000 |
+| Consumables (coverslips, agarose, plates) | 4,000 |
+| Conference travel | 3,000 |
+| Open Access fees | 5,000 |
 | PI salary (25% FTE, 24 months) | 30,000 |
 | Engineer salary (50% FTE, 24 months) | 60,000 |
-| Lab space rental (Abastumani, 24 months) | 10,000 |
-| Contingency (20%) | 43,000 |
-| **Total (ARGUS V7+V8, 24 months)** | **~260,000** |
+| Lab space (Abastumani, 24 months) | 10,000 |
+| Contingency (20%) | 32,000 |
+| **Total** | **~192,000** |
 
 ---
 
@@ -215,7 +215,7 @@ fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 
 **Sensitivity:** Sister pairs. **Surrogate:** SAS-1 loss before SAS-4.
 **Timing note:** 100-cell window snapshot — NOT comma stage. Late eliminators flagged.
 **V8 light-sheet strongly recommended** for phototoxicity ceiling.
-*27 refs. Sister-pairs PRIMARY (ICC-free). $260K/24mo.*
+*27 refs. Sister-pairs PRIMARY (ICC-free). Spinning disk V7. Survival analysis. $192K/24mo.*
 
 ---
 
