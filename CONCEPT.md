@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 166.0
+**Version:** 167.0
 **Date:** 2026-07-22
 
 ---
@@ -12,9 +12,9 @@
 1. ~88% of cells eliminate centrioles by the **comma stage** of C. elegans embryogenesis. ~68 cells retain them at that stage (Kalbfuss & Gönczy 2023, PMID 37256957). **Timing gap:** our imaging window (zygote→~100 cells, ~3h) ends BEFORE comma stage. Cells classified as "retained" at 100-cell stage may eliminate centrioles later. **We measure "retained at 100-cell window" — a snapshot, not final fate.**
 2. Centriole segregation is STOCHASTIC at the 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and ABpr lineage (Erpf & Mikeladze-Dvali 2020). Full-embryogenesis stochasticity is TESTED in Pilot P1 (NOT assumed).
 3. E-lineage (intestinal) cells lose centrioles during post-embryonic endoreduplication (Lu & Roy 2014, PMID 25360893). **EXCLUDED from primary analysis** (different elimination mechanism). Separate secondary analysis on E-lineage only.
-4. ~12% of embryonic cells undergo programmed cell death (Sulston 1983). **EXCLUDED via CED-3::mCherry** (competing risk in Fine-Gray model).
+4. ~12% of embryonic cells undergo programmed cell death (Sulston 1983). **EXCLUDED via CED-3::mCherry** (competing risk in Cause-Specific Hazards model).
 5. Centriole elimination in oogenesis initiates with SAS-1 central tube loss (Magescas et al. 2023, PMID 37987153). **SAS-1::mCherry serves as an early marker** — SAS-1 disappearance precedes SAS-4 loss, providing an early signal of impending elimination. **Caveat:** Magescas (2023) studied primarily oocytes; somatic applicability tested in Pilot P6.
-6. Based on OToole (2003) centriole ultrastructure and Magescas (2023) SAS-1 dynamics, we HYPOTHESIZE PCM disassembles before the core. Tested directly via SPD-2::mCherry, PMID 14610052). SAS-4::GFP visualizes the core but NOT PCM. A "GFP-positive, PCM-negative" centriole is a ZOMBIE — structurally present, biologically dead. **Primary outcome: composite fate = (SAS-4+ AND SPD-2+). Loss of EITHER = eliminated.** This eliminates misclassification of zombie centrioles as "retained." SPD-2::mCherry tracked in ALL N=100 embryos.
+6. Based on OToole (2003) centriole ultrastructure and Magescas (2023) SAS-1 dynamics, we HYPOTHESIZE PCM disassembles before the core. Tested directly via SPD-2::mCherry, PMID 14610052). SAS-4::GFP visualizes the core but NOT PCM. A "GFP-positive, PCM-negative" centriole is a ZOMBIE — structurally present, biologically dead. **Primary outcome: composite fate = (SAS-4+ AND SPD-2+). Loss of EITHER for >30 min = eliminated (Bobinnec 1998: PCM can regenerate).** This eliminates misclassification of zombie centrioles as "retained." SPD-2::mCherry tracked in ALL N=100 embryos.
 7. PAR proteins (PAR-2, PAR-3, PAR-6) establish cortical asymmetry and influence spindle orientation in early C. elegans embryos. **PAR-2::GFP + PAR-3::mCherry** quantify both posterior and anterior cytoplasmic asymmetry at each division.
 
 ### What is TESTED here (ARGUS hypothesis)
@@ -28,11 +28,11 @@
 **Primary test — Sister-cell pairs (eliminates ICC):**
 When a cell divides, one daughter gets the older centriole, one the younger. Both inherit identical cell type, cytoplasm, and lineage. **Pedigree difference IS the only systematic difference.** This is the cleanest causal design.
 
-**ICC power calculation:** For N=100 embryos with ~68 centrioles each, ICC≈0.3 → N_eff = 100/(1+67×0.3) ≈ 4.7. **Within-embryo mixed models have <20% power for OR=1.2.** Sister-pair design eliminates ICC entirely.
+**ICC power calculation:** For N=100 embryos with ~68 centrioles each, ICC≈0.3 → N_eff = 100/(1+67×0.3) ≈ 4.7. **Within-embryo mixed models have <20% power for OR=1.2.** Sister-pair design eliminates ICC. PAR-2/PAR-3 ratio included as within-pair covariate (daughters are not cytoplasmically identical)..
 
 **Secondary — Bootstrap Mixed Model (all cells):**
 ```
-fate ~ PedigreeScore + age + time_since_last_division + mother_daughter + PAR2 + PAR3 + (1|embryo) + (1|cell_lineage)
+fate ~ PedigreeScore + age + time_since_last_division + mother_daughter + PAR2 + PAR3 + (1|embryo/lineage)
 ```
 Exploratory. ICC-adjusted confidence intervals reported.
 
@@ -92,7 +92,7 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 | Centrin1::BFP | Orthogonal centriole marker (cross-validation P4) |
 | Dendra2::SAS-4 | Age measurement via photoconversion (Pilot P1). **405 nm laser required.** |
 | **PAR-2/PAR-3 ratio** (PAR-2::GFP + PAR-3::mCherry) | Cortical asymmetry index |
-| **CED-3::mCherry** | Apoptosis: competing risk in Fine-Gray model |
+| **CED-3::mCherry** | Apoptosis: competing risk in Cause-Specific Hazards model |
 | **SPD-2::mCherry** (561nm) | PCM marker: functional vs zombie. ALL N=100 embryos. Distinct λ from SAS-4::GFP (488nm). |
 | Histone::CFP | Nucleus segmentation |
 | spd-2(or165) / plk-1(RNAi) | Positive control: centriole loss mutants |
@@ -146,7 +146,7 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 | Stage | Action | N |
 |:---:|--------|:---:|
 | **1** | **Collect ALL data.** 3D time-lapse: zygote→~100 cells, ~3h at 25°C. Adaptive illumination: 2-min intervals (5-min if P2 fails). Z-stack 21 slices × 0.4 μm. **Light-sheet (V8) strongly recommended** — reduces phototoxicity ×10 vs widefield. PAR-2 + PAR-3 channels. CED-3 channel. Phase contrast for boundaries. **Negative control:** RNAi-PLK-4. **Positive control:** spd-2(or165). | 100 embryos |
-| **2** | **Bootstrap Mixed Model (PRIMARY).** Fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage). 1,000 bootstrap resamples of embryos. **Bayesian BF>10.** **Exclusion:** E-lineage cells, CED-3(+) apoptotic cells, cells with <3 timepoints. **Outcome variables:** (a) SAS-4 retention, (b) SAS-1 retention (early signal of impending elimination). | ~6,800 centrioles after exclusions |
+| **2** | **Bootstrap Mixed Model (PRIMARY).** Fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo/lineage). 1,000 bootstrap resamples of embryos. **Bayesian BF>10.** **Exclusion:** E-lineage cells, CED-3(+) apoptotic cells, cells with <3 timepoints. **Outcome variables:** (a) SAS-4 retention, (b) SAS-1 retention (early signal of impending elimination). | ~6,800 centrioles after exclusions |
 | **3** | **Sister-pair sensitivity analysis.** If ≥40 same-type pairs → within-pair comparison. Secondary, not required for conclusions. | Subset of Stage 1 |
 | **4** | **E-lineage secondary analysis.** Intestinal cells separately: does Pedigree Score predict which cells lose centrioles during endoreduplication? Post-embryonic follow-up (additional 2h imaging at L1 stage). | E-lineage cells only |
 | **5** | **SAS-1 vs SAS-4 discordance.** Cells where SAS-1 is lost but SAS-4 persists → "centriole committed to elimination." Test whether Pedigree Score predicts SAS-1 loss EARLIER than SAS-4 loss. | All cells |
