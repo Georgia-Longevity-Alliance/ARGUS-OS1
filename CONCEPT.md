@@ -225,6 +225,8 @@ If Pedigree Score correlates with fate in OS1, OS2 tests causality via **centrio
 | 25 | **Delattre, Canard & Gönczy (2006)** — sequential protein recruitment in C. elegans centriole formation, Curr Biol | 16979563 |
 | 26 | **Dammermann et al. (2004)** — centriole assembly requires centriolar and PCM proteins, Dev Cell | 15572125 |
 | 27 | **Pintard & Bowerman (2019)** — mitotic cell division in C. elegans, Genetics | 30626640 |
+| 28 | **Fu & Glover (2012)** — centriole-PCM interface (Drosophila), Open Biol | 22977736 |
+| 29 | **Plourde et al. (2025)** — AIR-1 centrosome asymmetry, C. elegans embryo, Sci Rep | 40082489 |
 
 ---
 
@@ -233,7 +235,7 @@ If Pedigree Score correlates with fate in OS1, OS2 tests causality via **centrio
 **Sensitivity:** Sister pairs. **Surrogate:** SAS-1 loss before SAS-4.
 **Timing note:** 100-cell window snapshot — NOT comma stage. Late eliminators flagged.
 **V8 light-sheet strongly recommended** for phototoxicity ceiling.
-*27 refs. Sister-pairs PRIMARY. Joint model (JMbayes2). Composite fate (SAS-4+SPD-2). $192K.*
+*29 refs. Sister-pairs PRIMARY. Joint model (JMbayes2). Composite fate (SAS-4+SPD-2). $192K.*
 
 ---
 
