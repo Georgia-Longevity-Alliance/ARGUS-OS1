@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 157.0
+**Version:** 158.0
 **Date:** 2026-07-22
 
 ---
@@ -25,15 +25,19 @@
 
 **Pedigree Score (PCA):** (a) fraction ∥ divisions, (b) mean 3D angle change, (c) angle variance, (d) orientation switches, (e) cumulative angular path → first principal component.
 
-**Primary test — Bootstrap Mixed Model (fixed N=100 embryos, ~6,800 centrioles):**
+**Primary test — Bootstrap Mixed Model (fixed N=100 embryos):**
 ```
-fate ~ PedigreeScore + age + lineage(E_vs_nonE) + PAR2 + PAR3 + (1|embryo) + (1|cell_lineage)
+fate ~ PedigreeScore + age + time_since_last_division + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 + (1|embryo) + (1|cell_lineage)
 ```
-Bootstrap: 1,000 embryo resamples. **Power: OR≥1.2, BF>10, β<0.1.**
-**Bayesian primary:** Bayes Factor > 10 for H₁ vs H₀. **Package:** brms (R) with weakly informative priors: Normal(0, 1) for fixed effects, Half-Student-t(3, 0, 2.5) for random effects. **Pre-registered on OSF.**
-**NO intermediate stopping rule.** Fixed N=100. Sequential analysis risks BF inflation.
+Bootstrap: 1,000 embryo resamples. **Power: recalculated with ICC.** BF>10, β<0.1.
+**Priors:** Student-t(3,0,1) fixed effects (regularizing). Half-Student-t(3,0,2.5) random.
+**NO intermediate stopping.** Fixed N=100.
 
-**E-lineage strategy:** INCLUDED as factor `lineage(E_vs_nonE)`, NOT excluded. Test PedigreeScore × lineage interaction. If interaction non-significant (BF<3 for interaction term) → pool all lineages. If significant → report lineage-specific effects.
+**Comma-stage validation (N=20 embryos):** Extended imaging (+2h, ~200→350 cells) for a subset to verify that 100-cell PedigreeScore predicts final comma-stage elimination. **Critical for surrogate endpoint validation.**
+
+**Inter-rater reliability:** Two independent classifiers (human + AI). **Cohen's Kappa ≥ 0.85 required.** Below threshold → third arbitrator.
+
+**E-lineage strategy:** INCLUDED as factor `lineage(E_vs_nonE)`, NOT excluded. Test PedigreeScore × lineage interaction. If significant → lineage-specific models.
 
 **Fate classification (3 categories):**
 - **Early eliminators:** centriole lost ≤100-cell window
@@ -69,7 +73,7 @@ Bootstrap: 1,000 embryo resamples. **Power: OR≥1.2, BF>10, β<0.1.**
 ```
 fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 + (1|embryo) + (1|cell_lineage)
 ```
-**Priors:** Fixed effects ~ Normal(0,1). Random effects ~ Half-Student-t(3,0,2.5). **Pre-registered: OSF.**
+**Priors (brms, pre-registered):** Fixed effects ~ **Student-t(3, 0, 1)** (regularizing — avoids OR inflation of Normal(0,1)). Random effects ~ Half-Student-t(3, 0, 2.5). **ICC:** intra-class correlation for lineage random effect reported; power recalculated accounting for ICC.
 **Evidence:** BF > 10 (α=0.05 threshold equivalent) for H₁ vs H₀ (primary: SAS-4 outcome). **Secondary (SAS-1):** FDR (Benjamini-Hochberg, q<0.05).
 **Fixed N=100. NO intermediate stopping.**
 
@@ -112,7 +116,7 @@ fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 
 
 | Step | Action |
 |:---:|--------|
-| P1 | **Stochasticity validation.** Dendra2::SAS-4 photoconversion at 8-, 16-, 32-, 64-cell stages. 10 embryos. **405 nm laser.** **Go/No-Go:** Spearman ρ(age, pedigree) < 0.1 at ALL stages → age≈orthogonal ✅. ρ ≥ 0.1 → age mandatory covariate ⚠️. ρ ≥ 0.3 → re-evaluate hypothesis 🔴. |
+| P1 | **Stochasticity validation.** Dendra2::SAS-4 photoconversion at 8-, 16-, 32-, 64-cell stages. 10 embryos. **405 nm laser.** **Non-photoconverted control:** 5 embryos with Dendra2 but NO 405nm exposure — same imaging otherwise. If aberrant divisions >5% in photoconverted vs control → method invalid. **Go/No-Go:** Spearman ρ(age, pedigree) < 0.1 at ALL stages → age≈orthogonal ✅. ρ ≥ 0.1 → age mandatory covariate ⚠️. ρ ≥ 0.3 → re-evaluate hypothesis 🔴. |
 | P2 | **Phototoxicity ceiling.** Test 488/561/405nm at 2-min vs 5-min intervals. Metrics: division rate, morphology, hatching rate. **Go/No-Go:** if division rate drops >10% at 2-min interval → switch to 5-min interval OR upgrade to light-sheet (V8). |
 | P3 | **Photobleaching assay.** SAS-4::GFP + SAS-1::mCherry signal decay over 3h. >30% loss → sparse sampling or light-sheet. |
 | P4 | **Marker cross-validation.** SAS-4::GFP + SAS-1::mCherry + Centrin1::BFP in same embryos. Confirm co-localization. 5 embryos. |
@@ -200,6 +204,9 @@ fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 
 | 19 | **O'Toole et al. (2003)** — MT ends in mitotic centrosome of C. elegans, J Cell Biol | 14610052 |
 | 20 | Weaver et al. (2017) — miRNAs in apoptosis, C. elegans development, Genes Dev | 28167500 |
 | 21 | **Keller et al. (2008)** — light-sheet microscopy for embryo development, Science | 18845710 |
+| 22 | **Feldman & Priess (2012)** — centrosome + PAR-3 in MTOC hand-off, epithelial polarization, Curr Biol | 22425160 |
+| 23 | **Mikeladze-Dvali et al. (2012)** — centriole elimination during C. elegans oogenesis, Development | 22492357 |
+| 24 | **Cabernard & Doe (2009)** — spindle orientation in Drosophila neuroblast homeostasis, Dev Cell | 19619498 |
 
 ---
 
@@ -208,7 +215,7 @@ fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 
 **Sensitivity:** Sister pairs. **Surrogate:** SAS-1 loss before SAS-4.
 **Timing note:** 100-cell window snapshot — NOT comma stage. Late eliminators flagged.
 **V8 light-sheet strongly recommended** for phototoxicity ceiling.
-*21 refs. V7+V8 mandatory. $140K. Fixed N=100, no intermediate stopping. brms priors pre-registered.*
+*24 refs. V7+V8 mandatory. $140K. Student-t priors. Comma-stage validation (N=20). Cohen's Kappa ≥0.85.*
 
 ---
 
