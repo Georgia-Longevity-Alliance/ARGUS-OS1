@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 155.0
+**Version:** 156.0
 **Date:** 2026-07-22
 
 ---
@@ -25,19 +25,25 @@
 
 **Pedigree Score (PCA):** (a) fraction ∥ divisions, (b) mean 3D angle change, (c) angle variance, (d) orientation switches, (e) cumulative angular path → first principal component.
 
-**Primary test — Bootstrap Mixed Model (N=100 embryos, ~6,800 centrioles):**
+**Primary test — Bootstrap Mixed Model (fixed N=100 embryos, ~6,800 centrioles):**
 ```
-fate ~ PedigreeScore + age + PAR2_asymmetry + PAR3_asymmetry + (1|embryo) + (1|lineage)
+fate ~ PedigreeScore + age + lineage(E_vs_nonE) + PAR2 + PAR3 + (1|embryo) + (1|cell_lineage)
 ```
-Bootstrap: 1,000 resamples of embryos. **Power: OR≥1.2 detectable at BF>10 with β<0.1.**
-Bayesian primary: Bayes Factor > 10 for H₁ vs H₀.
+Bootstrap: 1,000 embryo resamples. **Power: OR≥1.2, BF>10, β<0.1.**
+**Bayesian primary:** Bayes Factor > 10 for H₁ vs H₀. **Package:** brms (R) with weakly informative priors: Normal(0, 1) for fixed effects, Half-Student-t(3, 0, 2.5) for random effects. **Pre-registered on OSF.**
+**NO intermediate stopping rule.** Fixed N=100. Sequential analysis risks BF inflation.
 
-**Sensitivity analysis — Sister-cell pairs (Stage 2):** If ≥40 same-type sister pairs exist → direct within-pair comparison. **Not required for primary conclusion.**
+**E-lineage strategy:** INCLUDED as factor `lineage(E_vs_nonE)`, NOT excluded. Test PedigreeScore × lineage interaction. If interaction non-significant (BF<3 for interaction term) → pool all lineages. If significant → report lineage-specific effects.
 
-**Exclusion criteria:**
-- E-lineage (intestinal) cells → separate secondary analysis (post-embryonic centriole loss)
-- Apoptotic cells (CED-3::mCherry positive) → excluded from all analyses
-- Cells with <3 timepoints of tracking data → excluded (insufficient pedigree resolution)
+**Fate classification (3 categories):**
+- **Early eliminators:** centriole lost ≤100-cell window
+- **Late eliminators:** centriole retained at 100 cells, lost by extended imaging (+2h, ~200 cells)
+- **Permanent retainers:** centriole present at 200+ cells
+**Primary outcome:** binary (retained vs eliminated at 100 cells). **Secondary:** 3-category ordinal model.
+
+**Mother/daughter centriole tracking:** In each division, the older (mother) centriole is identified by Dendra2::SAS-4 signal ratio (older = dimmer, more photoconverted protein diluted). **Mother/daughter status added as fixed effect.**
+
+**Sensitivity — Sister pairs:** If ≥40 same-type pairs → within-pair comparison (secondary).
 
 ---
 
@@ -57,14 +63,15 @@ Bayesian primary: Bayes Factor > 10 for H₁ vs H₀.
 
 **H₀:** Pedigree Score does NOT predict centriole fate.
 
-**H₁:** Pedigree Score predicts centriole fate independently of cell type, cytoplasm asymmetry (PAR-2, PAR-3), and centriole age.
+**H₁:** Pedigree Score predicts centriole fate independently of cell type, lineage (E vs non-E), cytoplasm asymmetry (PAR-2, PAR-3), centriole age, and mother/daughter status.
 
-**Statistical model (Bayesian):**
+**Statistical model (Bayesian, brms with weakly informative priors):**
 ```
-fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage)
+fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 + (1|embryo) + (1|cell_lineage)
 ```
-**Evidence:** BF > 10 (α=0.05 equivalent). **Frequentist supplement:** Bootstrap p < 0.001 (1,000 resamples).
-**Intermediate:** After 50 embryos: BF<3 → N=200; BF>10 → stop.
+**Priors:** Fixed effects ~ Normal(0,1). Random effects ~ Half-Student-t(3,0,2.5). **Pre-registered: OSF.**
+**Evidence:** BF > 10 (α=0.05 threshold equivalent) for H₁ vs H₀ (primary: SAS-4 outcome). **Secondary (SAS-1):** FDR (Benjamini-Hochberg, q<0.05).
+**Fixed N=100. NO intermediate stopping.**
 
 ---
 
@@ -110,15 +117,18 @@ fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage)
 | P3 | **Photobleaching assay.** SAS-4::GFP + SAS-1::mCherry signal decay over 3h. >30% loss → sparse sampling or light-sheet. |
 | P4 | **Marker cross-validation.** SAS-4::GFP + SAS-1::mCherry + Centrin1::BFP in same embryos. Confirm co-localization. 5 embryos. |
 | P5 | **Sister-pair quantification.** From Sulston 1983: count same-type sister pairs. **This is sensitivity analysis, not primary test.** |
-| P6 | **Exclusion criteria validation.** CED-3::mCherry signal vs centriole loss in known apoptotic lineages. Cross-check with Sulston 1983 apoptosis map. |
-| P7 | **Ciliogenesis cross-check.** Compare Kalbfuss 68 retained cells vs WormAtlas cilial neuron list. >50% overlap → flag alternative hypothesis. |
+| P6 | **SAS-1→SAS-4 latency measurement.** In 10 embryos, measure time (minutes) between SAS-1::mCherry loss and SAS-4::GFP loss for ≥50 centrioles across cell types. **Go/No-Go:** if latency variance across cell types >2-fold → latency must be modeled as cell-type-specific. If mean latency <5 min → SAS-1 and SAS-4 loss are near-simultaneous (surrogate invalid). |
+| P7 | **Ciliogenesis cross-check + exclusion validation.** Compare Kalbfuss 68 vs WormAtlas cilial neurons. >50% overlap → flag. Also validate CED-3::mCherry + histone::CFP morphology against Sulston 1983 apoptosis map. |
+| P8 | **Mother/daughter identification.** Validate Dendra2::SAS-4 signal ratio: older centriole = dimmer (diluted photoconverted protein). Compare with lineage-based age prediction. 5 embryos. |
 
 **Go/No-Go criteria:**
 - P1: ρ < 0.1 ✅ | ρ ≥ 0.1 ⚠️ | ρ ≥ 0.3 🔴
 - P2: division rate >90% of dark control at chosen interval ✅ | <90% → 5-min interval or light-sheet
 - P3: signal decay <30% over 3h ✅
 - P5: ≥40 same-type pairs → sensitivity analysis viable
-- P6: CED-3 correctly identifies known apoptotic cells ✅
+- P6: mean SAS-1→SAS-4 latency <30 min across cell types ✅ | >30 min or >2-fold variance → cell-type-specific model | <5 min → surrogate invalid 🔴
+- P7: CED-3 + histone morphology correctly identifies apoptotic cells ✅ | >50% WormAtlas overlap → flag ciliogenesis alternative
+- P8: Dendra2 ratio correctly identifies mother in >90% of divisions ✅
 
 ---
 
@@ -146,7 +156,8 @@ fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage)
 | sCMOS camera (Hamamatsu ORCA-Fusion BT) | 18,500 |
 | 405 nm laser (Dendra2 photoconversion) | 1,200 |
 | 488 nm + 561 nm + 640 nm LED/lasers | 1,500 |
-| **Light-sheet module (V8)** — strongly recommended | 8,000 |
+| **Light-sheet module (V8) — MANDATORY** (Keller et al. 2008, PMID 18845710: 10-100× lower phototoxicity) | 8,000 |
+| **Light-sheet delivery + installation + calibration** | 3,000 |
 | Phase contrast condenser + objectives | 2,500 |
 | Microfluidic chip + pressure system | 2,500 |
 | Frame + stage: Aluminum 7075 + thermal stabilization | 4,000 |
@@ -156,11 +167,11 @@ fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage)
 | PI salary (25% FTE, 12 months) | 15,000 |
 | Engineer salary (50% FTE, 12 months) | 30,000 |
 | Lab space rental (Abastumani, 12 months) | 5,000 |
-| Contingency (30%) | 33,000 |
-| **Hardware subtotal** | **~59,700** |
+| Contingency (25%) | 27,000 |
+| **Hardware subtotal** | **~62,700** |
 | Personnel + lab | 50,000 |
-| Contingency (30%) | 33,000 |
-| **Total (ARGUS V7+V8)** | **~143,000** |
+| Contingency (25%) | 27,000 |
+| **Total (ARGUS V7+V8)** | **~140,000** |
 
 ---
 
@@ -187,7 +198,8 @@ fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage)
 | 17 | Woglar, Gönczy et al. (2022) — centriole molecular architecture, PLoS Biol | 36107993 |
 | 18 | Serwas, Gönczy et al. (2025) — SAS-1 integrity, PLoS Genet | 41124206 |
 | 19 | **O'Toole et al. (2003)** — MT ends in mitotic centrosome of C. elegans, J Cell Biol | 14610052 |
-| 20 | **Weaver et al. (2017)** — miRNAs in apoptosis during C. elegans development, Genes Dev | 28167500 |
+| 20 | Weaver et al. (2017) — miRNAs in apoptosis, C. elegans development, Genes Dev | 28167500 |
+| 21 | **Keller et al. (2008)** — light-sheet microscopy for embryo development, Science | 18845710 |
 
 ---
 
@@ -196,8 +208,8 @@ fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage)
 **Sensitivity:** Sister pairs. **Surrogate:** SAS-1 loss before SAS-4.
 **Timing note:** 100-cell window snapshot — NOT comma stage. Late eliminators flagged.
 **V8 light-sheet strongly recommended** for phototoxicity ceiling.
-*20 refs. V7+V8. $143K.*
+*21 refs. V7+V8 mandatory. $140K. Fixed N=100, no intermediate stopping. brms priors pre-registered.*
 
 ---
 
-**Limitations:** (1) 100-cell window ≠ comma stage — some "retained" cells may eliminate later; flagged as "late eliminators." (2) E-lineage excluded from primary analysis (post-embryonic loss). (3) CED-3 marker required — Pilot P6 validates. (4) SAS-1::mCherry as surrogate: SAS-1 loss precedes SAS-4 loss (Magescas 2023) but the interval is unknown — Pilot quantifies. (5) Light-sheet (V8) strongly recommended; widefield 2-min interval may exceed phototoxicity threshold (Pilot P2). (6) PCM loss before core loss (O'Toole 2003) — some "GFP-retained" centrioles may be biologically inactive. (7) PAR-2+PAR-3 control for cortical asymmetry but NOT for all cytoplasmic determinants. (8) Multiple testing: Bonferroni across 2 outcomes (SAS-4, SAS-1) + FDR within each. Pre-registered: OSF.
+**Limitations:** (1) 100-cell window ≠ comma stage — 3-category fate (early/late/permanent) as secondary analysis. (2) E-lineage INCLUDED as factor with interaction test, not excluded. (3) CED-3 + histone morphology for apoptosis exclusion. (4) SAS-1 latency measured in Pilot P6; <5 min invalidates surrogate. (5) V8 light-sheet MANDATORY (Keller 2008: 10-100× lower phototoxicity vs widefield). (6) PCM loss before core (O'Toole 2003) — some GFP+ centrioles may be inactive. (7) Mother/daughter identified via Dendra2 ratio (Pilot P8). (8) Multiple testing: BF>10 for SAS-4 (primary), FDR (q<0.05) for SAS-1 (secondary). Fixed N=100, NO sequential stopping. Pre-registered: OSF (brms priors specified).
