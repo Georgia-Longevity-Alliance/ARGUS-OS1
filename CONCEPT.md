@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 182.0
+**Version:** 183.0
 **Date:** 2026-07-22
 
 ---
