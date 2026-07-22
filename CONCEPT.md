@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 156.0
+**Version:** 157.0
 **Date:** 2026-07-22
 
 ---
@@ -13,7 +13,7 @@
 2. Centriole segregation is STOCHASTIC at the 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and ABpr lineage (Erpf & Mikeladze-Dvali 2020). Full-embryogenesis stochasticity is TESTED in Pilot P1 (NOT assumed).
 3. E-lineage (intestinal) cells lose centrioles during post-embryonic endoreduplication (Lu & Roy 2014, PMID 25360893). These cells RETAIN centrioles throughout our imaging window. **They are EXCLUDED from the primary analysis.** A secondary analysis examines them separately.
 4. ~12% of embryonic cells undergo programmed cell death (Sulston 1983 lineage). Apoptotic centriole loss is passive degradation, NOT pedigree-driven elimination. **Apoptotic cells are EXCLUDED** via CED-3::mCherry marker.
-5. Centriole elimination in oogenesis initiates with SAS-1 central tube loss (Magescas et al. 2023, PMID 37987153). **SAS-1::mCherry serves as an early surrogate marker** — SAS-1 disappearance precedes SAS-4 loss, providing a "decision point" before structural elimination.
+5. Centriole elimination in oogenesis initiates with SAS-1 central tube loss (Magescas et al. 2023, PMID 37987153). **SAS-1::mCherry serves as an early marker** — SAS-1 disappearance precedes SAS-4 loss, providing an early signal of impending elimination. **Caveat:** Magescas (2023) studied primarily oocytes; somatic applicability tested in Pilot P6.
 6. PCM (pericentriolar material) disassembles BEFORE the centriole core disappears (O'Toole et al. 2003, PMID 14610052). SAS-4::GFP visualizes the core but NOT PCM. A "GFP-positive" centriole may be biologically inactive. **We track both SAS-4 (core) and SAS-1 (tube integrity) as complementary fate markers.**
 7. PAR proteins (PAR-2, PAR-3, PAR-6) establish cortical asymmetry and influence spindle orientation in early C. elegans embryos. **PAR-2::GFP + PAR-3::mCherry** quantify both posterior and anterior cytoplasmic asymmetry at each division.
 
@@ -82,7 +82,7 @@ fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 
 | Marker | Purpose |
 |--------|--------|
 | SAS-4::GFP | Centriole core tracking (validated, Gönczy lab) |
-| **SAS-1::mCherry** | **Early surrogate: central tube loss precedes SAS-4 loss (Magescas 2023)** |
+| **SAS-1::mCherry** | **Early marker: central tube loss precedes SAS-4 loss (Magescas 2023, oocytes; somatic validation in P6)** |
 | Centrin1::BFP | Orthogonal centriole marker (cross-validation P4) |
 | Dendra2::SAS-4 | Age measurement via photoconversion (Pilot P1). **405 nm laser required.** |
 | PAR-2::GFP + **PAR-3::mCherry** | Cytoplasm asymmetry: posterior + anterior cortex |
@@ -139,7 +139,7 @@ fate ~ PedigreeScore + age + mother_daughter + lineage(E_vs_nonE) + PAR2 + PAR3 
 | Stage | Action | N |
 |:---:|--------|:---:|
 | **1** | **Collect ALL data.** 3D time-lapse: zygote→~100 cells, ~3h at 25°C. Adaptive illumination: 2-min intervals (5-min if P2 fails). Z-stack 21 slices × 0.4 μm. **Light-sheet (V8) strongly recommended** — reduces phototoxicity ×10 vs widefield. PAR-2 + PAR-3 channels. CED-3 channel. Phase contrast for boundaries. **Negative control:** RNAi-PLK-4. **Positive control:** spd-2(or165). | 100 embryos |
-| **2** | **Bootstrap Mixed Model (PRIMARY).** Fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage). 1,000 bootstrap resamples of embryos. **Bayesian BF>10.** **Exclusion:** E-lineage cells, CED-3(+) apoptotic cells, cells with <3 timepoints. **Outcome variables:** (a) SAS-4 retention, (b) SAS-1 retention (earlier decision point). | ~6,800 centrioles after exclusions |
+| **2** | **Bootstrap Mixed Model (PRIMARY).** Fate ~ PedigreeScore + age + PAR2 + PAR3 + (1|embryo) + (1|lineage). 1,000 bootstrap resamples of embryos. **Bayesian BF>10.** **Exclusion:** E-lineage cells, CED-3(+) apoptotic cells, cells with <3 timepoints. **Outcome variables:** (a) SAS-4 retention, (b) SAS-1 retention (early signal of impending elimination). | ~6,800 centrioles after exclusions |
 | **3** | **Sister-pair sensitivity analysis.** If ≥40 same-type pairs → within-pair comparison. Secondary, not required for conclusions. | Subset of Stage 1 |
 | **4** | **E-lineage secondary analysis.** Intestinal cells separately: does Pedigree Score predict which cells lose centrioles during endoreduplication? Post-embryonic follow-up (additional 2h imaging at L1 stage). | E-lineage cells only |
 | **5** | **SAS-1 vs SAS-4 discordance.** Cells where SAS-1 is lost but SAS-4 persists → "centriole committed to elimination." Test whether Pedigree Score predicts SAS-1 loss EARLIER than SAS-4 loss. | All cells |
