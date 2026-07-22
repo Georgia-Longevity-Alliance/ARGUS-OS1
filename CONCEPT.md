@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-****Version:** 153.0
+****Version:** 154.0
 **Date:** 2026-07-22
 > **v143:** V7 $81K. Sister-cell primary. All synced.
 
@@ -8,17 +8,29 @@
 
 ## 0. Hypothesis
 
-**Centriole pedigree (∥/⟂) → centriole fate (retained/eliminated).**
+### What is KNOWN (literature)
 
-In C. elegans, ~88% of cells eliminate centrioles during embryogenesis. ~68 cells retain them: 41 proliferating + 20 intestinal + 7 terminally differentiated (Kalbfuss & Gönczy 2023, PMID 37256957; EM confirmation in Croisier et al. 2025, PMID 40475707). **Gönczy (pers. comm., 21 Jul 2026):** centrioles retained in terminally differentiated cells of the adult somatic gonad likely remain for a functional reason — "to be able to build a centrosome or for some signaling function." Retained centrioles are not inert remnants. **Note:** intestinal cells later lose centrioles during endoreduplication (Lu & Roy 2014). Centrioles segregate STOCHASTICALLY at 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and in ABpr lineage (Erpf & Mikeladze-Dvali 2020). Extrapolated to full embryogenesis — testable in this project.
+1. ~88% of cells eliminate centrioles during C. elegans embryogenesis. ~68 cells retain them: 41 proliferating + 20 intestinal + 7 terminally differentiated (Kalbfuss & Gönczy 2023, PMID 37256957). EM confirmation: Croisier et al. 2025 (PMID 40475707). **Note:** intestinal cells later lose centrioles during endoreduplication (Lu & Roy 2014, PMID 25360893) — this is post-embryonic loss, distinct from embryonic elimination.
+2. Centriole segregation is STOCHASTIC at the 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and in the ABpr lineage (Erpf & Mikeladze-Dvali 2020). **Whether stochasticity extends to ALL embryonic stages is UNKNOWN** — Pilot P1 tests this directly.
+3. Centrioles retained in terminally differentiated cells of the adult somatic gonad likely serve a functional purpose (Gönczy, pers. comm., 21 Jul 2026). **Alternative hypothesis:** retention may reflect ciliary function rather than pedigree — we test this by cross-referencing the 68 retained-cell list against WormAtlas cilial neuron inventory.
+4. Centriole elimination in oogenesis initiates with SAS-1 central tube loss (Magescas, Kalbfuss & Gönczy 2023, PMID 37987153) — a potential mechanistic link.
 
-**Stochastic segregation makes age ORTHOGONAL to pedigree.** If which centriole goes where is random, age and pedigree are statistically independent. This eliminates age as a confound — any observed pedigree↔fate effect must come from the pedigree itself.
+### What is TESTED here (ARGUS hypothesis)
 
-**Pedigree definition:** time-ordered sequence of division orientations (3D angles) of all cells the centriole has passed through. Measured via SAS-4::GFP tracking. Age measured via Dendra2::SAS-4 photoconversion (Erpf & Mikeladze-Dvali 2020).
+**H₀ (null):** Pedigree does NOT predict centriole fate beyond cell type.
 
-**Two nested hypotheses:**
-- **H₁ (known, Kalbfuss 2023):** pedigree correlates with centriole fate THROUGH cell type.
-- **H₂ (tested here):** pedigree adds predictive power BEYOND cell type. **Primary test: sister-cell pairs.** When a cell divides symmetrically (same-type daughters — rare in C. elegans, exact frequency to be determined in Pilot), one gets the older centriole, one gets the younger. If their centriole fates diverge, pedigree is the explanation. **Caveat:** most C. elegans divisions are asymmetric (different daughter types). Pilot will quantify available same-type sister pairs.
+**H₁ (alternative):** Centriole pedigree — the time-ordered sequence of 3D division orientations — predicts centriole fate (retained vs eliminated) independently of cell type.
+
+**Pedigree definition:** 5 quantitative metrics per centriole: (a) fraction of ∥ divisions, (b) mean 3D angle change, (c) angle variance, (d) orientation switches count, (e) cumulative angular path. Reduced to **Pedigree Score** via PCA (first principal component).
+
+**Critical assumption — tested in Pilot P1:** If centriole segregation is stochastic at ALL stages, age and pedigree are orthogonal (Spearman ρ < 0.1). If ρ ≥ 0.1 at any stage, age enters the model as a mandatory covariate and stochasticity is NOT assumed.
+
+**Primary test — sequential 3-stage design:**
+- **Stage 1 (all 100 embryos):** Collect pedigree + fate data for ALL cells.
+- **Stage 2 (sister pairs):** If ≥40 same-type sister pairs exist → direct test of pedigree effect within identical cell types. **This is the cleanest causal test.**
+- **Stage 3 (within-type permutation):** For each cell type with ≥5 cells → **permutation test** (10,000 shuffles): is the observed association between Pedigree Score and centriole fate stronger than random? This avoids distributional assumptions.
+
+**Age measurement:** Dendra2::SAS-4 photoconversion (Erpf & Mikeladze-Dvali 2020). **Requires 405 nm laser** — included in budget. Pilot P1 validates photoconversion efficiency.
 
 
 ---
@@ -36,15 +48,32 @@ In C. elegans, ~88% of cells eliminate centrioles during embryogenesis. ~68 cell
 
 ## 2. Prediction
 
-**Pedigree (∥/⟂) → centriole fate (retained/eliminated).**
+**H₀:** Pedigree Score does NOT predict centriole fate (retained/eliminated).
 
-Control: age → function quality (Anderson 2009).
+**H₁:** Pedigree Score predicts centriole fate independently of cell type, cytoplasm volume (PAR-2 asymmetry), and centriole age.
+
+**Statistical model (Bayesian primary):**
+```
+fate ~ PedigreeScore + age + PAR2_asymmetry + (1|embryo) + (1|cell_type)
+```
+**Evidence threshold:** Bayes Factor (BF) > 10 for H₁ vs H₀.
+**Frequentist supplement:** Permutation test (10,000 shuffles), α = 0.05 with Bonferroni correction.
+**Intermediate analysis:** After 50 embryos. If BF < 3 → increase N to 200. If BF > 10 → stop early (efficiency).
 
 ---
 
 ## 3. Experiment
 
-### 🆕 Iron-Based Centriole Detection (Heidenhain's Iron Haematoxylin)
+### Markers and Strains
+
+| Marker | Purpose |
+|--------|--------|
+| SAS-4::GFP | Centriole tracking (validated, Gönczy lab) |
+| Centrin1::mCherry | Orthogonal centriole marker (cross-validation in P4) |
+| Histone::BFP | Nucleus segmentation, cell counting |
+| **PAR-2::GFP** | **Cytoplasm asymmetry control.** PAR-2 marks posterior cortex — quantifies cytoplasmic volume asymmetry at each division. Covariate in regression. |
+| Dendra2::SAS-4 | Age measurement via photoconversion (Pilot P1). **Requires 405 nm laser.** |
+| **spd-2(or165) / plk-1(RNAi)** | **Positive control:** mutants with known centriole loss (spd-2) or duplication failure (plk-1). Replaces gut lineage control. |
 
 > **Idea (Jaba Tqemaladze, 2026-07-21):** Heidenhain's iron haematoxylin — the method Boveri used to discover centrioles in 1900 (Scheer 2014, PMID 25047623). Unlike GFP, it does not require transgenic lines. The centriole retains iron after differentiation, when surrounding structures are already destained.
 
@@ -74,29 +103,31 @@ Control: age → function quality (Anderson 2009).
 
 | Step | Action |
 |:---:|--------|
-| P1 | **Stochasticity validation.** Test random segregation at ALL stages (not just 4-cell + ABpr). Use Dendra2::SAS-4 photoconversion at 8-, 16-, 32-, 64-cell stages. 10 embryos. **Criterion:** if segregation is non-random at any stage → age becomes confound → must stratify by age. |
+| P1 | **Stochasticity validation.** Dendra2::SAS-4 photoconversion at 8-, 16-, 32-, 64-cell stages. 10 embryos. **Requires 405 nm laser.** **Go/No-Go:** if Spearman ρ(age, pedigree) ≥ 0.1 at any stage (p < 0.05) → stochasticity NOT assumed → age enters model as mandatory covariate. If ρ ≥ 0.3 → age becomes primary predictor; re-evaluate entire hypothesis. |
 | P2 | **Phototoxicity ceiling.** Determine max imaging duration without viability loss. Metrics: division rate, morphology score, hatching rate. Test 488nm + 561nm with 60×/1.2 NA WI at 5-min Z-stack intervals. Find safe duty cycle. |
 | P3 | **Photobleaching assay.** Measure SAS-4::GFP signal decay over 3h. If >30% loss → switch to sparse temporal sampling or increase laser power budget. |
 | P4 | **Marker cross-validation.** Double transgenic line: Centrin1-GFP + SAS-4::mCherry in same embryos. Confirm both markers track same centrioles. 5 embryos. |
 | P5 | **Same-type sister pair quantification.** From Sulston 1983 lineage map: count divisions where both daughters have identical cell type at hatching. If <40 pairs in 100 embryos → switch to Plan C (within-type pedigree comparison, see Analysis). |
-| P6 | **Pedigree feature extraction.** Define 5 quantitative metrics: (a) fraction of ∥ divisions, (b) mean 3D angle change, (c) variance of angles, (d) number of orientation switches, (e) cumulative angular path. Test independence from cell type on synthetic data. |
+| P7 | **Ciliogenesis cross-check.** Compare Kalbfuss (2023) 68 retained-centriole cells against WormAtlas cilial neuron list. If >50% overlap → alternative hypothesis (ciliary retention) cannot be excluded. |
 
 **Pilot Go/No-Go criteria:**
-- P1 (stochasticity): if Spearman ρ(age, pedigree) > 0.3 at any stage (p < 0.05) → age becomes covariate, NOT eliminated
-- P2 (phototoxicity): if division rate drops >10% vs dark control → reduce duty cycle or switch to HyD detector
-- P3 (photobleaching): if SAS-4::GFP signal decays >30% over 3h → sparse temporal sampling
-- P5 (sister pairs): if <40 same-type sister pairs in 100 embryos → switch to Plan C (within-type comparison) as PRIMARY
+- **P1 (stochasticity):** Spearman ρ(age, pedigree) < 0.1 at ALL stages → age ≈ orthogonal ✅. ρ ≥ 0.1 → age is mandatory covariate ⚠️. ρ ≥ 0.3 → re-evaluate hypothesis 🔴.
+- **P2 (phototoxicity):** division rate drop >10% vs dark control → reduce duty cycle or switch to HyD (GaAsP) detector.
+- **P3 (photobleaching):** SAS-4::GFP signal decay >30% over 3h → sparse temporal sampling.
+- **P5 (sister pairs):** <40 same-type pairs in 100 embryos → Stage 3 (permutation within-type) becomes primary.
+- **P7 (ciliogenesis):** >50% overlap with WormAtlas cilial neurons → flag alternative hypothesis; test ciliary marker co-localization.
 
-### Main Experiment (GFP)
+### Main Experiment — Sequential 3-Stage Design
 
-| Step | Action |
-|:---:|--------|
-| 1 | C. elegans embryo, Centrin1-GFP + SAS-4::mCherry + histone::BFP (triple transgenic). |
-| 2 | Immobilization: microfluidic chip or agarose pad. **Second modality: phase contrast** for cell boundary tracking (no additional light stress). |
-| 3 | 3D time-lapse from zygote to ~100 cells (~3h, **25°C standard**). **Adaptive illumination — not continuous.** Duty cycle from Pilot P2. **Dark control: parallel embryos, lasers OFF.** |
-| 4 | **Pedigree: 5 metrics per centriole.** Full history + extracted features. Pilot validates angle measurement (5 embryos) with fiducial bead calibration. |
-| 5 | **Controls:** (a) **Negative:** RNAi-PLK-4 embryos (centrioles not formed). (b) **Positive:** gut lineage (E cells — known centriole loss at endoreduplication, Lu & Roy 2014). |
-| 6 | **Primary test: within-type pedigree comparison.** For each cell type with ≥5 cells, compare centriole fate by pedigree features. Mixed-effects logistic regression: fate ~ pedigree_features + age + (1|embryo) + (1|cell_type). **Plan C (if <40 same-type sister pairs):** compare centrioles within same cell type — does pedigree predict fate variance? **Power: N=100 embryos for OR≥1.5 (α=0.05, β=0.2). Bayesian hierarchical model as supplement. Blinding: analyst blinded to pedigree. Pre-registration: OSF.** |
+**Blind protocol:** AI tracker (Jetson AGX Orin) extracts centriole coordinates + cell boundaries + division angles. Pedigree computation is DELAYED — raw trajectory data stored. Human expert classifies centriole fate (retained/eliminated) from final frame WITHOUT access to pedigree data. Pedigree Score computed ONLY after fate classification is locked. Pre-registered on OSF.
+
+| Stage | Action | N |
+|:---:|--------|:---:|
+| **1** | **Collect ALL data:** 3D time-lapse (zygote→~100 cells, ~3h at 25°C). Adaptive illumination: 2-min interval, Z-stack 21 slices × 0.4 μm. Dark control: parallel embryos, lasers OFF. PAR-2::GFP channel for cytoplasm asymmetry. Phase contrast for cell boundaries. **Negative control:** RNAi-PLK-4 (no centrioles). **Positive control:** spd-2(or165) mutants (known centriole loss). | 100 embryos |
+| **2** | **Sister-pair analysis:** If ≥40 same-type pairs → direct test of pedigree effect in genetically+cytoplasmically identical backgrounds. Mixed-effects Bayesian logistic regression. | Subset of Stage 1 |
+| **3** | **Within-type permutation test:** For each cell type with ≥5 cells → 10,000 random shuffles of Pedigree Score vs fate. Compute empirical p-value: fraction of shuffled datasets where association ≥ observed. Bonferroni correction across cell types. | All cells from Stage 1 |
+
+**Intermediate analysis:** After 50 embryos. If BF < 3 for H₁ vs H₀ → increase total N to 200. If BF > 10 → stop early. **Primary evidence:** Bayes Factor > 10. **Supplementary:** permutation p < 0.05 after correction.
 
 ---
 
@@ -107,20 +138,21 @@ Control: age → function quality (Anderson 2009).
 | 60×/1.2 NA WI objective (Nikon CFI Plan Apo, new) | 13,500 |
 | sCMOS camera (Hamamatsu ORCA-Fusion BT, new) | 18,500 |
 | 488 nm LED + 561 nm LED | 800 |
+| **405 nm laser (Dendra2 photoconversion, Pilot P1)** | **1,200** |
 | Phase contrast condenser + objectives | 2,500 |
 | Microfluidic chip + pressure system | 2,500 |
 | Frame + stage: Aluminum 7075 + thermal stabilization | 4,000 |
 | AI: Jetson AGX Orin 64GB (275 TOPS, local tracking) | 2,000 |
 | Night vision: IR LED 850nm + NoIR camera + notch filters | 500 |
-| C. elegans strains (triple transgenic + RNAi) + reagents + consumables | 3,000 |
+| C. elegans strains (PAR-2::GFP, Dendra2::SAS-4, spd-2, RNAi) + reagents | 4,000 |
 | PI salary (25% FTE, 12 months) | 15,000 |
 | Engineer salary (50% FTE, 12 months) | 30,000 |
 | Lab space rental (Abastumani, 12 months) | 5,000 |
-| Contingency (30%) | 29,000 |
-| **Hardware subtotal** | **~47,300** | |
+| Contingency (30%) | 30,000 |
+| **Hardware subtotal** | **~48,500** | |
 | Personnel + lab | 50,000 |
-| Contingency (30%) | 29,000 |
-| **Total (ARGUS V7)** | **~126,000** |
+| Contingency (30%) | 30,000 |
+| **Total (ARGUS V7)** | **~128,500** |
 
 | 3-axis micromanipulator ×2 + injector — AI-controlled | 8,000 |
 | **Total (Phase 3 equipment)** | **~71,000** |
@@ -140,7 +172,7 @@ Control: age → function quality (Anderson 2009).
 
 **Reproducibility:** All code, protocols, and raw data on GitHub + Zenodo (CC-BY). Protocol on bioRxiv before data collection. **Data:** Raw images → BioImage Archive. Processed → Zenodo. Code → GitHub. **Independent replication:** N2 strain (baseline) + CB4856 (Hawaiian) for cross-strain validation. **Timeline:** Pilot (2 months) → Main (4 months) → Analysis (2 months). **Biosafety:** BSL-1. C. elegans — non-pathogenic. 488nm LED — class 1 laser product.
 
-**Limitations:** (1) Stochasticity confirmed only for 4-cell stage + ABpr lineage — **Pilot P1 tests all stages** before main experiment. (2) Sister-cell pairs are rare (~5% of divisions) — Pilot P5 quantifies; **Plan C** uses within-type pedigree comparison if <40 pairs. (3) Intestinal cells later lose centrioles (Lu & Roy 2014, PMID 25360893) — not permanent retention; accounted as positive control. (4) C. elegans-specific — requires cross-species validation. (5) Multicollinearity risk between pedigree and cell_type — mitigated by within-type comparison (Plan C) + VIF monitoring. (6) Phototoxicity from 3h 3D imaging — Pilot P2 determines safe duty cycle; HyD (GaAsP) detector recommended for 10× lower laser power. (7) Heidenhain's haematoxylin not validated for C. elegans centrioles — Pilot validates with anti-SAS-4 co-stain. (8) Multiple testing: 5 pedigree metrics × multiple cell types → **Bonferroni correction** (α/25) or **FDR** (Benjamini-Hochberg, q < 0.05). Pre-registered on OSF.
+**Limitations:** (1) Stochasticity NOT assumed — Pilot P1 tests all stages; ρ ≥ 0.1 → age mandatory covariate. (2) Sister-cell pairs rare (~5%) — Stage 2 quantifies; Stage 3 (permutation) is primary if <40 pairs. (3) Ciliogenesis alternative: Pilot P7 cross-references WormAtlas cilial neurons; >50% overlap flags retention-for-cilia hypothesis. (4) C. elegans-specific — requires cross-species validation. (5) Multicollinearity: Pedigree Score (PCA) reduces 5 metrics → 1 dimension; VIF monitored. (6) Phototoxicity: Pilot P2 determines safe duty cycle; HyD (GaAsP) detector recommended for 10× lower laser power. (7) Heidenhain haematoxylin: Pilot validates with anti-SAS-4 co-stain + RNAi-PLK-4 negative control (no centrioles = no black dots). (8) Multiple testing: Bonferroni correction (α/N_cell_types) + FDR (Benjamini-Hochberg, q < 0.05). (9) Positive control: spd-2(or165)/plk-1(RNAi) mutants replace gut lineage (endomitosis ≠ embryonic elimination). Pre-registered: OSF.
 
 | # | Reference | PMID |
 |---|-----------|------|
@@ -167,4 +199,4 @@ Control: age → function quality (Anderson 2009).
 
 ---
 
-*C. elegans only. Pedigree = 5 metrics. V7. $126K. 18 refs. Pilot with Go/No-Go criteria.*
+*C. elegans only. Pedigree Score (PCA). V7. $128.5K. 18 refs. Bayesian primary (BF>10). Sequential 3-stage design. Pilot with Go/No-Go.*
