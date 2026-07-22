@@ -1,6 +1,6 @@
 # CONCEPT — ARGUS-OS1
 
-**Version:** 163.0
+**Version:** 164.0
 **Date:** 2026-07-22
 
 ---
@@ -11,8 +11,8 @@
 
 1. ~88% of cells eliminate centrioles by the **comma stage** of C. elegans embryogenesis. ~68 cells retain them at that stage (Kalbfuss & Gönczy 2023, PMID 37256957). **Timing gap:** our imaging window (zygote→~100 cells, ~3h) ends BEFORE comma stage. Cells classified as "retained" at 100-cell stage may eliminate centrioles later. **We measure "retained at 100-cell window" — a snapshot, not final fate.**
 2. Centriole segregation is STOCHASTIC at the 4-cell stage (Gönczy & Balestra 2023, PMID 36988082) and ABpr lineage (Erpf & Mikeladze-Dvali 2020). Full-embryogenesis stochasticity is TESTED in Pilot P1 (NOT assumed).
-3. E-lineage (intestinal) cells lose centrioles during post-embryonic endoreduplication (Lu & Roy 2014, PMID 25360893). These cells RETAIN centrioles throughout our imaging window. **They are EXCLUDED from the primary analysis.** A secondary analysis examines them separately.
-4. ~12% of embryonic cells undergo programmed cell death (Sulston 1983 lineage). Apoptotic centriole loss is passive degradation, NOT pedigree-driven elimination. **Apoptotic cells are EXCLUDED** via CED-3::mCherry marker.
+3. E-lineage (intestinal) cells lose centrioles during post-embryonic endoreduplication (Lu & Roy 2014, PMID 25360893). **EXCLUDED from primary analysis** (different elimination mechanism). Separate secondary analysis on E-lineage only.
+4. ~12% of embryonic cells undergo programmed cell death (Sulston 1983). **EXCLUDED via CED-3::mCherry** (competing risk in Fine-Gray model).
 5. Centriole elimination in oogenesis initiates with SAS-1 central tube loss (Magescas et al. 2023, PMID 37987153). **SAS-1::mCherry serves as an early marker** — SAS-1 disappearance precedes SAS-4 loss, providing an early signal of impending elimination. **Caveat:** Magescas (2023) studied primarily oocytes; somatic applicability tested in Pilot P6.
 6. PCM (pericentriolar material) disassembles BEFORE the centriole core disappears (O'Toole et al. 2003, PMID 14610052). SAS-4::GFP visualizes the core but NOT PCM. A "GFP-positive, PCM-negative" centriole is a ZOMBIE — structurally present, biologically dead. **Primary outcome: composite fate = (SAS-4+ AND SPD-2+). Loss of EITHER = eliminated.** This eliminates misclassification of zombie centrioles as "retained." SPD-2::GFP tracked in ALL N=100 embryos.
 7. PAR proteins (PAR-2, PAR-3, PAR-6) establish cortical asymmetry and influence spindle orientation in early C. elegans embryos. **PAR-2::GFP + PAR-3::mCherry** quantify both posterior and anterior cytoplasmic asymmetry at each division.
@@ -225,4 +225,4 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 
 ---
 
-**Limitations:** (1) 100-cell window ≠ comma stage — 3-category fate (early/late/permanent) as secondary analysis. (2) E-lineage INCLUDED as factor with interaction test, not excluded. (3) CED-3 + histone morphology for apoptosis exclusion. (4) SAS-1 latency measured in Pilot P6; <5 min invalidates surrogate. (5) V8 light-sheet MANDATORY (Keller 2008: 10-100× lower phototoxicity vs widefield). (6) PCM loss before core (O'Toole 2003) — some GFP+ centrioles may be inactive. (7) Mother/daughter identified via Dendra2 ratio (Pilot P8). (8) Multiple testing: BF>10 for SAS-4 (primary), FDR (q<0.05) for SAS-1 (secondary). Fixed N=100, NO sequential stopping. Pre-registered: OSF (brms priors specified).
+**Limitations:** (1) 100-cell window ≠ comma stage — Pilot P0 validates dynamics specifically in 0→100-cell window. (2) E-lineage EXCLUDED (post-embryonic elimination mechanism differs). (3) CED-3 for apoptosis exclusion. (4) SAS-1 somatic applicability tested in P6; secondary outcome until validated. (5) V7 spinning disk with adaptive illumination; V8 light-sheet deferred to OS2. (6) PCM loss before core (O'Toole 2003). (7) SPD-2::GFP composite fate in ALL N=100 embryos. (8) Temperature control ±0.1°C. (9) Sister-pair count: Sulston (1983) → ~5 same-type pairs/embryo → ~500 total pairs across 100 embryos. Power >80% for OR≥1.5 with paired design.
