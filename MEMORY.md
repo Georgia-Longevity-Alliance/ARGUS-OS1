@@ -1,9 +1,9 @@
 # MEMORY — ARGUS-OS1
 
-## 2026-07-23: WilliamW — Motor release уже есть в Sangaboard 🔌
+## 2026-07-23: WilliamW — Motor release already in Sangaboard 🔌
 
-> Ответ на форуме OpenFlexure (22 июл). Sangaboard firmware **уже содержит** motor release command — отключает ток на катушки мотора. Не выведена в стандартный API, но добавление в API — минимальная правка.
-> **Следствие:** не нужно переделывать на TMC2209 + MOSFET. Добавить вызов motor release в API → вызывать между съёмками (каждые 10 мин) → нагрев исключён.
+> Reply on OpenFlexure Forum (22 Jul). Sangaboard firmware **already contains** motor release command — cuts current to motor coils. Not exposed in standard API, but adding it to API is a minimal fix.
+> **Consequence:** no need for TMC2209 + MOSFET rework. Call motor release via API between acquisitions (every 10 min) → heat problem solved in software.
 
 ## 2026-07-22: AUTOFIX v5 — Extended Script + Deep Review 🔧
 
