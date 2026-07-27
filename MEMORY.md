@@ -1,13 +1,17 @@
 # MEMORY — ARGUS-OS1
 
+<!-- lang:ru -->
 ## 2026-07-24: Susan Mango — Visiting Researcher pitch отправлен 📬
+<!-- /lang:ru -->
 
+<!-- lang:ru -->
 > Ответ на первое письмо (16:39). Сьюзан попросила CV + proposal.
 > Отправлено: письмо + CV (10 PMID + 4 центриольных препринта) + ARGUS proposal (Foresight).
 > CV сфокусировано на центриольной биологии — 21 год публикаций, прямая связь OCW→ARGUS.
 > Цель: visiting researcher status @ Biozentrum Basel → EU-аффилиация для ERC, EIC, Horizon Europe.
 > Письмо короткое (4 абзаца), честный ответ про GLA (не универ, не индустрия), PhD в UNED Madrid с осени.
 > Ждём ответа.
+<!-- /lang:ru -->
 
 ## 2026-07-23: WilliamW — Motor release already in Sangaboard 🔌
 

@@ -1,9 +1,11 @@
 # TODO — ARGUS-OS1
 
+<!-- lang:ru -->
 ## 🔴 СРОЧНО — 25 июл
 - [ ] Письма Basto (Institut Curie) и Bettencourt-Dias (IGC Gulbenkian) для EU-аффилиации
 - [ ] Ждать ответ David Meyer (Foresight grant)
 - [ ] Заполнить форму Foresight (дедлайн 31 июл)
+<!-- /lang:ru -->
 
 ## 🔴 Phase 0: Pilot (Aug–Oct 2026)
 - [x] P1: Stochasticity validation — Dendra2 at all stages (10 embryos) — Owner: PI, Deadline: 2026-09-15

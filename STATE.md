@@ -1,24 +1,34 @@
 # STATE — ARGUS-OS1
 
 **Date:** 2026-07-24
+<!-- lang:ru -->
 **Status:** 🔵 OS1 = V6. Proposal Foresight готов. Ждём ответов.
+<!-- /lang:ru -->
 
+<!-- lang:ru -->
 ## 24 июл — итог сессии
+<!-- /lang:ru -->
 
 ### Foresight grant
 - ✅ Proposal: `ARGUS_proposal_Foresight.md` + `.docx`
+<!-- lang:ru -->
 - ✅ 14 рецензий, 12 ссылок (все проверены), $50,050 / 15 мес
 - ✅ Дедлайн: **31 июля**
+<!-- /lang:ru -->
 
+<!-- lang:ru -->
 ### Отправлено
 - 📬 David Meyer — коллаборация
 - 📬 Susan Mango — EU-аффилиация (Biozentrum Basel)
 - 📬 Илья + Akaki
+<!-- /lang:ru -->
 
+<!-- lang:ru -->
 ### Ждёт
 - [ ] Ответ David — если да → подавать форму Foresight
 - [ ] Basto + Bettencourt-Dias — EU-аффилиация
 - [ ] Norn Group / Impetus — письмо готово
+<!-- /lang:ru -->
 
 ## 🆕 24 Jul, 13:30 — Foresight grant: everything sent  
 - ✅ Proposal v4 ready (`ARGUS_proposal_v4_final.md`, $41,800)  
