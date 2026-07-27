@@ -1,5 +1,14 @@
 # MEMORY — ARGUS-OS1
 
+## 2026-07-24: Susan Mango — Visiting Researcher pitch отправлен 📬
+
+> Ответ на первое письмо (16:39). Сьюзан попросила CV + proposal.
+> Отправлено: письмо + CV (10 PMID + 4 центриольных препринта) + ARGUS proposal (Foresight).
+> CV сфокусировано на центриольной биологии — 21 год публикаций, прямая связь OCW→ARGUS.
+> Цель: visiting researcher status @ Biozentrum Basel → EU-аффилиация для ERC, EIC, Horizon Europe.
+> Письмо короткое (4 абзаца), честный ответ про GLA (не универ, не индустрия), PhD в UNED Madrid с осени.
+> Ждём ответа.
+
 ## 2026-07-23: WilliamW — Motor release already in Sangaboard 🔌
 
 > Reply on OpenFlexure Forum (22 Jul). Sangaboard firmware **already contains** motor release command — cuts current to motor coils. Not exposed in standard API, but adding it to API is a minimal fix.

@@ -1,4 +1,25 @@
-# STATE — ARGUS-OS1  **Date:** 2026-07-24 **Status:** 🔵 OS1 = V6 — OpenFlexure + Jetson Orin NX + Dry 40×/0.75 (~$3-5K). Local edge-AI. Alex building.  
+# STATE — ARGUS-OS1
+
+**Date:** 2026-07-24
+**Status:** 🔵 OS1 = V6. Proposal Foresight готов. Ждём ответов.
+
+## 24 июл — итог сессии
+
+### Foresight grant
+- ✅ Proposal: `ARGUS_proposal_Foresight.md` + `.docx`
+- ✅ 14 рецензий, 12 ссылок (все проверены), $50,050 / 15 мес
+- ✅ Дедлайн: **31 июля**
+
+### Отправлено
+- 📬 David Meyer — коллаборация
+- 📬 Susan Mango — EU-аффилиация (Biozentrum Basel)
+- 📬 Илья + Akaki
+
+### Ждёт
+- [ ] Ответ David — если да → подавать форму Foresight
+- [ ] Basto + Bettencourt-Dias — EU-аффилиация
+- [ ] Norn Group / Impetus — письмо готово
+
 ## 🆕 24 Jul, 13:30 — Foresight grant: everything sent  
 - ✅ Proposal v4 ready (`ARGUS_proposal_v4_final.md`, $41,800)  
 - ✅ David Meyer (Köln) — letter with proposal sent, waiting for reply  
