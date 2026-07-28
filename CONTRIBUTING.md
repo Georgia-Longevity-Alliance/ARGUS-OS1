@@ -42,4 +42,4 @@ pip install -r requirements.txt
 
 ## Stuck?
 
-Open a [Discussion](https://github.com/Georgia-Longevity-Alliance/ARGUS-OS1/discussions) or email jaba@longevity.ge.
+Open a [Discussion](https://github.com/Georgia-Longevity-Alliance/ARGUS-OS1/discussions) or open a [GitHub Issue](https://github.com/Georgia-Longevity-Alliance/ARGUS-OS1/issues).

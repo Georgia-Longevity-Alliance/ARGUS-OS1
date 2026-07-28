@@ -1,6 +1,46 @@
 # MEMORY — ARGUS-OS1
 
 <!-- lang:ru -->
+## 🔴 2026-07-27: Post-Mortem — Susan Mango (Biozentrum Basel) отказ
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+**Тип:** Отказ партнёра (visiting researcher / EU-аффилиация).
+**Дней до ответа:** 3 (24 июл → 27 июл).
+**Причина:** обсудила с командой — «this will not work out».
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+### Что сказала
+> «I had a look and also discussed this with some team members, and I think this will not work out.»
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+### Что мы упустили
+1. **Запрос слишком прямой и короткий.** «I need a European affiliation» — это честно, но ставит человека в неловкое положение. Нет предварительных отношений, нет совместной работы.
+2. **OCW → ARGUS связь недостаточна.** То, что мы используем OCW как segmentation engine — слабый повод для аффилиации. Нет совместной публикации, нет коллаборации.
+3. **Тайминг.** 7 дней до дедлайна Foresight (31 июл) — слишком сжато для такого решения.
+4. **GLA как организация.** «Neither a university nor industry» — для Biozentrum это red flag. Они не знают, как классифицировать такое партнёрство.
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+### Что изменить
+- [ ] EU-аффилиацию искать через реальную научную коллаборацию, а не административный запрос
+- [ ] Сначала — совместный preprint/эксперимент, потом — affiliation request
+- [ ] Для Foresight: подавать без EU-аффилиации или через UNED Madrid (PhD с осени)
+- [ ] Basto и Bettencourt-Dias — письма ещё не отправлены (TODO с 25 июл). **Срочно.**
+- [ ] Рассмотреть UNED Madrid как аффилиацию — PhD там уже принят
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+### Следующий шаг
+1. **Foresight (31 июл):** подавать с GLA + UNED Madrid (двойная аффилиация). David Meyer если согласится — добавить.
+2. **Basto + Bettencourt-Dias:** ✅ отправлены 27 июл. Учтён урок Mango — предлагаем коллаборацию, не affiliation.
+<!-- /lang:ru -->
+
+---
+
+<!-- lang:ru -->
 ## 2026-07-24: Susan Mango — Visiting Researcher pitch отправлен 📬
 <!-- /lang:ru -->
 

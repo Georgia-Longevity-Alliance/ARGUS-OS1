@@ -4,8 +4,7 @@
 
 If you discover a security vulnerability in ARGUS-OS1 (especially laser safety for v2.0, network-exposed control systems, or night vision IR exposure), please report it privately:
 
-- **Email:** jaba@longevity.ge
-- **PGP:** [key to be added]
+- **Report via:** [GitHub Security Advisory](https://github.com/Georgia-Longevity-Alliance/ARGUS-OS1/security/advisories/new)
 
 Please do NOT open a public issue for security vulnerabilities.
 

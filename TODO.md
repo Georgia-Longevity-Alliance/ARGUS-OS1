@@ -1,10 +1,12 @@
 # TODO — ARGUS-OS1
 
 <!-- lang:ru -->
-## 🔴 СРОЧНО — 25 июл
-- [ ] Письма Basto (Institut Curie) и Bettencourt-Dias (IGC Gulbenkian) для EU-аффилиации
-- [ ] Ждать ответ David Meyer (Foresight grant)
-- [ ] Заполнить форму Foresight (дедлайн 31 июл)
+## 🔴 СРОЧНО — 28 июл
+- [x] Пакет Foresight: `grants/foresight_2026-07-31/SUBMISSION_PACKAGE.md`
+- [x] Пакет OSC: `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
+- [x] GitHub-активность: 2 недели (14–28 июл, 200+ коммитов) ✅
+- [ ] Заполнить Airtable-форму Foresight (дедлайн 31 июл)
+- [ ] OSC GitHub Verification (дедлайн 1 авг)
 <!-- /lang:ru -->
 
 ## 🔴 Phase 0: Pilot (Aug–Oct 2026)
@@ -27,8 +29,11 @@
 - [x] Analysis: mixed-effects logistic regression + Bayesian hierarchical model — Owner: PI, Deadline: 2027-02-15
 
 ## 🔵 Grants / Outreach
-- [x] OSC resubmit — Owner: PI, Deadline: 2026-08-01
-- [x] GitHub activity: commits, photos, issue updates — Owner: PI, Deadline: ongoing
+- [x] Foresight proposal final ($50,050) — `grants/foresight_2026-07-31/ARGUS_proposal_Foresight.md`
+- [x] OSC submission package — `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
+- [x] GitHub activity: commits, photos, issue updates — 200+ коммитов, 14–28 июл ✅
+- [ ] OSC resubmit (GitHub Verification) — Owner: PI, Deadline: 2026-08-01
+- [ ] Заполнить Airtable Foresight — Owner: PI, Deadline: 2026-07-31
 - [x] Pre-submission inquiry to journal editor — Owner: PI
 
 ## ⚪ Backlog

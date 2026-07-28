@@ -43,7 +43,7 @@ response to any behavior that they deem inappropriate, threatening, offensive,
 or harmful.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the project team at **jaba@longevity.ge**. All complaints will be
+reported to the project team via [GitHub Issues](https://github.com/Georgia-Longevity-Alliance/ARGUS-OS1/issues). All complaints will be
 reviewed and investigated promptly and fairly.
 
 ## Attribution
