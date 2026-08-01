@@ -1,5 +1,7 @@
 # MAP — ARGUS-OS1
 
+**Date:** 2026-08-01
+
 ```
 ARGUS-OS1/
 ├── README.md               # Homepage (platform versions table)
@@ -8,6 +10,9 @@ ARGUS-OS1/
 ├── TODO.md                 # Tasks
 ├── STATE.md                # Current status
 ├── MEMORY.md               # Decision history
+├── DESIGN.md               # Architecture & design decisions
+├── THEORY.md               # Theoretical framework
+├── EVIDENCE.md              # Evidence base & validation
 ├── _pi.md                  # Rules for pi
 ├── LICENSE                 # MIT + GPLv3 + CC-BY-SA
 ├── .gitignore

@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-01
 <!-- lang:ru -->
-**Status:** 🟢 Foresight отправлен (31 июл). OSC заявка отправлена (1 авг). Ждём одобрения Open Source Collective.
+**Status:** 🟢 Autofix Cycle 1 завершён. 11/11 core-файлов, 0 дубликатов. DESIGN.md обогащён.
 <!-- /lang:ru -->
 
 <!-- lang:ru -->

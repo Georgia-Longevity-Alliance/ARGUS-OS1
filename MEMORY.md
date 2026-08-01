@@ -1,6 +1,14 @@
 # MEMORY — ARGUS-OS1
 
 <!-- lang:ru -->
+## 2026-08-01: Autofix Cycle 1 — Структурная чистка
+- **Удалено:** CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md из корня (дубликаты — уже были в docs/).
+- **Обогащён:** DESIGN.md — добавлены разделы: AIS Integration, Energy Architecture, Blind Protocol, C. elegans rationale.
+- **Обновлён:** MAP.md — добавлены DESIGN.md, THEORY.md, EVIDENCE.md в дерево.
+- **Результат:** 11/11 core-файлов в корне, 0 дубликатов, 0 нарушений структуры.
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
 ## 2026-08-01: AIS Global Server — Dedicated server на 10 лет ($18,000)
 - **Решение:** Закладываем Dedicated server на 10 лет в бюджет ARGUS-OS1 и общую инфраструктуру.
 - **Сумма:** $18,000 (~$150/мес × 120 мес).
