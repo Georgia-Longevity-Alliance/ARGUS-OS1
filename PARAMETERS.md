@@ -48,4 +48,4 @@
 | Intermediate | After 50 embryos: BF<3→N=200, BF>10→stop |
 | Controls | Negative: RNAi-PLK-4. Positive: spd-2(or165)/plk-1(RNAi) |
 | Blind protocol | AI tracks → human classifies fate → pedigree computed last |
-| Budget | ~$273,600 (HW: ~$59.7K + AIS Server 10yr: $9.6K + personnel: $50K + contingency: $33K) |
+| Budget | ~$282,000 (HW: ~$59.7K + AIS Dedicated Server 10yr: $18K + personnel: $50K + contingency: $33K) |

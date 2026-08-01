@@ -181,8 +181,8 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 | Engineer salary (50% FTE, 24 months) | 60,000 |
 | Lab space (Abastumani, 24 months) | 10,000 |
 | Contingency (20%) | 44,000 |
-| **AIS Global Server — VDS (8 vCPU, 16GB, 10 years)** | **9,600** |
-| **Total** | **~273,600** |
+| **AIS Global Server — Dedicated server (10 years)** | **18,000** |
+| **Total** | **~282,000** |
 
 ---
 

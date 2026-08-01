@@ -1,12 +1,12 @@
 # MEMORY — ARGUS-OS1
 
 <!-- lang:ru -->
-## 2026-08-01: AIS Global Server — VDS на 10 лет ($9,600)
-- **Решение:** Закладываем VDS (8 vCPU, 16GB) на 10 лет в бюджет ARGUS-OS1 и общую инфраструктуру.
-- **Сумма:** $9,600 (~$80/мес × 120 мес).
+## 2026-08-01: AIS Global Server — Dedicated server на 10 лет ($18,000)
+- **Решение:** Закладываем Dedicated server на 10 лет в бюджет ARGUS-OS1 и общую инфраструктуру.
+- **Сумма:** $18,000 (~$150/мес × 120 мес).
 - **Зачем:** Глобальная платформа AIS (Autonomous Intelligence Socket) для всех longevity-роботов — ARGUS-OS1, OS2, OS3, и других AIS-based роботов.
 - **Компоненты:** AIS Dashboard, Registry, Knowledge Browser, Event Store, Noepedia API.
-- **Общий бюджет ARGUS-OS1:** $264,000 → $273,600.
+- **Общий бюджет ARGUS-OS1:** $264,000 → $282,000.
 <!-- /lang:ru -->
 
 <!-- lang:ru -->
