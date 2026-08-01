@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-01
 <!-- lang:ru -->
-**Status:** 🟢 Autofix Cycle 1 завершён. 11/11 core-файлов, 0 дубликатов. DESIGN.md обогащён.
+**Status:** 🟢 Autofix Cycle 2 завершён. Паспорт в AIS, 32 claims в Knowledge Graph, 4 marketplace listings. Индексы grants/letters/hardware/software/firmware.
 <!-- /lang:ru -->
 
 <!-- lang:ru -->

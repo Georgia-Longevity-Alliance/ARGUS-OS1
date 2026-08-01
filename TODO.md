@@ -9,8 +9,10 @@
 - [x] OSC заявка на Collective — отправлена 1 авг ✅
 - [ ] GitHub Verification (после одобрения OSC)
 - [ ] Загрузить proposal + бюджет в дашборд Open Collective (после одобрения)
-- [ ] Интеграция AIS Passport для ARGUS-OS1
-- [ ] AIS Knowledge Graph: загрузить centriole claims
+- [x] Интеграция AIS Passport для ARGUS-OS1 ✅
+- [x] AIS Knowledge Graph: загрузить centriole claims ✅ (32 claims)
+- [x] AIS Marketplace: создать listings ✅ (4 listings)
+- [x] Индексы: grants/README.md, letters/README.md, hardware/software/firmware README ✅
 <!-- /lang:ru -->
 
 ## 🔴 Phase 0: Pilot (Aug–Oct 2026)

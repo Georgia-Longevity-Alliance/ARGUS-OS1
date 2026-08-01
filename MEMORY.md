@@ -1,6 +1,15 @@
 # MEMORY — ARGUS-OS1
 
 <!-- lang:ru -->
+## 2026-08-01: Autofix Cycle 2 — AIS Integration + Content
+- **AIS Passport:** ARGUS-OS1 V6 зарегистрирован в локальном реестре AIS (17 capabilities, 9 запретов).
+- **Knowledge Graph:** 32 centriole claims загружены (S-P-O: centriole biology, PCM, elimination, longevity). +160 credits.
+- **Marketplace:** 4 listings созданы (Knowledge Pack, Dataset, Consultation, Build Guide).
+- **Индексы:** grants/README.md, letters/README.md, hardware/README.md, software/README.md, firmware/README.md.
+- **Результат:** ARGUS-OS1 ↔ AIS полностью интегрирован. Knowledge Economy активен.
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
 ## 2026-08-01: Autofix Cycle 1 — Структурная чистка
 - **Удалено:** CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md из корня (дубликаты — уже были в docs/).
 - **Обогащён:** DESIGN.md — добавлены разделы: AIS Integration, Energy Architecture, Blind Protocol, C. elegans rationale.
