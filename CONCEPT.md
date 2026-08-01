@@ -159,7 +159,7 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 
 ## 4. Budget (OS2 = ARGUS V7, 24 months)
 
-**Platform:** Spinning disk confocal (CSU-W1) + sCMOS. OS3 (V8) light-sheet deferred to separate proposal.
+**Platform:** Spinning disk confocal (CSU-W1) + sCMOS. OS3 (V8) light-sheet deferred to separate proposal. **AIS Global Server** — shared infrastructure for all longevity robots (ARGUS-OS1, OS2, OS3, and other AIS-based robots).
 
 | Item | $ |
 |------|--:|
@@ -181,7 +181,8 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 | Engineer salary (50% FTE, 24 months) | 60,000 |
 | Lab space (Abastumani, 24 months) | 10,000 |
 | Contingency (20%) | 44,000 |
-| **Total** | **~264,000** |
+| **AIS Global Server — VDS (8 vCPU, 16GB, 10 years)** | **9,600** |
+| **Total** | **~273,600** |
 
 ---
 
