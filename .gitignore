@@ -47,3 +47,4 @@ docs/
 scripts/
 grants/
 refs/
+*.db\n*.pid\n*.heartbeat\n*.sqlite
