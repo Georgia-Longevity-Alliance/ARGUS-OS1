@@ -174,7 +174,7 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 | C. elegans strains (8 markers + RNAi + mutants) + reagents | 10,000 |
 | Equipment maintenance (2 years) | 8,000 |
 | Consumables (coverslips, agarose, plates) | 4,000 |
-| **Glove-box/Incubator consumables (HEPA H13 filters ×4, UV-C lamps ×2, CO₂ sensor cal, N₂ gas, gloves, seals, tubing)** | **12,000** |
+| **Glove-box/Incubator consumables (HEPA H13 filters ×4, UV-C lamps ×2, O₂/CO₂/N₂ sensors, humidity sensor ±2% RH, dehumidifier, N₂ gas, gloves, seals, tubing)** | **15,000** |
 | Conference travel | 3,000 |
 | Open Access fees | 5,000 |
 | PI salary (50% FTE, 24 months) | 60,000 |

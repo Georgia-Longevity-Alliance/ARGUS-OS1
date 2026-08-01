@@ -1,6 +1,47 @@
 # MEMORY — ARGUS-OS1
 
 <!-- lang:ru -->
+## 2026-08-01: OSC заявка отправлена ✅, Foresight отправлен ✅
+
+### Foresight ($50,050)
+- ✅ Отправлен 31 июля 2026.
+- Airtable-форма заполнена, proposal .docx загружен.
+- 14 рецензий, 12 ссылок (все проверены), $50,050 / 15 мес.
+- Рассмотрение: ~2 месяца (результат — конец сентября).
+
+### OSC — Open Source Collective ($17,000)
+- ✅ Заявка на создание Collective отправлена 1 авг (opencollective.com/argus-os1, pending review).
+- Fiscal host: Open Source Collective (US 501(c)(6)).
+- Что сделано: создан Collective, заполнено описание, теги, ссылка на GitHub, описание кодовой базы, план проекта.
+- Что НЕ прикреплено (в форме не было поля загрузки): proposal (`ARGUS_proposal_OSC.md`) и бюджет ($17,000).
+- После одобрения: загрузить proposal + бюджет в дашборде, пройти GitHub Verification.
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+## 2026-07-31: Инкубатор — контроль влажности с осушителем
+- **Решение:** Активный контроль влажности ±2% RH + dehumidifier.
+- **Зачем:** Конденсат на оптике при 95% RH убивает длительные съёмки. Снижение влажности → чистая оптика.
+- **Обновлено:** CONCEPT.md, hardware/README.md (v1.0/v2.0), grants/ (бюджет +$400).
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+## 📚 2026-07-29: Обзор — TIAM1/центриоли/аутофагия (Coelho, Yu & Glover, Caltech)
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+**Статья:** Coelho PA, Yu C, Glover DM. "Functions of TIAM1 at the interface of centriole assembly and autolysosome cycling." bioRxiv 2026-07-03. DOI: `10.64898/2026.07.02.735969`
+<!-- /lang:ru -->
+
+**Значение для ARGUS-OS1:**
+- PLK4 — ключевой маркер центриольной сборки для детектора
+- David Glover (Caltech) — потенциальный advisor
+- Центриоль-лизосомальный интерфейс — новый фенотип для скрининга
+
+**✅ 2026-07-29: Письмо David Glover отправлено** — с proposal Foresight. Ждём ответа.
+
+---
+
+<!-- lang:ru -->
 ## 🔴 2026-07-27: Post-Mortem — Susan Mango (Biozentrum Basel) отказ
 <!-- /lang:ru -->
 

@@ -1,12 +1,14 @@
 # TODO — ARGUS-OS1
 
 <!-- lang:ru -->
-## 🔴 СРОЧНО — 28 июл
+## 🔴 СРОЧНО — Август 2026
 - [x] Пакет Foresight: `grants/foresight_2026-07-31/SUBMISSION_PACKAGE.md`
 - [x] Пакет OSC: `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
 - [x] GitHub-активность: 2 недели (14–28 июл, 200+ коммитов) ✅
-- [ ] Заполнить Airtable-форму Foresight (дедлайн 31 июл)
-- [ ] OSC GitHub Verification (дедлайн 1 авг)
+- [x] Заполнить Airtable-форму Foresight — отправлен 31 июл ✅
+- [x] OSC заявка на Collective — отправлена 1 авг ✅
+- [ ] GitHub Verification (после одобрения OSC)
+- [ ] Загрузить proposal + бюджет в дашборд Open Collective (после одобрения)
 <!-- /lang:ru -->
 
 ## 🔴 Phase 0: Pilot (Aug–Oct 2026)
@@ -29,11 +31,13 @@
 - [x] Analysis: mixed-effects logistic regression + Bayesian hierarchical model — Owner: PI, Deadline: 2027-02-15
 
 ## 🔵 Grants / Outreach
-- [x] Foresight proposal final ($50,050) — `grants/foresight_2026-07-31/ARGUS_proposal_Foresight.md`
-- [x] OSC submission package — `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
+- [x] Foresight proposal final ($50,050) — отправлен 31 июл ✅
+- [x] OSC заявка на Collective — отправлена 1 авг ✅
 - [x] GitHub activity: commits, photos, issue updates — 200+ коммитов, 14–28 июл ✅
-- [ ] OSC resubmit (GitHub Verification) — Owner: PI, Deadline: 2026-08-01
-- [ ] Заполнить Airtable Foresight — Owner: PI, Deadline: 2026-07-31
+- [x] OSC submission package — `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
+- [x] OSC proposal — `grants/osc_2026-08-01/ARGUS_proposal_OSC.md`
+- [ ] GitHub Verification (после одобрения OSC)
+- [ ] Загрузить proposal + бюджет в дашборд Open Collective (после одобрения)
 - [x] Pre-submission inquiry to journal editor — Owner: PI
 
 ## ⚪ Backlog

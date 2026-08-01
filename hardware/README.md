@@ -21,7 +21,7 @@ Based on [OpenFlexure Microscope](https://openflexure.org/) v6.1.5 with:
 - **Camera** — RasPi Camera HQ (12.3 MP IMX477). Fallback: ZWO ASI183MM Pro cooled sCMOS (+$1,800)
 - **Brain** — Jetson Orin NX 16GB (CellPose, deconvolution, tracking) + RasPi 5 (microscope control)
 - **Sister isolation** — CYTOO 2-cell micropatterned islands (fibronectin, PEG borders). NO micropipette.
-- **Climate** — Standard CO₂ incubator (Binder CB 60 / Thermo HeraCell), 37°C, 5% CO₂, HEPA H13
+- **Climate** — Standard CO₂ incubator (Binder CB 60 / Thermo HeraCell), 37°C, 5% CO₂, HEPA H13, **active humidity control ±2% RH with dehumidifier** (critical: reduce RH to prevent condensation on optics during long runs)
 - **O₂ control** — 5% via N₂ purge + LuminOx sensor
 - **Night vision (standard)** — IR LED (850 nm) + RasPi Camera NoIR inside incubator for 24/7 monitoring without phototoxicity. IR does not excite GFP, zero photodamage. Allows checking cell morphology, confluency, and microscope alignment between fluorescence acquisitions without opening the incubator door.
 
@@ -34,7 +34,7 @@ Adds to v1.0:
 - **Material:** acrylic or polycarbonate panels, sealed with silicone gaskets
 - **Gloves:** arm-length neoprene/rubber, mounted in front panel. Reach every corner of the box.
 - **Access port:** small airlock (20×20×20 cm) for introducing items without breaking atmosphere
-- **Climate:** 37°C, 5% CO₂, 2% O₂, HEPA H13 filtration, active circulation — same biosafety level as v1.0 incubator
+- **Climate:** 37°C, 5% CO₂, 2% O₂, HEPA H13 filtration, active circulation, **active humidity control ±2% RH with dehumidifier** — same biosafety level as v1.0 incubator
 - **Sterilisation:** internal UV-C lamp (254 nm, timer-controlled, interlocked — shuts off when gloves are in use). Pre-run sterilisation cycle before experiment start.
 
 ### Internal storage

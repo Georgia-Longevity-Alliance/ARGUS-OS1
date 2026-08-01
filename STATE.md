@@ -1,8 +1,20 @@
 # STATE — ARGUS-OS1
 
-**Date:** 2026-07-28
+**Date:** 2026-08-01
 <!-- lang:ru -->
-**Status:** 🟢 Пакеты Foresight + OSC готовы. Дедлайны: 31 июл (Foresight, $50K) + 1 авг (OSC, $17K).
+**Status:** 🟢 Foresight отправлен (31 июл). OSC заявка отправлена (1 авг). Ждём одобрения Open Source Collective.
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+## 1 авг — OSC заявка отправлена ✅
+<!-- /lang:ru -->
+- ✅ **OSC ($17K):** Заявка на Open Source Collective отправлена. Collective: opencollective.com/argus-os1 (pending review).
+- ✅ **Foresight ($50,050):** Отправлен 31 июля.
+
+<!-- lang:ru -->
+## 29 июл — письма 📬
+<!-- /lang:ru -->
+- 📬 David Glover (Caltech) — предложение коллаборации по ARGUS-OS1 (centriole tracking, TIAM1)
 <!-- /lang:ru -->
 
 <!-- lang:ru -->
@@ -17,30 +29,28 @@
 <!-- /lang:ru -->
 
 ### Foresight grant
+- ✅ **ОТПРАВЛЕН 31 июля 2026** — Airtable-форма + proposal .docx
 - ✅ Proposal: `ARGUS_proposal_Foresight.md` + `.docx`
 <!-- lang:ru -->
 - ✅ 14 рецензий, 12 ссылок (все проверены), $50,050 / 15 мес
-- 🔴 Дедлайн: **31 июля** — 4 дня
+- ✅ **ОТПРАВЛЕН 31 июля**
 <!-- /lang:ru -->
 
 <!-- lang:ru -->
 ### Отправлено
-- 📬 David Meyer — follow-up отправлен 28 июл. 🔴 Ждём ответа завтра (29 июл).
+- 📬 David Glover (Caltech) — предложение коллаборации (29 июл)
+- 🔴 David Meyer — ждём ответа (отправлено 28 июл)
 - ❌ Susan Mango — отказ (27 июл)
 - 📬 Basto (Institut Curie) + Bettencourt-Dias (IGC) — коллаборация (27 июл)
 - 📬 Илья + Akaki
 <!-- /lang:ru -->
 
 <!-- lang:ru -->
-### 🔴 СРОЧНО — Foresight + OSC
-- [x] Basto (Institut Curie) + Bettencourt-Dias (IGC Gulbenkian) — отправлены 27 июл
-- [ ] Заполнить Airtable-форму Foresight — с GLA + UNED Madrid
-- [x] David Meyer — follow-up отправлен 28 июл
-- [x] Submission Package Foresight: `grants/foresight_2026-07-31/SUBMISSION_PACKAGE.md`
-- [x] Submission Package OSC: `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
-- [x] GitHub-активность: 2+ недели (14–28 июл, 200+ коммитов) ✅
-- [ ] **29 июл** — проверить ответ David → заполнить Airtable → submit Foresight
-- [ ] **30 июл** — OSC resubmit (GitHub Verification)
+### 🔴 СРОЧНО — OSC (1 авг)
+- [x] Заявка на Open Source Collective отправлена ✅
+- [ ] GitHub Verification (после одобрения OSC)
+- [x] OSC Submission Package создан: `grants/osc_2026-08-01/`
+- [x] OSC Proposal: `grants/osc_2026-08-01/ARGUS_proposal_OSC.md`
 <!-- /lang:ru -->
 
 ## 🆕 28 июл — Пакеты для обеих заявок созданы
