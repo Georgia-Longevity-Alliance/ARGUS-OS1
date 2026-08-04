@@ -2,10 +2,14 @@
 
 <!-- lang:ru -->
 ## 2026-08-02: 🔴 Находки из autofix — Coscientist + ChemCrow для автоматизации лаборатории
+<!-- /lang:ru -->
 
+<!-- lang:ru -->
 **Источник:** Циклы autofix статьи «Agentic AI for Scientific Discovery» (журнал IF 18+).
+<!-- /lang:ru -->
 
 **Coscientist (Boiko et al., 2023)** — Nature 624, 570-578.
+<!-- lang:ru -->
 - GPT-4-powered AI agent для autonomous chemical experimentation.
 - Ключевые capabilities для ARGUS-OS1:
   - **Documentation Search Module:** автоматически читает и понимает техническую документацию (Opentrons OT-2 API, Emerald Cloud Lab SLL).
@@ -18,16 +22,22 @@
   - Documentation Search → авто-чтение документации OpenFlexure, камер, syringe pumps.
   - Code Execution → авто-генерация и отладка microscopy control scripts.
   - Multi-hardware → координация microscope + pump + incubator.
+<!-- /lang:ru -->
 
 **ChemCrow (Bran et al., 2024)** — Nature Machine Intelligence 6, 525-535.
+<!-- lang:ru -->
 - LLM augmented с chemistry tools (молекулярный докинг, synthesis planning, safety assessment).
 - Архитектурный паттерн: LLM + domain-validated external tools → grounding against hallucination.
 - Для ARGUS-OS1: microscopy tools (cell detection, tracking, division detection) как external tools для LLM.
+<!-- /lang:ru -->
 
 **Self-Driving Laboratories (Burger et al., 2020)** — Nature 583, 237-241.
+<!-- lang:ru -->
 - Mobile robotic chemist: автономный синтез + характеризация материалов.
 - Архитектурный шаблон для ARGUS-OS1 как SDL для longevity microscopy.
+<!-- /lang:ru -->
 
+<!-- lang:ru -->
 **План действий:**
 - Изучить Coscientist architecture (open-source components) для ARGUS-OS1 control stack.
 - Интегрировать Documentation Search pattern для авто-конфигурации оборудования.
@@ -35,6 +45,7 @@
 <!-- /lang:ru -->
 
 ## 2026-08-01: Autofix Cycle 2 — AIS Integration + Content
+<!-- lang:ru -->
 - **AIS Passport:** ARGUS-OS1 V6 зарегистрирован в локальном реестре AIS (17 capabilities, 9 запретов).
 - **Knowledge Graph:** 32 centriole claims загружены (S-P-O: centriole biology, PCM, elimination, longevity). +160 credits.
 - **Marketplace:** 4 listings созданы (Knowledge Pack, Dataset, Consultation, Build Guide).
@@ -61,17 +72,23 @@
 
 <!-- lang:ru -->
 ## 2026-08-01: OSC заявка отправлена ✅, Foresight отправлен ✅
+<!-- /lang:ru -->
 
 ### Foresight ($75,240)
+<!-- lang:ru -->
 - ✅ Отправлен 29 июля 2026.
 - Airtable-форма заполнена, proposal прикреплён.
 - Бюджет: $75,240 / 18 мес. Hub: Berlin.
 - ✅ **4 авг 2026 — подтверждение получения.** The Grants Team: «It will be reviewed in the next review cycle. You will hear from us.»
 - Рассмотрение: ~2 месяца (результат — конец сентября).
+<!-- /lang:ru -->
 
 ### OSC — Open Source Collective ($17,000)
+<!-- lang:ru -->
 - ✅ Заявка на создание Collective отправлена 1 авг (opencollective.com/argus-os1, pending review).
+<!-- /lang:ru -->
 - Fiscal host: Open Source Collective (US 501(c)(6)).
+<!-- lang:ru -->
 - Что сделано: создан Collective, заполнено описание, теги, ссылка на GitHub, описание кодовой базы, план проекта.
 - Что НЕ прикреплено (в форме не было поля загрузки): proposal (`ARGUS_proposal_OSC.md`) и бюджет ($17,000).
 - После одобрения: загрузить proposal + бюджет в дашборде, пройти GitHub Verification.
@@ -92,12 +109,16 @@
 **Статья:** Coelho PA, Yu C, Glover DM. "Functions of TIAM1 at the interface of centriole assembly and autolysosome cycling." bioRxiv 2026-07-03. DOI: `10.64898/2026.07.02.735969`
 <!-- /lang:ru -->
 
+<!-- lang:ru -->
 **Значение для ARGUS-OS1:**
 - PLK4 — ключевой маркер центриольной сборки для детектора
 - David Glover (Caltech) — потенциальный advisor
 - Центриоль-лизосомальный интерфейс — новый фенотип для скрининга
+<!-- /lang:ru -->
 
+<!-- lang:ru -->
 **✅ 2026-07-29: Письмо David Glover отправлено** — с proposal Foresight. Ждём ответа.
+<!-- /lang:ru -->
 
 ---
 
@@ -113,8 +134,8 @@
 
 <!-- lang:ru -->
 ### Что сказала
-> «I had a look and also discussed this with some team members, and I think this will not work out.»
 <!-- /lang:ru -->
+> «I had a look and also discussed this with some team members, and I think this will not work out.»
 
 <!-- lang:ru -->
 ### Что мы упустили

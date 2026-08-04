@@ -7,13 +7,12 @@
 
 <!-- lang:ru -->
 ## 1 авг — OSC заявка отправлена ✅
-<!-- /lang:ru -->
 - ✅ **OSC ($17K):** Заявка на Open Source Collective отправлена. Collective: opencollective.com/argus-os1 (pending review).
 - ✅ **Foresight ($50,050):** Отправлен 31 июля.
+<!-- /lang:ru -->
 
 <!-- lang:ru -->
 ## 29 июл — письма 📬
-<!-- /lang:ru -->
 - 📬 David Glover (Caltech) — предложение коллаборации по ARGUS-OS1 (centriole tracking, TIAM1)
 <!-- /lang:ru -->
 
@@ -29,7 +28,9 @@
 <!-- /lang:ru -->
 
 ### Foresight grant
+<!-- lang:ru -->
 - ✅ **ОТПРАВЛЕН 31 июля 2026** — Airtable-форма + proposal .docx
+<!-- /lang:ru -->
 - ✅ Proposal: `ARGUS_proposal_Foresight.md` + `.docx`
 <!-- lang:ru -->
 - ✅ 14 рецензий, 12 ссылок (все проверены), $50,050 / 15 мес
@@ -50,20 +51,24 @@
 - [x] Заявка на Open Source Collective отправлена ✅
 - [ ] GitHub Verification (после одобрения OSC)
 - [x] OSC Submission Package создан: `grants/osc_2026-08-01/`
-- [x] OSC Proposal: `grants/osc_2026-08-01/ARGUS_proposal_OSC.md`
 <!-- /lang:ru -->
+- [x] OSC Proposal: `grants/osc_2026-08-01/ARGUS_proposal_OSC.md`
 
+<!-- lang:ru -->
 ## 🆕 28 июл — Пакеты для обеих заявок созданы
 - ✅ Foresight: `grants/foresight_2026-07-31/SUBMISSION_PACKAGE.md` — анализ условий, Airtable-инструкция, proposal $50,050
 - ✅ OSC: `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md` — условия fiscal hosting, GitHub Verification, бюджет $17K
 - ✅ GitHub-активность: условие «2 недели» выполнено (14–28 июл, 200+ коммитов)
 - 🔴 Foresight (31 июл): Airtable-форма, proposal .docx
 - 🟡 OSC (1 авг): GitHub Verification → открыть страницу на opencollective.com  
+<!-- /lang:ru -->
 
+<!-- lang:ru -->
 ## 🔧 28 июл — Прогресс по железу
 - ✅ Модуль камеры получен — камера подключается к компьютеру
 - 🔄 Адаптер для установки на микроскоп — в пути, ожидается на днях
 - ⏳ Следующий шаг: установить камеру на микроскоп через адаптер → тестовый прогон
+<!-- /lang:ru -->
 
 ## OS Stages  
 - **V0:** ~$930 — bare OpenFlexure mechanics, no AI  

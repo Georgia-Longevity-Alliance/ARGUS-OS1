@@ -35,13 +35,17 @@
 - [ ] Analysis: mixed-effects logistic regression + Bayesian hierarchical model — Owner: PI, Deadline: 2027-02-15
 
 ## 🔵 Grants / Outreach
+<!-- lang:ru -->
 - [x] Foresight proposal final ($50,050) — отправлен 31 июл ✅
 - [x] OSC заявка на Collective — отправлена 1 авг ✅
 - [x] GitHub activity: commits, photos, issue updates — 200+ коммитов, 14–28 июл ✅
+<!-- /lang:ru -->
 - [x] OSC submission package — `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
 - [x] OSC proposal — `grants/osc_2026-08-01/ARGUS_proposal_OSC.md`
+<!-- lang:ru -->
 - [ ] GitHub Verification (после одобрения OSC)
 - [ ] Загрузить proposal + бюджет в дашборд Open Collective (после одобрения)
+<!-- /lang:ru -->
 - [x] Pre-submission inquiry to journal editor — Owner: PI
 
 ## ⚪ Backlog
