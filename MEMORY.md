@@ -1,6 +1,39 @@
 # MEMORY — ARGUS-OS1
 
 <!-- lang:ru -->
+## 2026-08-02: 🔴 Находки из autofix — Coscientist + ChemCrow для автоматизации лаборатории
+
+**Источник:** Циклы autofix статьи «Agentic AI for Scientific Discovery» (журнал IF 18+).
+
+**Coscientist (Boiko et al., 2023)** — Nature 624, 570-578.
+- GPT-4-powered AI agent для autonomous chemical experimentation.
+- Ключевые capabilities для ARGUS-OS1:
+  - **Documentation Search Module:** автоматически читает и понимает техническую документацию (Opentrons OT-2 API, Emerald Cloud Lab SLL).
+  - **Code Generation + Debugging:** пишет Python код для управления оборудованием, автоисправляет ошибки.
+  - **Multi-Hardware Integration:** управляет liquid handler + plate reader одновременно (пример: задача «определить цвета в лунках»).
+  - **Iterative Experimentation:** autonomously optimises reaction conditions через циклы plan → execute → analyse → refine.
+- Архитектура: Planner (GPT-4) + Web Searcher + Documentation Searcher + Code Execution (Docker) + Automation.
+- Прямое применение к ARGUS-OS1:
+  - Coscientist architecture = шаблон для ARGUS-OS1 control software.
+  - Documentation Search → авто-чтение документации OpenFlexure, камер, syringe pumps.
+  - Code Execution → авто-генерация и отладка microscopy control scripts.
+  - Multi-hardware → координация microscope + pump + incubator.
+
+**ChemCrow (Bran et al., 2024)** — Nature Machine Intelligence 6, 525-535.
+- LLM augmented с chemistry tools (молекулярный докинг, synthesis planning, safety assessment).
+- Архитектурный паттерн: LLM + domain-validated external tools → grounding against hallucination.
+- Для ARGUS-OS1: microscopy tools (cell detection, tracking, division detection) как external tools для LLM.
+
+**Self-Driving Laboratories (Burger et al., 2020)** — Nature 583, 237-241.
+- Mobile robotic chemist: автономный синтез + характеризация материалов.
+- Архитектурный шаблон для ARGUS-OS1 как SDL для longevity microscopy.
+
+**План действий:**
+- Изучить Coscientist architecture (open-source components) для ARGUS-OS1 control stack.
+- Интегрировать Documentation Search pattern для авто-конфигурации оборудования.
+- ChemCrow pattern: cell segmentation/detection как external tools.
+<!-- /lang:ru -->
+
 ## 2026-08-01: Autofix Cycle 2 — AIS Integration + Content
 - **AIS Passport:** ARGUS-OS1 V6 зарегистрирован в локальном реестре AIS (17 capabilities, 9 запретов).
 - **Knowledge Graph:** 32 centriole claims загружены (S-P-O: centriole biology, PCM, elimination, longevity). +160 credits.
@@ -29,10 +62,11 @@
 <!-- lang:ru -->
 ## 2026-08-01: OSC заявка отправлена ✅, Foresight отправлен ✅
 
-### Foresight ($50,050)
-- ✅ Отправлен 31 июля 2026.
-- Airtable-форма заполнена, proposal .docx загружен.
-- 14 рецензий, 12 ссылок (все проверены), $50,050 / 15 мес.
+### Foresight ($75,240)
+- ✅ Отправлен 29 июля 2026.
+- Airtable-форма заполнена, proposal прикреплён.
+- Бюджет: $75,240 / 18 мес. Hub: Berlin.
+- ✅ **4 авг 2026 — подтверждение получения.** The Grants Team: «It will be reviewed in the next review cycle. You will hear from us.»
 - Рассмотрение: ~2 месяца (результат — конец сентября).
 
 ### OSC — Open Source Collective ($17,000)
