@@ -1,8 +1,9 @@
 # STATE — ARGUS-OS1
 
-**Date:** 2026-08-01
+**Date:** 2026-08-05
+**PI affiliation:** Jaba Tqemaladze, MD — **PhD Applicant, UNED Madrid (Programa 9620)** / Georgia Longevity Alliance
 <!-- lang:ru -->
-**Status:** 🟢 Autofix Cycle 2 завершён. Паспорт в AIS, 32 claims в Knowledge Graph, 4 marketplace listings. Индексы grants/letters/hardware/software/firmware.
+**Status:** 🟢 OSC заявка отправлена, Foresight отправлен. UNED добавлен как аффилиация.
 <!-- /lang:ru -->
 
 <!-- lang:ru -->
