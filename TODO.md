@@ -1,18 +1,18 @@
 # TODO — ARGUS-OS1
 
 <!-- lang:ru -->
-## 🔴 СРОЧНО — Август 2026
-- [x] Пакет Foresight: `grants/foresight_2026-07-31/SUBMISSION_PACKAGE.md`
-- [x] Пакет OSC: `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
-- [x] GitHub-активность: 2 недели (14–28 июл, 200+ коммитов) ✅
-- [x] Заполнить Airtable-форму Foresight — отправлен 31 июл ✅
-- [x] OSC заявка на Collective — отправлена 1 авг ✅
-- [ ] GitHub Verification (после одобрения OSC)
-- [ ] Загрузить proposal + бюджет в дашборд Open Collective (после одобрения)
-- [x] Интеграция AIS Passport для ARGUS-OS1 ✅
-- [x] AIS Knowledge Graph: загрузить centriole claims ✅ (32 claims)
-- [x] AIS Marketplace: создать listings ✅ (4 listings)
-- [x] Индексы: grants/README.md, letters/README.md, hardware/software/firmware README ✅
+## 🔴 URGENT — August 2026
+- [x] Foresight Package: `grants/foresight_2026-07-31/SUBMISSION_PACKAGE.md`
+- [x] OSC Package: `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
+- [x] GitHub Activity: 2 weeks (Jul 14–28, 200+ commits) ✅
+- [x] Fill Foresight Airtable form — submitted Jul 31 ✅
+- [x] OSC application on Collective — submitted Aug 1 ✅
+- [ ] GitHub Verification (after OSC approval)
+- [ ] Upload proposal + budget to Open Collective dashboard (after approval)
+- [x] AIS Passport integration for ARGUS-OS1 ✅
+- [x] AIS Knowledge Graph: upload centriole claims ✅ (32 claims)
+- [x] AIS Marketplace: create listings ✅ (4 listings)
+- [x] Indexes: grants/README.md, letters/README.md, hardware/software/firmware README ✅
 <!-- /lang:ru -->
 
 ## 🔴 Phase 0: Pilot (Aug–Oct 2026)
@@ -27,7 +27,9 @@
 ## 🟡 Phase 1: Build (Aug–Sep 2026)
 - [ ] Build ARGUS V6 = OS1 (OpenFlexure + 40×/0.75 dry + Jetson Orin NX) — Owner: Alex, Deadline: 2026-09-30
 - [ ] Build ARGUS V7 = OS2 (60×/1.2 NA WI + sCMOS + phase contrast) — Owner: Alex, Deadline: 2026-12-31
-- [ ] **Motor release API** — expose Sangaboard motor_release() in REST API (WilliamW: already in firmware!) — Owner: PI, Deadline: 2026-08-15
+- [x] **Motor release API** — patch ready: `software/microscope/motor_release_sangaboard.patch` + specification `docs/MOTOR_RELEASE_API.md` (Aug 12) ✅
+- [x] **Motor release — email to WilliamW sent** (Aug 12, contact@openflexure.org) 📬 — awaiting response / MR
+- [ ] **Flat-field calibration for HQ Camera** — verify Pi HQ Camera (IMX477) support in OpenFlexure/libcamera; if absent — implement flat-field correction (lesson from C270 thread, refs/OpenFlexure_forum_uneven_lighting_C270_2026-08-06.md) — Owner: Alex, Deadline: 2026-09-15
 - [ ] Triple transgenic strain: Centrin1-GFP + SAS-4::mCherry + histone::BFP — Owner: PI, Deadline: 2026-09-01
 
 ## 🟢 Phase 2: Main Experiment (Oct 2026 – Jan 2027)
@@ -36,15 +38,15 @@
 
 ## 🔵 Grants / Outreach
 <!-- lang:ru -->
-- [x] Foresight proposal final ($50,050) — отправлен 31 июл ✅
-- [x] OSC заявка на Collective — отправлена 1 авг ✅
-- [x] GitHub activity: commits, photos, issue updates — 200+ коммитов, 14–28 июл ✅
+- [x] Foresight proposal final ($50,050) — sent Jul 31 ✅
+- [x] OSC application to Collective — sent Aug 1 ✅
+- [x] GitHub activity: commits, photos, issue updates — 200+ commits, Jul 14–28 ✅
 <!-- /lang:ru -->
 - [x] OSC submission package — `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
 - [x] OSC proposal — `grants/osc_2026-08-01/ARGUS_proposal_OSC.md`
 <!-- lang:ru -->
-- [ ] GitHub Verification (после одобрения OSC)
-- [ ] Загрузить proposal + бюджет в дашборд Open Collective (после одобрения)
+- [ ] GitHub Verification (after OSC approval)
+- [ ] Upload proposal + budget to Open Collective dashboard (after approval)
 <!-- /lang:ru -->
 - [x] Pre-submission inquiry to journal editor — Owner: PI
 

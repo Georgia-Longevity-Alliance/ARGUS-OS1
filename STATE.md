@@ -1,9 +1,22 @@
 # STATE — ARGUS-OS1
 
-**Date:** 2026-08-05
+**Date:** 2026-08-12
 **PI affiliation:** Jaba Tqemaladze, MD — **PhD Applicant, UNED Madrid (Programa 9620)** / Georgia Longevity Alliance
 <!-- lang:ru -->
-**Status:** 🟢 OSC заявка отправлена, Foresight отправлен. UNED добавлен как аффилиация.
+**Status:** 🟢 OSC заявка отправлена, Foresight отправлен. Ответ Алексею по сборке отправлен 12 авг.
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+## 12 авг — Motor Release API ✅
+- ✅ Исследование апстрима: прошивка `release` (julianstirling/sangaboard-firmware) + pysangaboard `release_motors()` — уже существуют.
+- ✅ Патч для openflexure-microscope-server: `software/microscope/motor_release_sangaboard.patch` (новый action `release_motors` → `POST /sangaboardthing/release_motors`).
+- ✅ Тесты: 5/5 проходят. Thing Description подтверждает endpoint.
+- 📄 Спецификация: `docs/MOTOR_RELEASE_API.md`.
+- 📬 Письмо WilliamW с патчем **ОТПРАВЛЕНО** (12 авг, через contact@openflexure.org) — ждём ответа.
+
+## 12 авг — письмо Алексею 📬
+- 📬 Ответ Алексею (Filippov) отправлен: статус заказа (камера получена, адаптер в пути), вопрос по готовности лаборатории, виза в Кёльн, следующие конференции.
+- 📄 Письмо: `letters/email_alex_2026-08-12.md`
 <!-- /lang:ru -->
 
 <!-- lang:ru -->
