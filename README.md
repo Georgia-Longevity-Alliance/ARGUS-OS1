@@ -18,6 +18,7 @@ We test this in C. elegans. It's the only organism with a complete cell lineage 
 | **V6** | **OS1: OpenFlexure + Camera HQ + Jetson Orin NX + Dry 40×/0.75. Local AI — CellPose + tracking + lineage on edge hardware.** | **~$3-5K** |
 | **V7** | **OS2: 60×/1.2 NA WI + sCMOS + phase contrast + Jetson AGX + microfluidic** | **~$126,000** |
 | V8 | OS3: V7 upgrade — light-sheet + fs-laser + tweezers + manipulators | +~$141K (HW) |
+| V9 | OS1-3 upgrade: robot hands through glove ports + shared local LLM brain (24/7) | +~$14K to V8 |
 
 ## OS1 → OS2 → OS3
 

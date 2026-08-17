@@ -52,5 +52,6 @@
 
 ## ⚪ Backlog
 - [ ] ARGUS V8 = OS3 (light-sheet upgrade) — Owner: Alex
+- [ ] ARGUS V9 = robot hands through glove ports + shared local LLM brain (24/7 servicing) — design: `docs/V9_PROTOTYPE.md` + `docs/STERILIZATION_TRANSFER.md` — Owner: PI
 - [ ] Cross-strain validation (N2 + CB4856) — Owner: PI
 - [ ] Cross-species validation — Owner: PI
