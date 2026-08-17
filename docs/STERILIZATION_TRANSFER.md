@@ -10,11 +10,12 @@
 
 | Version | Enclosure | Transfer box | External sterilization equipment | Sterilization budget |
 |:---:|------|------|------|:---:|
+| V6 (OS1) | incubator HEPA H13; glove-box optional (~$12.5K) | V6-TRANSFER (optional; only if glove-box) | shared autoclave + UV-C (lab-level) | ~$1-2K (optional) |
 | V7 (OS2) | glove-box, HEPA H13, Binder incubator | V7-TRANSFER (basic: UV-C + HEPA purge) | bench-top autoclave + UV-C chamber | ~$5-7K |
 | V8 (OS3) | glove-box, HEPA H13, UV-C 254 nm (existing, $500) | V8-TRANSFER (UV-C + HEPA + optional VHP cycle) | autoclave + VHP generator (enclosure decontamination) + ultrasonic bath | ~$8-12K |
 | V9 | + robot hands (V9-HANDS) | V9-TRANSFER (full: 2 doors, interlock, UV-C, HEPA, tray) | autoclave + VHP + UV-C + ultrasonic (full set) | ~$10-14K (shared) |
 
-All three versions use **one shared sterilization equipment set** (autoclave + VHP + UV-C) located in the lab next to the enclosures. The difference is in the transfer boxes and protocols.
+All versions use **one shared sterilization equipment set** (autoclave + VHP + UV-C) located in the lab next to the enclosures. The difference is in the transfer boxes and protocols. V9 applies to every OS stage (V9-Lite for OS1, V9-Standard for OS2, V9-Full for OS3; see V9_PROTOTYPE.md, section 2.1).
 
 ## 2. Transfer Box by Version
 

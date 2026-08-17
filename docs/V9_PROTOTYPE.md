@@ -13,9 +13,36 @@ V9 converts ARGUS from a manually operated instrument into a self-servicing labo
 1. **V9-HANDS** — robotic manipulators inserted into the glove ports of the enclosure *in place of human hands*. They provide continuous long-term servicing: sample exchange, medium replenishment, objective cleaning, sterilization, and maintenance of the micro-robots inside.
 2. **V9-BRAIN** — an external LLM running on local hardware, on the same host that controls the micromanipulators (FOSH) and micro-robots inside the enclosure. A single point of intelligence for planning, diagnostics, and fault tolerance.
 
-V9 is an upgrade layer over V7 (OS2) and V8 (OS3), not a new platform.
+V9 is an autonomy layer applicable to all OS stages (OS1/OS2/OS3); see section 2.1 for the per-stage variants. It is not a new platform.
 
 ## 2. Rationale
+
+### 2.1 Applicability to OS1 / OS2 / OS3
+
+V9 is an autonomy layer that applies to every OS stage. The full configuration was specified for OS3 (V8); OS1 and OS2 get lighter variants. The scope is set by two factors: whether the enclosure has glove ports (robot hands) and the local compute budget (LLM brain).
+
+| Stage | Base hardware | Enclosure | Robot hands | LLM brain | Transfer box | Variant |
+|-------|---------------|-----------|-------------|-----------|--------------|---------|
+| **OS1 (V6)** | OpenFlexure + Jetson Orin NX + dry 40x | incubator HEPA H13; glove-box optional (~$12.5K) | 1 arm (optional; only if glove-box) | Jetson Orin NX runs small models (Llama 3.2 3-8B, Phi-3.5); full LLM on external host | optional (only if glove-box) | **V9-Lite** |
+| **OS2 (V7)** | 60x/1.2 WI + sCMOS + microfluidic + Jetson AGX | glove-box HEPA H13 (included) | 2 arms | Jetson AGX 64GB + external Mac/GPU host (or single host) | V7-TRANSFER | **V9-Standard** |
+| **OS3 (V8)** | + light-sheet + fs-laser + tweezers + FOSH + Mac M4 Pro | glove-box HEPA H13 + UV-C (included) | 2 arms | Mac Studio M3 Ultra 192GB, Mixtral/Llama/Qwen 70B | V8/V9-TRANSFER + VHP | **V9-Full** |
+
+**V9-Lite (OS1) notes:**
+
+- Without a glove-box, the OS1 robot arm is not applicable; the LLM brain and autonomy (anomaly detection, experiment scheduling, escalation) still are.
+- With a glove-box: one arm is sufficient (sample exchange, objective cleaning, medium replenishment every 6 h for U2OS/HeLa pilot runs).
+- The Jetson Orin NX (8-16 GB) runs a small local model (Llama 3.2 3B/8B, Phi-3.5) for real-time tasks; the planning brain runs on the lab host or the shared AIS server. Cost: ~$3-4K (1 arm + transfer box), host shared with the lab.
+
+**V9-Standard (OS2) notes:**
+
+- Full two-arm configuration as in section 3; the AGX 64GB accelerates Vision; the brain runs on the same host as the arms (single host principle, section 4.4).
+- V7-TRANSFER (basic, UV-C + HEPA) per STERILIZATION_TRANSFER.md, section 2.1.
+
+**V9-Full (OS3) notes:**
+
+- Two arms + VHP decontamination + ultrasonic bath; full sterilization set; the exact specification in STERILIZATION_TRANSFER.md, sections 2.2-2.3 and 9.
+
+All three variants share: the same arm/end-effector hardware, the same Tool Bridge + Safety Layer + Flight Recorder stack, and the same escalation rule.
 
 | V7/V8 limitation | V9 solution |
 |------------------|-------------|
@@ -207,7 +234,9 @@ The LLM never touches tools directly — only through the **Tool Bridge with val
 | Trace Network | "how to clean the 60x/1.2 WI objective", "how to replace a capillary" — procedures in the shared registry |
 | Knowledge Field | servicing procedures -> Noepedia claims with verification |
 
-## 7. Budget (V8 -> V9 upgrade)
+## 7. Budget
+
+### 7.1 V9-Full (OS3) — reference configuration
 
 | Item | USD |
 |------|----:|
@@ -224,13 +253,25 @@ The LLM never touches tools directly — only through the **Tool Bridge with val
 
 Reference: commercial glovebox arms cost $30-80K; V9 is ~$14K and open.
 
+### 7.2 Per-stage budget
+
+| Variant | Added to stage | USD |
+|---------|----------------|----:|
+| V9-Lite (OS1) | 1 arm + end-effectors + transfer box; LLM shared with lab host | ~3-4K |
+| V9-Standard (OS2) | 2 arms + transfer box; LLM on shared host (AGX + lab host) | ~8-9K |
+| V9-Full (OS3) | 2 arms + VHP/ultrasonic-ready transfer box + dedicated LLM host | ~14.4K |
+
+Hardware (arms, end-effectors, controllers) is identical across variants; the delta is the number of arms, the transfer box option, and the LLM host.
+
 ## 8. Roadmap
 
-| Version | Content | Acceptance criterion |
-|---------|---------|----------------------|
-| V9.0 | 1 arm + gripper, teleoperation (remote operator, as in surgery) | slide pickup with ±0.5 mm accuracy |
-| V9.1 | 2 arms + vision-guided, semi-autonomous (LLM plans, human approves critical steps) | sample-exchange cycle without touching the enclosure |
-| V9.2 | Full 24/7 autonomy (LLM brain + Body Law + watchdog) | 72 h without human intervention, zero incidents |
+Deployment order is per OS stage; V9.0-V9.2 are capability levels that apply to each stage.
+
+| Version | Content | Acceptance criterion | Stage |
+|---------|---------|----------------------|-------|
+| V9.0 | 1 arm + gripper, teleoperation (remote operator, as in surgery) | slide pickup with ±0.5 mm accuracy | OS1 first (cheapest, fastest proof) |
+| V9.1 | 2 arms + vision-guided, semi-autonomous (LLM plans, human approves critical steps) | sample-exchange cycle without touching the enclosure | OS2 |
+| V9.2 | Full 24/7 autonomy (LLM brain + Body Law + watchdog) | 72 h without human intervention, zero incidents | OS3 (full set: +VHP/ultrasonic) |
 
 ## 9. Risks and Mitigations
 
