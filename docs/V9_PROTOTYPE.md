@@ -31,7 +31,7 @@ V9 is an autonomy layer that applies to every OS stage. The full configuration w
 
 - Without a glove-box, the OS1 robot arm is not applicable; the LLM brain and autonomy (anomaly detection, experiment scheduling, escalation) still are.
 - With a glove-box: one arm is sufficient (sample exchange, objective cleaning, medium replenishment every 6 h for U2OS/HeLa pilot runs).
-- The Jetson Orin NX (8-16 GB) runs a small local model (Llama 3.2 3B/8B, Phi-3.5) for real-time tasks; the planning brain runs on the lab host or the shared AIS server. Cost: ~$3-4K (1 arm + transfer box), host shared with the lab.
+- The Jetson Orin NX (8-16 GB) runs a small local model (Llama 3.2 3B/8B, Phi-3.5) for real-time tasks; the planning brain runs on the lab host or the shared AIS server. Cost: ~$5-7K (1 arm + end-effectors + transfer box), host shared with the lab.
 
 **V9-Standard (OS2) notes:**
 
@@ -236,32 +236,40 @@ The LLM never touches tools directly — only through the **Tool Bridge with val
 
 ## 7. Budget
 
-### 7.1 V9-Full (OS3) — reference configuration
+### 7.1 V9-Full (OS3) — reference configuration, itemized
 
-| Item | USD |
-|------|----:|
-| 2x cable-driven arms (up to 12x NEMA 17, TMC2209, flanges, sleeves) | 2,500 |
-| End-effectors (gripper, pipette, wipe, UV, capillary, rake) | 800 |
-| Sensors (4x FSR, encoders, 2x wrist cameras) | 600 |
-| Controllers (4x RP2040/ESP32, CAN bus) | 300 |
-| Mechanics: printed parts, shafts, seals, silicone sleeve | 500 |
-| V9-TRANSFER box (PMMA body, 2 doors, interlock, UV-C 254 nm, HEPA purge, sensors, tray) | 800 |
-| LLM host upgrade (Mac Studio M3 Ultra 192GB, or RTX 4090) | 5,000 |
-| Software: LLM agent, Tool Bridge, Safety Layer | 2,000 |
-| Contingency 15% | 1,875 |
-| **Total** | **~14,400** |
+| Item | USD | Basis |
+|------|----:|-------|
+| 2x cable-driven arms | 2,500 | 12x NEMA 17 (~$18 ea), 12x TMC2209 (~$5 ea), encoders, 2x glove-port flanges (~$150 ea, machined), 2x reinforced silicone sleeves (~$100 ea), shafts/pulleys/cables, printed parts |
+| End-effectors (6) + tool changer | 1,000 | gripper, pipette (syringe pump), wipe, UV, capillary holder, rake + quick-change mechanism |
+| Sensors | 600 | 4x FSR, 2x wrist cameras, door/UV/DP sensors for the transfer box |
+| Controllers + CAN bus | 400 | 4x RP2040/ESP32, CAN transceivers |
+| PSU + infrastructure | 300 | 24 V supplies, cabling, connectors |
+| V9-TRANSFER box | 1,000 | PMMA body, 2 doors + hardware interlock, UV-C 254 nm, HEPA purge, sensors, tray |
+| LLM host: Mac Studio M3 Ultra 192GB | 6,400 | ~$6,000 (192 GB unified) + 4 TB NVMe (~$400) for week-long imaging data |
+| Software: LLM agent, Tool Bridge, Safety Layer | 3,000 | agent development + integration effort |
+| Spare parts | 800 | motors, drivers, end-effectors, sleeves |
+| Engineering / assembly / calibration | 3,500 | commissioning, vision calibration, integration |
+| Contingency 15% | 2,925 | |
+| **V9-Full total (base)** | **~22,400** | |
+| + Sterilization set (shared V7/V8/V9) | 12,200 | autoclave 5K + VHP 4K + UV-C 0.3K + ultrasonic 0.3K + transfer boxes 2.3K + indicators 0.3K (STERILIZATION_TRANSFER.md, section 10) |
+| **V9-Full total (incl. sterilization)** | **~34,600** | |
 
-Reference: commercial glovebox arms cost $30-80K; V9 is ~$14K and open.
+Notes:
+
+- The sterilization set is shared across V7/V8/V9; V9-Full requires the VHP generator (ablation/injection workflows), which is already counted there.
+- If the OS3 Mac M4 Pro (64 GB, already in the OS3 budget) is retained as the host, the LLM host line drops to ~$400 (NVMe only): base ~$15.5K, incl. sterilization ~$27.7K.
+- Reference: commercial glovebox arms alone cost $30-80K. V9-Full (incl. sterilization) is ~$35K and open.
 
 ### 7.2 Per-stage budget
 
-| Variant | Added to stage | USD |
-|---------|----------------|----:|
-| V9-Lite (OS1) | 1 arm + end-effectors + transfer box; LLM shared with lab host | ~3-4K |
-| V9-Standard (OS2) | 2 arms + transfer box; LLM on shared host (AGX + lab host) | ~8-9K |
-| V9-Full (OS3) | 2 arms + VHP/ultrasonic-ready transfer box + dedicated LLM host | ~14.4K |
+| Variant | Stage | Added to stage | USD (base) | USD (incl. sterilization share) |
+|---------|:---:|----------------|----:|----:|
+| V9-Lite | OS1 | 1 arm + end-effectors + transfer box; LLM on Jetson Orin NX + shared lab host (no new host) | ~5-7K | ~7-9K |
+| V9-Standard | OS2 | 2 arms + transfer box; LLM on AGX + shared host | ~11-13K | ~15-17K |
+| V9-Full | OS3 | 2 arms + VHP/ultrasonic-ready transfer box + dedicated LLM host | ~22.4K | ~34.6K |
 
-Hardware (arms, end-effectors, controllers) is identical across variants; the delta is the number of arms, the transfer box option, and the LLM host.
+Hardware (arms, end-effectors, controllers) is identical across variants; the delta is the number of arms, the transfer box option, and the LLM host. The sterilization set is one shared purchase per lab (V9-Full is the only variant that mandates VHP).
 
 ## 8. Roadmap
 

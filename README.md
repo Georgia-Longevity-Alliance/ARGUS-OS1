@@ -18,7 +18,7 @@ We test this in C. elegans. It's the only organism with a complete cell lineage 
 | **V6** | **OS1: OpenFlexure + Camera HQ + Jetson Orin NX + Dry 40×/0.75. Local AI — CellPose + tracking + lineage on edge hardware.** | **~$3-5K** |
 | **V7** | **OS2: 60×/1.2 NA WI + sCMOS + phase contrast + Jetson AGX + microfluidic** | **~$126,000** |
 | V8 | OS3: V7 upgrade — light-sheet + fs-laser + tweezers + manipulators | +~$141K (HW) |
-| V9 | OS1-3 upgrade: robot hands through glove ports + shared local LLM brain (24/7) | +~$14K to V8 |
+| V9 | OS1-3 upgrade: robot hands through glove ports + shared local LLM brain (24/7) | +~$22K to V8 (V9-Full base) |
 
 ## OS1 → OS2 → OS3
 
@@ -27,6 +27,19 @@ We test this in C. elegans. It's the only organism with a complete cell lineage 
 | **OS1** | V6 | ~$3-5K | Local edge-AI platform. OpenFlexure + Jetson Orin NX + Dry 40×. Graphics-capable AI service on dedicated hardware. |
 | **OS2** | V7 | ~$126K | Core science. 60× WI + sCMOS + microfluidic. Main experiment (N=100). |
 | **OS3** | V8 | +$141K | Full platform. Light-sheet + fs-laser + tweezers. |
+
+## V9 — Autonomy Layer (Robot Hands + Shared Local LLM Brain)
+
+V9 is an autonomy layer that applies to **every OS stage** — it turns ARGUS into a self-servicing laboratory: robotic hands operate through the glove ports instead of human hands (24/7), and an external LLM brain runs on the same local host that controls the micromanipulators and micro-robots inside the enclosure. Consumables and spare parts are sterilized outside and enter through a dedicated transfer box.
+
+| Variant | Stage | Robot hands | LLM brain | Transfer box | Budget |
+|---------|:---:|-------------|-----------|--------------|:---:|
+| **V9-Lite** | OS1 | 1 arm (optional, if glove-box) | Jetson Orin NX small models + shared lab host | V6-TRANSFER (optional) | ~$5-7K |
+| **V9-Standard** | OS2 | 2 arms | Jetson AGX + shared host | V7-TRANSFER | ~$11-13K |
+| **V9-Full** | OS3 | 2 arms | Mac Studio 192GB, 70B models | V8/V9-TRANSFER + VHP | ~$22.4K (base); ~$34.6K incl. sterilization |
+
+- Design: [`docs/V9_PROTOTYPE.md`](docs/V9_PROTOTYPE.md)
+- Sterilization & transfer-box SOPs (V7/V8/V9): [`docs/STERILIZATION_TRANSFER.md`](docs/STERILIZATION_TRANSFER.md)
 
 ## References
 
