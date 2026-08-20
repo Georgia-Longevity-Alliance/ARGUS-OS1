@@ -1,0 +1,13 @@
+part,specification,supplier,qty,unit_price_usd,total_usd,notes
+OpenFlexure base kit,OpenFlexure v6.1.5 3D-printed frame + sangaboard motors + TMC2209 drivers + bearings + filament,openflexure.org / user-supplied filament,1,800,800,Main mechanical base (3D-printed)
+Objective,40x/0.75 NA dry (C-mount / infinity corrected),objective vendor (e.g. Olympus/Nikon/Thorlabs),1,550,550,Choose vendor equivalent
+Camera,Raspberry Pi HQ Camera (IMX477 sensor, C-mount),Raspberry Pi / distributor,1,120,120,12.3 MP; C-mount adapter
+Compute module,NVIDIA Jetson Orin NX (8-16 GB),NVIDIA / distributor,1,500,500,On-device inference; JetPack runtime
+Climate controller,Raspberry Pi Pico W,distributor,1,6,6,PID temperature controller
+SSR heater,Solid-state relay + resistive heater kit,distributor,1,150,150,Heating element for incubator
+Temperature sensor,PT1000 probe + signal conditioning,distributor,1,40,40,For PID feedback
+HEPA filter module,HEPA H13 filter + housing,distributor,1,150,150,Air filtration for incubator
+Incubator enclosure materials,Acrylic sheet 5-10 mm + fasteners,local supplier,1,160,160,Enclosure around sample plane
+Power supply,12V/24V DC supplies + connectors,distributor,1,120,120,For stage, camera, compute
+Misc (wiring, PCB, heat-shrink),Consumables,distributor,1,200,200,Electrical assembly
+TOTAL,,,,,2996,"Indicative 2026; full item-level BOM with supplier links in repository"
