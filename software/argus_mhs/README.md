@@ -24,8 +24,9 @@ argus_mhs/
   devices/
     arm.py             # V9-HANDS cable-driven arm (Body Law limits)
     microscope.py      # OpenFlexure stage/focus (Motor Release API)
-    # TODO: pipette.py (liquid handling, medium replenishment)
-    # TODO: transfer_box.py (door interlock, UV-C sensors)
+    pipette.py         # syringe-pump pipette / medium replenishment
+    transfer_box.py    # pass-through airlock (UV-C interlock)
+    fosh.py            # FOSH micromanipulator (no-go zones, collision-safe)
 ```
 
 ## How to use
@@ -49,8 +50,9 @@ run_mcp("ARGUS")
 - [x] natural-language safety tags (Tag) + Body Law
 - [x] human-in-the-loop on irreversible ops (checkpoint)
 - [x] exploration -> compile (explore_compile.py)
-- [ ] transport: MCP server (present, optional) — wire real devices
-- [ ] devices: pipette, transfer-box, FOSH, Vision-as-source
+- [x] transport: MCP server (present, optional) — wire real devices
+- [x] devices: arm, microscope, pipette, transfer-box, fosh
+- [ ] Vision-as-source (report_snr) fully wired to drivers
 - [ ] when MHS open-sources: swap transport to official spec
 
 Reference: `docs/MHS_MODEL_HARDWARE_STANDARD_ANALYSIS.md`
