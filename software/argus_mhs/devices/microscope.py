@@ -20,10 +20,11 @@ SCOPE_TAG = Tag(
 
 
 class ScopeDriver(MHSDriver):
-    def __init__(self, hw):
-        """hw = OpenFlexure control / Motor Release API."""
+    def __init__(self, hw, vision=None):
+        """hw = OpenFlexure control / Motor Release API; vision = VisionSource (optional)."""
         super().__init__("argus/scope", SCOPE_TAG)
         self.hw = hw
+        self.vision = vision
 
     def _read_impl(self, qty: str) -> Any:
         if qty == "stage_xyz":
@@ -33,7 +34,10 @@ class ScopeDriver(MHSDriver):
         if qty == "temperature":
             return self.hw.temp()
         if qty == "snr":
-            return self.hw.report_snr()          # from Vision (YOLO/CellPose)
+            # SNR from Vision (YOLO/CellPose) -> closed-loop autofocus / cleaning trigger
+            if self.vision is not None:
+                return self.vision.report_snr()
+            return self.hw.report_snr()
         return None
 
     def _write_impl(self, qty: str, value: Any) -> Any:
