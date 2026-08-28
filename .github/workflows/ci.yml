@@ -1,0 +1,41 @@
+name: CI — argus_mhs
+
+on:
+  push:
+    paths:
+      - "software/**"
+  pull_request:
+    paths:
+      - "software/**"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: software
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pytest
+
+      - name: Compile check
+        run: |
+          python -m py_compile argus_mhs/*.py argus_mhs/devices/*.py
+
+      - name: Run tests
+        run: python -m pytest tests -v
+
+      - name: CLI smoke
+        run: python -m argus_mhs.cli list >/dev/null && echo "CLI OK"
+
+      - name: Demo smoke
+        run: python -m argus_mhs.demo_247 >/dev/null && echo "DEMO OK"
