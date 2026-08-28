@@ -46,6 +46,7 @@ docs/RESPONSE_TO_METHODOLOGY_REVIEW.md
 docs/*
 !docs/V9_PROTOTYPE.md
 !docs/STERILIZATION_TRANSFER.md
+!docs/MHS_MODEL_HARDWARE_STANDARD_ANALYSIS.md
 scripts/
 grants/
 refs/
