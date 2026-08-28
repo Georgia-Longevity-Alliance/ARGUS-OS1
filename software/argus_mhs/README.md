@@ -21,6 +21,10 @@ argus_mhs/
   driver.py            # MHSDriver base: read/write + discover + Safety Layer
   explore_compile.py   # exploration -> compile pattern
   mcp_server.py        # optional MCP transport (pip install mcp)
+  orchestrator.py      # 24/7 planner (V9 cycle, escalation, watchdog)
+  cli.py               # CLI transport (list / read / write / reference)
+  vision.py            # YOLO+CellPose -> SNR / mitosis events
+  demo_247.py          # wires the V9 24/7 operating cycle
   devices/
     arm.py             # V9-HANDS cable-driven arm (Body Law limits)
     microscope.py      # OpenFlexure stage/focus (Motor Release API)
@@ -44,6 +48,12 @@ arm.write("move", [10, 0, 5])     # passes Safety Layer; human confirms (move)
 run_mcp("ARGUS")
 ```
 
+## 24/7 orchestrator
+```bash
+python -m argus_mhs.demo_247    # wires the V9 cycle (medium, wipe, exchange, waste, escalation)
+python -m argus_mhs.cli list    # CLI transport
+```
+
 ## Alignment checklist (per MHS)
 - [x] read / write primitives (MHSDriver)
 - [x] discoverability (discover() / reference_file())
@@ -52,7 +62,8 @@ run_mcp("ARGUS")
 - [x] exploration -> compile (explore_compile.py)
 - [x] transport: MCP server (present, optional) — wire real devices
 - [x] devices: arm, microscope, pipette, transfer-box, fosh
-- [ ] Vision-as-source (report_snr) fully wired to drivers
+- [x] Vision-as-source (report_snr) wired to microscope driver
+- [x] orchestrator (24/7 V9 cycle) + CLI transport
 - [ ] when MHS open-sources: swap transport to official spec
 
 Reference: `docs/MHS_MODEL_HARDWARE_STANDARD_ANALYSIS.md`
