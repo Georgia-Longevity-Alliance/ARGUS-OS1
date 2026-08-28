@@ -1,64 +1,80 @@
 """Demo: wire the V9 24/7 operating cycle through the MHS-style orchestrator.
 
 Triggers:
-  1. Medium replenishment  -> every 6 h  -> pipette capability
-  2. Objective cleaning    -> SNR drop >10% -> arm 'wipe' capability
-  3. Sample exchange       -> 'mitosis complete' Vision event -> arm pick-and-place
-  4. Waste removal         -> per cadence -> transfer box
+  1. Medium replenishment -> every 6 h -> pipette capability
+  2. Sample exchange      -> Vision 'mitosis' event -> arm pick-and-place
+  3. Waste removal        -> 'waste' event -> transfer box
+Escalation: any handler whose confidence < 0.7 is queued for a human.
+After the loop, Flight Recorder is flushed into a tamper-evident AuditLog,
+exported to JSON, and verified.
 
-Escalation: any task whose handler confidence < 0.7 is queued for a human.
-Run briefly with max_events to see the loop; in production tick down to ~1s
-and let it run unattended.
+Run:  python -m argus_mhs.demo_247   (from software/)
 """
 from __future__ import annotations
 
+import numpy as np
+
 from argus_mhs.orchestrator import Orchestrator
+from argus_mhs.vision import VisionSource
+from argus_mhs.audit import AuditLog, collect_drivers
 
 
-def build_orchestrator() -> Orchestrator:
+class _Cam:
+    def grab(self):
+        # frame with a bright blob -> high SNR + a "mitosis-like" detection marker
+        import numpy as _np
+        f = _np.random.RandomState(7).normal(10, 2, (64, 64))
+        f[30:34, 30:34] = 90
+        return f
+
+
+class _VisionEvents:
+    """Wraps VisionSource and reports a 'mitosis' event when a mitosis fires."""
+    def __init__(self):
+        self.v = VisionSource(_Cam())
+        self.detections = 2
+
+    def poll(self):
+        # Normally: self.v.mitosis(...) returns detections. Here 1 event first tick.
+        if self.detections > 0:
+            self.detections -= 1
+            return ["mitosis"]
+        return []
+
+
+def build() -> Orchestrator:
     o = Orchestrator()
+    o.stack_capability("pipette", lambda o2, p=None: print("[cap] pipette medium"))
+    o.stack_capability("exchange", lambda o2, p=None: print("[cap] arm exchange sample"))
+    o.stack_capability("waste", lambda o2, p=None: print("[cap] transfer-box waste out"))
 
-    # -- capabilities (execute through Tool Bridge / drivers) --
-    def pipette_medium(orch, payload=None):
-        print("[cap] pipette medium replenishment")
-        return orch.stack["pipette"](orch, payload)
+    o.every("medium_replenish", 6 * 3600, lambda o2: o2.cap("pipette"), min_conf=0.95)
+    o.on_event("mitosis", lambda o2: o2.cap("exchange"), 0.9)
+    o.on_event("waste", lambda o2: o2.cap("waste"), 0.6)
 
-    def wipe_objective(orch, payload=None):
-        print("[cap] arm wipe objective (immersion, lens)")
-        return "ok"
+    # demo escalation: low-confidence step
+    def risky(o): return "needs human"
+    risky.confidence = 0.5
+    o.on_event("manual_confirm", lambda o2: risky(o2), min_conf=0.7)  # min_conf unused for events
 
-    def exchange_sample(orch, payload=None):
-        print("[cap] arm pick-and-place sample exchange")
-        return "ok"
-
-    def remove_waste(orch, payload=None):
-        print("[cap] transfer-box waste out (tray full)")
-        return "ok"
-
-    o.stack_capability("pipette", lambda o2, p=None: (print("[cap] pipette")))
-    o.stack_capability("wipe", wipe_objective)
-    o.stack_capability("exchange", exchange_sample)
-    o.stack_capability("waste", remove_waste)
-
-    # -- tasks --
-    o.every("medium_replenish", 6 * 3600, lambda o2: o2.cap("pipette"),
-            min_conf=0.95)
-    # objective cleaning on SNR drop is normally Vision-triggered; demo as event:
-    o.on_event("sample_exchange", lambda o2: o2.cap("exchange"), min_conf=0.9)
-    o.on_event("waste_removal", lambda o2: o2.cap("waste"), min_conf=0.6)
-
-    # mark the sample-exchange handler as low-confidence to demo escalation
-    def low_conf(orch, payload=None): return "risky step"
-    low_conf.confidence = 0.5
-    o.on_event("manual_confirm_step", low_conf, min_conf=0.7)
-
+    # attach vision event source -> schedules 'mitosis' handler
+    o.attach_event_source(_VisionEvents().poll)
     return o
 
 
 if __name__ == "__main__":
-    orch = build_orchestrator()
-    orch.run(tick=0.2, max_events=6)
-    print("\nEscalations (human queue):", orch.escalations)
-    print("Task statuses:")
-    for t in orch._heap if hasattr(orch, "_heap") else []:
-        pass
+    orch = build()
+    orch.run(tick=0.2, max_events=5)
+
+    # escalate demo: fire a low-confidence event directly
+    orch.fire("manual_confirm")
+
+    # (b) Flight Recorder -> tamper-evident audit log
+    audit = AuditLog("argus-demo")
+    collect_drivers([], audit)     # no real drivers registered in demo, keep for parity
+    for e in orch.escalations:
+        audit.append("escalate", "orchestrator", e["task"], e)
+    audit.export("/tmp/argus_audit.json")
+
+    print("\nAudit entries:", len(audit.entries), "root_hash:", audit._prev)
+    print("Audit verified (chain intact):", audit.verify())

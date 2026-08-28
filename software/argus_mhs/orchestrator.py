@@ -35,6 +35,8 @@ class Orchestrator:
         self._log = log or print
         self.stack: Dict[str, Callable] = {}       # capability -> executor
         self.escalations: List[Dict[str, Any]] = []  # human queue
+        self.event_handlers: Dict[str, Callable] = {}  # event name -> one-shot
+        self.event_source = None                    # callable -> list of events
         self.running = False
         self.t0 = time.time()
 
@@ -51,8 +53,21 @@ class Orchestrator:
         return self
 
     def on_event(self, name: str, handler: Callable, min_conf: float = 0.7):
-        """One-shot task fired when the Planner receives an event (e.g. mitosis complete)."""
-        heapq.heappush(self.tasks, Task(name, time.time(), None, handler, min_conf))
+        """Register a handler for a runtime event (e.g. 'mitosis' -> sample exchange)."""
+        self.event_handlers[name] = lambda o2: handler(o2)
+        return self
+
+    def fire(self, event: str, payload: Any = None):
+        """Schedule the handler registered for `event` as a one-shot task."""
+        if event in self.event_handlers:
+            handler = self.event_handlers[event]
+            def closure(o):
+                return handler(o)
+            heapq.heappush(self.tasks, Task(event, time.time(), None, closure, 0.7))
+
+    def attach_event_source(self, provider: Callable):
+        """provider() -> list of event names (e.g. Vision.mitosis detections)."""
+        self.event_source = provider
         return self
 
     # ---- run ----
@@ -60,6 +75,10 @@ class Orchestrator:
         self.running = True
         n = 0
         while self.running:
+            # poll external event source (e.g. Vision) each tick
+            if self.event_source is not None:
+                for ev in self.event_source():
+                    self.fire(ev)
             now = time.time()
             due = []
             while self.tasks and self.tasks[0].due_t <= now:
