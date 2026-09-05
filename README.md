@@ -43,7 +43,7 @@ V9 is an autonomy layer that applies to **every OS stage** — it turns ARGUS in
 
 ## DAIS — Autonomous Intelligence Layer (subproject)
 
-**DAIS** (`dais/` — git submodule → `Georgia-Longevity-Alliance/AIS`) is the safe, deterministic AI layer of ARGUS: every autonomous body gets a **passport**, every intervention a **trace**, every knowledge claim a **provenance**.
+**DAIS** (`dais/` — git submodule → `Georgia-Longevity-Alliance/DAIS`) is the safe, deterministic AI layer of ARGUS: every autonomous body gets a **passport**, every intervention a **trace**, every knowledge claim a **provenance**.
 
 It provides the **V9 shared local LLM brain** in a verifiable way:
 - **DAISocket Core** (Rust) — Passport, Body Law (7 safety layers), Flight Recorder, Trace Network
