@@ -1,0 +1,3 @@
+[submodule "dais"]
+	path = dais
+	url = git@github.com:Georgia-Longevity-Alliance/AIS.git

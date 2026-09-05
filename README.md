@@ -41,6 +41,24 @@ V9 is an autonomy layer that applies to **every OS stage** — it turns ARGUS in
 - Design: [`docs/V9_PROTOTYPE.md`](docs/V9_PROTOTYPE.md)
 - Sterilization & transfer-box SOPs (V7/V8/V9): [`docs/STERILIZATION_TRANSFER.md`](docs/STERILIZATION_TRANSFER.md)
 
+## DAIS — Autonomous Intelligence Layer (subproject)
+
+**DAIS** (`dais/` — git submodule → `Georgia-Longevity-Alliance/AIS`) is the safe, deterministic AI layer of ARGUS: every autonomous body gets a **passport**, every intervention a **trace**, every knowledge claim a **provenance**.
+
+It provides the **V9 shared local LLM brain** in a verifiable way:
+- **DAISocket Core** (Rust) — Passport, Body Law (7 safety layers), Flight Recorder, Trace Network
+- **Proven** — knowledge provenance: claims → sources → evidence → status (`PROPOSED ≠ FACT`)
+- **Web** (Phoenix/Elixir) — dashboard, device registry, knowledge browser
+
+LLMs are confined to clearly-marked non-deterministic lanes; safety-critical decisions (firmware, SQL, graph traversal) stay deterministic. Energy-honest: green/yellow/red op classification.
+
+**Clone with submodule:**
+```bash
+git clone --recurse-submodules git@github.com:Georgia-Longevity-Alliance/ARGUS-OS1.git
+# or update after the fact:
+git submodule update --init --recursive
+```
+
 ## References
 
 Sulston & Horvitz (1977) PMID 838129 | Sulston et al. (1983) PMID 6684600 | Kalbfuss & Gönczy (2023) PMID 37256957 | Kalbfuss, Berger & Gönczy (2023) PMID 37414202 | Gönczy & Balestra (2023) PMID 36988082 | Anderson & Stearns (2009) PMID 19682908 | Erpf & Mikeladze-Dvali (2020) DOI:10.17912/micropub.biology.000286 | Balestra et al. (2015) PMID 25892868 | Yamashita et al. (2007) PMID 17255513 | Januschke et al. (2011) PMID 21407209 | Wang et al. (2009) PMID 19829375 | Coffman et al. (2016) PMID 27733624 | Kalbfuss & Gönczy (2023) PMID 37963546 | Croisier et al. (2025) PMID 40475707 | Lu & Roy (2014) PMID 25360893
