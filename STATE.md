@@ -4,6 +4,15 @@
 **PI affiliation:** Jaba Tqemaladze, MD — **PhD Applicant, UNED Madrid (Programa 9620)** / Georgia Longevity Alliance
 <!-- lang:ru -->
 **Status:** 🟢 OSC заявка отправлена, Foresight отправлен. Ответ Алексею по сборке отправлен 12 авг. ✅ **V1 build + OSC resubmit — ЗАКРЫТО (16 авг, подтверждено Джабой)**. Вопрос закрыт, ARGUS-OS1 в режиме ожидания ответа OSC.
+
+## 15 сен — анализ Noepedia + AISocket → ARGUS 📄
+- ✅ Прочитаны новые README: Noepedia (1029 стр.) + AISocket (переписан) от Gakely.
+- 📄 Анализ и предложения: `docs/NOEPEDIA_AISOCKET_ARGUS_ANALYSIS.md`.
+- 🎯 **P0:** обновить README DAIS под новую грамматику (CLAIM/EVIDENCE/REPLICATION/OPEN/COVERAGE) + сверить статусы «Ready».
+  - ✅ **Реализовано 15 сен (локально, Marketing/DAIS, коммит `3ed0bd6`)**: Noepedia-грамматика в Rust (`core/src/noepedia.rs`, 91 тест ✅), Python-клиент расширен, web-миграция (replication/coverage/valid_in), README/CONCEPT/THEORY выровнены, Body Law → 6 слоёв.
+  - ⚠️ **Не запушено**: gla/main — тонкий ребренд (73 файла, daisocket-нейминг) без полной реализации; локальная полная реализация (118 файлов, aisocket-нейминг). Субмодуль указывает на тонкую gla/main. Ждём решения по слиянию линий (варианты A/B/C в анализе, §5.1).
+- 🎯 **P1:** coverage-гейт в V9-BRAIN (Green-поиск трасс до Red-LLM); Trace→Noepedia консолидация.
+- 🎯 **P2:** MVP knowledge field «центриольная биология» (P0–P8 как CLAIM/EVIDENCE) + COVERAGE-таблица в «Asymmetric Divisions».
 <!-- /lang:ru -->
 
 <!-- lang:ru -->
