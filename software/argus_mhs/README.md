@@ -24,6 +24,7 @@ argus_mhs/
   orchestrator.py      # 24/7 planner (V9 cycle, escalation, watchdog)
   cli.py               # CLI transport (list / read / write / reference)
   vision.py            # YOLO+CellPose -> SNR / mitosis events
+  audit.py             # tamper-evident Flight Recorder (sha256 chain)
   demo_247.py          # wires the V9 24/7 operating cycle
   devices/
     arm.py             # V9-HANDS cable-driven arm (Body Law limits)
@@ -54,6 +55,11 @@ python -m argus_mhs.demo_247    # wires the V9 cycle (medium, wipe, exchange, wa
 python -m argus_mhs.cli list    # CLI transport
 ```
 
+## Tests
+```bash
+python -m pytest tests -q        # 12 tests: safety, interlock, collision, audit, orchestration
+```
+
 ## Alignment checklist (per MHS)
 - [x] read / write primitives (MHSDriver)
 - [x] discoverability (discover() / reference_file())
@@ -64,6 +70,9 @@ python -m argus_mhs.cli list    # CLI transport
 - [x] devices: arm, microscope, pipette, transfer-box, fosh
 - [x] Vision-as-source (report_snr) wired to microscope driver
 - [x] orchestrator (24/7 V9 cycle) + CLI transport
+- [x] Flight Recorder -> tamper-evident audit export (audit.py)
+- [x] Vision mitosis -> sample-exchange trigger (orchestrator event source)
+- [x] pytest suite (tests/)
 - [ ] when MHS open-sources: swap transport to official spec
 
 Reference: `docs/MHS_MODEL_HARDWARE_STANDARD_ANALYSIS.md`
