@@ -27,3 +27,12 @@ Software communicates with AIS Central Node via REST API:
 - Flight Recorder event streaming
 - LLM anomaly diagnosis requests
 - Knowledge Graph submission
+
+## argus-agent (AI agent core)
+
+**ARGUS-OS1 AI-agent** (`software/argus-agent/`): local-first AI agent — the
+loop and all state on your machine (Rust, MIT). No cloud, no API fees, full
+privacy. Tools: files, shell, web, Chrome/CDP browser, memory (lessons/
+procedures/vector recall/link graph), skills + hub, MCP, tasks, fusion.
+
+See its `README.md` / `DOCS.md` / `GRANT_KIT.md`. Build: `cargo build --release --bin argus-agent`.
