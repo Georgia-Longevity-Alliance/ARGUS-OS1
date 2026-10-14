@@ -1,7 +1,12 @@
 # DESIGN — ARGUS-OS1
 
-**Version:** 2.0
-**Date:** 2026-08-01
+**Version:** 2.1
+**Date:** 2026-10-14
+
+## Geometry variants (option)
+
+OS1 (like OS2/OS3) is the **upright** geometry on the OpenFlexure base — the standard for C. elegans live imaging.
+**Inverted variant available:** for coverslip-based cell culture and water/oil-immersion objectives (high NA, short WD), the platform can be built in **inverted geometry** — that is exactly what **ARGUS-OS4** provides. The inverted option can be applied to OS1/OS2/OS3 builds as well (same AI/software stack, inverted frame); it is the recommended geometry for mammalian cell-culture readouts (e.g., cardiomyocytes).
 
 ## Architecture
 
@@ -30,6 +35,8 @@ WilliamW (2026) implemented a motor release feature in the Sangaboard firmware. 
 - 3-hour embryogenesis → overnight protocol feasible
 - 7 fluorescent markers available
 - Centriole biology conserved with mammals
+
+> **📌 Specimen scope (not only C. elegans):** the platform is a general autonomous fluorescence microscope. Besides C. elegans it images **cell cultures** (e.g., hPSC-derived/primary cardiomyocytes, RPE1), **organoids** and other **transparent organisms** (e.g., zebrafish embryos, planaria); only the AI module (segmentation/tracking) needs training per specimen type — consistent with the platform's "easily trainable" principle.
 
 ### 5. Blind protocol
 AI tracks centrioles → human classifies fate (retained/eliminated) without seeing pedigree → pedigree computed last. This prevents confirmation bias in fate classification.
