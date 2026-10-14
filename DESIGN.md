@@ -5,7 +5,7 @@
 
 ## Geometry variants (option)
 
-OS1 (like OS2/OS3) is the **upright** geometry on the OpenFlexure base — the standard for C. elegans live imaging.
+OS1 (like OS2/OS3) is the **upright** geometry on the OpenFlexure base — the standard for live imaging of developing embryos and cell cultures.
 **Inverted variant available:** for coverslip-based cell culture and water/oil-immersion objectives (high NA, short WD), the platform can be built in **inverted geometry** — that is exactly what **ARGUS-OS4** provides. The inverted option can be applied to OS1/OS2/OS3 builds as well (same AI/software stack, inverted frame); it is the recommended geometry for mammalian cell-culture readouts (e.g., cardiomyocytes).
 
 ## Architecture
@@ -29,14 +29,14 @@ Jetson Orin NX (OS1) / Jetson AGX Orin (OS2) runs all AI inference locally. No c
 ### 3. Motor release via Sangaboard API
 WilliamW (2026) implemented a motor release feature in the Sangaboard firmware. This allows the microscope stage to be disengaged for manual positioning, then re-engaged for automated scanning — critical for the "survey → target" workflow.
 
-### 4. C. elegans as model organism
-- Transparent embryo → no sectioning needed
-- Invariant lineage (Sulston 1983) → known cell identities
-- 3-hour embryogenesis → overnight protocol feasible
+### 4. Transparent embryo as the primary validation model
+- Transparent → no sectioning needed
+- Fully mapped invariant lineage (Sulston 1983) → known cell identities
+- Short embryogenesis (~3 h) → overnight protocols feasible
 - 7 fluorescent markers available
 - Centriole biology conserved with mammals
 
-> **📌 Specimen scope (not only C. elegans):** the platform is a general autonomous fluorescence microscope. Besides C. elegans it images **cell cultures** (e.g., hPSC-derived/primary cardiomyocytes, RPE1), **organoids** and other **transparent organisms** (e.g., zebrafish embryos, planaria); only the AI module (segmentation/tracking) needs training per specimen type — consistent with the platform's "easily trainable" principle.
+> **📌 Specimen scope:** the platform is a general autonomous fluorescence microscope: development from the zygote onward in transparent embryos, plus **cell cultures** (hPSC-derived/primary cardiomyocytes, RPE1), organoids and other transparent specimens. Only the AI module (segmentation/tracking) needs training per specimen type — consistent with the platform's "easily trainable" principle.
 
 ### 5. Blind protocol
 AI tracks centrioles → human classifies fate (retained/eliminated) without seeing pedigree → pedigree computed last. This prevents confirmation bias in fate classification.

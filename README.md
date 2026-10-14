@@ -4,7 +4,7 @@ ARGUS is an open microscopy platform for tracking centrioles in living embryos.
 
 **The question:** does a centriole's pedigree — the sequence of division orientations — predict whether it will be kept or eliminated?
 
-We test this in C. elegans. It's the only organism with a complete cell lineage (558 cells at hatching, 959 total in adult), every division axis, and every cell's fate. Kalbfuss & Gönczy (2023) showed ~88% of cells lose centrioles during embryogenesis: 41 proliferating + 20 intestinal + 7 terminally differentiated = 68 cells retain them. Centriole segregation is stochastic at 4-cell stage (Gönczy & Balestra, 2023) — **Pilot validates stochasticity at ALL stages.**
+We test this in a transparent embryo whose complete cell lineage is fully mapped — every division axis and every cell's fate can be traced from the zygote onward. Most cells lose their centrioles during embryogenesis; retention is restricted to specific lineages (Kalbfuss & Gönczy, 2023), and centriole segregation is stochastic in early cleavage (Gönczy & Balestra, 2023) — the pilot validates stochasticity at all stages. The same platform images cell cultures, organoids and other transparent specimens.
 
 **Pedigree features:** 5 quantitative metrics per centriole — fraction of ∥ divisions, mean 3D angle change, angle variance, orientation switches, cumulative angular path.
 

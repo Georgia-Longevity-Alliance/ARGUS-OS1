@@ -15,7 +15,7 @@
 
 | Parameter | Value |
 |-----------|-------|
-| Organism | C. elegans (N2 Bristol, hermaphrodite) |
+| Specimen | Transparent embryos (development from zygote onward); cell cultures (hPSC-CM, RPE1); organoids |
 | Imaging window | Zygote → ~100 cells (~3h at 25°C). **Snapshot at 100-cell, NOT comma stage.** |
 | Cells with centrioles at 100-cell | ~68 (41 proliferating + 20 intestinal + 7 terminally differentiated) |
 | E-lineage (gut) | INCLUDED as factor analysis (post-embryonic centriole loss) |
