@@ -1,5 +1,5 @@
-//! V3.6: минимальный MCP-клиент (Model Context Protocol, JSON-RPC 2.0 по stdio).
-//! Серверы объявляются в <stateDir>/mcp_servers.json: [{name, command, args}].
+//! V3.6: minimal MCP client (Model Context Protocol, JSON-RPC 2.0 over stdio).
+//! Servers are declared in <stateDir>/mcp_servers.json: [{name, command, args}].
 use serde::{Deserialize, Serialize};
 use std::io::{BufRead, BufReader, Write};
 use std::path::Path;
@@ -68,7 +68,7 @@ pub fn remove_server(state_dir: &Path, name: &str) -> Result<(), String> {
     Ok(())
 }
 
-/// Подключённый MCP-сервер (процесс + stdin/stdout).
+/// A connected MCP server (process + stdin/stdout).
 pub struct McpClient {
     child: Child,
     stdin: ChildStdin,
@@ -145,7 +145,7 @@ impl McpClient {
         }
     }
 
-    /// Список инструментов сервера.
+    /// The server's tool list.
     pub fn tools(&mut self) -> Result<Vec<McpTool>, String> {
         let res = self.request("tools/list", None)?;
         let arr = res
@@ -160,7 +160,7 @@ impl McpClient {
         Ok(tools)
     }
 
-    /// Вызвать инструмент.
+    /// Invoke a tool.
     pub fn call_tool(&mut self, tool: &str, args: &serde_json::Value) -> Result<String, String> {
         let res = self.request(
             "tools/call",

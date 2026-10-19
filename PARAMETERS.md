@@ -8,7 +8,7 @@
 | Stage | Hardware | Budget | Status |
 |:---:|------|:---:|:---:|
 | **OS1** | V6 — OpenFlexure + Jetson Orin NX + Dry 40× | ~$3-5K | 🔵 Alex building |
-| **OS2** | V7 — 60×/1.2 WI + sCMOS + phase contrast + Jetson AGX + microfluidic | ~$126K | 🟡 Planning |
+| **OS2** | V7 — 60×/1.2 WI + sCMOS + phase contrast + Jetson AGX + microfluidic | ~$70K HW / ~$307K full | 🟡 Planning |
 | **OS3** | V8 — OS2 + light-sheet + fs-laser + tweezers | +$141K | ⚪ Future |
 
 ## Model
@@ -48,23 +48,23 @@
 | Intermediate | After 50 embryos: BF<3→N=200, BF>10→stop |
 | Controls | Negative: RNAi-PLK-4. Positive: spd-2(or165)/plk-1(RNAi) |
 | Blind protocol | AI tracks → human classifies fate → pedigree computed last |
-| Budget | ~$282,000 (HW: ~$59.7K + AIS Dedicated Server 10yr: $18K + personnel: $50K + contingency: $33K) |
+| Budget | ~$307K full OS2-stage project (platform HW ~$70K: objective/sCMOS/spinning-disk/lasers/microfluidic/frame/AGX/phase; biology+consumables ~$37K; dissemination ~$8K; personnel ~$130K; contingency $44K; AIS server $18K) — breakdown in CONCEPT §4. Version-table "~$126K" = hardware-only figure (superseded by ~$70K hardware in CONCEPT §4) |
 
 ## Engineering Platform (Axio Observer benchmark, 2026-10-19)
 
-> Из `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`. Параметры коммерческого эталона vs план ARGUS.
+> From `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`. Commercial benchmark parameters vs ARGUS plan.
 
-| Параметр | Эталон (Zeiss Axio Observer 7) | ARGUS план | Статус |
-|----------|-------------------------------|------------|:---:|
-| Аппаратный автофокус | Definite Focus 3 (NIR 835 нм) | Fiducial/LED-автофокус (PMID 42274973, 42525498) | ⚠️ разрыв → P0 |
-| Освещение | Colibri 7 (7 каналов LED) | 4-канальный LED (DAPI/FITC/TRITC/Cy5) | ⚠️ P1 |
-| Среда (CO₂/temp/влажн.) | Axio Observer live (Glass Lid heated, Controller, Plate K) | Stage-top модуль (дизайн OS2) | ⚠️ P1 |
-| Z-точность | Piezo Z (нано-шаг) | Степпер Z (1–2 мкм) → piezo | ⚠️ P2 |
-| Детектор | pco.edge 4.2 sCMOS + Axiocam 208 | sCMOS (pco.edge/ORCA-класс) | ⚠️ P2 |
-| Опт. сечение | Apotome 3 (SIM) | SIM/HiLo-модуль (OS2/OS3) | ⚠️ P2 |
-| Автоиммерсия | Autoimmersion module | Дозатор иммерсии (60× WI) | ⚠️ P2 |
-| Автономная смена образцов | ❌ нет | ✅ V9-руки (уникально) | 🟢 |
-| ПО | ZEN 3.3 | Micro-Manager + Mastodon + OpenFlexure | 🟢 план |
-| Локальный compute | Z8 + RTX A4000 (~200 Вт) | Jetson Orin NX (~5–15 Вт) | 🟢 |
+| Parameter | Benchmark (Zeiss Axio Observer 7) | ARGUS plan | Status |
+|-----------|----------------------------------|------------|:---:|
+| Hardware autofocus | Definite Focus 3 (NIR 835 nm) | Fiducial/LED autofocus (PMID 42274973, 42525498) | ⚠️ gap → P0 |
+| Illumination | Colibri 7 (7-channel LED) | 4-channel LED (DAPI/FITC/TRITC/Cy5) | ⚠️ P1 |
+| Environment (CO₂/temp/humidity) | Axio Observer live (Glass Lid heated, Controller, Plate K) | Stage-top module (OS2 design) | ⚠️ P1 |
+| Z precision | Piezo Z (nm step) | Stepper Z (1–2 µm) → piezo | ⚠️ P2 |
+| Detector | pco.edge 4.2 sCMOS + Axiocam 208 | sCMOS (pco.edge/ORCA class) | ⚠️ P2 |
+| Optical sectioning | Apotome 3 (SIM) | SIM/HiLo module (OS2/OS3) | ⚠️ P2 |
+| Auto-immersion | Autoimmersion module | Immersion dispenser (60× WI) | ⚠️ P2 |
+| Autonomous sample change | ❌ none | ✅ V9 hands (unique) | 🟢 |
+| Software | ZEN 3.3 | Micro-Manager + Mastodon + OpenFlexure | 🟢 plan |
+| Local compute | Z8 + RTX A4000 (~200 W) | Jetson Orin NX (~5–15 W) | 🟢 |
 
-*Помечено ⚠️ — разрывы, закрываемые открытыми решениями (см. TODO.md 🔧).*
+*⚠️ marks gaps closable by open solutions (see TODO.md 🔧).*

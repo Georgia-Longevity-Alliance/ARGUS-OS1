@@ -1,6 +1,6 @@
-//! Plugin skills (V1.5): Markdown playbooks (формат Atomic/pi SKILL.md).
-//! Прогрессивная загрузка: в промпт идёт только name+description; тело — по skill.view.
-//! Скрипты выполняются только из requires_scripts и с одобрения (dangerous).
+//! Plugin skills (V1.5): Markdown playbooks (Atomic/pi SKILL.md format).
+//! Progressive loading: only name+description go into the prompt; body via skill.view.
+//! Scripts run only from requires_scripts and with approval (dangerous).
 use serde::Deserialize;
 use std::path::{Path, PathBuf};
 
@@ -12,13 +12,13 @@ pub struct Skill {
     pub requires_tools: Vec<String>,
     pub requires_scripts: Vec<String>,
     pub dangerous: bool,
-    /// тело SKILL.md (после frontmatter) — подгружается по skill.view
+    /// SKILL.md body (after frontmatter) — loaded via skill.view
     pub body: String,
-    /// абсолютный путь к папке скилла (для scripts/)
+    /// absolute path to the skill folder (for scripts/)
     pub dir: PathBuf,
 }
 
-/// Загружает все скиллы из <stateDir>/skills/<name>/SKILL.md.
+/// Loads all skills from <stateDir>/skills/<name>/SKILL.md.
 pub fn load_skills(state_dir: &Path) -> Vec<Skill> {
     let skills_dir = state_dir.join("skills");
     let mut out = Vec::new();
@@ -79,7 +79,7 @@ fn load_skill(skill_md: &Path) -> Option<Skill> {
     })
 }
 
-/// Поиск скилла по описанию/имени (простая лексика: вхождение всех слов).
+/// Skill search by description/name (simple lexical: all words must appear).
 pub fn find_skill<'a>(skills: &'a [Skill], query: &str) -> Option<&'a Skill> {
     let q = query.to_lowercase();
     let words: Vec<&str> = q.split_whitespace().collect();
@@ -89,7 +89,7 @@ pub fn find_skill<'a>(skills: &'a [Skill], query: &str) -> Option<&'a Skill> {
     })
 }
 
-/// Индекс в промпт: name+description всех скиллов (стабильный префикс, KV-кэш).
+/// Prompt index: name+description of all skills (stable prefix, KV cache).
 pub fn skills_index(skills: &[Skill]) -> String {
     if skills.is_empty() {
         return String::new();
@@ -101,7 +101,7 @@ pub fn skills_index(skills: &[Skill]) -> String {
     out
 }
 
-/// Запуск скрипта скилла: только из requires_scripts; dangerous=true всегда.
+/// Runs a skill script: only from requires_scripts; dangerous=true always.
 pub fn run_script(skill: &Skill, script: &str, args: &[String]) -> Result<String, String> {
     if !skill.requires_scripts.iter().any(|r| r == script) {
         return Err(format!(
@@ -130,7 +130,7 @@ pub fn run_script(skill: &Skill, script: &str, args: &[String]) -> Result<String
     ))
 }
 
-/// Встроенный реестр скиллов (V1.6): (имя, описание). Установка — копия SKILL.md.
+/// Built-in skill registry (V1.6): (name, description). Installation = SKILL.md copy.
 pub const REGISTRY: &[(&str, &str)] = &[
     ("docker", "Управление Docker: образы, контейнеры, логи"),
     ("pdf", "Извлечение текста из PDF локально (pdftotext)"),
@@ -145,7 +145,7 @@ pub const REGISTRY: &[(&str, &str)] = &[
     ("ffmpeg", "Обработка видео/аудио (ffmpeg)"),
     ("imagemagick", "Конвертация/обработка изображений (convert)"),
     ("currency", "Актуальные курсы валют (API)"),
-    // V1.8: browser-рецепты (тело = готовый browser.flow шаблон)
+    // V1.8: browser recipes (body = ready browser.flow template)
     (
         "web-research",
         "Открыть страницу и собрать текст (browser.flow: navigate+snapshot)",
@@ -157,7 +157,7 @@ pub const REGISTRY: &[(&str, &str)] = &[
     ),
 ];
 
-/// Browser-рецепты (V1.8): готовые flow-шаблоны как скиллы.
+/// Browser recipes (V1.8): ready flow templates as skills.
 pub const RECIPES: &[(&str, &str)] = &[
     (
         "web-research",
@@ -197,7 +197,7 @@ pub const RECIPES: &[(&str, &str)] = &[
     ),
 ];
 
-/// Поиск по реестру (вхождение всех слов в описание).
+/// Registry search (all words must appear in the description).
 pub fn search_registry(query: &str) -> Vec<(&'static str, &'static str)> {
     let q = query.to_lowercase();
     let words: Vec<&str> = q.split_whitespace().collect();
@@ -211,7 +211,7 @@ pub fn search_registry(query: &str) -> Vec<(&'static str, &'static str)> {
         .collect()
 }
 
-/// Устанавливает скилл из реестра в <stateDir>/skills/<name>/SKILL.md.
+/// Installs a skill from the registry into <stateDir>/skills/<name>/SKILL.md.
 pub fn install_from_registry(state_dir: &Path, name: &str) -> Result<usize, String> {
     let entry = REGISTRY
         .iter()
@@ -222,7 +222,7 @@ pub fn install_from_registry(state_dir: &Path, name: &str) -> Result<usize, Stri
         return Err(format!("скилл '{}' уже установлен", entry.0));
     }
     std::fs::create_dir_all(&dir).map_err(|e| format!("создать папку: {e}"))?;
-    // V1.8: browser-рецепт — тело с готовым шаблоном browser.flow
+    // V1.8: browser recipe — body with a ready browser.flow template
     let recipe_body = RECIPES
         .iter()
         .find(|(n, _)| n.eq_ignore_ascii_case(name))
@@ -244,7 +244,7 @@ pub fn install_from_registry(state_dir: &Path, name: &str) -> Result<usize, Stri
     Ok(1)
 }
 
-/// V3.6: импорт скиллов из pi (~/.pi/agent/skills/<name>/SKILL.md).
+/// V3.6: import skills from pi (~/.pi/agent/skills/<name>/SKILL.md).
 pub fn import_from_pi(state_dir: &Path, pi_dir: &Path) -> usize {
     let pi_skills = pi_dir.join("skills");
     let Ok(entries) = std::fs::read_dir(&pi_skills) else {
@@ -270,7 +270,7 @@ pub fn import_from_pi(state_dir: &Path, pi_dir: &Path) -> usize {
     count
 }
 
-/// Список тапов (owner/repo) из <stateDir>/taps.json.
+/// Lists taps (owner/repo) from <stateDir>/taps.json.
 pub fn load_taps(state_dir: &Path) -> Vec<String> {
     let p = state_dir.join("taps.json");
     std::fs::read_to_string(p)
@@ -309,8 +309,8 @@ pub fn tap_remove(state_dir: &Path, spec: &str) -> Result<(), String> {
     Ok(())
 }
 
-/// Установка скилла из GitHub-тапа: spec = owner/repo[/подпуть].
-/// Скачивает SKILL.md с raw.githubusercontent.com (main), сохраняет по имени из frontmatter.
+/// Installs a skill from a GitHub tap: spec = owner/repo[/subpath].
+/// Downloads SKILL.md from raw.githubusercontent.com (main), saves under the frontmatter name.
 pub fn install_from_github(state_dir: &Path, spec: &str) -> Result<String, String> {
     let mut parts: Vec<&str> = spec.split('/').collect();
     if parts.len() < 2 {
@@ -387,7 +387,7 @@ pub struct SkillCall {
     pub args: Vec<String>,
 }
 
-/// Hub-сервер (V1.8, ClawHub-style): GET /skills (JSON) и /skills/<name> (SKILL.md).
+/// Hub server (V1.8, ClawHub-style): GET /skills (JSON) and /skills/<name> (SKILL.md).
 pub fn serve(state_dir: &Path, port: u16) -> Result<(), String> {
     use std::io::{Read, Write};
     use std::net::TcpListener;
@@ -405,7 +405,7 @@ pub fn serve(state_dir: &Path, port: u16) -> Result<(), String> {
         let path = parts.next().unwrap_or("/").to_string();
         let skills = load_skills(state_dir);
         let (status, body, ctype) = if method == "POST" || method == "PUT" {
-            // V3.3: auth для публикации (ARGUS_HUB_TOKEN); GET остаётся публичным
+            // V3.3: auth for publishing (ARGUS_HUB_TOKEN); GET stays public
             let need = std::env::var("ARGUS_HUB_TOKEN").unwrap_or_default();
             if !need.is_empty() {
                 let header = req
@@ -426,7 +426,7 @@ pub fn serve(state_dir: &Path, port: u16) -> Result<(), String> {
                 serve_publish(state_dir, &req, &path)
             }
         } else if path == "/tasks" {
-            // V3.4: task dashboard — JSON-список задач из tasks.json (+due)
+            // V3.4: task dashboard — JSON task list from tasks.json (+due)
             let now = std::time::SystemTime::now()
                 .duration_since(std::time::UNIX_EPOCH)
                 .map(|d| d.as_secs())
@@ -442,7 +442,7 @@ pub fn serve(state_dir: &Path, port: u16) -> Result<(), String> {
             });
             ("200 OK", dashboard.to_string(), "application/json")
         } else if path == "/skills" || path.starts_with("/skills?q=") {
-            // V3.5: hub catalog — поиск по ?q= (name/description)
+            // V3.5: hub catalog — search by ?q= (name/description)
             let q = path.strip_prefix("/skills?q=").unwrap_or("").to_lowercase();
             let filtered: Vec<_> = skills
                 .iter()
@@ -472,7 +472,7 @@ pub fn serve(state_dir: &Path, port: u16) -> Result<(), String> {
             .strip_prefix("/skills/")
             .and_then(|n| n.strip_suffix("/version"))
         {
-            // V3.5: версия скилла
+            // V3.5: skill version
             match skills.iter().find(|s| s.name == name) {
                 Some(s) => (
                     "200 OK",
@@ -506,7 +506,7 @@ pub fn serve(state_dir: &Path, port: u16) -> Result<(), String> {
     Ok(())
 }
 
-/// V3.3: обработчик POST /skills/<name> (после проверки токена).
+/// V3.3: POST /skills/<name> handler (after token check).
 fn serve_publish(state_dir: &Path, req: &str, path: &str) -> (&'static str, String, &'static str) {
     if let Some(name) = path.trim_start_matches('/').strip_prefix("skills/") {
         let name = name.trim_end_matches('/').to_string();
@@ -531,7 +531,7 @@ fn serve_publish(state_dir: &Path, req: &str, path: &str) -> (&'static str, Stri
     }
 }
 
-/// Клиент: публикация скилла на хаб (POST /skills/<name>).
+/// Client: publish a skill to the hub (POST /skills/<name>).
 pub fn push_skill(
     remote: &str,
     state_dir: &Path,

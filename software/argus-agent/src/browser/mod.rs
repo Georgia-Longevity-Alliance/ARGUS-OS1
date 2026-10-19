@@ -1,5 +1,5 @@
 //! CDP browser (V1.4): headless Chrome + Chrome DevTools Protocol (WebSocket).
-//! Инструменты: navigate / click / type / snapshot — реальное управление браузером.
+//! Tools: navigate / click / type / snapshot — real browser control.
 use std::process::{Child, Command};
 use std::sync::{Mutex, OnceLock};
 
@@ -8,7 +8,7 @@ const CHROME_BIN: &str = "google-chrome";
 
 static CHROME: OnceLock<Mutex<Option<Child>>> = OnceLock::new();
 
-/// Ленивый запуск headless Chrome с remote-debugging-портом.
+/// Lazy launch of headless Chrome with a remote-debugging port.
 pub fn ensure_chrome() -> Result<(), String> {
     let lock = CHROME.get_or_init(|| Mutex::new(None));
     let mut guard = lock
@@ -39,14 +39,14 @@ pub fn ensure_chrome() -> Result<(), String> {
             "--remote-debugging-port=9222",
             "about:blank",
         ])
-        // chrome не должен держать stdout/stderr родителя (иначе shell/тест ждут его fd)
+        // chrome must not hold the parent's stdout/stderr (otherwise shell/tests wait on its fd)
         .stdin(std::process::Stdio::null())
         .stdout(std::process::Stdio::null())
         .stderr(std::process::Stdio::null())
         .spawn()
         .map_err(|e| format!("chrome: {e} (нужен {CHROME_BIN} в PATH)"))?;
     *guard = Some(child);
-    // ждём, пока порт откроется
+    // wait until the port opens
     for _ in 0..40 {
         if std::net::TcpStream::connect(("127.0.0.1", PORT)).is_ok() {
             return Ok(());
@@ -56,7 +56,7 @@ pub fn ensure_chrome() -> Result<(), String> {
     Err("chrome: порт 9222 не поднялся".into())
 }
 
-/// Берёт WebSocket-URL первой page-вкладки из /json.
+/// Takes the WebSocket URL of the first page tab from /json.
 fn page_ws() -> Option<String> {
     let body = reqwest::blocking::get(format!("http://127.0.0.1:{PORT}/json"))
         .ok()?
@@ -73,7 +73,7 @@ fn page_ws() -> Option<String> {
         })
 }
 
-/// Runtime.evaluate через CDP (WebSocket), возвращает значение (строка).
+/// Runtime.evaluate via CDP (WebSocket), returns the value (string).
 pub fn cdp_eval(expr: &str) -> Result<String, String> {
     ensure_chrome()?;
     let ws_url = page_ws().ok_or("нет page-вкладки")?;
@@ -105,7 +105,7 @@ pub fn cdp_eval(expr: &str) -> Result<String, String> {
     }
 }
 
-/// Открывает новую вкладку с URL (CDP /json/new?url) и возвращает заголовок.
+/// Opens a new tab with the URL (CDP /json/new?url) and returns the title.
 pub fn navigate(url: &str) -> Result<String, String> {
     ensure_chrome()?;
     let client = reqwest::blocking::Client::new();
@@ -143,7 +143,7 @@ pub fn snapshot() -> Result<String, String> {
     cdp_eval("document.title + '\\n' + (document.body ? document.body.innerText : '')")
 }
 
-/// Шаг сценария для browser.flow.
+/// A scenario step for browser.flow.
 #[derive(serde::Deserialize, Debug, Default)]
 #[serde(default)]
 pub struct FlowStep {
@@ -154,7 +154,7 @@ pub struct FlowStep {
     pub expression: String,
 }
 
-/// browser.flow: выполняет последовательность шагов и возвращает итоговый снимок.
+/// browser.flow: runs a sequence of steps and returns the final snapshot.
 pub fn flow(steps: &[FlowStep]) -> Result<String, String> {
     for s in steps {
         match s.op.as_str() {
@@ -177,7 +177,7 @@ pub fn flow(steps: &[FlowStep]) -> Result<String, String> {
     snapshot()
 }
 
-/// Снимает скриншот страницы (CDP Page.captureScreenshot) в PNG-файл.
+/// Captures a page screenshot (CDP Page.captureScreenshot) into a PNG file.
 pub fn screenshot(path: &str) -> Result<String, String> {
     use base64::Engine;
     ensure_chrome()?;
@@ -216,7 +216,7 @@ pub fn screenshot(path: &str) -> Result<String, String> {
     Ok(format!("screenshot saved: {path} ({} байт)", bytes.len()))
 }
 
-/// Завершает Chrome (вызывается при выходе CLI).
+/// Terminates Chrome (called on CLI exit).
 pub fn shutdown() {
     if let Some(lock) = CHROME.get() {
         if let Ok(mut g) = lock.lock() {
@@ -229,7 +229,7 @@ pub fn shutdown() {
 
 #[cfg(test)]
 mod tests {
-    /// Реальный CDP-тест: требует headless Chrome в PATH.
+    /// Real CDP test: requires headless Chrome in PATH.
     #[test]
     #[ignore = "требует google-chrome в PATH"]
     fn cdp_navigate_title() {
@@ -243,7 +243,7 @@ mod tests {
     #[test]
     #[ignore = "требует google-chrome в PATH"]
     fn cdp_flow_steps() {
-        // V1.7: многошаговый сценарий navigate→eval→snapshot
+        // V1.7: multi-step scenario navigate→eval→snapshot
         use crate::browser::FlowStep;
         let steps = vec![
             FlowStep {

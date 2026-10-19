@@ -15,7 +15,7 @@ ARGUS-OS1 is built on OpenFlexure v6.1.5 with local AI compute.
 | Stage | Hardware | Software | Budget |
 |:---:|------|------|:---:|
 | **OS1 (V6)** | OpenFlexure + Jetson Orin NX + Dry 40× | CellPose + tracking + lineage | $3-5K |
-| **OS2 (V7)** | 60×/1.2 WI + sCMOS + microfluidic | Jetson AGX | ~$126K |
+| **OS2 (V7)** | 60×/1.2 WI + sCMOS + microfluidic | Jetson AGX | ~$70K HW / ~$307K full |
 | **OS3 (V8)** | Light-sheet + fs-laser + tweezers | Full platform | +$141K |
 
 ## Key Design Decisions

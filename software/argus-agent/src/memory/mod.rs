@@ -1,5 +1,5 @@
-//! argus-agent V1.0 — файловая память (P2): profile + notes + lessons
-//! Паттерн: указатели в промпт, тело по запросу (как Atomic Agent / pi memory).
+//! argus-agent V1.0 — file memory (P2): profile + notes + lessons
+//! Pattern: pointers in the prompt, body on request (like Atomic Agent / pi memory).
 use chrono::Local;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
@@ -8,7 +8,7 @@ use std::path::Path;
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct Profile {
-    /// pinned-факты рендерятся всегда; прочие — по keywords в текущем сообщении
+    /// pinned facts always render; others — only when keywords appear in the current message
     pub facts: BTreeMap<String, ProfileFact>,
 }
 
@@ -28,10 +28,10 @@ pub struct Note {
     pub tags: Vec<String>,
     pub kind: NoteKind, // P3: typed notes (event|behavior|knowledge|skill)
     pub created_at: String,
-    /// консолидирована ли заметка в урок (consolidator)
+    /// whether the note was consolidated into a lesson (consolidator)
     #[serde(default)]
     pub consolidated: bool,
-    /// V3.5: полезность (voting) — влияет на recall-ранжирование и eviction
+    /// V3.5: usefulness (voting) — affects recall ranking and eviction
     #[serde(default)]
     pub votes: i32,
 }
@@ -47,17 +47,17 @@ pub enum NoteKind {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Lesson {
     pub id: u64,
-    /// активация: короткая строка, по ней ищется BM25/подстрока
+    /// activation: short string; BM25/substring search runs on it
     pub activation: String,
     pub principle: String,
     pub tags: Vec<String>,
-    /// parent-ссылки на исходные заметки
+    /// parent links to source notes
     pub parents: Vec<u64>,
     #[serde(default)]
     pub votes: i32,
 }
 
-/// Процедура (V1.6): advisory-шаблон «как сделать», НЕ автовыполняется.
+/// Procedure (V1.6): advisory "how to" template — NOT auto-executed.
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 #[serde(default)]
 pub struct Procedure {
@@ -71,7 +71,7 @@ pub struct Procedure {
 }
 
 #[derive(Default)]
-/// V3.6: связь между заметками (typed edge). kind: RELATES_TO|CAUSED_BY|…
+/// V3.6: link between notes (typed edge). kind: RELATES_TO|CAUSED_BY|…
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Link {
     pub a: u64,
@@ -89,16 +89,16 @@ pub struct Memory {
     next_note_id: u64,
     next_lesson_id: u64,
     next_proc_id: u64,
-    // V2.5: кэш эмбеддингов (ngram — всегда; ollama — опционально), id → вектор
+    // V2.5: embedding cache (ngram — always; ollama — optional), id → vector
     pub ngram_cache: std::collections::HashMap<u64, Vec<f32>>,
     pub ollama_cache: std::collections::HashMap<u64, Vec<f32>>,
 }
 
-/// Размерность локальных эмбеддингов.
+/// Local embedding dimensionality.
 pub const EMBED_DIM: usize = 256;
 
 impl Memory {
-    /// Создаёт/читает файловую память в <stateDir>/memory/ (profile.json, notes.json, lessons.json)
+    /// Creates/reads file memory in <stateDir>/memory/ (profile.json, notes.json, lessons.json)
     pub fn load(state_dir: &Path) -> Self {
         let mdir = state_dir.join("memory");
         fs::create_dir_all(&mdir).ok();
@@ -112,7 +112,7 @@ impl Memory {
         m.next_note_id = m.notes.iter().map(|n| n.id).max().unwrap_or(0) + 1;
         m.next_lesson_id = m.lessons.iter().map(|l| l.id).max().unwrap_or(0) + 1;
         m.next_proc_id = m.procedures.iter().map(|p| p.id).max().unwrap_or(0) + 1;
-        // V2.5: загрузка кэша эмбеддингов
+        // V2.5: load embedding cache
         if let Ok(raw) = fs::read_to_string(mdir.join("embeddings.json")) {
             if let Ok(v) = serde_json::from_str::<serde_json::Value>(&raw) {
                 if let Some(ng) = v.get("ngram").and_then(|x| x.as_object()) {
@@ -139,7 +139,7 @@ impl Memory {
                 }
             }
         }
-        // V2.7: если кэш неполон/устарел (новые заметки, старый файл) — пересобрать
+        // V2.7: if cache is incomplete/stale (new notes, old file) — rebuild
         if m.notes.len() != m.ngram_cache.len() {
             m.rebuild_ngram_cache();
         }
@@ -147,7 +147,7 @@ impl Memory {
     }
 
     pub fn save(&mut self, state_dir: &Path) {
-        // V3.5: eviction применяется при сохранении (лимиты, вытеснение по полезности)
+        // V3.5: eviction applied on save (limits, eviction by usefulness)
         let _ = self.evict();
         let mdir = state_dir.join("memory");
         fs::create_dir_all(&mdir).ok();
@@ -156,7 +156,7 @@ impl Memory {
         write_json(&mdir.join("lessons.json"), &self.lessons);
         write_json(&mdir.join("procedures.json"), &self.procedures);
         write_json(&mdir.join("links.json"), &self.links);
-        // V2.5: сохранение кэша эмбеддингов
+        // V2.5: save embedding cache
         let mut ngram = serde_json::Map::new();
         for (k, v) in &self.ngram_cache {
             ngram.insert(
@@ -191,7 +191,7 @@ impl Memory {
         );
     }
 
-    /// Гейт: pinned-факты всегда; остальные — только если keywords встречены в сообщении.
+    /// Gate: pinned facts always; the rest — only if keywords appear in the message.
     pub fn profile_block(&self, message: &str) -> String {
         let mut out = String::from("### profile\n");
         let msg_lower = message.to_lowercase();
@@ -226,9 +226,9 @@ impl Memory {
             consolidated: false,
             votes: 0,
         });
-        // V2.5: предвычислить и закэшировать ngram-эмбеддинг
+        // V2.5: precompute and cache the ngram embedding
         self.ngram_cache.insert(id, ngram_embed(content, EMBED_DIM));
-        // V3.6: авто-связи с заметками, у которых есть общий тег
+        // V3.6: auto-links to notes sharing a tag
         for other in &self.notes {
             if other.id == id {
                 continue;
@@ -244,7 +244,7 @@ impl Memory {
         id
     }
 
-    /// V3.6: добавить связь вручную; false, если уже есть.
+    /// V3.6: add a link manually; false if it already exists.
     pub fn add_link(&mut self, a: u64, b: u64, kind: &str) -> bool {
         if self
             .links
@@ -261,7 +261,7 @@ impl Memory {
         true
     }
 
-    /// V3.6: соседи заметки по графу (1 hop).
+    /// V3.6: neighbours of a note in the graph (1 hop).
     pub fn neighbors(&self, id: u64) -> Vec<u64> {
         self.links
             .iter()
@@ -270,7 +270,7 @@ impl Memory {
             .collect()
     }
 
-    /// V2.7: пересобрать ngram-кэш для всех заметок (гарантия персиста после загрузки).
+    /// V2.7: rebuild the ngram cache for all notes (guarantee persistence after load).
     pub fn rebuild_ngram_cache(&mut self) -> usize {
         self.ngram_cache.clear();
         for n in &self.notes {
@@ -280,7 +280,7 @@ impl Memory {
         self.ngram_cache.len()
     }
 
-    /// V3.5: голосование за полезность (note|lesson|procedure), delta = +1/-1.
+    /// V3.5: vote for usefulness (note|lesson|procedure), delta = +1/-1.
     pub fn vote(&mut self, kind: &str, id: u64, delta: i32) -> Result<i32, String> {
         match kind {
             "note" => self
@@ -314,8 +314,8 @@ impl Memory {
         }
     }
 
-    /// V3.5: eviction — лимиты (1000 заметок / 500 уроков / 500 процедур),
-    /// вытеснение по полезности (votes), затем по новизне.
+    /// V3.5: eviction — limits (1000 notes / 500 lessons / 500 procedures),
+    /// eviction by usefulness (votes), then by recency.
     pub fn evict(&mut self) -> usize {
         let mut removed = 0usize;
         let trim = |v: &mut Vec<Note>, cap: usize, removed: &mut usize| {
@@ -343,7 +343,7 @@ impl Memory {
         removed
     }
 
-    /// V3.5: экспорт векторного индекса (id/content/kind/tags/embedding) в JSON.
+    /// V3.5: export the vector index (id/content/kind/tags/embedding) as JSON.
     pub fn export_vectors(&self, path: &Path) -> usize {
         let arr: Vec<serde_json::Value> = self
             .notes
@@ -367,7 +367,7 @@ impl Memory {
         arr.len()
     }
 
-    /// Простой recall: подстрока-поиск по content+tags (стаб BM25/FTS5; эмбеддинги — позже).
+    /// Simple recall: substring search over content+tags (stub BM25/FTS5; embeddings later).
     pub fn recall(&self, query: &str, k: usize) -> Vec<&Note> {
         let q = query.to_lowercase();
         let mut hits: Vec<&Note> = self
@@ -383,11 +383,11 @@ impl Memory {
         hits
     }
 
-    /// V2.2: гибридный recall — substring-хиты + косинусное сходство локальных
-    /// n-грамм-эмбеддингов (кэш V2.5; без внешних сервисов).
+    /// V2.2: hybrid recall — substring hits + cosine similarity of local
+    /// n-gram embeddings (cache V2.5; no external services).
     pub fn recall_hybrid(&self, query: &str, k: usize) -> Vec<&Note> {
         let mut hits: Vec<&Note> = self.recall(query, k);
-        // кандидаты по косинусному сходству (дополняют substring-хиты)
+        // candidates by cosine similarity (complement substring hits)
         let qe = ngram_embed(query, EMBED_DIM);
         let mut scored: Vec<(f32, &Note)> = Vec::with_capacity(self.notes.len());
         for n in &self.notes {
@@ -395,7 +395,7 @@ impl Memory {
                 Some(v) => v.clone(),
                 None => ngram_embed(&n.content, EMBED_DIM),
             };
-            // V3.5: votes дают лёгкий вес в ранжировании
+            // V3.5: votes add slight weight in ranking
             let score = cosine(&qe, &ne) + (n.votes as f32) * 0.05;
             scored.push((score, n));
         }
@@ -408,7 +408,7 @@ impl Memory {
                 hits.push(n);
             }
         }
-        // V3.6: 1-hop расширение по графу связей
+        // V3.6: 1-hop expansion over the link graph
         let mut neighbors: Vec<u64> = hits.iter().flat_map(|h| self.neighbors(h.id)).collect();
         neighbors.sort();
         neighbors.dedup();
@@ -426,15 +426,15 @@ impl Memory {
         hits
     }
 
-    /// V2.4: гибридный recall с Ollama-эмбеддингами (если сервер с --embeddings),
-    /// иначе fallback на локальные n-грамм-эмбеддинги. Кэш V2.5.
+    /// V2.4: hybrid recall with Ollama embeddings (if the server runs with --embeddings),
+    /// otherwise fall back to local n-gram embeddings. Cache V2.5.
     pub fn recall_hybrid_ollama(&mut self, query: &str, k: usize) -> (Vec<&Note>, bool) {
         let Some(qe) = ollama_embed(query) else {
             return (self.recall_hybrid(query, k), false);
         };
-        // substring-хиты как id (не ссылки), чтобы не блокировать &mut кэш
+        // substring hits as ids (not links), so we don't block &mut cache
         let mut hit_ids: Vec<u64> = self.recall(query, k).iter().map(|n| n.id).collect();
-        // локальная копия (id, content), чтобы не конфликтовать с &mut кэшем
+        // local copy (id, content) to avoid conflicting with &mut cache
         let items: Vec<(u64, String)> = self
             .notes
             .iter()
@@ -473,7 +473,7 @@ impl Memory {
         (hits, true)
     }
 
-    /// Память «указатели: топ-20 последних заметок однострочниками (тело — только по id).
+    /// Memory pointers: top-20 recent notes as one-liners (body only by id).
     pub fn memory_index(&self) -> String {
         if self.notes.is_empty() {
             return String::new();
@@ -511,7 +511,7 @@ impl Memory {
         id
     }
 
-    /// V3.1: обновить урок (LLM-дистилляция).
+    /// V3.1: update a lesson (LLM distillation).
     pub fn set_lesson(&mut self, id: u64, activation: &str, principle: &str) {
         if let Some(l) = self.lessons.iter_mut().find(|l| l.id == id) {
             l.activation = activation.to_string();
@@ -546,9 +546,9 @@ impl Memory {
         out
     }
 
-    /// Consolidator (как Atomic): заметки с тегом, встречающимся ≥3 раза,
-    /// дистиллируются в урок (активация + принцип + parents) И процедуру (шаги).
-    /// Без LLM — эвристика. Возвращает число созданных уроков.
+    /// Consolidator (like Atomic): notes with a tag appearing ≥3 times
+    /// are distilled into a lesson (activation + principle + parents) AND a procedure (steps).
+    /// Without LLM — heuristic. Returns the number of lessons created.
     pub fn consolidate(&mut self) -> usize {
         let mut tag_count: std::collections::BTreeMap<String, usize> =
             std::collections::BTreeMap::new();
@@ -558,7 +558,7 @@ impl Memory {
             }
         }
         let mut created = 0usize;
-        // для каждого тега с >=3 заметками: проверить, нет ли уже урока с этим тегом
+        // for each tag with >=3 notes: check whether a lesson with this tag already exists
         for (tag, count) in tag_count {
             if count < 3 {
                 continue;
@@ -590,7 +590,7 @@ impl Memory {
                 .join(" | ");
             let activation = format!("повторяющийся паттерн: {tag} ({} эпизода)", ids.len());
             self.add_lesson(&activation, &principle, vec![tag.clone()], ids.clone());
-            // V1.6: та же консолидация создаёт advisory-процедуру (не автовыполняется)
+            // V1.6: the same consolidation creates an advisory procedure (not auto-executed)
             let steps: Vec<String> = self
                 .notes
                 .iter()
@@ -604,7 +604,7 @@ impl Memory {
                 vec![tag.clone()],
                 ids.clone(),
             );
-            // пометить консолидированными
+            // mark as consolidated
             for n in self.notes.iter_mut().filter(|n| ids.contains(&n.id)) {
                 n.consolidated = true;
             }
@@ -613,7 +613,7 @@ impl Memory {
         created
     }
 
-    /// Добавляет advisory-процедуру (шаги не автовыполняются).
+    /// Adds an advisory procedure (steps are not auto-executed).
     pub fn add_procedure(
         &mut self,
         activation: &str,
@@ -634,7 +634,7 @@ impl Memory {
         id
     }
 
-    /// ### procedures — топ-2 релевантных процедуры (указатели, как lessons).
+    /// ### procedures — top-2 relevant procedures (pointers, like lessons).
     pub fn procedures_block(&self, message: &str) -> String {
         let q = message.to_lowercase();
         let hits: Vec<&Procedure> = self
@@ -666,7 +666,7 @@ impl Memory {
         self.procedures.iter().find(|p| p.id == id)
     }
 
-    /// V3.0: обновить процедуру (LLM-дистилляция).
+    /// V3.0: update a procedure (LLM distillation).
     pub fn set_procedure(&mut self, id: u64, activation: &str, steps: Vec<String>) {
         if let Some(p) = self.procedures.iter_mut().find(|p| p.id == id) {
             p.activation = activation.to_string();
@@ -674,8 +674,8 @@ impl Memory {
         }
     }
 
-    /// Obsidian-импорт (round-trip): читает .md из ваулта (рекурсивно),
-    /// извлекает frontmatter-теги, добавляет как заметки памяти. Возвращает число.
+    /// Obsidian import (round-trip): reads .md files from the vault (recursively),
+    /// extracts frontmatter tags, adds them as memory notes. Returns the count.
     pub fn import_vault(&mut self, vault: &Path) -> usize {
         let mut count = 0usize;
         let mut stack = vec![vault.to_path_buf()];
@@ -686,7 +686,7 @@ impl Memory {
             for e in entries.flatten() {
                 let p = e.path();
                 if p.is_dir() {
-                    // V2.1: пропуск шаблонных/скрытых папок (_templates, .git, …)
+                    // V2.1: skip template/hidden dirs (_templates, .git, …)
                     let name = p
                         .file_name()
                         .map(|n| n.to_string_lossy().to_string())
@@ -697,13 +697,13 @@ impl Memory {
                 } else if p.extension().map(|x| x == "md").unwrap_or(false) {
                     if let Ok(text) = std::fs::read_to_string(&p) {
                         let (mut tags, kind, created, content) = parse_md_note(&text);
-                        // V2.0: inline #теги из тела
+                        // V2.0: inline #tags from the body
                         for t in inline_tags(&content) {
                             if !tags.contains(&t) {
                                 tags.push(t);
                             }
                         }
-                        // V2.6: source-тег по имени файла (для round-trip прослеживаемости)
+                        // V2.6: source tag by file name (for round-trip traceability)
                         if let Some(fname) = p.file_name().map(|n| n.to_string_lossy().to_string())
                         {
                             let src = format!("src:{}", fname.trim_end_matches(".md"));
@@ -711,7 +711,7 @@ impl Memory {
                                 tags.push(src);
                             }
                         }
-                        // V3.5: двусторонний dedup — файл уже импортирован (src-тег) ИЛИ тот же контент
+                        // V3.5: two-way dedup — file already imported (src tag) OR identical content
                         let src_tag = format!(
                             "src:{}",
                             p.file_name()
@@ -722,7 +722,7 @@ impl Memory {
                             || self.notes.iter().any(|n| n.content == content);
                         if !content.is_empty() && !already {
                             let id = self.add_note(&content, tags, kind);
-                            // V2.6: сохранить дату из frontmatter
+                            // V2.6: keep the date from frontmatter
                             if let Some(c) = created {
                                 if let Some(n) = self.notes.iter_mut().find(|n| n.id == id) {
                                     n.created_at = c;
@@ -737,9 +737,9 @@ impl Memory {
         count
     }
 
-    /// Obsidian-экспорт (как Atomic): notes/ и lessons/ как Markdown с YAML
-    /// frontmatter и [[wikilinks]] между заметками с общим тегом.
-    /// Возвращает количество экспортированных файлов.
+    /// Obsidian export (like Atomic): notes/ and lessons/ as Markdown with YAML
+    /// frontmatter and [[wikilinks]] between notes sharing a tag.
+    /// Returns the number of exported files.
     pub fn export_vault(&self, vault: &Path) -> usize {
         let notes_dir = vault.join("notes");
         let lessons_dir = vault.join("lessons");
@@ -758,7 +758,7 @@ impl Memory {
                 .lines()
                 .find(|l| l.starts_with("# "))
                 .map(|l| l.trim_start_matches("# ").trim().to_string());
-            // V2.6: source из src: тега (имя исходного файла)
+            // V2.6: source from src: tag (original file name)
             let src = n
                 .tags
                 .iter()
@@ -803,7 +803,7 @@ impl Memory {
             );
             count += 1;
         }
-        // V1.6: экспорт процедур
+        // V1.6: export procedures
         let procs_dir = vault.join("procedures");
         let _ = fs::create_dir_all(&procs_dir);
         for p in &self.procedures {
@@ -843,8 +843,8 @@ fn kind_name(k: &NoteKind) -> &'static str {
     }
 }
 
-/// V2.4: эмбеддинг через Ollama /api/embed (если сервер с --embeddings).
-/// Возвращает None, если сервер не поддерживает или недоступен.
+/// V2.4: embedding via Ollama /api/embed (if the server runs with --embeddings).
+/// Returns None if the server does not support it or is unavailable.
 pub fn ollama_embed(text: &str) -> Option<Vec<f32>> {
     let client = reqwest::blocking::Client::builder()
         .timeout(std::time::Duration::from_secs(15))
@@ -873,7 +873,7 @@ pub fn ollama_embed(text: &str) -> Option<Vec<f32>> {
     }
 }
 
-/// V2.2: локальный хеш-эмбеддинг из слово- и n-грамм (офлайн, без сервисов).
+/// V2.2: local hash embedding from word- and n-grams (offline, no services).
 pub fn ngram_embed(text: &str, dim: usize) -> Vec<f32> {
     let mut v = vec![0f32; dim];
     let lower = text.to_lowercase();
@@ -894,7 +894,7 @@ pub fn ngram_embed(text: &str, dim: usize) -> Vec<f32> {
             }
         }
     }
-    // L2-нормализация
+    // L2 normalization
     let norm = v.iter().map(|x| x * x).sum::<f32>().sqrt();
     if norm > 0.0 {
         for x in v.iter_mut() {
@@ -913,7 +913,7 @@ fn hash_idx(bytes: &[u8], dim: usize) -> usize {
     (h as usize) % dim
 }
 
-/// Косинусное сходство двух векторов.
+/// Cosine similarity of two vectors.
 pub fn cosine(a: &[f32], b: &[f32]) -> f32 {
     if a.len() != b.len() || a.is_empty() {
         return 0.0;
@@ -932,7 +932,7 @@ pub fn cosine(a: &[f32], b: &[f32]) -> f32 {
     dot / (na.sqrt() * nb.sqrt())
 }
 
-/// Собирает inline Obsidian-теги `#слово` из текста.
+/// Collects inline Obsidian tags `#word` from text.
 fn inline_tags(text: &str) -> Vec<String> {
     text.split_whitespace()
         .filter_map(|w| {
@@ -947,8 +947,8 @@ fn inline_tags(text: &str) -> Vec<String> {
         .collect()
 }
 
-/// Парсит Markdown-заметку из Obsidian: frontmatter `tags:`/`kind:`/`date:` + тело.
-/// Возвращает (tags, kind, created-из-frontmatter, content).
+/// Parses an Obsidian Markdown note: frontmatter `tags:`/`kind:`/`date:` + body.
+/// Returns (tags, kind, created-from-frontmatter, content).
 fn parse_md_note(text: &str) -> (Vec<String>, NoteKind, Option<String>, String) {
     let mut tags = Vec::new();
     let mut kind = NoteKind::Knowledge;
@@ -970,7 +970,7 @@ fn parse_md_note(text: &str) -> (Vec<String>, NoteKind, Option<String>, String) 
                         .filter(|s| !s.is_empty())
                         .collect();
                 } else if let Some(v) = l.strip_prefix("kind:") {
-                    // V2.1: kind из frontmatter (event|behavior|skill|knowledge)
+                    // V2.1: kind from frontmatter (event|behavior|skill|knowledge)
                     kind = match v.trim().trim_matches('"') {
                         "event" => NoteKind::Event,
                         "behavior" => NoteKind::Behavior,
@@ -984,7 +984,7 @@ fn parse_md_note(text: &str) -> (Vec<String>, NoteKind, Option<String>, String) 
                         created = Some(format!("{}T00:00:00Z", d));
                     }
                 } else if let Some(v) = l.strip_prefix("- ") {
-                    // yaml-list тегов
+                    // yaml list of tags
                     if v.starts_with('"')
                         || v.chars()
                             .all(|c| c.is_alphanumeric() || c == '-' || c == '_')
@@ -995,7 +995,7 @@ fn parse_md_note(text: &str) -> (Vec<String>, NoteKind, Option<String>, String) 
             }
         }
     }
-    // убрать wikilinks вида [[...]] в тексте для памяти
+    // strip [[...]] wikilinks in text for memory
     let cleaned = body.replace("[[", "").replace("]]", "");
     let cleaned = cleaned.trim().to_string();
     (tags, kind, created, cleaned)
@@ -1008,10 +1008,10 @@ fn write_json<T: Serialize>(p: &Path, v: &T) {
 }
 
 // ============================================================================
-// Рефлексия (P3B): парсинг строк SET / NOTE из LLM
+// Reflection (P3B): parsing SET / NOTE lines from the LLM
 // ============================================================================
 
-/// Одно действие рефлексии: SET-факт или NOTE-заметка.
+/// One reflection action: SET fact or NOTE note.
 pub enum ReflectionAction {
     Set {
         key: String,
@@ -1026,7 +1026,7 @@ pub enum ReflectionAction {
     },
 }
 
-/// Парсит многострочный вывод рефлексии: `SET key=value [opts]` / `NOTE ... [opts]`.
+/// Parses multi-line reflection output: `SET key=value [opts]` / `NOTE ... [opts]`.
 pub fn parse_reflection(text: &str) -> Vec<ReflectionAction> {
     let mut out = Vec::new();
     for line in text.lines() {
@@ -1045,7 +1045,7 @@ pub fn parse_reflection(text: &str) -> Vec<ReflectionAction> {
 }
 
 fn parse_set(rest: &str) -> Option<ReflectionAction> {
-    // первый токен: key=value (по первому '=')
+    // first token: key=value (at the first '=')
     let eq = rest.find('=')?;
     let key = rest[..eq].trim().to_string();
     let mut rest2 = &rest[eq + 1..];
@@ -1153,13 +1153,13 @@ mod tests {
         let l = &m.lessons[0];
         assert!(l.tags.contains(&"playwright".to_string()));
         assert_eq!(l.parents.len(), 3);
-        // V1.6: консолидация создаёт и процедуру
+        // V1.6: consolidation also creates a procedure
         assert_eq!(m.procedures.len(), 1);
         let p = &m.procedures[0];
         assert!(!p.steps.is_empty());
         assert!(p.tags.contains(&"playwright".to_string()));
         assert!(m.procedures_block("playwright").contains("### procedures"));
-        // повторный запуск не создаёт дубликат
+        // re-running does not create a duplicate
         assert_eq!(m.consolidate(), 0);
     }
 
@@ -1177,10 +1177,10 @@ mod tests {
         let mut m = mem();
         let a = m.add_note("клетки микроманипулятор", vec![], NoteKind::Knowledge);
         let b = m.add_note("погода в тбилиси", vec![], NoteKind::Knowledge);
-        // голосуем против релевантной заметки — она должна уйти ниже
+        // vote against a relevant note — it should move down
         let _ = m.vote("note", a, -3);
         let hits = m.recall_hybrid("микроманипулятор клетка", 2);
-        // после -3 голосов вес 0.15 — всё равно первым (ngram), но проверяем что vote работает
+        // after -3 votes the weight is 0.15 — still first (ngram), but we check that voting works
         assert_eq!(m.notes.iter().find(|n| n.id == a).unwrap().votes, -3);
         assert_eq!(m.notes.iter().find(|n| n.id == b).unwrap().votes, 0);
         let _ = hits;
@@ -1189,7 +1189,7 @@ mod tests {
     #[test]
     fn evict_trims_over_limit_by_votes() {
         let mut m = mem();
-        // заполнить 3 заметки, лимит 1000 не достижим легко — проверим что evict не трогает малый объём
+        // fill 3 notes; the 1000 limit is not easily reachable — check that evict leaves a small set untouched
         for i in 0..5 {
             m.add_note(&format!("заметка {i}"), vec![], NoteKind::Knowledge);
         }
@@ -1199,7 +1199,7 @@ mod tests {
 
     #[test]
     fn import_skips_src_duplicate() {
-        // src-тег уже есть → повторный импорт пропускается
+        // src tag already present → re-import is skipped
         let dir = PathBuf::from("/tmp/argus-src-test");
         let _ = std::fs::remove_dir_all(&dir);
         std::fs::create_dir_all(&dir).ok();
@@ -1227,7 +1227,7 @@ mod tests {
             vec![],
             NoteKind::Knowledge,
         );
-        // запрос без общей подстроки, но с близкими словами
+        // query with no common substring but with semantically close words
         let hits = m.recall_hybrid("механическое повреждение клеток инструментом", 2);
         assert!(!hits.is_empty());
         assert_eq!(
@@ -1236,7 +1236,7 @@ mod tests {
             "первым должен идти семантически близкий хит, got={:?}",
             hits.iter().map(|h| h.id).collect::<Vec<_>>()
         );
-        // косинусные эмбеддинги нормированы
+        // cosine embeddings are normalized
         let a = ngram_embed("клетка повреждение", 256);
         let b = ngram_embed("клетки механическое", 256);
         assert!(cosine(&a, &b) > 0.0);

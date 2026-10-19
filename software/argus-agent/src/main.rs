@@ -1,4 +1,4 @@
-//! argus-pre — ARGUS-LP Pre-Experimental Studies (Rust-порт, упрощённый)
+//! argus-pre — ARGUS-LP Pre-Experimental Studies (Rust port, simplified)
 use rand::Rng;
 use serde::Serialize;
 use std::fs;
@@ -30,9 +30,9 @@ fn main() {
     });
 
     // T2: Mechanical Cell Damage (Micromanipulator)
-    // Метод: лазерной абляции НЕТ. Единичные клетки повреждаются МЕХАНИЧЕСКИ
-    // микроманипулятором (игла/зонд) так, чтобы они погибли. Критерий — точность
-    // попадания в единичную клетку без повреждения соседних.
+    // Method: NO laser ablation. Individual cells are damaged MECHANICALLY
+    // by the micromanipulator (needle/probe) so that they die. Criterion — accuracy
+    // of targeting a single cell without damaging its neighbours.
     let valid = 12u32;
     results.push(TestResult {
         name: "T2: Mechanical Cell Damage (Micromanipulator)".into(),

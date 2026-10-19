@@ -1,9 +1,9 @@
-//! argus-agent V1.1 — агентский цикл (P1) + режимы (P4) + P3 (rewriter, reflection за флагами).
-//! Инструменты: file.read, file.write, shell, memory.set, memory.note, memory.recall, memory.lesson.
+//! argus-agent V1.1 — agent loop (P1) + modes (P4) + P3 (rewriter, reflection behind flags).
+//! Tools: file.read, file.write, shell, memory.set, memory.note, memory.recall, memory.lesson.
 use crate::memory::{Memory, NoteKind};
 use serde::{Deserialize, Serialize};
 
-/// Режимы (P4): default / plan / auto / bypass. Режим — состояние сессии, не конфиг.
+/// Modes (P4): default / plan / auto / bypass. Mode is session state, not config.
 #[derive(Deserialize, Debug, Clone, Copy, PartialEq, Eq, Default)]
 #[serde(rename_all = "lowercase")]
 pub enum Mode {
@@ -30,13 +30,13 @@ pub struct ToolResult {
     pub summary: String,
 }
 
-/// Решение модели за один шаг.
+/// One-step model decision.
 pub enum AgentDecision {
     Tools(Vec<ToolCall>),
     Reply(String),
 }
 
-/// Одна рефлексия-запись (P3B): SET-факт или NOTE-заметка.
+/// One reflection item (P3B): SET fact or NOTE note.
 pub enum ReflectionItem {
     Set {
         key: String,
@@ -54,20 +54,20 @@ pub enum ReflectionItem {
 pub trait Model {
     fn decide(&self, prompt: &str) -> AgentDecision;
     fn compress(&self, results: &[ToolResult]) -> String;
-    /// P3B: извлечь durable факты/заметки из окна транскрипта (рефлексия).
+    /// P3B: extract durable facts/notes from a transcript window (reflection).
     fn reflect(&self, window: &str) -> Vec<ReflectionItem>;
-    /// V3.0: LLM-дистилляция процедуры из кластера повторяющихся заметок.
+    /// V3.0: LLM distillation of a procedure from a cluster of repeated notes.
     fn distill_procedure(&self, tag: &str, notes: &str) -> Option<(String, Vec<String>)>;
-    /// V3.1: LLM-дистилляция урока (активация + принцип) из кластера.
+    /// V3.1: LLM distillation of a lesson (activation + principle) from a cluster.
     fn distill_lesson(&self, tag: &str, notes: &str) -> Option<(String, String)>;
 }
 
-/// Конфиг цикла (P1) + P3-флаги.
+/// Loop config (P1) + P3 flags.
 #[derive(Debug, Clone)]
 pub struct LoopConfig {
     pub max_steps: u64,
     pub max_duration_min: u64,
-    // P3A: rewriter для коротких референтных запросов
+    // P3A: rewriter for short referential queries
     pub rewriter: bool,
     // P3B: sliding-window reflection
     pub reflection: bool,
@@ -96,9 +96,9 @@ pub struct AgentLoop<'a> {
     pub cwd: String,
     pub last_transcript: Vec<String>,
     pub goal: String,
-    /// установленные скиллы (V1.5) — индексируются в промпт, тело по skill.view
+    /// installed skills (V1.5) — indexed into the prompt, body via skill.view
     pub skills: Vec<crate::skills::Skill>,
-    /// V2.0: начальный транскрипт сессии (для продолжения --session)
+    /// V2.0: initial session transcript (for --session continuation)
     pub seed: Vec<String>,
     /// V2.3: plugin hooks (before_step/after_step/on_done)
     pub plugins: Vec<crate::plugins::Plugin>,
@@ -111,7 +111,7 @@ impl<'a> AgentLoop<'a> {
         let mut step: u64 = 0;
         let mut transcript: Vec<String> = self.seed.clone();
         self.last_transcript.clear();
-        // детектор зацикливания: одинаковый набор вызовов подряд
+        // loop detector: same call set repeated
         let mut prev_sig: Option<String> = None;
         let mut repeat = 0u64;
 
@@ -121,7 +121,7 @@ impl<'a> AgentLoop<'a> {
             }
             step += 1;
 
-            // V2.7: тик таймер-хуков (V2.8: last_fire персист в Plugin)
+            // V2.7: timer-hook tick (V2.8: last_fire persisted in Plugin)
             crate::plugins::run_timers(
                 &mut self.plugins,
                 crate::plugins::now_sec(),
@@ -144,7 +144,7 @@ impl<'a> AgentLoop<'a> {
                 break format!("готово за {step} шагов: модель действий не предложила");
             }
 
-            // детектор зацикливания (V1.3): один и тот же вызов N раз подряд → стоп
+            // loop detector (V1.3): same call N times in a row → stop
             let sig = calls
                 .iter()
                 .map(|c| {
@@ -201,7 +201,7 @@ impl<'a> AgentLoop<'a> {
             transcript.push(format!("[step {step}] {} → {summary}", tools.join(",")));
             self.last_transcript = transcript.clone();
 
-            // P3B: sliding-window reflection — раз в N шагов, не каждый (флаг)
+            // P3B: sliding-window reflection — every N steps, not each (flag)
             if self.cfg.reflection && step.is_multiple_of(self.cfg.reflection_every) {
                 self.reflect_once(mem, &transcript);
             }
@@ -211,12 +211,12 @@ impl<'a> AgentLoop<'a> {
             }
         };
 
-        // P3B: финальный flush — не теряем хвостовое окно
+        // P3B: final flush — do not lose the trailing window
         if self.cfg.reflection {
             self.reflect_once(mem, &self.last_transcript);
         }
 
-        // V2.3: on_done хук (fire-and-forget, env с результатом)
+        // V2.3: on_done hook (fire-and-forget, env with the result)
         crate::plugins::run_plugins(
             &self.plugins,
             "on_done",
@@ -226,7 +226,7 @@ impl<'a> AgentLoop<'a> {
         final_result
     }
 
-    /// P3B: один вызов рефлексии по последним `window` шагам.
+    /// P3B: single reflection call over the last `window` steps.
     fn reflect_once(&self, mem: &mut Memory, transcript: &[String]) {
         let window: String = transcript
             .iter()
@@ -260,11 +260,11 @@ impl<'a> AgentLoop<'a> {
                 }
             }
         }
-        // Consolidator: повторяющиеся заметки (>=3 с общим тегом) → урок + процедура
+        // Consolidator: repeated notes (>=3 sharing a tag) → lesson + procedure
         let n = mem.consolidate();
         if n > 0 {
             eprintln!("[memory] консолидировано уроков: {n}");
-            // V3.0: LLM-дистилляция процедуры из кластера (fallback — эвристика)
+            // V3.0: LLM distillation of a procedure from the cluster (fallback — heuristic)
             if let Some(p) = mem.procedures.last().cloned() {
                 let notes_text: String = mem
                     .notes
@@ -282,7 +282,7 @@ impl<'a> AgentLoop<'a> {
                     }
                 }
             }
-            // V3.1: LLM-дистилляция урока из того же кластера
+            // V3.1: LLM distillation of a lesson from the same cluster
             if let Some(l) = mem.lessons.last().cloned() {
                 let lnotes: String = mem
                     .notes
@@ -389,7 +389,7 @@ impl<'a> AgentLoop<'a> {
                 }
             }
             "memory.recall" => {
-                // P3A: query rewriter — короткие референтные запросы расширяем из goal
+                // P3A: query rewriter — expand short referential queries from goal
                 let mut q = c.args["query"].as_str().unwrap_or("").to_string();
                 if self.cfg.rewriter && is_referential(&q) && !self.goal.is_empty() {
                     let anchor: String = self.goal.split_whitespace().collect::<Vec<_>>().join(" ");
@@ -762,7 +762,7 @@ impl<'a> AgentLoop<'a> {
     }
 
     fn run_shell(&self, cmd: &str) -> ToolResult {
-        // V3.5: sandbox — опасные паттерны блокируются даже при --yes
+        // V3.5: sandbox — dangerous patterns are blocked even with --yes
         let low = cmd.to_lowercase();
         let dangerous_patterns = [
             "rm -rf /",
@@ -809,7 +809,7 @@ impl<'a> AgentLoop<'a> {
         }
     }
 
-    /// http.get — fetch страницы, SSRF-guarded (без private/loopback), http/https только.
+    /// http.get — fetch a page, SSRF-guarded (no private/loopback), http/https only.
     fn http_get(&self, url: &str) -> ToolResult {
         if !is_safe_url(url) {
             return ToolResult {
@@ -846,9 +846,9 @@ impl<'a> AgentLoop<'a> {
         }
     }
 
-    /// web.search — DuckDuckGo HTML-поиск (без ключа), извлекает title+url.
+    /// web.search — DuckDuckGo HTML search (no key), extracts title+url.
     fn web_search(&self, query: &str) -> ToolResult {
-        // V3.0: провайдер из ARGUS_SEARCH_PROVIDER (ddg|brave|searxng), fallback ddg
+        // V3.0: provider from ARGUS_SEARCH_PROVIDER (ddg|brave|searxng), fallback ddg
         let provider = std::env::var("ARGUS_SEARCH_PROVIDER").unwrap_or_else(|_| "ddg".into());
         match provider.as_str() {
             "brave" => self.search_brave(query),
@@ -893,7 +893,7 @@ impl<'a> AgentLoop<'a> {
         }
     }
 
-    /// Brave Search API (ключ ARGUS_BRAVE_API_KEY).
+    /// Brave Search API (key ARGUS_BRAVE_API_KEY).
     fn search_brave(&self, query: &str) -> ToolResult {
         let key = std::env::var("ARGUS_BRAVE_API_KEY").unwrap_or_default();
         if key.is_empty() {
@@ -1015,8 +1015,8 @@ impl<'a> AgentLoop<'a> {
         }
     }
 
-    /// browser.get — реальный браузерный рендер через headless Chrome (--dump-dom).
-    /// JS выполняется; SSRF-guard тот же, что у http.get. Click/type — V1.4 (CDP).
+    /// browser.get — real browser rendering via headless Chrome (--dump-dom).
+    /// JS executes; SSRF-guard same as http.get. Click/type — V1.4 (CDP).
     fn browser_get(&self, url: &str) -> ToolResult {
         if !is_safe_url(url) {
             return ToolResult {
@@ -1091,7 +1091,7 @@ impl<'a> AgentLoop<'a> {
     }
 }
 
-/// V3.6: state-директория (для MCP-серверов).
+/// V3.6: state directory (for MCP servers).
 pub fn agent_state_dir() -> std::path::PathBuf {
     std::env::var("ARGUS_STATE_DIR")
         .map(std::path::PathBuf::from)
@@ -1100,7 +1100,7 @@ pub fn agent_state_dir() -> std::path::PathBuf {
         })
 }
 
-/// V2.3: env-контекст для хуков.
+/// V2.3: env context for hooks.
 fn hook_env(goal: &str, step: u64, tools: &[String], summary: &str) -> Vec<(&'static str, String)> {
     vec![
         ("ARGUS_GOAL", goal.to_string()),
@@ -1119,7 +1119,7 @@ impl ToolCall {
     }
 }
 
-/// P3A: эвристика «короткий референтный запрос» (как в Atomic MEMORY_FABRIC v2.5 Phase A).
+/// P3A: "short referential query" heuristic (like Atomic MEMORY_FABRIC v2.5 Phase A).
 fn is_referential(q: &str) -> bool {
     let t = q.trim();
     if t.is_empty() {
@@ -1149,7 +1149,7 @@ fn is_referential(q: &str) -> bool {
     short || starts_conj || pronouns
 }
 
-/// SSRF-guard: только http/https, запрет private/loopback хостов.
+/// SSRF guard: http/https only, private/loopback hosts blocked.
 fn is_safe_url(url: &str) -> bool {
     let lower = url.to_lowercase();
     if !(lower.starts_with("http://") || lower.starts_with("https://")) {
@@ -1189,7 +1189,7 @@ fn is_safe_url(url: &str) -> bool {
     {
         return false;
     }
-    // V3.5: DNS-резолв — блок private IP даже если имя обходит строковую проверку
+    // V3.5: DNS resolve — block private IP even if the name bypasses the string check
     use std::net::ToSocketAddrs;
     if let Ok(addrs) = (host, 80u16).to_socket_addrs() {
         for a in addrs {
@@ -1234,7 +1234,7 @@ fn urlencode(s: &str) -> String {
     out
 }
 
-/// Проверяет наличие бинарника в PATH.
+/// Checks whether a binary exists in PATH.
 fn which(cmd: &str) -> bool {
     std::process::Command::new("which")
         .arg(cmd)
@@ -1243,14 +1243,14 @@ fn which(cmd: &str) -> bool {
         .unwrap_or(false)
 }
 
-/// Извлекает <title>...</title> из HTML.
+/// Extracts <title>...</title> from HTML.
 fn extract_title(html: &str) -> Option<String> {
     let start = html.find("<title>")? + 7;
     let end = html[start..].find("</title>")? + start;
     Some(html[start..end].trim().to_string())
 }
 
-/// Грубое извлечение видимого текста: убрать скрипты/стили/теги.
+/// Crude visible-text extraction: strip scripts/styles/tags.
 fn html_to_text(html: &str) -> String {
     let mut out = String::new();
     let mut skip = 0usize;
@@ -1281,7 +1281,7 @@ fn html_to_text(html: &str) -> String {
         }
         i += 1;
     }
-    // схлопнуть лишние пробелы/переводы строк
+    // collapse extra whitespace/newlines
     let cleaned: Vec<String> = out
         .split_whitespace()
         .map(|s| s.to_string())
@@ -1292,7 +1292,7 @@ fn html_to_text(html: &str) -> String {
     cleaned.join("\n")
 }
 
-/// Парсит результаты DDG HTML: `<a class="result__a" href="...">title</a>`.
+/// Parses DDG HTML results: `<a class="result__a" href="...">title</a>`.
 fn parse_ddg(body: &str, max: usize) -> Vec<String> {
     let mut out = Vec::new();
     let mut search_from = 0usize;
@@ -1310,7 +1310,7 @@ fn parse_ddg(body: &str, max: usize) -> Vec<String> {
             break;
         };
         let href = &body[h0..h0 + h1_rel];
-        // title: после >
+        // title: after >
         let Some(gt_rel) = body[a_start..].find('>') else {
             break;
         };
@@ -1328,7 +1328,7 @@ fn parse_ddg(body: &str, max: usize) -> Vec<String> {
 }
 
 // ============================================================================
-// LlmModel — OpenAI-совместимый HTTP-клиент (Ollama / LM Studio / llama-server)
+// LlmModel — OpenAI-compatible HTTP client (Ollama / LM Studio / llama-server)
 // ============================================================================
 
 #[derive(Debug, Clone)]
@@ -1410,7 +1410,7 @@ struct RespFn {
     arguments: String,
 }
 
-/// OpenAI-совместимая модель.
+/// OpenAI-compatible model.
 pub struct LlmModel {
     cfg: LlmConfig,
     client: reqwest::blocking::Client,
@@ -1427,7 +1427,7 @@ impl LlmModel {
         LlmModel { cfg, client, tools }
     }
 
-    /// Fusion: планировщик разбивает задачу на N подзадач (JSON-массив строк).
+    /// Fusion: the planner splits the task into N subtasks (JSON array of strings).
     pub fn plan_subtasks(&self, goal: &str, n: usize) -> Vec<String> {
         let system = format!(
             "Ты — планировщик. Разбей задачу на {n} независимых подзадач. \
@@ -1525,7 +1525,7 @@ impl Model for LlmModel {
         match self.chat(messages, true) {
             Some((calls, _)) if !calls.is_empty() => AgentDecision::Tools(calls),
             Some((_, Some(content))) => {
-                // V1.1 recover-слой: модель напечатала вызовы текстом → распознать и выполнить
+                // V1.1 recover layer: the model printed calls as text → recognize and run them
                 if let Some(calls) = recover_text_calls(&content) {
                     AgentDecision::Tools(calls)
                 } else {
@@ -1667,7 +1667,7 @@ impl Model for LlmModel {
         }
     }
 
-    /// V3.0: LLM-дистилляция процедуры (активация + шаги) из кластера заметок.
+    /// V3.0: LLM distillation of a procedure (activation + steps) from a note cluster.
     fn distill_procedure(&self, tag: &str, notes: &str) -> Option<(String, Vec<String>)> {
         let system = "Ты — консолидатор памяти. Из повторяющихся эпизодов (заметок) \
 создай процедуру «как делать правильно»: активация (1 строка, когда применять) + 3-5 шагов. \
@@ -1709,7 +1709,7 @@ impl Model for LlmModel {
             .next()
             .and_then(|c| c.message.content)
             .unwrap_or_default();
-        // вырезать первый {...}
+        // cut out the first {...}
         let (s, e) = (content.find('{')?, content.rfind('}')?);
         if s >= e {
             return None;
@@ -1756,7 +1756,7 @@ const REFLECT_PROMPT: &str = "\
 - NOTE содержимое заметки [tags=тег1,тег2] [type=event|behavior|knowledge|skill]\n\
 Пиши NONE, если ничего ценного нет. Не более 2 строк.";
 
-/// V1.1 recover-слой: распознать вызовы, напечатанные текстом (memory.note({...}) и т.п.).
+/// V1.1 recover layer: recognize calls printed as text (memory.note({...}) etc.).
 fn recover_text_calls(content: &str) -> Option<Vec<ToolCall>> {
     let known = [
         "memory.set",
@@ -1795,7 +1795,7 @@ fn recover_text_calls(content: &str) -> Option<Vec<ToolCall>> {
     if !calls.is_empty() {
         return Some(calls);
     }
-    // V1.3 fallback: имя опечатано — угадать инструмент по JSON-ключам
+    // V1.3 fallback: name is misspelled — guess the tool by JSON keys
     for obj in extract_any_json_objects(content) {
         if let Some(tool) = infer_tool_by_keys(&obj) {
             let dangerous = matches!(tool.as_str(), "shell" | "file.write");
@@ -1813,7 +1813,7 @@ fn recover_text_calls(content: &str) -> Option<Vec<ToolCall>> {
     }
 }
 
-/// Извлекает все JSON-объекты `{...}` из текста.
+/// Extracts all `{...}` JSON objects from text.
 fn extract_any_json_objects(s: &str) -> Vec<serde_json::Value> {
     let mut out = Vec::new();
     let bytes = s.as_bytes();
@@ -1851,7 +1851,7 @@ fn extract_any_json_objects(s: &str) -> Vec<serde_json::Value> {
     out
 }
 
-/// По JSON-ключам угадывает инструмент (fallback для опечаток имени).
+/// Guesses the tool by JSON keys (fallback for misspelled names).
 fn infer_tool_by_keys(v: &serde_json::Value) -> Option<String> {
     if v.get("url").is_some() {
         Some("http.get".into())
@@ -1874,7 +1874,7 @@ fn infer_tool_by_keys(v: &serde_json::Value) -> Option<String> {
     }
 }
 
-/// Ищет в тексте `name(...)` (объект или позиционные аргументы) и возвращает аргументы.
+/// Finds `name(...)` in text (object or positional args) and returns the arguments.
 fn extract_calls_for(s: &str, name: &str) -> Vec<serde_json::Value> {
     let needle = format!("{name}(");
     let mut out = Vec::new();
@@ -1887,7 +1887,7 @@ fn extract_calls_for(s: &str, name: &str) -> Vec<serde_json::Value> {
             i += 1;
         }
         if i < bytes.len() && bytes[i] == b'{' {
-            // формат name({json})
+            // name({json}) format
             let mut depth = 0usize;
             let mut j = i;
             let mut in_str = false;
@@ -1914,7 +1914,7 @@ fn extract_calls_for(s: &str, name: &str) -> Vec<serde_json::Value> {
                 j += 1;
             }
         } else if i < bytes.len() {
-            // формат name("a", "b", {...}) — позиционные аргументы
+            // name("a", "b", {...}) format — positional arguments
             let open_pos = from + rel + needle.len() - 1; // позиция '(' самого вызова
             if let Some(e) = find_matching_paren(s, open_pos) {
                 if let Some(v) = parse_positional(name, &s[open_pos + 1..e]) {
@@ -1927,7 +1927,7 @@ fn extract_calls_for(s: &str, name: &str) -> Vec<serde_json::Value> {
     out
 }
 
-/// Находит парную `)` начиная с `open` (баланс скобок/кавычек).
+/// Finds the matching `)` starting from `open` (bracket/quote balance).
 fn find_matching_paren(s: &str, open: usize) -> Option<usize> {
     let bytes = s.as_bytes();
     let mut depth = 0usize;
@@ -1955,9 +1955,9 @@ fn find_matching_paren(s: &str, open: usize) -> Option<usize> {
     None
 }
 
-/// Разбирает позиционные аргументы `("a", "b", {...})` в JSON-объект по схеме инструмента.
+/// Parses positional arguments `("a", "b", {...})` into a JSON object per the tool schema.
 fn parse_positional(name: &str, args_src: &str) -> Option<serde_json::Value> {
-    // разбить на элементы верхнего уровня по запятым (учитывая строки/скобки)
+    // split into top-level elements by commas (respecting strings/brackets)
     let items = split_top_level(args_src);
     let mut vals: Vec<serde_json::Value> = Vec::new();
     for it in items {
@@ -2024,7 +2024,7 @@ fn parse_positional(name: &str, args_src: &str) -> Option<serde_json::Value> {
     Some(out)
 }
 
-/// Разбивает строку аргументов на top-level элементы по запятым (корректный UTF-8).
+/// Splits an argument string into top-level elements by commas (correct UTF-8).
 fn split_top_level(s: &str) -> Vec<String> {
     let mut out = Vec::new();
     let mut depth = 0i32;
@@ -2192,7 +2192,7 @@ fn build_tools() -> Vec<ToolDef> {
     ]
 }
 
-/// Стаб-модель для офлайн-тестов.
+/// Stub model for offline tests.
 pub struct StubModel;
 
 impl Model for StubModel {
@@ -2267,7 +2267,7 @@ mod tests {
 
     #[test]
     fn recover_fuzzy_typo() {
-        // имя опечатано (bral.get) — fallback по ключу url
+        // name misspelled (bral.get) — fallback by url key
         let calls = recover_text_calls(r#"bral.get({"url": "https://example.com"})"#).unwrap();
         assert_eq!(calls[0].tool, "http.get");
         assert_eq!(calls[0].args["url"], "https://example.com");

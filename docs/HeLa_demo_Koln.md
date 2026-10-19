@@ -1,117 +1,117 @@
 # HeLa demo for Köln — ARGUS-OS1
 
-**Цель:** два препарата, которые можно привезти с собой. Не нужен CO₂-бокс на встрече. Минимум оборудования.
+**Goal:** two specimens that can be carried in hand luggage. No CO₂ box needed at the meeting. Minimum equipment.
 
 ---
 
-## Демо #1 — Mitotic index (фиксированные клетки)
+## Demo #1 — Mitotic index (fixed cells)
 
-**Что показываем:** AI находит митотические клетки и считает mitotic index за секунды. Лаборант считал бы час.
+**What we show:** the AI finds mitotic cells and computes the mitotic index in seconds. A technician would take an hour.
 
-### Материалы
-- HeLa, конфлюэнтность ~70%
-- Покровные стёкла 18×18 или 22×22 мм
+### Materials
+- HeLa, ~70% confluence
+- Coverslips 18×18 or 22×22 mm
 - PBS
-- 4% параформальдегид (PFA) в PBS
-- Triton X-100 0.5% в PBS
-- BSA 3% в PBS (блокировка)
+- 4% paraformaldehyde (PFA) in PBS
+- Triton X-100 0.5% in PBS
+- BSA 3% in PBS (blocking)
 - DAPI (1 µg/ml)
-- Anti-α-tubulin-FITC (клон DM1A, разведение 1:200)
-- Mowiol или ProLong Gold (среда для заключения)
-- Предметные стёкла + лак для ногтей
+- Anti-α-tubulin-FITC (clone DM1A, 1:200 dilution)
+- Mowiol or ProLong Gold (mounting medium)
+- Glass slides + nail polish
 
-### Протокол (2 дня)
+### Protocol (2 days)
 
-**День 1:**
-1. HeLa на покровных стёклах в 6-луночном планшете, 24 ч до фиксации
-2. Промыть PBS ×2
-3. **Фиксация:** 4% PFA, 15 мин при комнатной t°
-4. PBS ×3 по 5 мин
-5. **Пермеабилизация:** 0.5% Triton X-100, 10 мин
-6. PBS ×3 по 5 мин
-7. Блокировка: 3% BSA, 30 мин
+**Day 1:**
+1. Plate HeLa on coverslips in a 6-well plate, 24 h before fixation
+2. Wash with PBS ×2
+3. **Fixation:** 4% PFA, 15 min at room temperature
+4. PBS ×3, 5 min each
+5. **Permeabilization:** 0.5% Triton X-100, 10 min
+6. PBS ×3, 5 min each
+7. Blocking: 3% BSA, 30 min
 
-**День 1 (продолжение):**
-8. Первичное: α-тубулин-FITC 1:200 в 3% BSA, 1 ч при 37°C (или ночь при 4°C)
-9. PBS ×3 по 5 мин
-10. DAPI 1 µg/ml, 5 мин
+**Day 1 (continued):**
+8. Primary: α-tubulin-FITC 1:200 in 3% BSA, 1 h at 37°C (or overnight at 4°C)
+9. PBS ×3, 5 min each
+10. DAPI 1 µg/ml, 5 min
 11. PBS ×2
-12. Заключить в Mowiol на предметное стекло
-13. Края запечатать лаком
+12. Mount in Mowiol on a glass slide
+13. Seal edges with nail polish
 
-**День 2:**
-14. Готово. Хранить при 4°C в темноте.
+**Day 2:**
+14. Ready. Store at 4°C in the dark.
 
-### Что снимает ARGUS
-- Поле: 40× объектив, DAPI-канал + FITC-канал
-- 5–10 случайных полей
-- Brightfield как резерв (если флуоресценции нет)
+### What ARGUS acquires
+- Field: 40× objective, DAPI channel + FITC channel
+- 5–10 random fields
+- Brightfield as backup (if fluorescence is unavailable)
 
-### Что показывает AI
-- Всего клеток (по ядрам DAPI)
-- Митотических клеток (турелин-FITC — веретено деления)
-- Mitotic index = митотические / всего
-- **Время:** <1 секунды на поле
-
----
-
-## Демо #2 — Колхицин (лекарственный ответ)
-
-**Что показываем:** HeLa + колхицин → клетки застревают в metaphase. Контроль vs колхицин — разница видна глазами. AI считает mitotic index: контроль ~3–5%, колхицин ~15–25%.
-
-### Материалы
-- HeLa, две чашки 35 мм со стеклянным дном (#1.5)
-- Колхицин, рабочий раствор 0.5 µg/ml в среде
-- Контроль: среда без колхицина
-- Фиксация: как в Демо #1 (PFA, Triton, DAPI, тубулин)
-
-### Протокол (2 дня)
-
-**День 1:**
-1. Две чашки HeLa, ~60–70% конфлюэнтность
-2. **Чашка A (контроль):** заменить среду на свежую
-3. **Чашка B (колхицин):** заменить среду на колхицин 0.5 µg/ml
-4. Инкубировать 4–6 ч при 37°C, 5% CO₂
-
-**День 1 (продолжение):**
-5. Промыть PBS ×2
-6. Фиксация и окраска — идентично Демо #1 (PFA → Triton → тубулин-FITC → DAPI → Mowiol)
-
-**День 2:**
-7. Готово. Хранить при 4°C в темноте.
-
-### Что снимает ARGUS
-- Обе чашки, DAPI + FITC, 5 полей каждая
-- Brightfield (резерв)
-
-### Что показывает AI
-- Mitotic index: контроль vs колхицин
-- Процент клеток в метафазе (видно по морфологии веретена)
-- Бар-график: два столбика, разница очевидна
+### What the AI reports
+- Total cells (by DAPI nuclei)
+- Mitotic cells (tubulin-FITC — mitotic spindle)
+- Mitotic index = mitotic / total
+- **Time:** <1 s per field
 
 ---
 
-## Что нужно для демо в Кёльне
+## Demo #2 — Colchicine (drug response)
 
-| Что | Где взять |
-|:---|:---|
-| ARGUS V6 (механика + камера + Pi) | Алексей привозит |
-| Ноутбук с софтом | Алексей |
-| 2 препарата (Демо #1 и #2) | Готовим в Тбилиси, Джаба везёт |
-| DAPI + FITC фильтры | В списке Алексея есть GFP |
-| Объектив 40× | В списке |
+**What we show:** HeLa + colchicine → cells arrested in metaphase. Control vs colchicine is visible to the eye. The AI computes the mitotic index: control ~3–5%, colchicine ~15–25%.
 
-Если флуоресценция не готова — brightfield: DAPI видно ядра, структуру хроматина. Митотические клетки морфологически отличимы (круглые, конденсированные хромосомы).
+### Materials
+- HeLa, two 35 mm glass-bottom dishes (#1.5)
+- Colchicine, working solution 0.5 µg/ml in medium
+- Control: medium without colchicine
+- Fixation: as in Demo #1 (PFA, Triton, DAPI, tubulin)
+
+### Protocol (2 days)
+
+**Day 1:**
+1. Two HeLa dishes, ~60–70% confluence
+2. **Dish A (control):** replace medium with fresh medium
+3. **Dish B (colchicine):** replace medium with colchicine 0.5 µg/ml
+4. Incubate 4–6 h at 37°C, 5% CO₂
+
+**Day 1 (continued):**
+5. Wash with PBS ×2
+6. Fixation and staining — identical to Demo #1 (PFA → Triton → tubulin-FITC → DAPI → Mowiol)
+
+**Day 2:**
+7. Ready. Store at 4°C in the dark.
+
+### What ARGUS acquires
+- Both dishes, DAPI + FITC, 5 fields each
+- Brightfield (backup)
+
+### What the AI reports
+- Mitotic index: control vs colchicine
+- Percentage of cells in metaphase (visible by spindle morphology)
+- Bar chart: two bars, the difference is obvious
 
 ---
 
-## Резервный план (без флуоресценции)
+## What is needed for the Cologne demo
 
-Если фильтры/LED не успевают:
-- **Brightfield + DAPI-ядра** — AI считает клетки, confluence
-- **Scratch assay на живых HeLa** — привезти чашку со scratch, AI меряет ширину царапины
-- Фиксированные + кристал-виолет или Giemsa — mitotic figures видны и без флуоресценции
+| Item | Source |
+|:-----|:-------|
+| ARGUS V6 (mechanics + camera + Pi) | Alexei brings it |
+| Laptop with software | Alexei |
+| 2 specimens (Demo #1 and #2) | Prepared in Tbilisi, Jaba carries them |
+| DAPI + FITC filters | GFP is on Alexei's list |
+| 40× objective | On the list |
+
+If fluorescence is not ready — brightfield: DAPI shows nuclei and chromatin structure. Mitotic cells are morphologically distinct (round, condensed chromosomes).
 
 ---
 
-*Джаба, 25 июля 2026*
+## Backup plan (without fluorescence)
+
+If filters/LED are not ready in time:
+- **Brightfield + DAPI nuclei** — the AI counts cells, confluence
+- **Scratch assay on live HeLa** — bring a scratched dish, the AI measures the scratch width
+- Fixed + crystal violet or Giemsa — mitotic figures are visible without fluorescence
+
+---
+
+*Jaba, 25 July 2026*

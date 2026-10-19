@@ -1,6 +1,6 @@
-//! Plugin hooks (V2.3): внешние команды, вызываемые в точках агентского цикла.
-//! События: before_step / after_step / on_done / on_error.
-//! Хуки fire-and-forget (не блокируют цикл). Контекст — через env: ARGUS_GOAL,
+//! Plugin hooks (V2.3): external commands invoked at agent-loop points.
+//! Events: before_step / after_step / on_done / on_error.
+//! Hooks are fire-and-forget (they do not block the loop). Context via env: ARGUS_GOAL,
 //! ARGUS_STEP, ARGUS_SUMMARY, ARGUS_TOOLS.
 use serde::{Deserialize, Serialize};
 use std::path::Path;
@@ -11,9 +11,9 @@ pub struct Plugin {
     pub id: u64,
     pub event: String,
     pub command: String,
-    /// V2.7: для event="timer" — период выполнения (сек)
+    /// V2.7: for event="timer" — run period (seconds)
     pub interval_sec: Option<u64>,
-    /// V2.8: время последнего срабатывания timer (персист в plugins.json)
+    /// V2.8: last timer-fire time (persisted in plugins.json)
     pub last_fire: Option<u64>,
 }
 
@@ -71,15 +71,15 @@ pub fn remove(state_dir: &Path, id: u64) -> Result<(), String> {
     Ok(())
 }
 
-/// Выполняет хуки события из переданного среза плагинов. Не блокирует цикл (spawn).
+/// Runs the event hooks from the given plugin slice. Does not block the loop (spawn).
 pub fn run_plugins(plugins: &[Plugin], event: &str, env: &[(&str, String)]) {
     for p in plugins.iter().filter(|p| p.event == event) {
         run_one(p, env);
     }
 }
 
-/// V2.7: таймер-хуки (event="timer") — выполняются не чаще, чем раз в interval_sec.
-/// Состояние last-fire хранится в `last_fires` (в памяти цикла).
+/// V2.7: timer hooks (event="timer") — run at most once per interval_sec.
+/// Last-fire state lives in `last_fires` (in the loop's memory).
 pub fn run_timers(plugins: &mut [Plugin], now: u64, env: &[(&str, String)]) {
     for p in plugins.iter_mut().filter(|p| p.event == "timer") {
         let Some(interval) = p.interval_sec else {
@@ -96,7 +96,7 @@ pub fn run_timers(plugins: &mut [Plugin], now: u64, env: &[(&str, String)]) {
     }
 }
 
-/// V2.8: публичное сохранение (для персиста last_fire после run).
+/// V2.8: public save (to persist last_fire after run).
 pub fn save_pub(state_dir: &Path, plugins: &[Plugin]) {
     save(state_dir, plugins);
 }
@@ -135,13 +135,13 @@ mod tests {
         )
         .unwrap();
         let mut plugins = load(&dir);
-        // первый тик срабатывает (last_fire=0)
+        // first tick fires (last_fire=0)
         run_timers(&mut plugins, 1000, &[]);
         assert_eq!(plugins[0].last_fire, Some(1000));
-        // повторный тик в пределах интервала — не срабатывает
+        // repeat tick within the interval — does not fire
         run_timers(&mut plugins, 1050, &[]);
         assert_eq!(plugins[0].last_fire, Some(1000));
-        // за пределами интервала — срабатывает
+        // beyond the interval — fires
         run_timers(&mut plugins, 1150, &[]);
         assert_eq!(plugins[0].last_fire, Some(1150));
         let _ = id;

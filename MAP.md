@@ -30,10 +30,11 @@ ARGUS-OS1/
 │   ├── REVIEW4_VERIFICATION_2026-07-18.md
 │   ├── VALIDATION_PLAN.md
 │   ├── PILOT_CENTRIN1_SNR_PLAN.md
-│   ├── V9_PROTOTYPE.md            # V9-HANDS + V9-BRAIN (17 авг 2026)
-│   ├── STERILIZATION_TRANSFER.md  # Стерилизация/transfer box
-│   ├── MHS_MODEL_HARDWARE_STANDARD_ANALYSIS.md  # Anthropic MHS (28 авг)
-│   ├── NOEPEDIA_AISOCKET_ARGUS_ANALYSIS.md       # Noepedia+AISocket→ARGUS (15 сен)
+│   ├── V9_PROTOTYPE.md            # V9-HANDS + V9-BRAIN (17 Aug 2026)
+│   ├── STERILIZATION_TRANSFER.md  # Sterilization / transfer box
+│   ├── MHS_MODEL_HARDWARE_STANDARD_ANALYSIS.md  # Anthropic MHS (28 Aug)
+│   ├── NOEPEDIA_AISOCKET_ARGUS_ANALYSIS.md       # Noepedia+AISocket→ARGUS (15 Sep)
+│   ├── AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md  # Axio Observer benchmark (19 Oct)
 │   ├── OUTREACH.md
 │   ├── Alex_update.md
 │   └── logo.png

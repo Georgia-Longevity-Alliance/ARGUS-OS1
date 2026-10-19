@@ -16,16 +16,15 @@
 - 🎯 **V9-руки дают ARGUS то, чего нет у эталона** (автономная смена образцов) — аргумент для грантов.
 <!-- /lang:ru -->
 
-## 3 окт 2026 — 🔴 Foresight AI Node program — отказ
-<!-- /lang:ru -->
-
 <!-- lang:ru -->
+## 3 окт 2026 — 🔴 Foresight AI Node program — отказ
 - ❌ **Foresight AI Node program — НЕ ВЫБРАН (письмо 3 окт 2026):** «your project was not selected this round», индивидуальной обратной связи не дают.
 - ⚠️ Это **отдельная программа** от гранта Foresight Fellowship ($50,050, подан 31 июл) — грант всё ещё pending (подтверждение получения 4 авг).
 - ✅ OSC ($17K) — всё ещё pending на Open Collective.
 - 📌 Приоритет: ждать OSC; по гранту Foresight — follow-up (~6–8 нед цикл уже прошёл, ~12–26 сен).
 <!-- /lang:ru -->
 
+<!-- lang:ru -->
 ## 15 сен — анализ Noepedia + AISocket → ARGUS 📄
 - ✅ Прочитаны новые README: Noepedia (1029 стр.) + AISocket (переписан) от Gakely.
 - 📄 Анализ и предложения: `docs/NOEPEDIA_AISOCKET_ARGUS_ANALYSIS.md`.
@@ -117,7 +116,7 @@
 ## OS Stages  
 - **V0:** ~$930 — bare OpenFlexure mechanics, no AI  
 - **OS1 = V6:** ~$3-5K — local AI (Jetson Orin NX, CellPose + tracking + lineage)  
-- **OS2 = V7:** ~$126K — 60×/1.2 WI + sCMOS + microfluidic  
+- **OS2 = V7:** ~$70K HW / ~$307K full (60×/1.2 WI + sCMOS + microfluidic)  
 - **OS3 = V8:** +$141K — light-sheet + fs-laser + tweezers  
 
 ## 23 Jul: Motor release — breakthrough from WilliamW  

@@ -16,7 +16,7 @@ We test this in a transparent embryo whose complete cell lineage is fully mapped
 |:---:|------|:---:|
 | V0 | Bare OpenFlexure — no AI, no fluorescence. Proof of mechanics. | ~$930 |
 | **V6** | **OS1: OpenFlexure + Camera HQ + Jetson Orin NX + Dry 40×/0.75. Local AI — CellPose + tracking + lineage on edge hardware.** | **~$3-5K** |
-| **V7** | **OS2: 60×/1.2 NA WI + sCMOS + phase contrast + Jetson AGX + microfluidic** | **~$126,000** |
+| **V7** | **OS2: 60×/1.2 NA WI + sCMOS + phase contrast + Jetson AGX + microfluidic** | **~$70K HW (full project ~$307K)** |
 | V8 | OS3: V7 upgrade — light-sheet + fs-laser + tweezers + manipulators | +~$141K (HW) |
 | V9 | OS1-3 upgrade: robot hands through glove ports + shared local LLM brain (24/7) | +~$22K to V8 (V9-Full base) |
 
@@ -25,7 +25,7 @@ We test this in a transparent embryo whose complete cell lineage is fully mapped
 | Stage | Hardware | Budget | Goal |
 |:---:|------|:---:|------|
 | **OS1** | V6 | ~$3-5K | Local edge-AI platform. OpenFlexure + Jetson Orin NX + Dry 40×. Graphics-capable AI service on dedicated hardware. |
-| **OS2** | V7 | ~$126K | Core science. 60× WI + sCMOS + microfluidic. Main experiment (N=100). |
+| **OS2** | V7 | ~$70K HW / ~$307K full | Core science. 60× WI + sCMOS + microfluidic. Main experiment (N=100). |
 | **OS3** | V8 | +$141K | Full platform. Light-sheet + fs-laser + tweezers. |
 
 ## V9 — Autonomy Layer (Robot Hands + Shared Local LLM Brain)

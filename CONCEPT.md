@@ -182,7 +182,9 @@ Survival:    time_to_composite_loss ~ PedigreeScore + age + PAR_ratio + frailty(
 | Lab space (Abastumani, 24 months) | 10,000 |
 | Contingency (20%) | 44,000 |
 | **AIS Global Server — Dedicated server (10 years)** | **18,000** |
-| **Total** | **~282,000** |
+| **Total** | **~307,000** |
+
+> **Budget reconciliation (2026-10-19):** Total recomputed from the line items above (245,000 base + 44,000 contingency + 18,000 AIS = 307,000). Previously stated as ~$282,000; line items summed to $307,000, so the total was corrected. Version tables elsewhere list OS2 hardware as ~$126K / ~$70K (hardware-only figures from this breakdown: objective+sCMOS+spinning-disk+lasers+microfluidic+frame+AGX+phase ≈ $70K) — hardware ≠ full project budget. Full OS2-stage project budget = **~$307K** (this table). See also `ARGUS-OS2` CONCEPT §6 for the separate RPE1-focused OS2 proposal budget (~$334K, internally consistent).
 
 ---
 

@@ -1,5 +1,5 @@
-//! argus-agent V3.6 — CLI-вход: init / run / memory / skill / session / task / plugin / bench / eval / fusion / serve
-//! Паттерны: P1 (цикл + реальная LLM), P2 (файловая память), P4 (режимы-сессия).
+//! argus-agent V3.6 — CLI entry: init / run / memory / skill / session / task / plugin / bench / eval / fusion / serve
+//! Patterns: P1 (loop + real LLM), P2 (file memory), P4 (session modes).
 use argus_pre::agent::{AgentLoop, LlmConfig, LlmModel, LoopConfig, Mode, StubModel};
 use argus_pre::memory::{Memory, NoteKind};
 use std::path::PathBuf;
@@ -94,7 +94,7 @@ fn cmd_run(args: &[String], sdir: &std::path::Path) {
 
     let mut mem = Memory::load(sdir);
 
-    // V2.0: сессии — продолжить по --session <id> (seed = прошлый транскрипт)
+    // V2.0: sessions — continue via --session <id> (seed = previous transcript)
     let session_id = flag(args, "--session");
     let mut seed = Vec::new();
     if let Some(sid) = &session_id {
@@ -136,9 +136,9 @@ fn cmd_run(args: &[String], sdir: &std::path::Path) {
     );
     let out = loop_.run(&goal, &mut mem);
     mem.save(sdir);
-    // V2.8: персист last_fire таймер-хуков
+    // V2.8: persist last_fire of timer hooks
     argus_pre::plugins::save_pub(sdir, &loop_.plugins);
-    // V3.2: авто-синк памяти в Obsidian-ваулт (ARGUS_VAULT_SYNC=<path>)
+    // V3.2: auto-sync memory into an Obsidian vault (ARGUS_VAULT_SYNC=<path>)
     if let Ok(vault) = std::env::var("ARGUS_VAULT_SYNC") {
         if !vault.is_empty() {
             let n = mem.export_vault(std::path::Path::new(&vault));
@@ -152,7 +152,7 @@ fn cmd_run(args: &[String], sdir: &std::path::Path) {
             println!("{}", t.chars().take(400).collect::<String>());
         }
     }
-    // V2.0: сохранить/обновить сессию
+    // V2.0: save/update the session
     let sid = session_id.unwrap_or_else(|| {
         format!(
             "{:x}",
@@ -190,7 +190,7 @@ fn save_session(sdir: &std::path::Path, id: &str, goal: &str, transcript: &[Stri
     let dir = sessions_dir(sdir);
     std::fs::create_dir_all(&dir).ok();
     let now = chrono::Local::now().to_rfc3339();
-    // V3.4: dedup — если транскрипт не изменился, не трогаем updated (не плодим «свежие» дубли)
+    // V3.4: dedup — if the transcript did not change, do not touch updated (avoid "fresh" duplicates)
     if let Some(old) = load_session(sdir, id) {
         if old.transcript == transcript && old.goal == goal {
             return;
@@ -210,7 +210,7 @@ fn save_session(sdir: &std::path::Path, id: &str, goal: &str, transcript: &[Stri
     }
 }
 
-/// Durable задачи (V2.0, cron-like): add/list/run.
+/// Durable tasks (V2.0, cron-like): add/list/run.
 #[derive(serde::Serialize, serde::Deserialize, Clone)]
 struct TaskItem {
     id: u64,
@@ -299,7 +299,7 @@ fn cmd_task(args: &[String], sdir: &std::path::Path) {
             }
         }
         "tui" => {
-            // V2.5: интерактивный список задач: [i] показать, r <i> выполнить, d <i> удалить, a <описание> добавить
+            // V2.5: interactive task list: [i] show, r <i> run, d <i> delete, a <description> add
             use std::io::Write;
             loop {
                 tasks = load_tasks(sdir);
@@ -412,7 +412,7 @@ fn cmd_task(args: &[String], sdir: &std::path::Path) {
     }
 }
 
-/// Выполняет просроченные задачи (общее для task run и планировщика serve).
+/// Runs overdue tasks (shared by task run and the serve scheduler).
 fn run_due_tasks(sdir: &std::path::Path, verbose: bool) -> usize {
     let now = now_sec();
     let tasks = load_tasks(sdir);
@@ -425,7 +425,7 @@ fn run_due_tasks(sdir: &std::path::Path, verbose: bool) -> usize {
         return 0;
     }
     let total = due.len();
-    // V3.3: multi-session concurrency — due-задачи выполняются параллельно (пул потоков)
+    // V3.3: multi-session concurrency — due tasks run in parallel (thread pool)
     let results: Vec<(u64, String)> = std::thread::scope(|scope| {
         let mut handles = Vec::new();
         for t in &due {
@@ -456,13 +456,13 @@ fn run_due_tasks(sdir: &std::path::Path, verbose: bool) -> usize {
                 (t.id, out)
             }));
         }
-        // дождаться всех (не ограничиваем пул — задач обычно немного; при необходимости — батчами)
+        // wait for all (no pool limit — few tasks; batch if needed)
         handles
             .into_iter()
             .map(|h| h.join().unwrap_or((0, "(воркер упал)".into())))
             .collect::<Vec<_>>()
     });
-    // обновить next_due/last_run
+    // update next_due/last_run
     let mut tasks = load_tasks(sdir);
     for (id, out) in &results {
         if let Some(t) = tasks.iter_mut().find(|t| t.id == *id) {
@@ -481,7 +481,7 @@ fn run_due_tasks(sdir: &std::path::Path, verbose: bool) -> usize {
     total
 }
 
-/// Skill hub + планировщик задач (V2.1): hub в фоне, каждые 30с — просроченные задачи.
+/// Skill hub + task scheduler (V2.1): hub in the background, overdue tasks every 30s.
 fn cmd_serve(args: &[String], sdir: &std::path::Path) {
     let port = flag(args, "--port")
         .and_then(|s| s.parse().ok())
@@ -489,12 +489,12 @@ fn cmd_serve(args: &[String], sdir: &std::path::Path) {
     let tick = flag(args, "--tick")
         .and_then(|s| s.parse().ok())
         .unwrap_or(30);
-    // фоновый поток: skill hub
+    // background thread: skill hub
     let sdir2 = sdir.to_path_buf();
     std::thread::spawn(move || {
         let _ = argus_pre::skills::serve(&sdir2, port);
     });
-    // основной поток: планировщик задач
+    // main thread: task scheduler
     println!("🟢 daemon: skill hub :{port} + задачи каждые {tick}с (Ctrl+C для выхода)");
     loop {
         let n = run_due_tasks(sdir, true);
@@ -581,7 +581,7 @@ fn cmd_mcp(args: &[String], sdir: &std::path::Path) {
     }
 }
 
-/// Plugin hooks (V2.3): add/list/remove; события before_step|after_step|on_done|on_error.
+/// Plugin hooks (V2.3): add/list/remove; events before_step|after_step|on_done|on_error.
 fn cmd_plugin(args: &[String], sdir: &std::path::Path) {
     let sub = args.get(2).map(String::as_str).unwrap_or("list");
     match sub {
@@ -663,7 +663,7 @@ fn cmd_session(args: &[String], sdir: &std::path::Path) {
             }
             let n = flag(args, "--n").and_then(|x| x.parse().ok()).unwrap_or(5);
             let ql = q.to_lowercase();
-            // V2.8: ранжирование — score = совпадения в транскрипте×10 + goal(5) + свежесть
+            // V2.8: ranking — score = transcript matches×10 + goal(5) + freshness
             let mut scored: Vec<(i64, &Session)> = sessions
                 .iter()
                 .filter_map(|s| {
@@ -704,7 +704,7 @@ fn cmd_session(args: &[String], sdir: &std::path::Path) {
             }
         }
         "dedup" => {
-            // V3.4: удалить дубликаты (goal+transcript) и пустые сессии
+            // V3.4: remove duplicates (goal+transcript) and empty sessions
             let all = list_sessions(sdir);
             let mut seen: std::collections::HashSet<(String, Vec<String>)> =
                 std::collections::HashSet::new();
@@ -730,7 +730,7 @@ fn cmd_session(args: &[String], sdir: &std::path::Path) {
             }
         }
         "tui" => {
-            // интерактивный браузер: номер — просмотр; t <i> — tail; d <i> — удалить; q — выход
+            // interactive browser: number — view; t <i> — tail; d <i> — delete; q — quit
             use std::io::Write;
             loop {
                 sessions = list_sessions(sdir);
@@ -830,15 +830,15 @@ fn parse_mode(args: &[String]) -> Mode {
     }
 }
 
-/// Self-contained бенчмарк: N простых задач, замер accuracy + wall-time.
-/// GAIA-lite eval: читает задачи из markdown (evals/*.md), прогоняет, считает accuracy.
+/// Self-contained benchmark: N simple tasks, measures accuracy + wall time.
+/// GAIA-lite eval: reads tasks from markdown (evals/*.md), runs them, computes accuracy.
 fn cmd_eval(args: &[String], sdir: &std::path::Path) {
     use std::time::Instant;
 
     let model = flag(args, "--model").unwrap_or_else(|| "qwen2.5:7b".into());
     let url = flag(args, "--url").unwrap_or_else(|| "http://127.0.0.1:11434".into());
     let evals_arg = flag(args, "--evals").unwrap_or_else(|| "evals/gaia_lite.md".into());
-    // V2.9: multi-file — список через запятую ИЛИ директория (все *.md)
+    // V2.9: multi-file — comma-separated list OR directory (all *.md)
     let files = resolve_eval_files(&evals_arg);
     if files.is_empty() {
         eprintln!("eval: не найдено файлов по '{evals_arg}'");
@@ -930,7 +930,7 @@ fn cmd_eval(args: &[String], sdir: &std::path::Path) {
     println!("\nAccuracy: {passed}/{total} = {acc:.1}% · Avg wall: {avg:.1}s/task");
 }
 
-/// V2.9: резолв --evals (список через запятую | директория | файл).
+/// V2.9: resolve --evals (comma-separated list | directory | file).
 fn resolve_eval_files(arg: &str) -> Vec<std::path::PathBuf> {
     let mut out = Vec::new();
     for part in arg.split(',') {
@@ -960,7 +960,7 @@ struct EvalTask {
     ctype: String,
 }
 
-/// Парсер задач: `## name` + `task:` / `answer:` / `type:`.
+/// Task parser: `## name` + `task:` / `answer:` / `type:`.
 fn parse_evals(path: &std::path::Path) -> Vec<EvalTask> {
     let text = match std::fs::read_to_string(path) {
         Ok(t) => t,
@@ -1096,8 +1096,8 @@ fn cmd_bench(args: &[String], sdir: &std::path::Path) {
     println!("\nAccuracy: {passed}/{total} = {acc:.1}% · Avg wall: {avg:.1}s/task");
 }
 
-/// Skill hub-сервер: отдаёт /skills и /skills/<name>.
-/// Fusion: планировщик разбивает задачу, пул воркеров выполняет параллельно.
+/// Skill hub server: serves /skills and /skills/<name>.
+/// Fusion: the planner splits the task, a worker pool runs it in parallel.
 fn cmd_fusion(args: &[String], sdir: &std::path::Path) {
     use std::time::Instant;
 
@@ -1119,7 +1119,7 @@ fn cmd_fusion(args: &[String], sdir: &std::path::Path) {
         ..Default::default()
     };
 
-    // 1. планировщик
+    // 1. planner
     let planner = LlmModel::new(cfg.clone());
     let subtasks = planner.plan_subtasks(&goal, workers);
     if subtasks.is_empty() {
@@ -1132,7 +1132,7 @@ fn cmd_fusion(args: &[String], sdir: &std::path::Path) {
         println!("  [{i}] {}", s.chars().take(100).collect::<String>());
     }
 
-    // 2. воркеры (параллельно, каждый со своей памятью)
+    // 2. workers (parallel, each with its own memory)
     let t0 = Instant::now();
     let results: Vec<(usize, String)> = std::thread::scope(|scope| {
         let handles: Vec<_> = subtasks
@@ -1172,7 +1172,7 @@ fn cmd_fusion(args: &[String], sdir: &std::path::Path) {
     });
     let dt = t0.elapsed();
 
-    // 3. сводка
+    // 3. summary
     println!("\n─ Результаты воркеров ─");
     let mut merged = String::new();
     for (i, out) in &results {
@@ -1215,7 +1215,7 @@ fn cmd_skill(args: &[String], sdir: &std::path::Path) {
             }
         }
         Some("browse") => {
-            // локальный реестр ИЛИ удалённый hub
+            // local registry OR remote hub
             match flag(args, "--remote") {
                 Some(url) => {
                     let body = reqwest::blocking::get(format!("{}/skills", url.trim_end_matches('/')))
@@ -1249,7 +1249,7 @@ fn cmd_skill(args: &[String], sdir: &std::path::Path) {
         }
         Some("install") => {
             let name = args.get(3).map(String::as_str).unwrap_or("");
-            // формат owner/repo[/path] → GitHub-тап; иначе встроенный реестр
+            // owner/repo[/path] format → GitHub tap; otherwise the built-in registry
             if name.contains('/') && name.matches('/').count() >= 1 && !name.starts_with('@') {
                 match argus_pre::skills::install_from_github(sdir, name) {
                     Ok(n) => println!("✅ скилл '{n}' установлен из GitHub ({name})"),
@@ -1267,7 +1267,7 @@ fn cmd_skill(args: &[String], sdir: &std::path::Path) {
             if remote.is_empty() {
                 println!("использование: skill push --remote <url> [--skill <name>|all] [--token <tok>]");
             } else {
-                // V3.3: токен из --token или env ARGUS_HUB_TOKEN
+                // V3.3: token from --token or env ARGUS_HUB_TOKEN
                 let token = flag(args, "--token").or_else(|| std::env::var("ARGUS_HUB_TOKEN").ok()).unwrap_or_default();
                 let skill = flag(args, "--skill").unwrap_or_else(|| "all".into());
                 let names: Vec<String> = if skill == "all" {
@@ -1338,7 +1338,7 @@ fn cmd_skill(args: &[String], sdir: &std::path::Path) {
             None => println!("не найден"),
         },
         Some("update") => {
-            // V2.9: переустановка из реестра (force) — обновление версии
+            // V2.9: reinstall from the registry (force) — version update
             let name = args.get(3).map(String::as_str).unwrap_or("");
             if name.is_empty() {
                 println!("использование: skill update <name>");
@@ -1356,7 +1356,7 @@ fn cmd_skill(args: &[String], sdir: &std::path::Path) {
             }
         },
         Some("import-pi") => {
-            // V3.6: импорт скиллов из pi (~/.pi/agent/skills)
+            // V3.6: import skills from pi (~/.pi/agent/skills)
             let src = flag(args, "--source")
                 .map(std::path::PathBuf::from)
                 .unwrap_or_else(|| std::path::PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".pi/agent"));
@@ -1364,7 +1364,7 @@ fn cmd_skill(args: &[String], sdir: &std::path::Path) {
             println!("✅ импортировано скиллов из pi: {n} ← {}", src.display());
         }
         Some("recipes") => {
-            // V3.2: галерея browser-рецептов (готовые browser.flow сценарии)
+            // V3.2: browser-recipe gallery (ready browser.flow scenarios)
             let name = args.get(3).map(String::as_str).unwrap_or("");
             if name.is_empty() {
                 println!("═══ Browser-рецепты ═══ (install <recipe> — установить)\n");
@@ -1386,7 +1386,7 @@ fn cmd_skill(args: &[String], sdir: &std::path::Path) {
     }
 }
 
-/// Создаёт стартовые скиллы (docker с скриптом, pdf, obsidian) при init.
+/// Creates starter skills (docker-with-script, pdf, obsidian) on init.
 fn make_starter_skills(sdir: &std::path::Path) -> usize {
     use std::fs;
     let dir = sdir.join("skills");
@@ -1473,7 +1473,7 @@ fn cmd_memory(args: &[String], sdir: &std::path::Path) {
             }
         }
         "links" => {
-            // V3.6: показать граф связей
+            // V3.6: show the link graph
             if mem.links.is_empty() {
                 println!("(связей нет — они создаются автоматически по общим тегам)");
             }
@@ -1482,7 +1482,7 @@ fn cmd_memory(args: &[String], sdir: &std::path::Path) {
             }
         }
         "link" => {
-            // V3.6: ручная связь memory link <a> <b> [kind]
+            // V3.6: manual link memory link <a> <b> [kind]
             let a = args.get(3).and_then(|x| x.parse::<u64>().ok());
             let b = args.get(4).and_then(|x| x.parse::<u64>().ok());
             let kind = args.get(5).map(String::as_str).unwrap_or("RELATES_TO");
@@ -1499,7 +1499,7 @@ fn cmd_memory(args: &[String], sdir: &std::path::Path) {
             }
         }
         "procedures" => {
-            // V3.5: показать процедуры отдельно (с голосами)
+            // V3.5: show procedures separately (with votes)
             if mem.procedures.is_empty() {
                 println!("(процедур нет — консолидация создаёт их после 3+ заметок с общим тегом)");
             }
@@ -1517,7 +1517,7 @@ fn cmd_memory(args: &[String], sdir: &std::path::Path) {
             }
         }
         "vote" => {
-            // V3.5: голосование memory vote <note|lesson|procedure> <id> <+|->
+            // V3.5: voting memory vote <note|lesson|procedure> <id> <+|->
             let kind = args.get(3).cloned().unwrap_or_default();
             let id = args.get(4).and_then(|x| x.parse::<u64>().ok());
             let delta = match args.get(5).map(String::as_str) {
@@ -1562,20 +1562,20 @@ fn cmd_memory(args: &[String], sdir: &std::path::Path) {
             }
         }
         "embed" => {
-            // V2.4: проверка доступности Ollama-эмбеддингов
+            // V2.4: check Ollama-embedding availability
             match argus_pre::memory::ollama_embed("проверка") {
                 Some(v) => println!("✅ Ollama-эмбеддинги доступны (размерность {})", v.len()),
                 None => println!("❌ Ollama-эмбеддинги недоступны (сервер без --embeddings) — используется локальный ngram"),
             }
         }
         "embed-build" => {
-            // V2.7: пересборка ngram-кэша для всех заметок
+            // V2.7: rebuild the ngram cache for all notes
             let n = mem.rebuild_ngram_cache();
             mem.save(sdir);
             println!("✅ ngram-кэш пересобран: {n} эмбеддингов");
         }
         "export-vectors" => {
-            // V3.1: экспорт векторного индекса в JSON
+            // V3.1: export the vector index as JSON
             let path = flag(args, "--path")
                 .map(std::path::PathBuf::from)
                 .unwrap_or_else(|| sdir.join("memory_vectors.json"));
@@ -1586,7 +1586,7 @@ fn cmd_memory(args: &[String], sdir: &std::path::Path) {
             );
         }
         "sync" => {
-            // V3.2: авто-синхронизация с Obsidian-ваултом (import|export|both)
+            // V3.2: auto-sync with an Obsidian vault (import|export|both)
             let vault = flag(args, "--vault").map(std::path::PathBuf::from);
             match vault {
                 Some(v) => {

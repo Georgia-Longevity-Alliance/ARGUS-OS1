@@ -81,7 +81,7 @@ Not exposed in API — minimal software fix needed. Heat problem solved in softw
 
 ## Germline QC & Spermatogenesis (2026-10-12, Semantic Scholar alert)
 
-> Мастер-анализ: `~/Desktop/Services/docs/LITERATURE_ALERT_2026-10-12_Centrosome_Germline_G0.md`. All PMID verified via PubMed E-utilities 2026-10-12.
+> Master analysis: `~/Desktop/Services/docs/LITERATURE_ALERT_2026-10-12_Centrosome_Germline_G0.md`. All PMIDs verified via PubMed E-utilities 2026-10-12.
 
 ### ⭐⭐⭐ Centriole elimination in MAMMALIAN spermatogenesis (direct analog of C. elegans elimination)
 
@@ -114,54 +114,54 @@ Not exposed in API — minimal software fix needed. Heat problem solved in softw
 
 ## Engineering / Platform Evidence — Axio Observer benchmark (2026-10-19)
 
-> Мастер-анализ: `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`. Все PMID верифицированы Europe PMC/NCBI 2026-10-19.
+> Master analysis: `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`. All PMIDs verified via Europe PMC/NCBI 2026-10-19.
 
-### ⭐ Hardware autofocus / focus-hold — главный технический разрыв OS1
-
-| PMID | Finding | Role in ARGUS |
-|:----:|---------|---------------|
-| **42274973** | Djafer-Cherif & Waclaw 2026 (J Microsc) — **Affordable fiducial marker strategy for reliable autofocus in long-term live microscopy** | ⭐ Открытый дешёвый путь к аппаратному удержанию фокуса — кандидат P0 для OpenFlexure (замена степпера-Z-дрейфа) |
-| **42525498** | Habte et al. 2026 (J Microsc) — Quantitative evaluation of **LED-based optical autofocus** module | Количественная оценка LED-автофокуса — воспроизводимо на своём железе |
-| **42373656** | Wang et al. 2026 (Nat Commun) — Real-time robust autofocus for sustained scanning light-field (<2 µm error, 0.1 s) | Автофокус без аппаратных модификаций — альтернатива для multi-day |
-
-### Phototoxicity — главный биологический конфaундер длительной съёмки
+### ⭐ Hardware autofocus / focus-hold — OS1's main technical gap
 
 | PMID | Finding | Role in ARGUS |
 |:----:|---------|---------------|
-| **42393487** | Stadter et al. 2026 (Arch Gynecol Obstet) — Phototoxicity of **brightfield** live-cell imaging on murine ovarian follicles | ⭐ Даже проходящий свет убивает клетки → обоснование phototoxicity ceiling в Body Law + минимизация экспозиции во ВСЕХ каналах |
-| **28749075** | Icha et al. 2017 (BioEssays) — Phototoxicity in live fluorescence microscopy, and how to avoid it | Классический обзор — стратегии снижения повреждения |
-| **23931522** | Magidson & Khodjakov 2013 (Methods Cell Biol) — Circumventing photodamage in live-cell microscopy | Практика: короткие экспозиции, сенсорные камеры |
-| **19261845** | Frigault et al. 2009 (J Cell Sci) — Live-cell microscopy: tips and tools | Классика live-cell контраста/среды |
+| **42274973** | Djafer-Cherif & Waclaw 2026 (J Microsc) — **Affordable fiducial marker strategy for reliable autofocus in long-term live microscopy** | ⭐ Open low-cost path to hardware focus-hold — P0 candidate for OpenFlexure (replaces stepper-Z drift) |
+| **42525498** | Habte et al. 2026 (J Microsc) — Quantitative evaluation of **LED-based optical autofocus** module | Reproducible LED autofocus on own hardware |
+| **42373656** | Wang et al. 2026 (Nat Commun) — Real-time robust autofocus for sustained scanning light-field (<2 µm error, 0.1 s) | Autofocus without hardware modification — alternative for multi-day |
 
-### Lineage-tracking / слежение (ядро платформы)
-
-| PMID | Finding | Role in ARGUS |
-|:----:|---------|---------------|
-| **42841415** | Girstmair et al. 2026 (Development) — **Mastodon: command center for large-scale lineage-tracing microscopy datasets** | ⭐ Инструмент для lineage-конвейера — интеграция в OS1/OS2 |
-| **42261409** | Tran et al. 2026 (MicroPubl Biol) — **Lineage-resolved cell identities in uncompressed C. elegans embryos** | Прямой прецедент lineage-resolved идентичности у C. elegans |
-| **42499344** | Chandra et al. 2026 — Open-source longitudinal single-cell tracking pipeline | Открытый конвейер слежения + клеточный цикл |
-| **42506143** | Martí-Pérez et al. 2026 (J Imaging) — Microscopy Cell Segmentation: review & benchmarking | Актуальный выбор сегментации (CellPose/StarDist) |
-
-### Open hardware / live-cell (подтверждение архитектуры ARGUS)
+### Phototoxicity — main biological confounder of long-term imaging
 
 | PMID | Finding | Role in ARGUS |
 |:----:|---------|---------------|
-| **42583731** | Malcolm et al. 2026 (J Cell Sci) — Removing barriers to advanced imaging + ML analysis | ⭐ OpenFlexure + ML = подтверждение архитектуры ARGUS |
-| **36756063** | McDermott et al. 2023 (R Soc Open Sci) — OpenFlexure Voice Control + Blockly | Скриптование OpenFlexure для автономии |
-| **41795377** | Moncada-Madrazo et al. 2026 (Biosens Bioelectron) — In-incubator chip-sized holographic microscope | Микроскоп в инкубаторе — концепция для длинных серий OS2 |
-| **42103520** | Knapper et al. 2026 (Int J Gynecol Cancer) — OpenFlexure in gynecological pathology | OpenFlexure — реальное применение вне лаборатории |
-| — | Malcolm et al. 2026 — Adapting OpenFlexure for Affordable Live-Cell Imaging (DOI 10.64898/2026.02.02.703252) | Live-cell адаптация OpenFlexure (preprint) |
+| **42393487** | Stadter et al. 2026 (Arch Gynecol Obstet) — Phototoxicity of **brightfield** live-cell imaging on murine ovarian follicles | ⭐ Even transmitted light kills cells → justifies phototoxicity ceiling in Body Law + exposure minimisation in ALL channels |
+| **28749075** | Icha et al. 2017 (BioEssays) — Phototoxicity in live fluorescence microscopy, and how to avoid it | Classic review — damage-reduction strategies |
+| **23931522** | Magidson & Khodjakov 2013 (Methods Cell Biol) — Circumventing photodamage in live-cell microscopy | Practice: short exposures, sensitive cameras |
+| **19261845** | Frigault et al. 2009 (J Cell Sci) — Live-cell microscopy: tips and tools | Classic live-cell contrast/environment |
 
-### Benchmark-эталон (vendor-claims)
-- **Zeiss Axio Observer 7** (Definite Focus 3, Colibri 7 LED, motorized Z/XY/revolver/condenser/filter, pco.edge 4.2 sCMOS, ZEN 3.3, Scanning Stage 130×100) + **Axio Observer live** (Glass Lid CO₂/O₂ heated, Temperature Controller, Heated Plate K, Z8+RTX A4000) — эталон инженерного набора для multi-day live-cell.
-- Конкуренты с аналогичным аппаратным автофокусом: **Nikon PFS**, **Olympus TruFocus ZDC (IX3-ZDC2)**, **Leica AFC**. Бенчтоп-класс: **IncuCyte S3/SX5** (в инкубаторе).
+### Lineage tracking / cell following (platform core)
+
+| PMID | Finding | Role in ARGUS |
+|:----:|---------|---------------|
+| **42841415** | Girstmair et al. 2026 (Development) — **Mastodon: command center for large-scale lineage-tracing microscopy datasets** | ⭐ Lineage-conveyor tool — integrate into OS1/OS2 |
+| **42261409** | Tran et al. 2026 (MicroPubl Biol) — **Lineage-resolved cell identities in uncompressed C. elegans embryos** | Direct precedent of lineage-resolved identity in C. elegans |
+| **42499344** | Chandra et al. 2026 — Open-source longitudinal single-cell tracking pipeline | Open tracking pipeline + cell cycle |
+| **42506143** | Martí-Pérez et al. 2026 (J Imaging) — Microscopy Cell Segmentation: review & benchmarking | Up-to-date segmentation choice (CellPose/StarDist) |
+
+### Open hardware / live-cell (confirmation of ARGUS architecture)
+
+| PMID | Finding | Role in ARGUS |
+|:----:|---------|---------------|
+| **42583731** | Malcolm et al. 2026 (J Cell Sci) — Removing barriers to advanced imaging + ML analysis | ⭐ OpenFlexure + ML = confirmation of ARGUS architecture |
+| **36756063** | McDermott et al. 2023 (R Soc Open Sci) — OpenFlexure Voice Control + Blockly | Scripting OpenFlexure for autonomy |
+| **41795377** | Moncada-Madrazo et al. 2026 (Biosens Bioelectron) — In-incubator chip-sized holographic microscope | Microscope-in-incubator concept for long OS2 runs |
+| **42103520** | Knapper et al. 2026 (Int J Gynecol Cancer) — OpenFlexure in gynecological pathology | OpenFlexure real-world use beyond the lab |
+| — | Malcolm et al. 2026 — Adapting OpenFlexure for Affordable Live-Cell Imaging (DOI 10.64898/2026.02.02.703252) | OpenFlexure live-cell adaptation (preprint) |
+
+### Benchmark reference (vendor claims)
+- **Zeiss Axio Observer 7** (Definite Focus 3, Colibri 7 LED, motorized Z/XY/revolver/condenser/filter, pco.edge 4.2 sCMOS, ZEN 3.3, Scanning Stage 130×100) + **Axio Observer live** (Glass Lid CO₂/O₂ heated, Temperature Controller, Heated Plate K, Z8+RTX A4000) — benchmark engineering set for multi-day live-cell.
+- Competitors with analogous hardware autofocus: **Nikon PFS**, **Olympus TruFocus ZDC (IX3-ZDC2)**, **Leica AFC**. Benchtop class: **IncuCyte S3/SX5** (in-incubator).
 
 ### Notes
-- Позиционирует инженерию как первый класс доказательств для платформы: focus-hold + среда + LED-мультиканал — условия валидности multi-day lineage-данных, а не «удобства».
-- Все vendor-claim'ы помечены; независимая проверка — по PMID в таблицах выше.
+- Positions engineering as first-class evidence for the platform: focus-hold + environment + LED multi-channel are preconditions for the validity of multi-day lineage data, not conveniences.
+- All vendor claims are flagged; independent verification is via the PMIDs in the tables above.
 
-## §. Эпистемический стандарт (Noepedia Harvest — 2026-10-12)
-> Мастер: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
-1. **Пирамида доказательств (Murad PMID 27339128) + ступени (K):** заявления о системе/производительности — ступень доказанности, не «собрано и работает».
-2. **Provenance:** каждый замер/claim несёт метку происхождения (прошивка/версия/датчик/модель); потеря метки = дефект (HART arXiv 2603.05828).
-3. **Проверка построением (Conant–Ashby, DOI 10.1080/00207727008920220):** прототип/симуляция (OS1, PScan) сильнее цитаты; модель сама требует независимой валидации.
+## §. Epistemic standard (Noepedia Harvest — 2026-10-12)
+> Master: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
+1. **Evidence pyramid (Murad PMID 27339128) + stages (K):** claims about system/performance are claims of demonstrated stage, not «assembled and running».
+2. **Provenance:** every measurement/claim carries a source tag (firmware/version/sensor/model); a lost tag is a defect (HART arXiv 2603.05828).
+3. **Verification by construction (Conant–Ashby, DOI 10.1080/00207727008920220):** a prototype/simulation (OS1, PScan) is stronger than a citation; the model itself requires independent validation.
