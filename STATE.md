@@ -1,9 +1,30 @@
 # STATE — ARGUS-OS1
 
-**Date:** 2026-08-16
+**Date:** 2026-10-19
 **PI affiliation:** Jaba Tqemaladze, MD — **PhD Applicant, UNED Madrid (Programa 9620)** / Georgia Longevity Alliance
 <!-- lang:ru -->
 **Status:** 🟢 OSC заявка отправлена, Foresight отправлен. Ответ Алексею по сборке отправлен 12 авг. ✅ **V1 build + OSC resubmit — ЗАКРЫТО (16 авг, подтверждено Джабой)**. Вопрос закрыт, ARGUS-OS1 в режиме ожидания ответа OSC.
+
+## 19 окт 2026 — 🔬 Axio Observer benchmark → инженерный аудит платформы 📄
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+- 📄 **Полный разбор эталона Zeiss Axio Observer 7 + live-бандл** (Definite Focus 3, Colibri 7, инкубация, sCMOS, ZEN) + конкуренты (Nikon PFS, Olympus TruFocus, Leica AFC, IncuCyte) + открытые аналоги (OpenFlexure, fiducial autofocus).
+- 🎯 **Анализ + мета-анализ:** `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`. EVIDENCE.md пополнен инженерным разделом; TODO.md — задачи P0–P2; PARAMETERS.md — таблица параметров платформы.
+- 🎯 **Главный разрыв OS1 — аппаратное удержание фокуса** → P0: прототип fiducial autofocus (PMID 42274973) на OpenFlexure.
+- 🎯 **Разрывы #2–4:** мультиканальный LED (фототоксичность), инкубация/среда (multi-day), piezo Z + sCMOS (центриольные стеки). Все закрываются открытыми решениями.
+- 🎯 **V9-руки дают ARGUS то, чего нет у эталона** (автономная смена образцов) — аргумент для грантов.
+<!-- /lang:ru -->
+
+## 3 окт 2026 — 🔴 Foresight AI Node program — отказ
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+- ❌ **Foresight AI Node program — НЕ ВЫБРАН (письмо 3 окт 2026):** «your project was not selected this round», индивидуальной обратной связи не дают.
+- ⚠️ Это **отдельная программа** от гранта Foresight Fellowship ($50,050, подан 31 июл) — грант всё ещё pending (подтверждение получения 4 авг).
+- ✅ OSC ($17K) — всё ещё pending на Open Collective.
+- 📌 Приоритет: ждать OSC; по гранту Foresight — follow-up (~6–8 нед цикл уже прошёл, ~12–26 сен).
+<!-- /lang:ru -->
 
 ## 15 сен — анализ Noepedia + AISocket → ARGUS 📄
 - ✅ Прочитаны новые README: Noepedia (1029 стр.) + AISocket (переписан) от Gakely.

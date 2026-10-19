@@ -49,3 +49,22 @@
 | Controls | Negative: RNAi-PLK-4. Positive: spd-2(or165)/plk-1(RNAi) |
 | Blind protocol | AI tracks → human classifies fate → pedigree computed last |
 | Budget | ~$282,000 (HW: ~$59.7K + AIS Dedicated Server 10yr: $18K + personnel: $50K + contingency: $33K) |
+
+## Engineering Platform (Axio Observer benchmark, 2026-10-19)
+
+> Из `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`. Параметры коммерческого эталона vs план ARGUS.
+
+| Параметр | Эталон (Zeiss Axio Observer 7) | ARGUS план | Статус |
+|----------|-------------------------------|------------|:---:|
+| Аппаратный автофокус | Definite Focus 3 (NIR 835 нм) | Fiducial/LED-автофокус (PMID 42274973, 42525498) | ⚠️ разрыв → P0 |
+| Освещение | Colibri 7 (7 каналов LED) | 4-канальный LED (DAPI/FITC/TRITC/Cy5) | ⚠️ P1 |
+| Среда (CO₂/temp/влажн.) | Axio Observer live (Glass Lid heated, Controller, Plate K) | Stage-top модуль (дизайн OS2) | ⚠️ P1 |
+| Z-точность | Piezo Z (нано-шаг) | Степпер Z (1–2 мкм) → piezo | ⚠️ P2 |
+| Детектор | pco.edge 4.2 sCMOS + Axiocam 208 | sCMOS (pco.edge/ORCA-класс) | ⚠️ P2 |
+| Опт. сечение | Apotome 3 (SIM) | SIM/HiLo-модуль (OS2/OS3) | ⚠️ P2 |
+| Автоиммерсия | Autoimmersion module | Дозатор иммерсии (60× WI) | ⚠️ P2 |
+| Автономная смена образцов | ❌ нет | ✅ V9-руки (уникально) | 🟢 |
+| ПО | ZEN 3.3 | Micro-Manager + Mastodon + OpenFlexure | 🟢 план |
+| Локальный compute | Z8 + RTX A4000 (~200 Вт) | Jetson Orin NX (~5–15 Вт) | 🟢 |
+
+*Помечено ⚠️ — разрывы, закрываемые открытыми решениями (см. TODO.md 🔧).*

@@ -1,6 +1,29 @@
 # MEMORY — ARGUS-OS1
 
 <!-- lang:ru -->
+## 2026-10-19: Axio Observer benchmark → инженерный аудит платформы
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+- **Разобрана эталонная коммерческая платформа Zeiss Axio Observer 7 + live-бандл**: Definite Focus 3 (NIR 835 нм reflection-автофокус), Colibri 7 (7-канальный LED), Axio Observer live (Glass Lid CO₂/O₂ heated, Temperature Controller, Heated Plate K, Z8+RTX A4000), Apotome 3, autoimmersion, sCMOS pco.edge 4.2.
+- **Полный анализ + мета-анализ:** `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`; EVIDENCE.md пополнен инженерным разделом.
+- **Главный технический разрыв OS1 — аппаратное удержание фокуса** (у эталона Definite Focus/PFS/TruFocus/AFC, у нас — программный автофокус на степпере). Закрывается открытыми методами: fiducial autofocus (PMID 42274973), LED-автофокус (PMID 42525498), OpenFlexure autofocus (arXiv 2109.06842).
+- **Разрывы #2–4:** мультиканальный LED (Colibri-класс) → низкая фототоксичность; инкубация/среда (CO₂/temp) → multi-day; piezo Z + sCMOS → центриольные стеки.
+- **Фототоксичность подтверждена даже для brightfield** (PMID 42393487 — гибель гранулёзы от проходящего света) → аргумент для phototoxicity ceiling в Body Law.
+- **Вывод:** ни один из разрывов не требует закрытых технологий; все 4 закрываются открытыми/дешёвыми решениями. V9-руки дают ARGUS то, чего у Axio Observer нет (автономная смена образцов).
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+## 2026-10-03: 🔴 Foresight AI Node program — отказ
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
+- ❌ **Foresight AI Node program — не выбран (письмо 3 окт 2026).** «Your project was not selected this round», обратной связи нет.
+- Отдельно от гранта **Foresight Fellowship ($50,050)** — тот всё ещё pending (подтверждение 4 авг, решение ожидалось ~конец сен).
+- Урок: Foresight даёт обратную связь только избранным; вход в сеть AI Nodes — через коллаборации/ивенты (Lu.ma, seminar series, Substack), а не только заявкой.
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
 ## 2026-08-17: V9 спроектирован — руки-роботы + общий LLM-мозг
 <!-- /lang:ru -->
 

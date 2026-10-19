@@ -36,6 +36,24 @@
 - [ ] Main: 100 embryos, record pedigrees + fate — Owner: PI, Deadline: 2027-01-15
 - [ ] Analysis: mixed-effects logistic regression + Bayesian hierarchical model — Owner: PI, Deadline: 2027-02-15
 
+## 🔧 Engineering: Axio Observer benchmark → ARGUS (2026-10-19)
+
+> Источник: `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`. Уроки коммерческого эталона (Definite Focus 3, Colibri 7, Axio Observer live) для открытой платформы. Все PMID верифицированы.
+
+### P0 — Focus-hold (главный разрыв, критично для multi-day)
+- [ ] **Fiducial autofocus прототип** на OpenFlexure — оценка точности/дрейфа vs степпер-Z — Owner: Alex, Deadline: 2026-11-30 (метод: PMID 42274973)
+- [ ] Сравнить с LED-оптическим автофокусом (PMID 42525498) и OpenFlexure autofocus (arXiv 2109.06842) — Owner: Alex
+
+### P1 — Освещение и среда
+- [ ] **4-канальный LED-движок** (DAPI/FITC/TRITC/Cy5, TTL-управление) — замена одиночного LED — Owner: Alex, Deadline: 2026-12-15 (урок: Colibri 7)
+- [ ] **Инкубационный модуль** (stage-top, CO₂/temp/влажность) — дизайн для OS2, по образцу Axio Observer live / IncuCyte — Owner: PI, Deadline: 2027-01-15
+- [ ] **Phototoxicity ceiling проверка** — экспозиция-минимизация во всех каналах, сенсорные камеры (PMID 42393487, 28749075) — Owner: PI
+
+### P2 — Детекция и конвейер
+- [ ] **sCMOS** в смету OS2 (pco.edge/ORCA-класс) + **piezo Z** для центриольных Z-стеков — Owner: Alex
+- [ ] **Micro-Manager + Mastodon** интеграция lineage-конвейера (PMID 42841415) — Owner: PI
+- [ ] SIM/HiLo-модуль как дешёвое оптическое сечение (альтернатива Apotome 3) — Owner: Alex (OS2/OS3)
+
 ## 🔵 Grants / Outreach
 <!-- lang:ru -->
 - [x] Foresight proposal final ($50,050) — sent Jul 31 ✅

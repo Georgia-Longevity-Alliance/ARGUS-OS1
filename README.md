@@ -40,6 +40,7 @@ V9 is an autonomy layer that applies to **every OS stage** — it turns ARGUS in
 
 - Design: [`docs/V9_PROTOTYPE.md`](docs/V9_PROTOTYPE.md)
 - Sterilization & transfer-box SOPs (V7/V8/V9): [`docs/STERILIZATION_TRANSFER.md`](docs/STERILIZATION_TRANSFER.md)
+- **Axio Observer benchmark — engineering analysis & meta-analysis (2026-10-19): [`docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`](docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md)** — lessons from the commercial benchmark (Definite Focus 3, Colibri 7, incubation) → ARGUS gaps (focus-hold, LED, environment) + open solutions.
 
 ## DAIS — Autonomous Intelligence Layer (subproject)
 
