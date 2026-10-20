@@ -189,6 +189,7 @@ V9-BRAIN (local host)
 +-- LLM (ollama/vLLM, Mixtral/Llama/Qwen)       <- "brain"
 +-- Planner (agent: servicing tasks, 24/7 schedule)
 +-- Tool Bridge (MCP-like: microscope, hands, FOSH, pumps, incubator, robots)
++-- Loop Primitives (JOBS-like: acquire -> analyze -> gate -> mask -> act -> verify -> qc)  <- reusable deterministic building blocks (added 2026-10-20, pattern: Kaneshiro 2022)
 +-- Vision (YOLO + CellPose on Jetson AGX: cell/mitosis/artifact detection)
 +-- Flight Recorder (AIS) - log of every action (pose, force, time)
 +-- Safety Layer (Body Law: force <=5 N, speed <=200 mm/s, no-touch zones during laser)
@@ -227,7 +228,7 @@ The LLM never touches tools directly — only through the **Tool Bridge with val
 
 | AIS component | V9 instantiation |
 |---------------|------------------|
-| Passport | +15 capabilities (pick-and-place, pipette, wipe, UV, capillary, rake, charge, calibrate, transfer-in, transfer-out, door-interlock...) |
+| Passport | +15 capabilities (pick-and-place, pipette, wipe, UV, capillary, rake, charge, calibrate, transfer-in, transfer-out, door-interlock...) + **`targeted_cell_disruption_automated`** (closed-loop laser disruption: segment→classify→viability gate→keep-out mask→irradiate→verify→QC; added 2026-10-20, pattern Kaneshiro 2022) |
 | Body Law | force <=5 N, speed <=200 mm/s, no-touch zones around the objective during fs-laser |
 | Flight Recorder | every action: pose (x,y,z,theta), force, timestamp, camera frame |
 | LLM Bridge | error diagnosis for the hands -> solution -> safe restart |
