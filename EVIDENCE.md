@@ -160,6 +160,24 @@ Not exposed in API — minimal software fix needed. Heat problem solved in softw
 - Positions engineering as first-class evidence for the platform: focus-hold + environment + LED multi-channel are preconditions for the validity of multi-day lineage data, not conveniences.
 - All vendor claims are flagged; independent verification is via the PMIDs in the tables above.
 
+### In-situ cell isolation / automated laser targeting — Nikon GA+JOBS benchmark (2026-10-20)
+
+> Master analysis: `../docs/NIKON_AUTOMATED_LASER_SORTING_ANALYSIS_2026-10-20.md` (index-level; also OS3). Primary paper read in full (open access). All PMIDs verified via Europe PMC 2026-10-20.
+
+| Source | Finding | Role in ARGUS |
+|:----:|---------|---------------|
+| **10.1017/qpb.2022.24** | Kaneshiro et al. 2022 (Quant Plant Biol) — **fully automated detect→classify→mask→IR-laser→verify loop** for in-situ cell isolation (NIS-Elements GA+JOBS, inverted Ti2-E); **positional info preserved** → continuous before/after lineage observation; target enrichment up to 8.3× | ⭐ Independent confirmation of ARGUS's **in-situ-elimination/positional-lineage paradigm** (vs FACS/microfluidics which destroy position). Citable in grants. |
+| **25470130** | Gokce et al. 2014 (PLoS ONE) — **fully automated microfluidic fs-laser axotomy** in C. elegans (~17 s/worm) | Automated detect→laser loop in ARGUS's model organism |
+| **19079252** | Kamei et al. 2009 (Nat Methods) — **IR-LEGO**: 1480 nm single-cell laser manipulation in C. elegans, 10⁵× water heating vs 440 nm | Single-cell laser precision in C. elegans (IR family) |
+| **42234731** | van den Brink et al. 2026 (Sci Adv) — image-based phenotypic sorting with real-time NN analysis | Neural-network-driven automated selection — convergence with Cellpose+loop |
+| **42669673** | Di Sante/Pezzotti et al. 2026 (Nat Commun) — **CALIPERS**: cell cycle-aware live imaging | Live-tracking platform pattern (OS1/OS2) |
+| **41868091** | Liotta et al. 2025 (Nat Rev Methods Primers) — Laser capture microdissection primer | Laser-based cell isolation is a mature field |
+
+**Transferable to OS1:** tiled region-list acquisition loop (register x,y per cell → re-locate across tiles) + objective pass/fail thresholds to avoid session drift; keep-out masking pattern protects sister-pair control cells. See OS3 `docs/AUTOMATED_ABLATION_LOOP.md` for the closed-loop design.
+
+### Notes (OS1 automation addenda)
+- Vendor claims (Nikon app note 2311E) are flagged; all numbers above are from the peer-reviewed primary paper (CC BY 4.0).
+
 ## §. Epistemic standard (Noepedia Harvest — 2026-10-12)
 > Master: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
 1. **Evidence pyramid (Murad PMID 27339128) + stages (K):** claims about system/performance are claims of demonstrated stage, not «assembled and running».

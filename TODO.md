@@ -53,6 +53,7 @@
 - [ ] **sCMOS** into OS2 budget (pco.edge/ORCA class) + **piezo Z** for centriole Z-stacks — Owner: Alex
 - [ ] **Micro-Manager + Mastodon** lineage-pipeline integration (PMID 42841415) — Owner: PI
 - [ ] SIM/HiLo module as low-cost optical sectioning (Apotome 3 alternative) — Owner: Alex (OS2/OS3)
+- [ ] **Tiled region-list acquisition loop + objective pass/fail thresholds** (pattern: Kaneshiro 2022, DOI 10.1017/qpb.2022.24) — register per-cell x,y → re-locate across tiles; avoid session drift — Owner: Alex, Deadline: 2027-01-15
 
 ## 🔵 Grants / Outreach
 <!-- lang:ru -->
