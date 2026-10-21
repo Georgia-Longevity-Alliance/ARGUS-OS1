@@ -41,6 +41,8 @@ Expected signal of limit onset (H1, mechanism): progressive slowing of the OLD l
 
 **Experimental-purity constraints:** no chemical treatment is applied to tracked cells; which cell carries the oldest and which the newest centriole is determined **by their location** — therefore the system must minimize perturbation of tracked-cell position (FR-12) and register cell polarity in 3D (top/bottom in addition to left/right, FR-13) — data needed for future centriole-transplantation experiments.
 
+**Design (per the experimental plan):** exactly **2 single cells are studied** — carrying the oldest (OLD) and the newest (NEW) centriole, side by side. All other cells produced by mitosis **are removed**. The culture does not grow: there are only the two focal cells and their lineage continuations.
+
 ### 1.4 Cancer cells (future direction, LATER)
 
 The same task for cancer cells (if time permits). Specific feature: cancer cells carry supernumerary centrioles. A control is required: **does a young centriole arise in the same cell next to the oldest one**. If so:
@@ -108,15 +110,18 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
 3a. **Identity by location:** no chemical treatment of tracked cells; class OLD/NEW is tied to the cell's position in the chamber and held by spatial registration (FR-12) — the system must not lose who-is-where and must not displace cells.
 3b. **Polarity registration:** for each lineage, the cell's 3D orientation is preserved — top/bottom pole in addition to left/right (FR-13), data for future centriole transplantation.
 
-### Phase 2 — Forming an OLD/NEW pair side by side (method per V4/V5)
-- Goal: a cell with the oldest centriole sits **next to** a cell with the newest centriole (experimental design).
-- Intermediate-age cells are removed to avoid age mixing in the population and to keep pure OLD and NEW side by side.
-- Removal method per V4/V5 (TRD §4, companion comparison); on the first stage — one working method (laser or micromanipulators); level 2 per V5.
-- Accuracy ≤ 2 µm; do not damage the observed cell (V4).
-- Each removal is logged digitally (FR-11) with coordinates, time, class, method.
+### Phase 2 — Maintaining exactly 2 studied cells (method per V4/V5)
+- **Design:** exactly **2 single cells are studied** — carrying the oldest (OLD) and the newest (NEW) centriole, side by side. All other cells produced by mitosis **are removed**.
+- After Phase 1, the culture is reduced to 2 focal cells: one with the maximal centriole age (OLD), one with age 0 (NEW).
+- At each division only the focal lineage continuation is kept; the sister cell is removed:
+  - OLD division: the daughter receiving the mother (oldest) centriole continues OLD; the daughter with a new centriole is removed;
+  - NEW division: of the two daughters with new centrioles, one continues NEW, the other is removed.
+- Removal is a **continuous routine function** (on the order of 1–2 removals per day for the pair, over months), not a one-off procedure. Method per V4/V5 (TRD §4, companion comparison); on the first stage — one working method (laser or micromanipulators); level 2 per V5.
+- Accuracy ≤ 2 µm; do not damage the observed focal cells (V4); do not displace them (FR-12).
+- Each removal is logged digitally (FR-11) with coordinates, time, method.
 
 ### Phase 3 — Measuring division-rate dynamics (primary instrumental task)
-1. Record for each lineage the **interdivision time** (cell-cycle length) over many generations (months), without opening the enclosure.
+1. Record for each of the two focal cells (OLD and NEW, maintained per Phase 2) the **interdivision time** (cell-cycle length) over many generations (months), without opening the enclosure; all other progeny are removed.
 2. **Primary endpoint:** the trend of interdivision time OLD vs NEW over time — stable, converging or diverging. Expectation under H1: progressive slowing of OLD relative to NEW (limit-onset signal).
 3. **Secondary endpoints:** mitosis duration, divisions per lineage, fraction of quiescent cells, daughter-size symmetry, cohort growth-curve slope.
 4. Continue observation until the dynamics answers the limit question (or until the practical time/autonomy horizon; target horizon — months).
@@ -171,6 +176,7 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
 5. **Observation horizon:** the ~800–1000-division limit may not arrive within realistic time — then «not detected in window» ≠ «no limit». This is recorded as the boundary of the conclusion.
 6. **Long run (months)** → medium drift, fouling, condensation, contamination — standard enclosure mechanisms (TRD §12, FR-9) and monitoring.
 7. **Phototoxicity in long observation** → «image on demand» mode (FR-7); control — V6 (proliferation in chamber vs plate).
+8. **Reliability of continuous removal (Phase 2):** a removal failure/error accumulates (each unremoved sister cell generates new progeny and fouls the field). Critical: the removal method and tracking must run for months with minimal failures; safeguard — frame verification and alerts (FR-11).
 
 ---
 
