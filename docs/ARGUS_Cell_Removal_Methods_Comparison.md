@@ -12,7 +12,7 @@ The function FR-5 «remove unwanted cells and their debris without harming obser
 
 | Level | What it does | When it is needed |
 |-------|--------------|-------------------|
-| **Level 1 — detachment** | Detach the unwanted cell from the substrate, remove it from observation | After class assignment (in the first experiment: cells with intermediate-age centrioles, to keep pure OLD and NEW lineages side by side) |
+| **Level 1 — detachment** | Detach the unwanted cell from the substrate, remove it from observation | **Continuously**: all mitotic progeny except the 2 studied cells (OLD/NEW) kept side by side are removed (protocol, Phase 2) |
 | **Level 2 — export** | Remove the detached cell and necrosis products from the culture without harming neighbours | As long as the cell/debris does not disturb observation or poison the medium |
 
 Level-1 and level-2 methods are chosen **independently** and **after** V4 (survival, accuracy) and V5 (necrosis) data.

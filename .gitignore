@@ -51,6 +51,7 @@ docs/*
 !docs/ARGUS_TRD_v0.9b.md
 !docs/ARGUS_Cell_Removal_Methods_Comparison.md
 !docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md
+!docs/ARGUS_Literature_Analysis_EN.md
 scripts/
 grants/
 refs/

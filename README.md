@@ -44,6 +44,7 @@ V9 is an autonomy layer that applies to **every OS stage** — it turns ARGUS in
 - Technical Requirements (FR/TS split, minimally sufficient baseline + extension slots): [`docs/ARGUS_TRD_v0.9b.md`](docs/ARGUS_TRD_v0.9b.md)
 - Cell removal methods comparison (laser, micromanipulators, circulation, optical tweezers, magnetic beads, microbots): [`docs/ARGUS_Cell_Removal_Methods_Comparison.md`](docs/ARGUS_Cell_Removal_Methods_Comparison.md)
 - Protocol v0.2 — Hayflick limit in immortalized fibroblasts; OLD/NEW division-rate dynamics: [`docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md`](docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md)
+- Literature analysis — what has actually been done for each element of the experiment (PMIDs, weak spots, meta-analysis): [`docs/ARGUS_Literature_Analysis_EN.md`](docs/ARGUS_Literature_Analysis_EN.md)
 
 ## DAIS — Autonomous Intelligence Layer (subproject)
 

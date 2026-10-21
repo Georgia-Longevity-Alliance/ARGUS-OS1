@@ -178,6 +178,38 @@ Not exposed in API — minimal software fix needed. Heat problem solved in softw
 ### Notes (OS1 automation addenda)
 - Vendor claims (Nikon app note 2311E) are flagged; all numbers above are from the peer-reviewed primary paper (CC BY 4.0).
 
+## Immortalized-Fibroblast Experiment — Literature Anchors (2026-10-21)
+
+Relevant to the primary goal (does an hTERT-immortalized fibroblast have a Hayflick limit?) and the OLD/NEW division-rate dynamics experiment (protocol v0.2, TRD v0.9b). Full analysis: `docs/ARGUS_Literature_Analysis_EN.md`.
+
+| PMID / DOI | Finding | Role in ARGUS |
+|:----:|---------|---------------|
+| **9454332** | Bodnar et al. (1998, Science) — hTERT extends lifespan of BJ/RPE ≥ 20 PD, normal karyotype; causal link telomere shortening ↔ replicative senescence | hTERT bypass of the telomeric limit is fact; whether a hidden limit exists in single hTERT lines is untested |
+| **39684765** | Shitova, Alpeeva, Vorotelyak (2024, IJMS) — no standard to assess hTERT «immortality»; studies use different parameters | «Immortality» of hTERT lines is methodologically open → justifies the fundamental question |
+| **40789644** | Nassour & Karlseder (2025, CSH Perspect Med) — telomere crisis: tumor-suppressive barrier; rare cells escape | Context for hidden-limit / escape hypotheses in cancer cells |
+| **39012627** | Thomas & Meraldi (2024, JCB) — centriole age breaks spindle symmetry even in «symmetric» divisions in human epithelial & fibroblastic lines; old centriole higher MT nucleation; Odf2/Plk1 pool | Direct human-cell evidence that centriole age affects division; also a covariate (daughter-size asymmetry) for the OLD/NEW measurement |
+| **42602968** | Izumi et al. (2026, iScience) — Odf2 status → asymmetric CD133⁺ endosome inheritance; younger mother centriole ↔ more stem-like (SK-N-DZ) | Human-cell evidence: centriole age ↔ asymmetric fate; Odf2 as maturity/age marker |
+| **17255513** | Yamashita et al. (2007, Science) — mother centriole → stem cell (Drosophila GSC) | Asymmetric centriole inheritance paradigm |
+| **19829375** | Wang et al. (2009, Nature) — mother centrosome → progenitor, radial glia (mouse) | Mammalian asymmetric inheritance |
+| **41315244** | Zhao et al. (2025, Nat Commun) — PCM1 coordinates centrosome asymmetry with polarized endosomes → daughter fate | Additional asymmetric-inheritance mechanism in human cells |
+| **29363672** | Nigg & Holland (2018, Nat Rev Mol Cell Biol) — centriole duplication «once and only once»; deregulation in disease; **centrioles are microtubule-based organelles** | Terminology anchor (centriole = organelle); centriole-number regulation |
+| **28130345** | Fava et al. (2017, Genes Dev) — PIDDosome activates p53 upon supernumerary centrosomes | Counter-evidence: supernumerary centrioles can LIMIT proliferation (p53), not confer immortality → control needed for the cancer hypothesis |
+| **39406735** | Schapfl et al. (2024, Nat Commun) — centriole amplification in early B-cell development, dispensable | Supernumerary centrioles occur normally, can be dispensable |
+| **29567643** | Ganier et al. (2018, EMBO J) — structural centrosome aberrations promote invasiveness | Centrosome aberration → invasiveness |
+| **40009365** | Curinha et al. (2025, JCB) — centriole structural integrity defects (hydrolethalus) | Centriole integrity matters; structural readout rationale |
+| **41174898** | Wang C. et al. (2026, Cytoskeleton) — tubulin PTMs | Tubulin PTM as centriole age/state marker (independent confirmation) |
+| **42481875** | Sahin & Firat-Karalar (2026, EMBO Rep) — centrosome/cilium/satellite axis in neurodegeneration | Centrosome aging/degradation context |
+| **36583780** | Tkemaladze (2022, Mol Biol Rep) — selective accumulation of old centrioles in stem cells | Theoretical frame for old-centriole accumulation |
+
+**Gaps identified (no direct experiment found; Europe PMC 2026-10-21):**
+1. Hidden replicative limit of hTERT-immortalized fibroblasts under long-term clonal observation (single lines, not population) — **not tested**.
+2. Months-long OLD/NEW **division-rate dynamics** (interdivision-time trend) — **not measured** anywhere.
+3. Centriole dispersion masking a Hayflick limit — **hypothesis, no experiment**.
+4. Young supernumerary centrioles postponing/masking a limit — **hypothesis, no experiment**.
+5. 24/7 months-long single-cell mammalian lineage tracking with continuous progeny removal — **no precedent** (mother machine = bacteria; mammalian microfluidics = weeks; IncuCyte-class = population level).
+
+**Design implications (from the meta-analysis):** (a) old centrioles retain/high MT nucleation in normal cells (39012627) — the dispersion hypothesis must be tested at the scale of hundreds of divisions, with a scale-discriminator in the design; (b) supernumerary centrioles activate p53 (28130345) — cancer part needs proliferation/survival controls; (c) daughter-size asymmetry from centriole age (39012627) is a covariate in OLD/NEW dynamics — measure size/fate as covariates, not only interdivision time.
+
 ## §. Epistemic standard (Noepedia Harvest — 2026-10-12)
 > Master: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
 1. **Evidence pyramid (Murad PMID 27339128) + stages (K):** claims about system/performance are claims of demonstrated stage, not «assembled and running».
