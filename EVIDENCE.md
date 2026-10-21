@@ -236,6 +236,19 @@ Relevant to the primary goal (does an hTERT-immortalized fibroblast have a Hayfl
 
 **Nodes requiring own measurement (literature gaps; need grant/lab):** V3 (SNR, min exposure, light budget), V1 (attachment, migration, track loss), V2 (division behaviour, mitosis timing), V6 (chamber vs control proliferation, light effect), pilot (AI accuracy on our markers + label-free calibration), Q2 (the hidden-limit question). Literature supplies structure, ranges and feasibility anchors; line-specific numbers for BJ/MRC5-hTERT are absent and cannot be replaced by assumptions or protocol count.
 
+## Weak-Spot Literature — Deep Search (2026-10-21)
+
+Follow-up on the identified weak spots; all PMIDs verified via Europe PMC.
+
+| Weak spot | New literature anchor | Implication for ARGUS |
+|---|---|---|
+| Centriole age → functional consequences (Q3) | **Gasic, Nerurkar, Meraldi 2015 (26287477, eLife):** centrosome age regulates kinetochore–microtubule stability and **biases chromosome mis-segregation** | The older-centriole side is more prone to mis-segregation → **aneuploidy covariate** in OLD/NEW division-rate measurement (must be tracked/controlled) |
+| Hidden Hayflick limit in immortalized cells (Q2) | **Ho et al. 2010 (21176396):** replicative senescence of human stem cells **independent of telomere shortening and p53** (Ras / oxidative stress) | hTERT fixes telomeres, but senescence can arise via non-telomere pathways → a hidden limit in hTERT cells is **biologically plausible** (supports Q2) |
+| Supernumerary centrioles with age / cancer | **Na et al. 2015 (25988874) & 2024 (39680672):** age- and oxidative-stress-induced **centrosome amplification** in Drosophila stem cells; metformin inhibits it (AKT/TOR) | Aging itself drives centriole-number abnormalities → anchor for the cancer/supernumerary-centriole hypothesis and for age-related phenotype |
+| Phototoxicity / light budget (FR-7) | **Icha et al. 2017 (28749075, Bioessays):** phototoxicity in live fluorescence microscopy and how to avoid it — light dose, wavelength dependence, imaging frequency | Practical framework for the V3/V6 light-budget node; no universal J/cm² threshold — must be measured on our lines |
+
+**Meta (weak spots, updated):** (1) line-specific numbers remain absent — the binding gap, measured only on real samples; (2) the older-centriole side shows both higher MT nucleation (Thomas & Meraldi 2024) and higher mis-segregation (Gasic 2015) — a scale discriminator and aneuploidy covariate are required; (3) telomere-independent senescence is documented (Ho 2010) — strengthens the plausibility of Q2; (4) phototoxicity has no universal threshold (Icha 2017) — a measured light budget is mandatory.
+
 ## §. Epistemic standard (Noepedia Harvest — 2026-10-12)
 > Master: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
 1. **Evidence pyramid (Murad PMID 27339128) + stages (K):** claims about system/performance are claims of demonstrated stage, not «assembled and running».
