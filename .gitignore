@@ -53,6 +53,7 @@ docs/*
 !docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md
 !docs/ARGUS_Literature_Analysis_EN.md
 !docs/ARGUS_label_free_centriole_assignment.md
+!docs/ARGUS_EngineeringNote_TubeLens_60x_2026-10-22.md
 scripts/
 grants/
 refs/

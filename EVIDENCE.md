@@ -272,6 +272,15 @@ Follow-up on the identified weak spots; all PMIDs verified via Europe PMC.
 - **ARGUS unique niche (no commercial system):** months-long 24/7 single-cell mammalian lineage tracking with in-situ progeny removal (2-cell OLD/NEW design). IncuCyte/BioStation = population/well level; ImageXpress = screening; Ti2/Axio = multi-day, human-operated. The 6–12-month autonomous single-cell lineage + addressable removal + open cost is not offered by any vendor — the grant/publication novelty anchor.
 - **Centriole appropriateness:** centrioles ~200–250 nm sit at the diffraction limit; commercial widefield (high-NA 60–100×, sCMOS) images them (Thomas & Meraldi 2024), but multi-day fluorescence on centrioles imposes phototoxicity; ARGUS's label-free calibrated channel + minimal-light regime is a differentiator vs all commercial systems.
 
+## Engineering Note — Tube Lens / 60× Objective & Hardware Controller (2026-10-22)
+
+> Master: `docs/ARGUS_EngineeringNote_TubeLens_60x_2026-10-22.md`. Triggered by OpenFlexure community threads (2026-10-15): 60× + 75 mm doublet tube-length scaling; hardware stage controller (joystick + focus).
+
+- **Tube lens scaling (established optics):** effective magnification = f_tube / f_objective. A "60×" infinity objective with a non-standard 75 mm tube lens gives ≈ 60 × 75/200 ≈ 22.5× effective; NA/resolution stay objective-set, but field/aberrations change. **ARGUS rule:** use the vendor-standard tube-lens focal length for the chosen 60× objective (OS4); any deviation must be bench-verified (PSF + effective magnification, USAF/beads — possible-now optical bench).
+- **Hardware stage controller (UX, not scientific requirement):** joystick + focus knob for manual positioning during calibration/metrology (V8), alignment, sample setup — a manual-override channel alongside AI control.
+- **Community/open-source:** the 60× static-scan and hardware-controller builds converging with ARGUS's design space; contribution aligns with the open-hardware narrative and Foresight Nodes priority.
+- **Weak spot:** non-standard tube lens risks reduced effective magnification and uncorrected field aberrations — bench-verify before committing optics.
+
 ## §. Epistemic standard (Noepedia Harvest — 2026-10-12)
 > Master: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
 1. **Evidence pyramid (Murad PMID 27339128) + stages (K):** claims about system/performance are claims of demonstrated stage, not «assembled and running».

@@ -46,6 +46,7 @@ V9 is an autonomy layer that applies to **every OS stage** — it turns ARGUS in
 - Protocol v0.2 — Hayflick limit in immortalized fibroblasts; OLD/NEW division-rate dynamics: [`docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md`](docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md)
 - Literature analysis — what has actually been done for each element of the experiment (PMIDs, weak spots, meta-analysis): [`docs/ARGUS_Literature_Analysis_EN.md`](docs/ARGUS_Literature_Analysis_EN.md)
 - OLD/NEW assignment at mitosis — marker-anchored pedigree + calibrated label-free morphology (no-staining options): [`docs/ARGUS_label_free_centriole_assignment.md`](docs/ARGUS_label_free_centriole_assignment.md)
+- Engineering note — tube lens for the 60× objective (f_tube scaling) + hardware stage controller UX: [`docs/ARGUS_EngineeringNote_TubeLens_60x_2026-10-22.md`](docs/ARGUS_EngineeringNote_TubeLens_60x_2026-10-22.md)
 
 ## DAIS — Autonomous Intelligence Layer (subproject)
 
