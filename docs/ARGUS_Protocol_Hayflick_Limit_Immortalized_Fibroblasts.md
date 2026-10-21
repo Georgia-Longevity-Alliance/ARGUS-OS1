@@ -11,18 +11,30 @@
 
 ## 1. Goal and hypotheses
 
-### 1.1 Fundamental fact (primary goal)
+### 1.1 Fundamental question — split into three distinct claims
 
-**Test whether immortalized human fibroblasts (BJ-hTERT, MRC5-hTERT) have a Hayflick limit — yes or no.**
+**Q1 (background, established by literature):** is there a division limit in normal fibroblasts? Yes — the classic Hayflick limit (≈50 divisions). ARGUS does not test this.
 
-- **H1 (working hypothesis):** a limit exists even with hTERT expression — it is simply much larger than in somatic cells and is masked at the population level by rapid colony growth.
-- **H0 (null):** no limit — true «immortality» of immortalized fibroblasts.
+**Q2 (primary question of ARGUS):** is there an analogous limit in the chosen immortalized lines (BJ-hTERT, MRC5-hTERT) — yes or no.
+- H1 (working hypothesis): a limit exists even with hTERT expression — simply much larger and masked at the population level by rapid colony growth.
+- H0 (null): no limit — true «immortality» of immortalized fibroblasts.
 
-This is the anchor: without the established fundamental fact, all subsequent tasks (cancer cells, stem-cell niches) are more complex and their results more controversial.
+**Q3 (mechanism):** does division rate depend on the age of the inherited centriole (OLD vs NEW).
 
-### 1.2 Context — expected division counts
+**Rule:** Q2 and Q3 are distinct scientific claims, measured and reported **separately** (separate sections, separate criteria). Q2 = «no limit in the observation window» is one answer; Q3 = «OLD slows relative to NEW» is a mechanism compatible with a hidden limit but not identical to Q2.
 
-The limit experiment is identical for any cell type; only the expected number of divisions differs:
+### 1.1a Observation horizon and stopping criterion (first stage)
+
+Expected division counts (somatic ≈50, stem ≈200, immortalized ≈800–1000, cancer — thousands) are **working estimates, not source-confirmed** (except somatic ≈50). They do NOT dictate the horizon. Precisely counting the number of divisions is the task of research staff, not ARGUS.
+
+- **Horizon of the first stage is a defined window** (e.g., ≥ N generations or ≥ 6 months, whichever comes first), not «until 800–1000 divisions».
+- **Stopping criterion (pre-registered):** (a) OLD/NEW divergence in interdivision time is statistically significant; **or** (b) lineages show senescence markers/arrest (Q2); **or** (c) the window ends without (a)/(b) → «not detected in the window», the boundary of the conclusion is recorded.
+- Extending the window — only if the data justify it.
+- **Autonomy = the justified window** (e.g., 6 months), not «years».
+
+### 1.2 Context — expected division counts (working estimates)
+
+The limit experiment is identical for any cell type; only the expected number of divisions differs. **The numbers below are working estimates, not source-confirmed** (except somatic ≈50). The horizon does not depend on them (see 1.1a).
 
 | Cell type | Expected number of divisions |
 |-----------|------------------------------|
@@ -108,6 +120,11 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
    - daughter receiving the **daughter** centriole (Cep164−) → «new branch»;
    - chronological age = number of generations a centriole has survived since founding (assigned by **pedigree tracking**, not by the marker).
 3a. **Identity by location:** no chemical treatment of tracked cells; class OLD/NEW is tied to the cell's position in the chamber and held by spatial registration (FR-12) — the system must not lose who-is-where and must not displace cells.
+
+**How it is determined which daughter receives the older and which the newer centriole at mitosis (assignment method):**
+- **First-division anchor (not bootstrap):** in the founder cell the mother (mature) centriole = Cep164+, the newly formed = Cep164−. The daughter receiving Cep164+ → OLD branch (oldest lineage); the daughter receiving Cep164− → NEW branch. After mitosis each daughter contains one mature centriole + one new procentriole, so the «newest» goes to both daughters; the asymmetry is in the mature centriole: one daughter receives the oldest M (founder lineage), the other the younger mature D.
+- **Per-mitosis assignment at each division:** image the two centrosomes (two foci) at metaphase/anaphase; determine which centrosome carries the older mature centriole: (a) by continuous pedigree tracking (M is followed from founding), (b) by an age/maturity marker (tubulin PTMs — polyglutamylation/polyglycylation, Odf2/cenexin; the older carries more modifications). Cep164 distinguishes mature vs immature, but not the chronological age of M vs D — so for M vs D an age marker (b) plus pedigree (a) is required.
+- **Label-free channel (secondary, optional, to reduce light under FR-7):** the only published morphological correlate of centriole age is a mild spindle/daughter-size asymmetry (Thomas & Meraldi 2024, JCB, PMID 39012627): the larger daughter is more likely to carry the older. Use only after empirical calibration against marker ground truth (if accuracy ≥ 95% — assign without fluorescent light; otherwise markers are mandatory). No data exist for immortalized fibroblasts — calibrate on BJ-hTERT/MRC5-hTERT themselves (V2/V3). Pedigree bootstrap is not needed — the first-division anchor exists.
 3b. **Polarity registration:** for each lineage, the cell's 3D orientation is preserved — top/bottom pole in addition to left/right (FR-13), data for future centriole transplantation.
 
 ### Phase 2 — Maintaining exactly 2 studied cells (method per V4/V5)

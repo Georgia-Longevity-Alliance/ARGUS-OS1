@@ -52,6 +52,7 @@ docs/*
 !docs/ARGUS_Cell_Removal_Methods_Comparison.md
 !docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md
 !docs/ARGUS_Literature_Analysis_EN.md
+!docs/ARGUS_label_free_centriole_assignment.md
 scripts/
 grants/
 refs/

@@ -95,6 +95,20 @@
 
 **E.6 conclusion.** The combination «2 cells + continuous progeny removal + months» is new. **Risk:** reliability of continuous removal — each missed progeny generates new cells and fouls the field; this is the principal engineering risk (already recorded in protocol v0.2, risk 8).
 
+### E.7 OLD/NEW assignment at mitosis — where the older and the newer centriole go (the assignment method)
+
+| Claim | Status | Source |
+|-------|--------|--------|
+| After mitosis each daughter receives one centrosome = one mature (mother) centriole + one new procentriole; the «newest» goes to BOTH daughters; the asymmetry is in the mature centriole: one daughter receives the oldest M (founder lineage), the other the younger mature D | ✅ established (duplication biology) | Nigg & Holland 2018. PMID 29363672 |
+| **The only light-microscopy correlate of centriole age is a mild spindle/daughter-size asymmetry** (human epithelial and fibroblastic lines): the old-centriole side has a longer half-spindle and higher nucleation (Plk1/Odf2) → larger daughter; effect is weak, probabilistic | ✅ established (direct experiment) | Thomas & Meraldi 2024. PMID 39012627 |
+| Cep164 distinguishes mature (mother) from immature, but NOT the chronological age of M vs D (both mature are Cep164+) | ✅ established | Cep164 literature (distal appendages) |
+| Age/maturity markers of the mature centriole: Odf2/cenexin, tubulin polyglutamylation/polyglycylation (accumulate on the older/mother centriole) | ✅ established (markers) | Thomas & Meraldi 2024 (Odf2); Wang C. 2026 (tubulin PTMs, PMID 41174898) |
+| **Label-free (no staining) unambiguous assignment of the older centriole in a single cell by morphology** | ❓ **no method; the only correlate is weak (size/spindle); no data for immortalized fibroblasts** | search 2026-10-21; Thomas & Meraldi 2024 |
+| **First-division anchor solves the bootstrap problem:** in the founder cell the mother = Cep164+, the new = Cep164−; the Cep164+ daughter → OLD, the Cep164− daughter → NEW; thereafter age is assigned by continuous pedigree tracking | 🟡 method (plan); relies on Cep164 + tracking — validated by V1–V3 | protocol v0.2, Phase 1 |
+| Calibrated label-free channel (daughter size + spindle + QPI + polarization + kinetics) against marker ground truth — a way to remove almost all fluorescent light (FR-7) if accuracy ≥ 95% | 🟡 proposal (plan) | analysis 2026-10-21 |
+
+**E.7 conclusion.** Rigorous OLD/NEW assignment is **marker-anchored pedigree** (Cep164 anchors the first division; age thereafter by tracking; per-mitosis assignment by the two centrosomes + an age marker). Bootstrap is not needed — the anchor exists. Label-free morphology is only a calibrated secondary channel; without calibration (and without the first-division anchor) unambiguous morphology-only assignment is impossible. No data exist for immortalized fibroblasts — calibration and validation must be done on BJ-hTERT/MRC5-hTERT themselves (V2/V3).
+
 ---
 
 ## 3. Meta-analysis and weak spots (summary)
