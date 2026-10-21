@@ -41,6 +41,9 @@ V9 is an autonomy layer that applies to **every OS stage** — it turns ARGUS in
 - Design: [`docs/V9_PROTOTYPE.md`](docs/V9_PROTOTYPE.md)
 - Sterilization & transfer-box SOPs (V7/V8/V9): [`docs/STERILIZATION_TRANSFER.md`](docs/STERILIZATION_TRANSFER.md)
 - **Axio Observer benchmark — engineering analysis & meta-analysis (2026-10-19): [`docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md`](docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md)** — lessons from the commercial benchmark (Definite Focus 3, Colibri 7, incubation) → ARGUS gaps (focus-hold, LED, environment) + open solutions.
+- Technical Requirements (FR/TS split, minimally sufficient baseline + extension slots): [`docs/ARGUS_TRD_v0.9b.md`](docs/ARGUS_TRD_v0.9b.md)
+- Cell removal methods comparison (laser, micromanipulators, circulation, optical tweezers, magnetic beads, microbots): [`docs/ARGUS_Cell_Removal_Methods_Comparison.md`](docs/ARGUS_Cell_Removal_Methods_Comparison.md)
+- Protocol v0.2 — Hayflick limit in immortalized fibroblasts; OLD/NEW division-rate dynamics: [`docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md`](docs/ARGUS_Protocol_Hayflick_Limit_Immortalized_Fibroblasts.md)
 
 ## DAIS — Autonomous Intelligence Layer (subproject)
 
