@@ -216,6 +216,26 @@ Relevant to the primary goal (does an hTERT-immortalized fibroblast have a Hayfl
 
 **Validation & data-requirements methodology (adopted from engineering review, 2026-10-21):** every pre-test is delivered as (1) measurement conditions, (2) raw data incl. images where applicable, (3) values + spread, (4) uncertainty estimate, (5) acceptance criterion set by the bio group, (6) experiment-confirmed vs hypothesis. Requirements close **sequentially** (optics ← V3; scanning/focus ← V1/V2; autonomy/storage ← V6 + horizon window; tracking software ← pilot), not all at once. Six engineering data groups (optics, stage/scanning, focus/chamber, long-term environment, tracking software, storage) map to pre-tests V1–V6 and TRD sections. A list of required data is an input to engineering decisions, not consent to build subsystems.
 
+## Base Experiment (Immortalized Fibroblasts) — Literature Data Package (2026-10-21)
+
+| Parameter | Literature value | Source | Reliability | Node to measure ourselves |
+|---|---|---|---|---|
+| BJ-hTERT origin | normal foreskin fibroblasts, hTERT-immortalized, p53/pRb functional, normal karyotype | Bodnar et al. 1998 (9454332) | high | — |
+| MRC5-hTERT origin | fetal lung (MRC-5) hTERT-immortalized | standard hTERT line | high | — |
+| Parent MRC-5 / BJ Hayflick limit | ~42–50 / ~50–60 PD | MRC-5 lit.; Bodnar 1998 | high | — (context Q1) |
+| Doubling time | ~24–30 h (fibroblasts) | standard range | medium | V6 |
+| **Centriole age affects division in human epithelial & fibroblastic lines** (spindle/daughter-size asymmetry) | established, direct | Thomas & Meraldi 2024 (39012627) | high | — |
+| Centriole age ↔ asymmetric fate (CD133 endosomes) | established (SK-N-DZ) | Izumi et al. 2026 (42602968) | high | — |
+| Odf2/cenexin, tubulin PTMs — age/maturity markers | established | Thomas & Meraldi 2024; Wang C. 2026 (41174898) | high | V3 calibration on our lines |
+| Centriole size | ~200–250 nm × ~400–500 nm | ultrastructure; Nigg & Holland 2018 (29363672) | high | pilot (2 centrioles per centrosome) |
+| Fibroblast migration | ~10–50 µm/h | established range | medium | V1 |
+| Mitosis duration | ~30–60 min | established | high | V2 |
+| Segmentation methods | Cellpose 2.0/3.0; StarDist fallback | Pachitariu & Stringer 2022 (36344832); Stringer & Pachitariu 2025 (39939718); Schmidt 2018 | high | fine-tune after V3 |
+| hTERT «immortality» assessment | methodologically unsettled | Shitova et al. 2024 (39684765) | high (uncertainty) | justifies Q2 |
+| **Hidden Hayflick limit in immortalized fibroblasts (Q2)** | **not tested anywhere** | search 2026-10-21 | n/a | **the experiment itself** |
+
+**Nodes requiring own measurement (literature gaps; need grant/lab):** V3 (SNR, min exposure, light budget), V1 (attachment, migration, track loss), V2 (division behaviour, mitosis timing), V6 (chamber vs control proliferation, light effect), pilot (AI accuracy on our markers + label-free calibration), Q2 (the hidden-limit question). Literature supplies structure, ranges and feasibility anchors; line-specific numbers for BJ/MRC5-hTERT are absent and cannot be replaced by assumptions or protocol count.
+
 ## §. Epistemic standard (Noepedia Harvest — 2026-10-12)
 > Master: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
 1. **Evidence pyramid (Murad PMID 27339128) + stages (K):** claims about system/performance are claims of demonstrated stage, not «assembled and running».
