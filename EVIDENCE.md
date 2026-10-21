@@ -249,6 +249,29 @@ Follow-up on the identified weak spots; all PMIDs verified via Europe PMC.
 
 **Meta (weak spots, updated):** (1) line-specific numbers remain absent — the binding gap, measured only on real samples; (2) the older-centriole side shows both higher MT nucleation (Thomas & Meraldi 2024) and higher mis-segregation (Gasic 2015) — a scale discriminator and aneuploidy covariate are required; (3) telomere-independent senescence is documented (Ho 2010) — strengthens the plausibility of Q2; (4) phototoxicity has no universal threshold (Icha 2017) — a measured light budget is mandatory.
 
+## Commercial Systems for ARGUS-Like Tasks — Consolidated Engineering Benchmark (2026-10-21)
+
+> Master: `docs/AXIO_OBSERVER_ENGINEERING_ANALYSIS_2026-10-19.md` (Zeiss/Nikon/Olympus/Leica + open class), `docs/NIKON_AUTOMATED_LASER_SORTING_ANALYSIS_2026-10-20.md` (Nikon GA+JOBS in-situ laser sorting). Vendor specs = vendor claims (flagged); PMIDs verified.
+
+### Per-vendor engineering solutions
+
+| Vendor / system | Focus-hold | Illumination | Incubation | Detection | Software | Automation | Notes |
+|---|---|---|---|---|---|---|---|
+| **Zeiss Axio Observer 7 / live** | Definite Focus 3 (NIR) | Colibri 7 LED (7 ch) | XL/stage-top/heated glass lid CO₂/O₂ | pco.edge sCMOS + Axiocam color | ZEN | motorized Z/XY/turret/filter; piezo Z | $100–200K; closed; benchmark minimum set |
+| **Nikon Eclipse Ti2-E** | Perfect Focus System (PFS, IR) | SOLA/Lumencor LED | Ti2 incubators | Prime/ORCA sCMOS | NIS-Elements (GA/JOBS — automated detect→classify→laser→verify) | motorized; in-situ IR laser (1480 nm) sorting | $100K+; closed |
+| **Nikon BioStation CT** | fixed-focus incubation system | LED phase/fluo | integrated incubator | CCD/sCMOS | dedicated | multi-position | population-level, not single-cell months |
+| **Olympus/Evident IXplore IX83** | TruFocus ZDC | pE-300/400 LED | IX3 incubators | ORCA sCMOS | cellSens | motorized; SpinSR sectioning | $100K+; closed |
+| **Leica DMi8** | Adaptive Focus Control (AFC) | LED8/LED5 | DMi8 incubators | DFC/ORCA | LAS X | motorized; THUNDER deconvolution | $100K+; closed |
+| **Sartorius IncuCyte S3/SX5** | in-incubator, fixed optics | LED (phase + fluo) | sits inside lab incubator | CCD | IncuCyte SW | multi-position, automated | population/well-level; no single-cell lineage; phototoxicity low |
+| **Molecular Devices ImageXpress** | hardware AF | LED/Laser | optional incubation | sCMOS | MetaXpress | high-throughput multi-well | screening, not long-term single-cell lineage |
+| **OpenFlexure (ARGUS base)** | software/stepper (gap → fiducial AF, PMID 42274973) | 1 ch → multi-LED | stage-top/chamber | RasPi HQ → sCMOS | Micro-Manager + Mastodon (42841415) | open; V9 hands | $3–5K; open — the advantage |
+
+### Meta-analysis
+- **Four critical modules every long-term platform must close:** (1) hardware focus-hold (Definite Focus/PFS/TruFocus/AFC → open fiducial AF), (2) multi-channel LED (low phototoxicity), (3) incubation/environment (CO₂/temperature/humidity), (4) sensitive sCMOS + unified software. ARGUS OS1 gaps: focus-hold, incubation, multi-LED, piezo Z — all closable open (Axio analysis §5.1).
+- **Weak spots of commercial systems (for ARGUS):** price ($100–200K), closed/proprietary (ZEN, NIS-Elements), phototoxicity not eliminated (brightfield included — 42393487), no autonomous sample handling (V9 hands exceed benchmark), service/repair closed.
+- **ARGUS unique niche (no commercial system):** months-long 24/7 single-cell mammalian lineage tracking with in-situ progeny removal (2-cell OLD/NEW design). IncuCyte/BioStation = population/well level; ImageXpress = screening; Ti2/Axio = multi-day, human-operated. The 6–12-month autonomous single-cell lineage + addressable removal + open cost is not offered by any vendor — the grant/publication novelty anchor.
+- **Centriole appropriateness:** centrioles ~200–250 nm sit at the diffraction limit; commercial widefield (high-NA 60–100×, sCMOS) images them (Thomas & Meraldi 2024), but multi-day fluorescence on centrioles imposes phototoxicity; ARGUS's label-free calibrated channel + minimal-light regime is a differentiator vs all commercial systems.
+
 ## §. Epistemic standard (Noepedia Harvest — 2026-10-12)
 > Master: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
 1. **Evidence pyramid (Murad PMID 27339128) + stages (K):** claims about system/performance are claims of demonstrated stage, not «assembled and running».
