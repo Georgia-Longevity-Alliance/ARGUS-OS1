@@ -210,7 +210,7 @@ If Pedigree Score correlates with fate in OS1, OS2 tests causality via **centrio
 | 4 | Kalbfuss, Berger & Gönczy (2023) — centriolar protein mapping, Dev Biol | 37414202 |
 | 5 | Gönczy & Balestra (2023) — stochastic segregation at 4-cell stage | 36988082 |
 | 6 | Anderson & Stearns (2009) — centriole age → cilium timing (NIH/3T3) | 19682908 |
-| 7 | Erpf & Mikeladze-Dvali (2020) — Dendra2::SAS-4 tracking, ABpr lineage | DOI:10.17912/micropub.biology.000286 |
+| 7 | Erpf & Mikeladze-Dvali (2020) — Dendra2::SAS-4 tracking, ABpr lineage | DOI:10.17912/micropub.biology.000256 |
 | 8 | Balestra et al. (2015) — paternal centrioles persist, Cell Research | 25906994 |
 | 9 | Yamashita et al. (2007) — Drosophila mGSC asymmetric inheritance | 17255513 |
 | 10 | Januschke et al. (2011) — Drosophila NB daughter centrosome | 21407209 |
