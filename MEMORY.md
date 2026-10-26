@@ -106,7 +106,7 @@
 - **Решение:** Закладываем Dedicated server на 10 лет в бюджет ARGUS-OS1 и общую инфраструктуру.
 - **Сумма:** $18,000 (~$150/мес × 120 мес).
 - **Зачем:** Глобальная платформа AIS (Autonomous Intelligence Socket) для всех longevity-роботов — ARGUS-OS1, OS2, OS3, и других AIS-based роботов.
-- **Компоненты:** AIS Dashboard, Registry, Knowledge Browser, Event Store, Noepedia API.
+- **Компоненты:** AIS Dashboard, Registry, Knowledge Browser, Event Store, Aletheia API.
 - **Общий бюджет ARGUS-OS1 (OS2-stage, 24 мес):** $264,000 → $282,000 → **$307,000** (пересчитан 2026-10-19 из line-items CONCEPT §4: 245K база + 44K резерв + 18K AIS; ранее ~$282K не сходилось с line-items).
 <!-- /lang:ru -->
 

@@ -60,7 +60,7 @@ ARGUS-OS1 is the first physical instantiation of the AIS (Autonomous Intelligenc
 | Flight Recorder | Centriole tracking log (coordinates, intensities, divisions) |
 | LLM Bridge | Anomaly detection → diagnosis → safe restart or pause |
 | Trace Network | Solved anomalies shared across all ARGUS devices |
-| Knowledge Field | Published findings → Noepedia claims with provenance |
+| Knowledge Field | Published findings → Aletheia claims with provenance |
 
 ## References
 - OpenFlexure: https://openflexure.org

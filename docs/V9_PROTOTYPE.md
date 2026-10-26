@@ -233,7 +233,7 @@ The LLM never touches tools directly — only through the **Tool Bridge with val
 | Flight Recorder | every action: pose (x,y,z,theta), force, timestamp, camera frame |
 | LLM Bridge | error diagnosis for the hands -> solution -> safe restart |
 | Trace Network | "how to clean the 60x/1.2 WI objective", "how to replace a capillary" — procedures in the shared registry |
-| Knowledge Field | servicing procedures -> Noepedia claims with verification |
+| Knowledge Field | servicing procedures -> Aletheia claims with verification |
 
 ## 7. Budget
 

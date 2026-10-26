@@ -281,8 +281,8 @@ Follow-up on the identified weak spots; all PMIDs verified via Europe PMC.
 - **Community/open-source:** the 60× static-scan and hardware-controller builds converging with ARGUS's design space; contribution aligns with the open-hardware narrative and Foresight Nodes priority.
 - **Weak spot:** non-standard tube lens risks reduced effective magnification and uncorrected field aberrations — bench-verify before committing optics.
 
-## §. Epistemic standard (Noepedia Harvest — 2026-10-12)
-> Master: `~/Desktop/Services/docs/NOEPEDIA_HARVEST_2026-10-12.md`
+## §. Epistemic standard (Aletheia Harvest — 2026-10-12)
+> Master: `~/Desktop/Services/docs/ALETHEIA_EPISTEMIC_HARVEST_2026-10-12.md`
 1. **Evidence pyramid (Murad PMID 27339128) + stages (K):** claims about system/performance are claims of demonstrated stage, not «assembled and running».
 2. **Provenance:** every measurement/claim carries a source tag (firmware/version/sensor/model); a lost tag is a defect (HART arXiv 2603.05828).
 3. **Verification by construction (Conant–Ashby, DOI 10.1080/00207727008920220):** a prototype/simulation (OS1, PScan) is stronger than a citation; the model itself requires independent validation.
