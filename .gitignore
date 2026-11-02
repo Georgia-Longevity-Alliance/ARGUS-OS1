@@ -58,3 +58,13 @@ scripts/
 grants/
 refs/
 *.db\n*.pid\n*.heartbeat\n*.sqlite
+
+# Медиа не пушим (правило 2026-11-02)
+**/*.mp4
+**/*.mp3
+**/*.wav
+**/*.mov
+**/*.avi
+**/*.m4v
+**/*.mkv
+**/*.flac

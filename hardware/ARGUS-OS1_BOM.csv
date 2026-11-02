@@ -9,5 +9,6 @@ Temperature sensor,PT1000 probe + signal conditioning,distributor,1,40,40,For PI
 HEPA filter module,HEPA H13 filter + housing,distributor,1,150,150,Air filtration for incubator
 Incubator enclosure materials,Acrylic sheet 5-10 mm + fasteners,local supplier,1,160,160,Enclosure around sample plane
 Power supply,12V/24V DC supplies + connectors,distributor,1,120,120,For stage, camera, compute
-Misc (wiring, PCB, heat-shrink),Consumables,distributor,1,200,200,Electrical assembly
+Misc (wiring / PCB / heat-shrink),Consumables,distributor,1,200,200,Electrical assembly
+Assembly & calibration,Calibration target + test slides + spare fasteners + shipping consumables,distributor,1,200,200,Build validation and focus calibration
 TOTAL,,,,,2996,"Indicative 2026; full item-level BOM with supplier links in repository"
