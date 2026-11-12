@@ -119,12 +119,14 @@
 | Objective | Dry, correction collar (0.11–0.23 mm), against a No. 1.5H coverslip; **no immersion anywhere** |
 | Max dry NA / PSF | 0.95 → 0.33 µm @520 nm (0.17 µm with SIM via the OET DMD — extension slot) |
 | Objective ladder | 4×/0.13, 10×/0.30, 20×/0.75, 40×/0.95 (corr.) |
-| Binocular viewing | Two camera ports (no eyepieces): motorised flip mirror (100 % A / split) + dichroic 560 LP; 1:1 relay on port B; parfocality ≤ ±2 µm by shims |
+| Viewing / detection | **One C-mount port, swappable cameras** (no eyepieces). Swap ≤30 min, focus offset ≤ ±2 µm, magnification ≤ 1 %; shim set logged per camera. Channel switching by motorised filter cube changer, not by a second camera |
+| Redundancy | Spare identical camera in the drawer (not a mounted second port) |
+| Second port (option E1) | flip mirror + dichroic 560 LP + 1:1 relay, $2.3–8.5K; costs 50 % of the photons (50/50) or a dichroic |
 | What stereo is not | A compound head has no parallax; depth comes from a Z-stack (piezo Z, 0.1–0.3 µm steps), not from a stereo pair |
 | Awareness cameras | ≥2 visible general view (1/1.8", 16 mm lens ≈ 100 mm field at 300 mm) + ≥2 NIR night vision (IR-cut removed, 850/940 nm, ≤0.001 lux) |
 | Dark-state seals | Black silicone septa and O-rings; opaque flap over the lid window (NFR-13.3) |
 | Verification | V8h (dual-port parfocality, channel registration), V8i (coverage, NIR leakage) |
-| BOM delta | ≈ $5.2–16.1K |
+| BOM delta | ≈ $2.8–8.4K (baseline, without a spare camera) |
 
 *Applies to OS1–OS4. All of it is a preliminary PI draft: the engineer reviews before purchase.*
 
