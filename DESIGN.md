@@ -3,10 +3,11 @@
 **Version:** 2.1
 **Date:** 2026-10-14
 
-## Geometry variants (option)
+## Geometry (fixed 2026-11-12)
 
-OS1 (like OS2/OS3) is the **upright** geometry on the OpenFlexure base — the standard for live imaging of developing embryos and cell cultures.
-**Inverted variant available:** for coverslip-based cell culture and water/oil-immersion objectives (high NA, short WD), the platform can be built in **inverted geometry** — that is exactly what **ARGUS-OS4** provides. The inverted option can be applied to OS1/OS2/OS3 builds as well (same AI/software stack, inverted frame); it is the recommended geometry for mammalian cell-culture readouts (e.g., cardiomyocytes).
+**All stages are inverted. Upright variants are withdrawn.** The specimen vessel is closed, opaque and never moved; the objective looks up from below, **dry**, through a No. 1.5H coverslip into aqueous medium. No immersion of any kind (no oil, no water film). The humid warm volume is the vessel, not the enclosure.
+
+Consequences: fixed specimen (identity is assigned by position), objective-only XYZ, maximum dry NA 0.95 (PSF 0.33 µm) — sub-0.3 µm readout requires structured illumination, for which the OET DMD is reused (extension slot). Binocular viewing is realised as a two-camera head. See `docs/ARGUS_EngineeringNote_InvertedOptics_DualCamera_2026-11-12.md` and `docs/ARGUS_EngineeringNote_TwoZoneContainment_2026-11-12.md` (both preliminary PI drafts).
 
 ## Architecture
 
@@ -15,13 +16,13 @@ ARGUS-OS1 is built on OpenFlexure v6.1.5 with local AI compute.
 | Stage | Hardware | Software | Budget |
 |:---:|------|------|:---:|
 | **OS1 (V6)** | OpenFlexure + Jetson Orin NX + Dry 40× | CellPose + tracking + lineage | $3-5K |
-| **OS2 (V7)** | 60×/1.2 WI + sCMOS + microfluidic | Jetson AGX | ~$70K HW / ~$307K full |
+| **OS2 (V7)** | 40×/0.95 dry (corr.) + sCMOS + microfluidic + SIM slot | Jetson AGX | ~$70K HW / ~$307K full |
 | **OS3 (V8)** | Light-sheet + fs-laser + tweezers | Full platform | +$141K |
 
 ## Key Design Decisions
 
-### 1. Upright geometry for water immersion
-Inverted scopes are standard for live-cell imaging, but water immersion objectives require upright geometry. The OpenFlexure frame was modified to support this. The 60×/1.2 NA WI objective in OS2 provides the resolution needed for centriole-level tracking.
+### 1. Inverted geometry, dry objectives
+The objective works dry from below through a 170 µm coverslip; the vessel never moves and only the objective carriage translates in XYZ. The 40×/0.95 dry correction-collar objective sets the resolution floor (0.33 µm PSF); a 60×/1.2 water objective is not used — no immersion is permitted over a months-long campaign.
 
 ### 2. Local edge-AI (no cloud dependency)
 Jetson Orin NX (OS1) / Jetson AGX Orin (OS2) runs all AI inference locally. No cloud dependency means: (a) no latency for real-time tracking, (b) no bandwidth constraint for 100-embryo overnight runs, (c) data privacy for unpublished research.

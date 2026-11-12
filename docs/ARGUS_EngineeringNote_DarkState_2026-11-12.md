@@ -7,6 +7,8 @@
 **Applies to:** OS1, OS2, OS3 (upright builds) and OS4 (inverted build on the Zeiss IM35 optical core). All numbers below refer to the inverted geometry with a fixed specimen vessel and an objective that moves in XYZ.
 **Status:** design note + acceptance procedure. Closes the FR-7 implementation gap; adds **NFR-13**.
 
+> **Status: preliminary draft prepared by PI** (the AI assistant working with J.T.) on 2026-11-12. This is **not** approved engineering documentation. Every dimension, material, part number and control loop must be reviewed, corrected and signed off by the ARGUS engineer before any purchase, machining or firmware commitment.
+
 ---
 
 ## 1. Purpose and scope

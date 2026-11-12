@@ -1,6 +1,6 @@
 # ARGUS — Technical Requirements Document (TRD) v0.9b
 
-**Version:** 0.9d (restructured after requirements-first engineering review, 2026-10-21; + NFR-13 dark state; + two-zone containment and objective-scanning geometry, 2026-11-12)
+**Version:** 0.9e (restructured after requirements-first engineering review, 2026-10-21; + NFR-13 dark state; + two-zone containment and objective-scanning geometry; + inverted-everywhere, dry objectives, dual-camera head, awareness cameras, 2026-11-12)
 **Date:** 2026-10-21
 **Status:** ⏳ framework; finalization to v1.0 on 06.11.2026, pending biological pre-test data (V1–V6)
 **Client / biological requirements:** Jaba Tqemaladze (Georgia Longevity Alliance)
@@ -48,6 +48,8 @@ Experiment-designer domain. No row prescribes an implementation. Status column: 
 | FR-11 | Full digital event log + remote monitoring (alerts, dashboard) | Fraction of events logged; alert delivery | 100 % events; alerts delivered | ✅ specified |
 | FR-12 | 🆕 **Minimal perturbation of tracked-cell position**: OLD/NEW identity is assigned by location; no chemical treatment of tracked cells; **the specimen vessel is never moved — only the objective translates (XYZ)** | Position shift of a tracked cell per day/week; identity losses caused by displacement | Minimum compatible with imaging; 0 identity losses from perturbation | ✅ specified (numbers — ⚠️ V1) |
 | FR-13 | 🆕 **3D cell-polarity registration** (top/bottom in addition to left/right) — for future centriole-transplantation experiments | Registered cell orientation (incl. top-bottom axis); preserved through manipulations | Orientation registered and preserved per tracked lineage | ✅ specified |
+| FR-14 | 🆕 **Dual-view head**: binocular-equivalent viewing with two cameras instead of eyepieces | Two camera ports, switchable 100 %/split; simultaneous dual-channel acquisition without a filter wheel; per-port parfocality | ≥2 ports; parfocality ≤ ±2 µm; registration verified on a fiducial | ✅ specified (V8h) |
+| FR-15 | 🆕 **Awareness cameras inside the enclosure** (visible general view + NIR night vision) | Workspace coverage; NIR contribution at the specimen plane; timestamp alignment with science frames | ≥2 visible + ≥2 NIR cameras; ≥90 % manipulation-volume coverage; NIR within NFR-13 | ✅ specified (V8i) |
 
 ---
 
@@ -56,7 +58,7 @@ Experiment-designer domain. No row prescribes an implementation. Status column: 
 Principle: **minimally sufficient for the first experiment** (immortalized fibroblasts; OLD/NEW division-rate dynamics), **yet not «crippled»** — the baseline provides standard slots so that everything needed for later experiments can be added without redesign.
 
 ### 3.1 Baseline (first experiment)
-1. Controlled environment: 37 ± 0.3 °C at the specimen; 5 ± 0.5 % CO₂; 2 ± 0.3 % O₂; RH ≥ 90 % in the culture volume. **Containment locus (2026-11-12): a closed perfusion chamber carries the environment; the enclosure around the microscope is dry** (see `docs/ARGUS_EngineeringNote_TwoZoneContainment_2026-11-12.md`).
+1. Controlled environment: 37 ± 0.3 °C at the specimen; 5 ± 0.5 % CO₂; 2 ± 0.3 % O₂; RH ≥ 90 % in the culture volume. **Geometry (2026-11-12): inverted for all stages; dry objectives with correction collar against a No. 1.5H coverslip; no immersion anywhere.** **Containment locus (2026-11-12): a closed perfusion chamber carries the environment; the enclosure around the microscope is dry** (see `docs/ARGUS_EngineeringNote_TwoZoneContainment_2026-11-12.md`).
 2. Fluorescence imaging: 488/561 nm excitation (Centrin1-GFP / Cep164-RFP), objective + camera (selection — by V3/V10, not fixed).
 3. Long-term 24/7 timelapse, months of recording.
 4. Mitosis detection + lineage tracking (on-device AI).
@@ -116,6 +118,7 @@ Principle: **minimally sufficient for the first experiment** (immortalized fibro
 | NFR-13 | 🆕 **Dark state** (objective-side leakage) | No direct line of sight to the specimen except shuttered apertures; every non-imaging path OD ≥ 4; leakage ≤ 0.5 µW/cm² (400–700 nm) and ≤ 0.1 µW/cm² (400–500 nm) at the specimen plane; ≤ 0.043 J/cm²/day | ⚠️ V8e (dark test) |
 | NFR-13.1 | Shutter fail-safe | Shutters normally closed (spring-closed); darkness on power loss, watchdog trip or process crash | ⚠️ V8e-D3 |
 | NFR-13.2 | Dose monitor | Photodiode at the specimen plane; 10 s logging of µW/cm² and cumulative J/cm²; alarm above threshold; any shutter open outside an exposure = Flight Recorder anomaly | ⚠️ V8e-D4/D7 |
+| NFR-13.3 | Leakage via seals and windows | Septum membranes and O-rings must be black silicone (translucent silicone pipes NIR and room light into the medium); the lid window carries an opaque flap, closed by default | ⚠️ V8e-D6 / V8i |
 
 ---
 
@@ -149,6 +152,8 @@ Each verification has a purpose, an expected measurable result, a stated necessi
 | V8e | **Dark-state / photon-leakage test** (`docs/ARGUS_EngineeringNote_DarkState_2026-11-12.md`) | Close FR-7, NFR-13 | Leak map (hot spots), OD ≥ 4, leakage µW/cm² (total + 400–500 nm), J/cm²/day, power-cut behaviour, 14-day stability | Bounds unintended dose over months; auditable phototoxicity record | in parallel, from 28.10 |
 | V8f | **Closed-vessel stability** | Close NFR-3, NFR-8, FR-6, FR-9 | Focus drift, condensate on the coverslip underside, volume loss, contamination over 14 days at 37 °C with perfusion | Decides CO₂-free variant and the containment locus | stage 1 |
 | V8g | **Objective-scanning invariance** | Close NFR-1, FR-12 | Magnification change and focus change vs X/Y position over full travel | Confirms fixed-specimen geometry on the IM35 finite-tube frame | stage 1 |
+| V8h | **Dual-port parfocality and channel registration** | Close FR-14 | Focus difference between ports, magnification match, fiducial registration error | Two operators / two channels without recalibration | stage 1 |
+| V8i | **Awareness camera coverage and NIR leakage** | Close FR-15, NFR-13.3 | Volume coverage map, specimen-plane irradiance with night vision on, timestamp offset | Safe operation in darkness | stage 1 |
 
 **Important (per review):** V8 removes **engineering** risk (repeatability, drift, accuracy) by its own objective criteria and does NOT confirm biological fitness of the construction. Fitness is established only by V10/V11 on culture.
 
@@ -171,6 +176,7 @@ Each verification has a purpose, an expected measurable result, a stated necessi
 | NFR-8 | No condensate over ≥ 14 days; dry compartment RH < 50 % | Frame review (PSF), photo documentation | ⚠️ stage 4 |
 | NFR-13 | Dark state: OD ≥ 4, leakage ≤ 0.5 µW/cm² (≤ 0.1 in 400–500 nm), ≤ 0.043 J/cm²/day; shutters fail-safe closed | Leak map + 24 h photo-diode log + power-cut test (V8e) | ⚠️ stage 1 |
 | NFR-3 / NFR-8 | Two-zone containment: environment held in a closed vessel; dry zone RH < 50 %; no condensate on dry-zone optics over ≥ 14 days | V8f (14-day closed-vessel run) | ⚠️ stage 1 |
+| FR-14 / FR-15 | Dual-port parfocality ≤ ±2 µm, registration on fiducial; ≥90 % workspace coverage by awareness cameras, NIR within NFR-13 | V8h + V8i | ⚠️ stage 1 |
 
 **Acceptance rule:** any item marked «⚠️» is not admitted into the final specification until the bio-group/verification provides the value. Intermediate versions (V1 PoC) are accepted by criteria independent of biological data (mechanics, electronics, software, calibration on inert objects).
 
@@ -240,5 +246,9 @@ The imaging path is optically reversible: light entering the camera port, the bi
 ### 12.10 Two-zone containment and fixed-specimen geometry (added 2026-11-12)
 
 The humid warm volume is the **closed perfusion chamber** (170 µm glass bottom, opaque walls, lid with a 10–12 mm window, 2 septum + 2 Luer ports), not the enclosure. The 170 µm coverslip is the only permanent optical boundary between wet and dry; no wall window is required. The vessel is never moved: the objective translates in XYZ on a closed-loop carriage, which on the IM35 corresponds to the existing nosepiece-carriage focus (fixed stage, finite 160 mm tube — a transverse shift changes neither focus nor magnification). Epi light is delivered to the moving carriage by a light guide (acceptable in the illumination path only). Heat comes from the sides and lid, never from below the coverslip. For months, silicone immersion (40×/1.25) with a dry survey objective on the same nosepiece. Full design, BOM and verification (V8f, V8g): `docs/ARGUS_EngineeringNote_TwoZoneContainment_2026-11-12.md`.
+
+### 12.11 Inverted optics everywhere, dry objectives, dual-camera head (added 2026-11-12)
+
+All stages are inverted; upright variants are withdrawn. The objective works dry through a No. 1.5H coverslip into aqueous medium — no immersion, no immersion artefacts over months, maximum dry NA 0.95 and therefore a PSF of 0.33 µm at 520 nm. Sub-0.3 µm readout without immersion requires structured illumination, for which the OET DMD (extension slot) is reused: 2× lateral improvement → ≈0.17 µm. Binocular viewing is implemented as a **two-camera head**: a motorised flip mirror (100 % to port A, or split), dichroic 560 LP for simultaneous 488/561, 1:1 relay on port B, parfocality by shims. A compound microscope's binocular head carries no parallax, so two cameras give two identical views, not stereo; depth comes from a Z-stack with the piezo Z. In-enclosure cameras: ≥2 visible general-view + ≥2 NIR night-vision, baffled, with black silicone seals and an opaque flap over the lid window (NFR-13.3). Full detail: `docs/ARGUS_EngineeringNote_InvertedOptics_DualCamera_2026-11-12.md`; verification V8h/V8i.
 
 *Version 0.9b → 1.0 after Section 6 is filled by the bio-group. Companion documents: Cell Removal Methods Comparison; Protocol: Hayflick Limit in Immortalized Fibroblasts. Hardware concepts for the transfer box and autonomy layer: docs/STERILIZATION_TRANSFER.md, docs/V9_PROTOTYPE.md.*

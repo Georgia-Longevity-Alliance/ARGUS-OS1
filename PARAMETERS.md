@@ -109,3 +109,22 @@
 | Verification | V8f (14-day closed-vessel stability), V8g (objective-scanning invariance) |
 | BOM delta (minimum viable) | ≈ $1,100–2,900 |
 
+## Inverted optics, dual camera, awareness cameras (2026-11-12)
+
+> From `docs/ARGUS_EngineeringNote_InvertedOptics_DualCamera_2026-11-12.md`. **Preliminary draft prepared by PI — engineering review required.**
+
+| Parameter | Value |
+|-----------|-------|
+| Geometry | **Inverted for all stages** (OS1–OS4). Upright variants withdrawn |
+| Objective | Dry, correction collar (0.11–0.23 mm), against a No. 1.5H coverslip; **no immersion anywhere** |
+| Max dry NA / PSF | 0.95 → 0.33 µm @520 nm (0.17 µm with SIM via the OET DMD — extension slot) |
+| Objective ladder | 4×/0.13, 10×/0.30, 20×/0.75, 40×/0.95 (corr.) |
+| Binocular viewing | Two camera ports (no eyepieces): motorised flip mirror (100 % A / split) + dichroic 560 LP; 1:1 relay on port B; parfocality ≤ ±2 µm by shims |
+| What stereo is not | A compound head has no parallax; depth comes from a Z-stack (piezo Z, 0.1–0.3 µm steps), not from a stereo pair |
+| Awareness cameras | ≥2 visible general view (1/1.8", 16 mm lens ≈ 100 mm field at 300 mm) + ≥2 NIR night vision (IR-cut removed, 850/940 nm, ≤0.001 lux) |
+| Dark-state seals | Black silicone septa and O-rings; opaque flap over the lid window (NFR-13.3) |
+| Verification | V8h (dual-port parfocality, channel registration), V8i (coverage, NIR leakage) |
+| BOM delta | ≈ $5.2–16.1K |
+
+*Applies to OS1–OS4. All of it is a preliminary PI draft: the engineer reviews before purchase.*
+

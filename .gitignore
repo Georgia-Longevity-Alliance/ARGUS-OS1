@@ -56,6 +56,7 @@ docs/*
 !docs/ARGUS_EngineeringNote_TubeLens_60x_2026-10-22.md
 !docs/ARGUS_EngineeringNote_DarkState_2026-11-12.md
 !docs/ARGUS_EngineeringNote_TwoZoneContainment_2026-11-12.md
+!docs/ARGUS_EngineeringNote_InvertedOptics_DualCamera_2026-11-12.md
 scripts/
 grants/
 refs/

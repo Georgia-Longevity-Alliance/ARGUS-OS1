@@ -5,6 +5,8 @@
 **Author:** Jaba Tqemaladze, MD — Georgia Longevity Alliance
 **Trigger:** Long-term (months) culture in a sealed enclosure cannot be reconciled with a heavy, humid, 37 °C box wrapped around a whole microscope: condensation, mould, thermal drift, camera access and manipulator access all fail at once. At the same time the specimen vessel must not be moved, because cell identity is assigned by position.
 **Applies to:** OS1–OS3 (upright) and OS4 (inverted, Zeiss IM35 optical core). The inverted case is worked out in detail because it is the binding one.
+
+> **Status: preliminary draft prepared by PI** (the AI assistant working with J.T.) on 2026-11-12. This is **not** approved engineering documentation. Every dimension, material, part number and control loop must be reviewed, corrected and signed off by the ARGUS engineer before any purchase, machining or firmware commitment.
 **Companion:** `docs/ARGUS_EngineeringNote_DarkState_2026-11-12.md` (NFR-13), `docs/ARGUS_TRD_v0.9b.md` §3, §5, §12.
 
 ---
