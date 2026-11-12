@@ -1,10 +1,46 @@
 # STATE — ARGUS-OS1
 
-**Date:** 2026-10-19
+## 12 ноя 2026, 04:30 — DOI и письмо в MIRA закрыты
+- 🏷 **DOI выпущен:** 10.5281/zenodo.24148459 — бенчмарк readout, CC-BY-4.0, скрипт + seed + checksum (`zenodo.org/records/24148459`). Токен Zenodo создан через UI (scopes deposit:write + deposit:actions), лежит в `~/.config/zenodo/token` (600).
+- ✉️ **Письмо в Molecule отправлено** 04:26 на `support@molecule.xyz` (`250 OK`): вопрос про веса оценки, бенчмарк с DOI, исправление «91 теста» → 29, просьба скорить TRL по элементам. Лог: `MIRA_ARGUS_2026-11/_letters/SENT_LOG_mira_2026-11-12.md`. Адрес не верифицирован (домен принимает любой RCPT) — при bounce `mira@`, затем `hello@`.
+- 📄 В комнате 15 файлов: протокол v0.3 (Amendment 2: ≤100 нм/px, n≈115, приёмочный тест), SOP фокус-холда, TRL evidence pack (v3, с DOI).
+
+## 12 ноя 2026, вечер — TRL: доказательная база вместо обещаний
+- 📊 **Синтетический бенчмарк readout** (`~/Desktop/MIRA_ARGUS_2026-11/phantom/`): 0.38 px RMSE и recall 0.78 / precision 0.92 при разрешимой выборке; при 250 нм/px recall падает до 0.46 (пары сливаются); при дефокусе 1.9 px — recall 0.30. Seed, checksum, отчёт — воспроизводимо одной командой.
+- 📐 **Два следствия для документов:** (1) требование к выборке **≤100 нм/px, без бининга >2×2** — в ТРД его не было; (2) **n ≈ 115 клеток на группу** для разницы 2 ч при α=0.05, мощности 0.8.
+- ⚠️ **Исправлена своя же цифра:** «91 unit test» в supplement и плане на 90 дней не подтверждается — в дереве 12 pytest + 17 Rust = **29**. Supplement переиздан (v2), поправка заявлена прямо в тексте; в комнате — `TRL evidence pack` v1.
+- 🧾 **Политика доступа переписана v1.0 → v1.1** (v3 в комнате): убрано несуществующее обещание «агент пишет в /agent-output» — роли выдаются на лабораторию, Viewer не пишет вовсе. Добавлен `Publication boundary` (v1): что публично осознанно и почему.
+- 👥 В комнате 6 участников: Owner, Aziza (Contributor), Обри и Дэвид (Viewer до 09.02.2027), два агента (Viewer, оба до 09.02.2027).
+- 🐞 Инцидент (записан, чтобы не гадать по блокчейну): при переоформлении агента отозвал доступ Азизы, восстановил через 86 с; скрипт приглашений теперь с `--role`, отзыв — только по проверке текста диалога.
+- ⏭ **Дальше:** письмо в MIRA (схема весов + переоценка по элементам, черновик `14_LETTER_MIRA_REASSESS_EN.md`), DOI на бенчмарк, прототип fiducial-autofocus (P0, 15 янв), ночной прогон (31 янв).
+
+**Date:** 2026-11-12
+
+## 12 ноя 2026 — ✅ Data Room заполнен, MIRA-супплемент загружен (9 файлов)
+- 🎯 **Лаборатория найдена:** `app.molecule.xyz/labs/jaba-tqemaladze`, shortname `jaba-tqemaladze`, oclId `0x0101000000000000000000b396ab329cd27ded26a65566068469ef882f145ec9`, TRL в профиле = `trl-1`.
+- ⚠️ **Вход:** под e-mail (djabbat@gmail.com, 0x22cc84…c905c, Admin). Под первым логином лабораторий было 0 — лаборатория создана под другим способом входа.
+- ✅ **Загружено 9 файлов (public, v1):** BOM, TRD v0.9b, motor-release патч (текстом — расширение .patch платформа не принимает), протокол пилота, label-free readout, бенчмарк Axio Observer, супплемент MIRA (PDF), план на 90 дней (PDF), agent access policy (PDF). Всего в комнате 12 файлов (плюс VitaDAO proposal, readme-links, assignment agreement).
+- 📄 Тексты и скрипты: `~/Desktop/MIRA_ARGUS_2026-11/` (`01`–`06`, `scripts/`, `manifest.json`).
+- 🔑 **API:** credential `argus-os1-agent` выпущен 12 ноя (до 10 фев 2027), лежит в `~/.config/argus-labs/credentials.env` (600). Чтение работает: `scripts/labs.sh labs|files`.
+- 🐞 **Найдено в доках Molecule:** прод-endpoint в документации указан как `prod.graphql.api.molecule.xyz` — такого хоста нет; реальный `production.graphql.api.molecule.xyz`. Плюс типы в примерах `str!`, а в схеме `String!`; поле ошибки — `error`, не `err`.
+- ⏳ **Осталось:** service token (нужна подпись кошельком: `labs.sh signin` → personal_sign → `labs.sh token 0x…`), затем шесть полей формы из `02_FORM_ANSWERS_EN.md` и вопрос про веса 3/3/2 vs 2.75.
+- 👥 **В команде:** contributor `azizaaubakirova74@gmail.com` (0xb32ff…fb74a), permanent.
+
+**Предыдущая запись:** 2026-11-10
 **PI affiliation:** Jaba Tqemaladze, MD — **PhD Applicant, UNED Madrid (Programa 9620)** / Georgia Longevity Alliance
 <!-- lang:ru -->
 **Status:** 🟢 OSC заявка отправлена, Foresight отправлен. Ответ Алексею по сборке отправлен 12 авг. ✅ **V1 build + OSC resubmit — ЗАКРЫТО (16 авг, подтверждено Джабой)**. Вопрос закрыт, ARGUS-OS1 в режиме ожидания ответа OSC.
 
+<!-- lang:ru -->
+## 10 ноя 2026 — 🔴 Sovereign Tech Fund — отказ (ARGUS-OS1 AI core, `argus-pre`)
+- ❌ **STF — ОТКАЗ (письмо 10 ноя 2026, ID `YelaLvMK`):** «the proposal does not meet our criteria for investment», без фидбэка (стандартно для STF).
+- 📄 Постмортем + журнал: `~/Desktop/Services/grants/GLA/SovereignTechFund/STF_REJECTION_2026-11-10.md`.
+- 🎯 **Причины:** (1) ключевой критерий STF — «vital to development of OTHER software»; у молодого `argus-pre` нет зависимых проектов/adoption → отсечка prevalence; (2) черновик заявки остался на €52.5K/1,800ч/4WS, а поданная форма была €90K/2,800ч/5WS — несогласованность, урок на будущее; (3) риск overlap с OSC $17K.
+- 📌 **Урок:** STF финансирует зрелые базовые технологии, не новые проекты. Переподача — не раньше Q4 2027, только после adoption-фазы (crates.io + реальные интеграторы + case studies).
+- 📌 **Не влияет на главное:** Foresight RFP $100K, EIC €3.98M, NLnet €23K, CIRCBIO €2.5M, FUTO, VitaDAO, OSC — в игре.
+<!-- /lang:ru -->
+
+<!-- lang:ru -->
 ## 19 окт 2026 — 🔬 Axio Observer benchmark → инженерный аудит платформы 📄
 <!-- /lang:ru -->
 

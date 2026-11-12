@@ -28,7 +28,7 @@
 Expected division counts (somatic ≈50, stem ≈200, immortalized ≈800–1000, cancer — thousands) are **working estimates, not source-confirmed** (except somatic ≈50). They do NOT dictate the horizon. Precisely counting the number of divisions is the task of research staff, not ARGUS.
 
 - **Horizon of the first stage is a defined window** (e.g., ≥ N generations or ≥ 6 months, whichever comes first), not «until 800–1000 divisions».
-- **Stopping criterion (pre-registered):** (a) OLD/NEW divergence in interdivision time is statistically significant; **or** (b) lineages show senescence markers/arrest (Q2); **or** (c) the window ends without (a)/(b) → «not detected in the window», the boundary of the conclusion is recorded.
+- **Stopping criterion (pre-registered):** (a) OLD/NEW divergence in interdivision time is statistically significant; **or** (b) lineages reach the senescence endpoint defined in §4a; **or** (c) the window ends without (a)/(b) → «not detected in the window», the boundary of the conclusion is recorded.
 - Extending the window — only if the data justify it.
 - **Autonomy = the justified window** (e.g., 6 months), not «years».
 
@@ -86,7 +86,7 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
 | Cross-validation | **MRC5-hTERT** (embryonic lung fibroblasts, hTERT-only) |
 | Marker of all centrioles | Centrin1-GFP |
 | Marker of mother (mature) centriole | Cep164-RFP (distal appendages) |
-| Senescence markers (endpoint) | SA-β-gal; p21/p16; loss of Ki67 |
+| Senescence markers (endpoint) | SA-β-gal; p21/p16; loss of Ki67 — full operational definition in §4a (Amendment 1) |
 | Biosafety | BSL-1; BSL-2 under adenoviral transduction of markers — confirm with local committee |
 
 > Markers are transduced (lentivirus/adenovirus) before the experiment. Polyclonal stable expression is preferred; if necessary, sort for low expression level (marker control — Phase 4).
@@ -168,6 +168,28 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
 
 ---
 
+## 4a. Amendment 1 (2026-11-12) — operational definition of the senescence endpoint
+
+**Why this amendment exists.** Stopping criterion (b) in §1.1a and the marker row in §4 both said «senescence markers/arrest» without defining what counts. A pre-registered criterion that can be interpreted after the fact is not a criterion. This amendment fixes the definition **before any data exist** — no images, no lineages, no pilot run had been produced at the time of writing — so the pre-registration is still prospective.
+
+**Source of the definition.** SenNet consortium recommendations on detecting senescent cells (PMID 38831121, DOI 10.1038/s41580-024-00738-8, *Nat Rev Mol Cell Biol* 2024). Read to abstract and scope only at the time of this amendment; the exact marker panel must be taken from the full text before the protocol is frozen for the pilot. Any change of panel after freezing is a new numbered amendment, not an edit.
+
+**The rule this amendment imports.** A senescent call requires **at least two independent dimensions**, not one marker:
+
+| Dimension | What ARGUS measures | Label-free? |
+|---|---|---|
+| D1 — durable proliferation arrest | interdivision interval of the tracked lineage, censored at the window end; arrest = no division over a pre-registered multiple of that lineage's own baseline interval | ✅ from the tracking log alone |
+| D2 — senescence-associated morphology | nuclear area, eccentricity, texture and cytoplasmic/nuclear ratio per frame; a deep-learning nuclear-morphology score as the quantitative channel (precedent: PMID 37118134, DOI 10.1038/s43587-022-00263-3) | ✅ from the same image stack |
+| D3 — molecular markers | SA-β-gal; p16INK4a / p21; loss of Ki67 | ❌ fixed-sample endpoint only |
+
+**Decision rule (pre-registered).** A lineage is called senescent when D1 **and** D2 cross their thresholds; D3 is confirmatory at the endpoint and never a substitute for D1+D2. D1 with D2 negative is called **arrest of undetermined cause** — it counts towards Q2 as arrest, it does not count as senescence, and the difference is reported explicitly rather than collapsed.
+
+**What this does not fix.** SenNet addresses senescent cells in tissues; ARGUS works with immortalised fibroblast lines in vitro, where the marker panel and thresholds are less settled. Applying a tissue consensus to a two-cell in-vitro design is an analogy, and it is recorded as an analogy: D2 thresholds are calibrated in the pilot (Phase 0–1) and frozen before the full run, which is the point at which the analogy becomes a measured operational definition.
+
+**Consequence for §5.** «H1 supported — senescence appears» now means D1+D2 (+D3 at endpoint) as defined here. «No senescence» continues to mean «not detected in the window», never «absent».
+
+---
+
 ## 5. Success criteria (ARGUS acceptance, per TRD §8)
 
 | Function | Criterion |
@@ -181,7 +203,7 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
 
 **Answer to the scientific question (what counts as an answer):**
 - H0 supported: OLD and NEW divide at the same stable rate over the whole observation window, no senescence → «no limit detected in the observation window» (with the caveat about the horizon).
-- H1 supported: OLD slows relative to NEW, senescence/dispersion markers appear → the fundamental fact (immortalized fibroblasts have a Hayflick limit) is established.
+- H1 supported: OLD slows relative to NEW, senescence/dispersion markers appear → the fundamental fact (immortalized fibroblasts have a Hayflick limit) is established. «Senescence appears» means the endpoint of §4a (D1+D2, D3 confirmatory), not a single marker.
 
 ---
 
@@ -228,3 +250,5 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
 ---
 
 *v0.2 — primary goal changed to the fundamental fact (Hayflick limit in immortalized fibroblasts) and the instrumental task (OLD/NEW dynamics). Companion documents: TRD v0.9b (docs/ARGUS_TRD_v0.9b.md), Cell Removal Methods Comparison (docs/ARGUS_Cell_Removal_Methods_Comparison.md).*
+
+*Amendment 1 (2026-11-12): the senescence endpoint of stopping criterion (b) is operationally defined in §4a (SenNet, PMID 38831121), before any data were collected.*

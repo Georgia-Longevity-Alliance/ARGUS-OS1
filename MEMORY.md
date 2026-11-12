@@ -254,3 +254,22 @@
 ## Earlier versions
 
 See git history. Key milestones: Odf2/Phase2 removed (v97). RPE1 removed (v106). Light-sheet added (v110). English (v112).
+
+## 2026-11-10: Sovereign Tech Fund — отказ → STF не для молодых проектов 🔴
+
+> Заявка ARGUS-OS1 AI core (`argus-pre`, €52.5K, ID YelaLvMK) отклонена формульно:
+> «does not meet our criteria». Без фидбэка (стандарт STF).
+>
+> **Урок 1 (главный):** STF финансирует **открытые базовые технологии, от которых
+> УЖЕ зависят другие проекты** (curl, Rails, libredwg…). Критерий prevalence —
+> решающий фильтр. Молодой компонент с «adoption is the ask» отсекается на этом же
+> критерии. Новые/молодые OSS-проекты подавать в NLnet/FUTO/Foresight/OSC/VitaDAO,
+> а не в STF.
+>
+> **Урок 2:** черновик APPLICATION остался на €52.5K/1,800ч/4WS, а поданная форма
+> была €90K/2,800ч/5WS. Нужна ОДНА source-of-truth для формы (FORM_ANSWERS),
+> черновики помечать «устаревший»; проверка цифр во всех копиях — в autofix.
+>
+> **Урок 3:** переподача в STF осмысленна только после adoption-фазы (crates.io +
+> реальные интеграторы + case studies) — не раньше Q4 2027. Постмортем:
+> `~/Desktop/Services/grants/GLA/SovereignTechFund/STF_REJECTION_2026-11-10.md`.
