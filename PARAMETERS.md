@@ -89,3 +89,23 @@
 
 *Applies to OS1–OS4. OS4 adds a sixth source: the OET projector path during manipulation (deliberate, must be inside the light budget).*
 
+## Geometry & containment (2026-11-12, two-zone)
+
+> From `docs/ARGUS_EngineeringNote_TwoZoneContainment_2026-11-12.md`. Humid warm volume = the closed vessel; the enclosure is dry.
+
+| Parameter | Value |
+|-----------|-------|
+| Containment locus | Closed perfusion chamber (170 µm glass bottom, opaque walls, lid with 10–12 mm window, 2 septum + 2 Luer ports) |
+| Only permanent optical boundary | 170 µm coverslip (wet → dry). No wall window |
+| Specimen | Never moved; identity is assigned by position (FR-12) |
+| Moving element | Objective + 2 Fi epi reflector on an XYZ carriage (X/Y closed-loop ±6–8 mm, step ≤100 nm; piezo Z 100 µm) |
+| IM35 property exploited | Focus already moves the nosepiece carriage, stage fixed; finite 160 mm tube → transverse shift does not change focus or magnification |
+| Epi light delivery | Light guide / bundle to the moving reflector (illumination path only; never in the imaging path) |
+| Heating | Sides + lid, never under the coverslip (thermal bow → focus drift). Thermistor in the medium |
+| Dry zone | 24–30 °C, RH < 40 %, desiccant, opaque (NFR-13) |
+| Immersion over months | Silicone oil 40×/1.25 (does not evaporate or creep); dry 40×/0.85–0.95 on the same nosepiece for survey |
+| CO₂ | Optional CO₂-free HEPES/L-15 medium + perfusion (V6 decides); humidity control then not required |
+| Image-side NA at M42 port | ≈0.027 (f/18) → a 1 mm window there costs ≈λ/10 |
+| Verification | V8f (14-day closed-vessel stability), V8g (objective-scanning invariance) |
+| BOM delta (minimum viable) | ≈ $1,100–2,900 |
+

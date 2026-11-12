@@ -157,4 +157,4 @@ The failure mode is not bulk attenuation but a **single direct line of sight**. 
 
 ---
 
-*Companion documents: ARGUS_EngineeringNote_IM35_EpiLED_2026-10-22.md, ARGUS_EngineeringNote_TubeLens_60x_2026-10-22.md, ARGUS_Optics_Selection_Criteria_2026-10-22.md, docs/internal/ARGUS_DarkState_brief_AZIZA_2026-11-12_RU.md (work order, private).*
+*Companion documents: ARGUS_EngineeringNote_TwoZoneContainment_2026-11-12.md (closed-vessel containment, fixed specimen, objective XYZ), ARGUS_EngineeringNote_IM35_EpiLED_2026-10-22.md, ARGUS_EngineeringNote_TubeLens_60x_2026-10-22.md, ARGUS_Optics_Selection_Criteria_2026-10-22.md, docs/internal/ARGUS_DarkState_brief_AZIZA_2026-11-12_RU.md (work order, private).*
