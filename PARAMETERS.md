@@ -128,5 +128,15 @@
 | Verification | V8h (dual-port parfocality, channel registration), V8i (coverage, NIR leakage) |
 | BOM delta | ≈ $2.8–8.4K (baseline, without a spare camera) |
 
+## Instrument glossary and port decision (2026-11-12)
+
+| Term | Meaning |
+|------|---------|
+| **IM 35 / ICM 405** | The laboratory's own inverted microscope, Carl Zeiss, early 1980s (ICM 405 = same base with built-in photo attachment). Status per the 2026-10 analysis: not switched on, damaged mercury socket, never repaired. Role: **optical core of the inverted module**, not a finished system |
+| What we use from it | fixed stage + moving nosepiece carriage (free "fixed specimen" geometry), finite 160 mm tube (transverse objective shift does not change focus or magnification), M42×0.75 photo port, epi reflector 2 Fi mounted **under** the nosepiece (epi light arrives from below, so the whole epi path stays in the dry zone), transmitted illuminator 60 and condenser set |
+| What it lacks | motorised stage, autofocus, incubation, modern detector — these are ARGUS modules |
+| **Working camera port** | **M42×0.75 photo port** (decision 2026-11-12). The eyepiece is a **temporary** alignment aid only and is not part of the design |
+| Fallback if the frame proves unrepairable | any inverted frame with a fixed stage / moving nosepiece, a finite tube and an accessible photo port (Nikon TS2/Ti2, Olympus IX73, open-frame ASI); chamber, dark state, one-port camera and two-zone containment are unaffected |
+
 *Applies to OS1–OS4. All of it is a preliminary PI draft: the engineer reviews before purchase.*
 
