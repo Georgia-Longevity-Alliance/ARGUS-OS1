@@ -154,4 +154,6 @@ This is a **biological** decision, not an engineering one, and it must be closed
 
 ---
 
+*The chamber itself (dimensions, materials, bonding, sterilization, BOM) is specified in `ARGUS-OS4/hardware/chamber/CHAMBER_SPEC.md` with drawing `drawings/ARGUS_chamber_revA.pdf` (A3, 1:1).*
+
 *Companion: `docs/ARGUS_EngineeringNote_DarkState_2026-11-12.md`. Work order for the engineer (private, Russian): `docs/internal/ARGUS_DarkState_brief_AZIZA_2026-11-12_RU.md`.*
