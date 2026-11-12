@@ -1,6 +1,6 @@
 # ARGUS — Technical Requirements Document (TRD) v0.9b
 
-**Version:** 0.9b (restructured after requirements-first engineering review, 2026-10-21)
+**Version:** 0.9c (restructured after requirements-first engineering review, 2026-10-21; + NFR-13 dark state, 2026-11-12)
 **Date:** 2026-10-21
 **Status:** ⏳ framework; finalization to v1.0 on 06.11.2026, pending biological pre-test data (V1–V6)
 **Client / biological requirements:** Jaba Tqemaladze (Georgia Longevity Alliance)
@@ -41,8 +41,8 @@ Experiment-designer domain. No row prescribes an implementation. Status column: 
 | FR-4 | **Division-rate dynamics: OLD vs NEW, side by side, many generations**; the culture is maintained as exactly **2 studied single cells** (oldest and newest centriole) | Interdivision time per lineage; time trend (stable / diverging) | Statistically detectable trend (pilot → power) | ⚠️ pre-test |
 | FR-5 | **Continuous removal of all mitotic progeny except the 2 studied cells (OLD/NEW)** and export of their debris, without harming observed cells | Removals/day; survival of observed cell; hit accuracy | Accuracy ≤ 2 µm; survival per V4/V5; reliability of the continuous regime | ⚠️ pre-test; **method = TS (not assigned)** |
 | FR-6 | Culture maintenance (media change, reagents) without loss of containment | Proliferation vs control | Not worse than control over 7 days | ⚠️ pre-test (V6) |
-| FR-7 | 🆕 **Operation in complete darkness with minimal phototoxicity** (cells live in the enclosure for years) | Light dose per cell: number of excitations and dose per 24 h | Minimum that meets SNR (V3); «image only when needed» mode | ✅ specified (range — ⚠️ V3) |
-| FR-8 | 🆕 **Situational awareness inside the enclosure**: 3D picture of activity and coordinates for safe manipulation in darkness | Coordinate accuracy of objects; map resolution | Accuracy sufficient for manipulation (V8-metrology) | ✅ specified (numbers — ⚠️) |
+| FR-7 | 🆕 **Operation in complete darkness with minimal phototoxicity** (cells live in the enclosure for years) | Light dose per cell: number of excitations and dose per 24 h; **verified dark-state leakage** | Light reaches the specimen only while an exposure is active; otherwise NFR-13.3/13.4 hold (≤0.5 µW/cm² total, ≤0.1 µW/cm² in 400–500 nm); cumulative dose logged | ✅ specified (imaging range — ⚠️ V3; dark state — ✅ NFR-13) |
+| FR-8 | 🆕 **Situational awareness inside the enclosure**: 3D picture of activity and coordinates for safe manipulation in darkness | Coordinate accuracy of objects; map resolution; **specimen-plane irradiance contributed by NIR sources** | Accuracy sufficient for manipulation (V8-metrology); NIR awareness illumination and any in-enclosure NIR source must not exceed NFR-13.3/13.4 at any duty cycle | ✅ specified (numbers — ⚠️) |
 | FR-9 | 🆕 **Sterile material entry and sterile waste exit over years of operation** without opening the enclosure | Success of sterile cycles; growth on control media | 0 contamination per entry/exit cycle | ✅ specified |
 | FR-10 | 🆕 **Degrees of freedom for future experiments**: minimally sufficient baseline + extension slots (cancer cells, stem-cell niches, cardiac protocols) | Number of swappable modules attachable without baseline rework | ≥ list in §3.2; attachable without opening mechanics | ✅ specified |
 | FR-11 | Full digital event log + remote monitoring (alerts, dashboard) | Fraction of events logged; alert delivery | 100 % events; alerts delivered | ✅ specified |
@@ -113,6 +113,9 @@ Principle: **minimally sufficient for the first experiment** (immortalized fibro
 | NFR-10 | Budget | V1 PoC ≈ $2,355 … V6 Full ≈ $10,455 | ✅ indicative |
 | NFR-11 | Culture-volume humidity | RH ≥ 90 % at 37 °C — do NOT reduce (local dehumidification only, §12) | ✅ |
 | NFR-12 | 🆕 Minimal light load | Dose and number of excitations per cell per 24 h minimized while meeting SNR; «image on demand» mode | ⚠️ V3 |
+| NFR-13 | 🆕 **Dark state** (objective-side leakage) | No direct line of sight to the specimen except shuttered apertures; every non-imaging path OD ≥ 4; leakage ≤ 0.5 µW/cm² (400–700 nm) and ≤ 0.1 µW/cm² (400–500 nm) at the specimen plane; ≤ 0.043 J/cm²/day | ⚠️ V8e (dark test) |
+| NFR-13.1 | Shutter fail-safe | Shutters normally closed (spring-closed); darkness on power loss, watchdog trip or process crash | ⚠️ V8e-D3 |
+| NFR-13.2 | Dose monitor | Photodiode at the specimen plane; 10 s logging of µW/cm² and cumulative J/cm²; alarm above threshold; any shutter open outside an exposure = Flight Recorder anomaly | ⚠️ V8e-D4/D7 |
 
 ---
 
@@ -143,6 +146,7 @@ Each verification has a purpose, an expected measurable result, a stated necessi
 | V8b | Focus drift | Close U-E2 | Z drift over 24–72 h | Numbers for NFR-7 | in parallel |
 | V8c | Addressable-action accuracy on inert objects | Close U-E3/U-E4 | Accuracy ≤ 2 µm; coordination of 2 manipulators | Numbers for NFR-2 | in parallel |
 | V8d | Internal cameras: 3D enclosure map | Partially close FR-8 | Object-coordinate accuracy; behaviour in darkness | Safe manipulation in darkness (FR-7) | after test-stand assembly |
+| V8e | **Dark-state / photon-leakage test** (`docs/ARGUS_EngineeringNote_DarkState_2026-11-12.md`) | Close FR-7, NFR-13 | Leak map (hot spots), OD ≥ 4, leakage µW/cm² (total + 400–500 nm), J/cm²/day, power-cut behaviour, 14-day stability | Bounds unintended dose over months; auditable phototoxicity record | in parallel, from 28.10 |
 
 **Important (per review):** V8 removes **engineering** risk (repeatability, drift, accuracy) by its own objective criteria and does NOT confirm biological fitness of the construction. Fitness is established only by V10/V11 on culture.
 
@@ -163,6 +167,7 @@ Each verification has a purpose, an expected measurable result, a stated necessi
 | FR-10 | Slots attach without baseline rework | Per-slot check | ✅ specified |
 | FR-11 | 100 % events; alerts delivered | Test-event injection | ✅ |
 | NFR-8 | No condensate over ≥ 14 days; dry compartment RH < 50 % | Frame review (PSF), photo documentation | ⚠️ stage 4 |
+| NFR-13 | Dark state: OD ≥ 4, leakage ≤ 0.5 µW/cm² (≤ 0.1 in 400–500 nm), ≤ 0.043 J/cm²/day; shutters fail-safe closed | Leak map + 24 h photo-diode log + power-cut test (V8e) | ⚠️ stage 1 |
 
 **Acceptance rule:** any item marked «⚠️» is not admitted into the final specification until the bio-group/verification provides the value. Intermediate versions (V1 PoC) are accepted by criteria independent of biological data (mechanics, electronics, software, calibration on inert objects).
 
@@ -224,5 +229,9 @@ Each verification has a purpose, an expected measurable result, a stated necessi
 **Open decision for the engineer (before stage 3):** combine items 2–4 within budget and layout. Item 1 is mandatory in any variant.
 
 ---
+
+### 12.9 Dark state (added 2026-11-12, see NFR-13)
+
+The imaging path is optically reversible: light entering the camera port, the binocular tube or the open gap under the coverslip reaches the specimen. At 300 lux the specimen receives ≈ 40 µW/cm² through a 0.95 NA objective (≈ 3.5 J/cm²/day) — the same order as the intended imaging dose, for months. Requirements: one or two shuttered optical apertures only; light-tight dark cell with an opaque bellows around the moving objective carriage; normally-closed shutters; NIR awareness illumination and autofocus gated; continuous photodiode dose logging. Full design, arithmetic, BOM and acceptance procedure: `docs/ARGUS_EngineeringNote_DarkState_2026-11-12.md`; verification V8e.
 
 *Version 0.9b → 1.0 after Section 6 is filled by the bio-group. Companion documents: Cell Removal Methods Comparison; Protocol: Hayflick Limit in Immortalized Fibroblasts. Hardware concepts for the transfer box and autonomy layer: docs/STERILIZATION_TRANSFER.md, docs/V9_PROTOTYPE.md.*

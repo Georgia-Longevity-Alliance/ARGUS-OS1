@@ -68,3 +68,24 @@
 | Local compute | Z8 + RTX A4000 (~200 W) | Jetson Orin NX (~5–15 W) | 🟢 |
 
 *⚠️ marks gaps closable by open solutions (see TODO.md 🔧).*
+
+## Dark state / photon leakage (2026-11-12, NFR-13)
+
+> From `docs/ARGUS_EngineeringNote_DarkState_2026-11-12.md`. The imaging path is reversible — light entering the objective/camera side reaches the specimen.
+
+| Parameter | Value |
+|-----------|-------|
+| Specimen-plane leakage, dark state | ≤ 0.5 µW/cm² (400–700 nm); ≤ 0.1 µW/cm² (400–500 nm); ≤ 0.043 J/cm²/day |
+| Attenuation of each non-imaging path | OD ≥ 4 |
+| Optical apertures into the vessel | 1 permanent (170 µm glass bottom) + 1 shuttered top window for transmitted light |
+| Shutters | Normally closed (spring-closed solenoid) + independent driver enable + TTL; block flag in park |
+| Objective carriage | Inside a light-tight dark cell, opaque bellows on the XYZ travel |
+| Camera / binocular / spare ports | Light-tight mini-box; flock-lined M42 adapter with O-ring; binocular tube capped |
+| Light piping | Vessel walls/lid opaque (black POM/PEEK); capillary shanks blackened except last 2–3 mm; perfusion lines opaque |
+| NIR (awareness cameras, autofocus) | Gated, baffled from the vessel, 940 nm (awareness) / 850 nm (autofocus, ≤1–10 µW), never continuous |
+| Dose monitor | Photodiode at specimen plane, 10 s logging, alarm; open shutter outside exposure = Flight Recorder anomaly |
+| Verification | V8e dark test (leak map, reciprocity, power-cut, 24 h log, 14-day stability) |
+| BOM delta | ≈ $350–720 |
+
+*Applies to OS1–OS4. OS4 adds a sixth source: the OET projector path during manipulation (deliberate, must be inside the light budget).*
+

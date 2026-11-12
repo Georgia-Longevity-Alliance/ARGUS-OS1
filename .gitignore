@@ -54,6 +54,7 @@ docs/*
 !docs/ARGUS_Literature_Analysis_EN.md
 !docs/ARGUS_label_free_centriole_assignment.md
 !docs/ARGUS_EngineeringNote_TubeLens_60x_2026-10-22.md
+!docs/ARGUS_EngineeringNote_DarkState_2026-11-12.md
 scripts/
 grants/
 refs/
