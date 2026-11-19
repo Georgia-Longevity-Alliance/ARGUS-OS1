@@ -76,3 +76,6 @@ refs/
 firmware/vendor/**/*.hex
 firmware/vendor/**/*.elf
 firmware/vendor/**/*.uf2
+
+# handoff bundles
+dist/
