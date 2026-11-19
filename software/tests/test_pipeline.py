@@ -113,3 +113,71 @@ def test_rom_measurement_recovers_known_traverse(tmp_path):
     assert res["links_used"] == n - 1
     assert abs(res["median_step_px"] - step) <= 1.0
     assert abs(res["measured_travel_um"] - (n - 1) * step * 0.0388) < 0.05 * (n - 1) * step * 0.0388
+
+
+# ---------- acceptance runner (A1/A2) against a mock OpenFlexure server ----------
+def _serve(payloads: dict[str, dict]):
+    import http.server
+    import json as _json
+    import threading
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):  # noqa: N802
+            body = payloads.get(self.path)
+            if body is None:
+                self.send_response(404)
+                self.end_headers()
+                return
+            data = _json.dumps(body).encode()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+
+        def log_message(self, *exc):  # silence
+            return
+
+    srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    return srv, f"http://127.0.0.1:{srv.server_address[1]}"
+
+
+def test_acceptance_flags_healthy_server():
+    import acceptance
+
+    payloads = {
+        "/api/v2/instrument/": {"status": "ok", "firmware": {"name": "Sangaboard", "version": "v1.0.4"}},
+        "/api/v2/actions": {"actions": ["move", "motor_release", "autofocus"]},
+    }
+    srv, url = _serve(payloads)
+    try:
+        a1, a2, _ = acceptance.check_a1_a2(acceptance.probe(url))
+    finally:
+        srv.shutdown()
+    assert a1["status"] == "PASS", a1
+    assert a2["status"] == "PASS", a2
+
+
+def test_acceptance_flags_firmware_mismatch_and_missing_motor_release():
+    import acceptance
+
+    payloads = {
+        "/api/v2/instrument/": {"firmware": {"version": "unknown"}, "warning": "firmware mismatch"},
+        "/api/v2/actions": {"actions": ["move"]},
+    }
+    srv, url = _serve(payloads)
+    try:
+        a1, a2, _ = acceptance.check_a1_a2(acceptance.probe(url))
+    finally:
+        srv.shutdown()
+    assert a1["status"] == "FAIL", a1
+    assert a2["status"] == "UNKNOWN", a2          # silence is not consent
+
+
+def test_acceptance_is_unknown_without_server():
+    import acceptance
+
+    a1, a2, log = acceptance.check_a1_a2({"/api/v2/": (0, "unreachable")})
+    assert a1["status"] == "UNKNOWN" and a2["status"] == "UNKNOWN"
+    assert "not reachable" in log

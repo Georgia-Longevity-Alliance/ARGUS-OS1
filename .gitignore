@@ -71,3 +71,8 @@ refs/
 **/*.m4v
 **/*.mkv
 **/*.flac
+
+# vendor binaries (open-hardware artifacts, provenance in firmware/vendor/*/PROVENANCE.md)
+firmware/vendor/**/*.hex
+firmware/vendor/**/*.elf
+firmware/vendor/**/*.uf2

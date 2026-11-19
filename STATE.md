@@ -1,5 +1,13 @@
 # STATE — ARGUS-OS1
 
+## 18 ноя 2026, 22:30 — 🔌 MR !553 прочитан, прошивка верифицирована, приёмка A1–A7 автоматизирована (10 тестов)
+- ✅ **MR !553 прочитан** (было «не читал»): AVRDUDESS v2.20 + preset `Arduino Nano (ATMega328P)`; Linux `avrdude -c arduino -p m328p -P /dev/ttyUSB0 -b 57600 -U flash:w:nano.hex:a` (в MR опечатка `-m`). MR **открыт, не смержен**; официальный Nano не проверен, ссылки на прошивку в MR нет → файл даём мы.
+- ✅ **Прошивка скачана и верифицирована:** `firmware/vendor/sangaboard-v1.0.4/nano.hex` — **Sangaboard Firmware v1.0.4** (строка версии найдена в `nano.elf`), sha256 `dc6066ed…3c36f7`, пайплайн `sangaboard-firmware` job 11430994239. Бинарник в публичный git не идёт (`firmware/vendor/**` в `.gitignore`), provenance — `firmware/vendor/sangaboard-v1.0.4/PROVENANCE.md`.
+- ✅ **`software/pipeline/acceptance.py`** — приёмка **A1–A7 одной командой**: опрос API (кандидаты `/api/v2/…`, `/api/v3/…`), QC скана, сэмплинг-гейт, ROM, швы; выдаёт markdown-отчёт для `PROVENANCE_V6.md`, exit 0 только если все PASS, непроверяемое = `UNKNOWN`.
+- 🧪 **Тесты: 10 passed** (было 7): добавлены три на мок-сервере — здоровая прошивка → A1/A2 PASS; «firmware mismatch» → A1 FAIL, A2 UNKNOWN; сервер недоступен → оба UNKNOWN.
+- 📋 Runbook §1 переписан по фактам MR (таблица шагов Windows, avrdude для Pi, файл+хеш, откат), §7 заменён на автоматическую приёмку.
+- 🎯 **Стенд:** один запуск `python3 software/pipeline/acceptance.py --url http://<scope>:5000 --scan <DIR> --mpp-um 0.0388 --rom-mm <измеренный>` → отчёт в `PROVENANCE_V6.md`.
+
 ## 18 ноя 2026, 21:00 — 🛠 Пайплайн тайлов реализован и проверен на фантоме (7 тестов), версии запинены
 - ✅ **Решение по версиям:** V6 = сервер **OpenFlexure OS v2.11** + скетч Nano (v3.0.0-beta — только после приёмки; связка «v1.0.4 + v3.0.0-beta» в сообществе не подтверждена). Процедура и откат — `docs/ARGUS_OS1_Scan_Acceptance_Runbook_2026-11-18.md`.
 - ✅ **Код (`software/pipeline/`):** `qc.py` (F2 scan-гейт + F6 µm/px-бининг-гейт + нормализация цвета), `blend.py` (F4: feather НЧ + деталь из самого резкого поля + `libvips dzsave`), `measure_rom.py` (F5), `phantom.py`/`evaluate.py`/`sweep.py` (самопроверка), `README.md` с числами.

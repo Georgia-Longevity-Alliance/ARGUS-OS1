@@ -16,6 +16,7 @@ formalised and self-tested. Literature basis is recorded in `../../EVIDENCE.md`.
 | `phantom.py OUTDIR` | synthetic ground-truth dataset with illumination drift, per-field defocus, sub-diffraction pairs | — |
 | `evaluate.py DIR` | PSNR / SSIM / sharpness / seam score vs ground truth for `hard` / `feather` / `fusion` | — |
 | `sweep.py DIR` | reproducible selection of blender defaults | — |
+| `acceptance.py` | V6 acceptance A1–A7 in one run (API probe, scan QC, sampling gate, ROM, seams), emits the markdown evidence pack for `hardware/PROVENANCE_V6.md` | exit 0 only if all PASS |
 
 ## Measured performance (phantom, 1080 px mosaic, 400 px fields, overlap 0.35)
 
@@ -70,5 +71,5 @@ Notes
 ## Tests
 
 ```bash
-cd software && python3 -m pytest tests/test_pipeline.py -q      # 7 passed
+cd software && python3 -m pytest tests/test_pipeline.py -q      # 10 passed
 ```
