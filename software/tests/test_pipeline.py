@@ -282,3 +282,68 @@ def test_r3_frozen_set_is_reproducible_and_balanced():
     draws = [[n_scaling.rater_gate(i["report"])] * 9 for i in items]
     for n in (1, 3, 5, 9):
         assert n_scaling.nested_accuracy(draws, truth, n) == 1.0
+
+
+# ─── R3 (2026-11-19): endomitosis gate — a division needs a furrow ───────────────
+
+def test_r3_endomitosis_is_not_a_division():
+    """Nuclear split without ingression must never become a division or a sister pair."""
+    import lineage
+
+    res = lineage.demo()
+    assert res["correct"] is True, res
+    assert res["divisions"] == res["expected_divisions"] == 6
+    assert res["nuclear_splits"] == res["expected_endomitosis"] == 4
+    assert res["sister_pairs"] == 6            # one pair per true division, none for endomitosis
+
+
+def test_r3_sister_pairs_only_from_divisions():
+    import lineage
+
+    tracks, truth = lineage.make_phantom_tracks()
+    ped = lineage.build_pedigree(tracks)
+    assert len(ped["sister_pairs"]) == sum(1 for v in truth.values() if v == lineage.DIVISION)
+    # every endomitotic track is excluded from pedigree aggregation and keeps no pair
+    excluded = {e["cell"] for e in ped["excluded_from_pedigree"]}
+    endo = {k for k, v in truth.items() if v == lineage.NUCLEAR_SPLIT_NO_FURROW}
+    assert endo <= excluded
+    for pair in ped["sister_pairs"]:
+        assert pair["parent"] not in endo
+
+
+def test_r3_furrow_threshold_is_the_only_knob_and_it_flips_a_borderline_case():
+    """A borderline cell (ingression 0.15) must be decided by the documented threshold."""
+    import lineage
+
+    frames = [{"nuclei": 1, "furrow": 0.0}, {"nuclei": 2, "furrow": 0.15}]
+    assert lineage.classify_transition(*frames, furrow_min=0.10) == lineage.DIVISION
+    assert lineage.classify_transition(*frames, furrow_min=0.25) == lineage.NUCLEAR_SPLIT_NO_FURROW
+
+
+def test_r3_explicit_cell_count_wins_over_the_image_index():
+    import lineage
+
+    prev = {"nuclei": 1, "furrow": 0.0}
+    cur = {"nuclei": 2, "furrow": 0.0, "cell_count_delta": 1}
+    assert lineage.classify_transition(prev, cur) == lineage.DIVISION
+
+
+def test_r3_merge_and_flicker_are_not_events():
+    import lineage
+
+    assert lineage.classify_transition({"nuclei": 2, "furrow": 0.5},
+                                       {"nuclei": 1, "furrow": 0.0}) == lineage.NO_EVENT
+    assert lineage.classify_transition({"nuclei": 1, "furrow": 0.0},
+                                       {"nuclei": 1, "furrow": 0.0}) == lineage.NO_EVENT
+    with pytest.raises(ValueError):
+        lineage.classify_transition({"nuclei": 1}, {"nuclei": 2, "furrow": 0.4})
+    with pytest.raises(ValueError):
+        lineage.classify_transition({"nuclei": 1, "furrow": 0.0},
+                                    {"nuclei": 2, "furrow": 1.4})
+
+
+def test_r3_pedigree_build_is_deterministic():
+    import lineage
+
+    tracks, _ = lineage.make_phantom_tracks()
+    assert lineage.build_pedigree(tracks) == lineage.build_pedigree(tracks)

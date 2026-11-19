@@ -14,6 +14,7 @@ formalised and self-tested. Literature basis is recorded in `../../EVIDENCE.md`.
 | `blend.py DIR --out stitched.tif` | F4: stitching + fusion (feather low band, detail from sharpest field), optional `--dzsave` | — |
 | `measure_rom.py FRAMES --mpp-um X --axis x` | F5: measures usable stage travel from image correlation (Chisholm et al. 2026 method) | measured mm vs commanded |
 | `phantom.py OUTDIR` | synthetic ground-truth dataset with illumination drift, per-field defocus, sub-diffraction pairs | — |
+| `lineage.py --demo` | R3: division gate — a division needs membrane ingression (or an explicit cell-count increment); a nuclear split without a furrow is its own class and never forms a sister pair (PMID 43037622) | exit 1 if a phantom division is miscalled |
 | `evaluate.py DIR` | PSNR / SSIM / sharpness / seam score vs ground truth for `hard` / `feather` / `fusion` | — |
 | `sweep.py DIR` | reproducible selection of blender defaults | — |
 | `acceptance.py` | V6 acceptance A1–A7 in one run (API probe, scan QC, sampling gate, ROM, seams), emits the markdown evidence pack for `hardware/PROVENANCE_V6.md` | exit 0 only if all PASS |

@@ -88,6 +88,9 @@ GATE_MODULES = (
     "evaluate.py",
     "tiles.py",
     "measure_rom.py",
+    # 2026-11-19: the lineage/endomitosis gate decides whether an event counts as a
+    # division, so it must be as inspectable as the scan gates (R3).
+    "lineage.py",
 )
 
 #: Modules that may talk to hardware (the microscope HTTP API) but still must not
