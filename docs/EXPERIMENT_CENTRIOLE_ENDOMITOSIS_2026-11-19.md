@@ -1,7 +1,8 @@
 # Experimental branch — do endomitotic cells keep their centrioles?
 
 **Opened:** 2026-11-19 · **Branch:** `exp/centriole-endomitosis` · **Owner:** PI (Jaba Tqemaladze)
-**Status:** 🟡 protocol only — no data, no claims. Nothing in this document has been measured.
+**Status:** 🟢 **step 1 (feasibility) CLOSED from the literature on 2026-11-19** — H3 falsified, marker validated.
+The branch now starts at Q2 (see §9). No new data yet.
 
 ---
 
@@ -34,13 +35,42 @@ there, the counter runs without divisions — a direct, observable case of "repl
 division counter". If they are lost or stabilised instead, CEDAR's coupling assumption needs
 revision. Either outcome is informative, which is the mark of a good side-arm.
 
+## 1b. STEP 1 RESULT — already answered, no bench time needed (2026-11-19)
+
+Kalbfuss & Gönczy, *Sci Adv* 2023 (PMID **37256957**, doi:10.1126/sciadv.adg8682, OA, PMC10413642),
+full text, verbatim:
+
+> «…all 41 proliferating cells maintained centrioles. **Moreover, all 20 intestinal cells, which
+> later endoreduplicate, with some undergoing endomitosis, maintained centrioles in L1 larvae**,
+> although they undergo elimination later in development.»
+
+Consequences, in order of importance:
+
+1. **H3 (elimination before/at endomitosis) is FALSIFIED.** All 20 intestinal cells keep centrioles in
+   L1, including the 14 that endomitose. Fig. 1B of that paper shows intestinal cell `int2V` with a
+   centriole focus as an explicit example.
+2. **The marker question is answered.** The authors scored **GFP::SAS-7** and **GFP::SAS-4** — exactly
+   the markers in §4 — in intestinal cells of live L1 animals (lattice light-sheet). Feasibility of
+   *detection* = **PASS**.
+3. **A dated elimination event exists in the intestine**, later in development rather than at
+   endomitosis. That date is a measurable target and the first thing CEDAR needs (Q4).
+4. **A technical trap, now explicit:** light microscopy scores a centriole **focus** (one centriole
+   pair), not individual centrioles. "Retained" vs "duplicated" (H1 vs H2) needs resolution beyond a
+   focus — see how Croisier, Kalbfuss & Gönczy 2025 (PMID **40475707**) had to use **serial-section EM**
+   to prove that SAS-4/SAS-7 foci in L1 rectal cells (B, F, U, Y) are bona fide centrioles.
+
+**Note on the "7 retainers".** The 2025 microPublication reports 7 **post-mitotic** cells retaining foci
+in L1 (B, F, U, Y rectal epithelial among them). The 20 intestinal cells are a *separate* class in the
+2023 paper (they are not post-mitotic — they endoreplicate). Both statements are consistent; do not
+conflate them in any manuscript text.
+
 ## 2. Hypotheses and their signatures
 
 | # | Hypothesis | Prediction at L2–L4 (per intestinal cell) |
 |---|---|---|
 | **H1** | Centrioles are **retained and continue to duplicate** with each endoreplication cycle | centriole number per cell **rises** with ploidy; multiple centrioles per cell, not per nucleus |
 | **H2** | Centrioles are **retained but not duplicated** (licensing blocked without mitosis) | constant number per cell across cycles; ≥1 centriole persists indefinitely |
-| **H3** | Centrioles are **eliminated** after the last canonical cycle (as in most embryonic lineages) | zero centrioles by L2; a centrosome-free, acentriolar cell |
+| ~~**H3**~~ | ~~Centrioles are eliminated after the last canonical cycle~~ | **FALSIFIED 2026-11-19** — all 20 intestinal cells keep centrioles in L1 (PMID 37256957); elimination happens *later* in development, now a dated target (Q4) rather than a hypothesis |
 | **H4** | Mixed: duplication proceeds but clusters/amplifies | centriole clusters, supernumerary centrioles inside one binucleated cell |
 
 H1 vs H2 is the discriminator CEDAR needs: H2 says the replication counter and the division
@@ -116,15 +146,30 @@ centriole-elimination corpus (PMID 37256957, 37963546, 40410380) and the endomit
 (43037622, 35609035, 38727809) are disjoint. **Not a systematic review** — a systematic search is
 step 0 before any manuscript claim.
 
-## 9. Execution order (cheapest first)
+## 9. Execution order — revised after the step-1 result
 
-1. **Feasibility (1–2 days):** can the centriole marker be counted in a binucleated intestinal cell?
-   If not, stop here.
-2. **Fixed arm (1 week):** L1/L2/L3, DAPI + centriole marker, rings 3–9 vs rings 1–2. Gets H1/H2/H3
-   directionally without live imaging and without dose risk.
-3. **Live arm (2–3 weeks):** time-lapse L1→L4 with the four channels and the furrow gate; light-dose
-   budget first.
-4. **Only then:** decide whether this becomes a manuscript or a paragraph in CEDAR.
+| # | Question | Cost | Status |
+|:--:|---|:--:|---|
+| **Q1** | Do intestinal cells have centrioles at L1, and can SAS-4/SAS-7 resolve them? | 10 min (literature) | ✅ **ANSWERED 2026-11-19** — yes, all 20 (PMID 37256957) |
+| **Q2** | Once the cell is binucleated (L2–L4): **how many foci per cell, and per nucleus?** One shared, or one per nucleus? | **1 day imaging**, fixed arm | open — the real first measurement |
+| **Q3** | Does the number of **centrioles per focus** rise with ploidy (duplication = H1) or stay two (H2)? | 2–4 weeks: U-ExM, or serial-section EM as in PMID 40475707 | open — needs sub-focus resolution |
+| **Q4** | When exactly are intestinal centrioles eliminated, and does that date track ploidy (64C) or animal age? | 1 week, fixed L1→adult series | open — the CEDAR-relevant date |
+
+**Do Q2 first, and only Q2.** One day of imaging on an already-published strain decides whether Q3/Q4
+earn their cost:
+
+- **2 foci, one per nucleus** → the pair is *partitioned* between the two nuclei, so duplication must
+  proceed without division: that is H1's signature and it justifies Q3.
+- **1 focus, shared** → one pair is kept while the genome doubles: H2 becomes the live hypothesis and
+  Q3 is unnecessary.
+- **0 foci in some cells** → mixed population; Q4 (dating) comes first.
+
+**Strain logistics — the only real bottleneck.** The published work used GFP::SAS-4 / GFP::SAS-7 with
+pan-nuclear mCherry::HIS-58 and `elt-2p::GFP` for the intestine. Before any bench time:
+(1) check the **Caenorhabditis Genetics Center** for these alleles; (2) if absent, **request them from
+the authors** (published reagents, standard C. elegans practice); (3) only if both fail does a cross
+become necessary — and a cross is **2–3 weeks**, not 1–2 days. That cost belongs in the plan, not in
+the surprise.
 
 ## 10. What would make it publishable
 
