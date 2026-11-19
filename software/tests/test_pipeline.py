@@ -347,3 +347,35 @@ def test_r3_pedigree_build_is_deterministic():
 
     tracks, _ = lineage.make_phantom_tracks()
     assert lineage.build_pedigree(tracks) == lineage.build_pedigree(tracks)
+
+
+# ─── Q2 (2026-11-19): centriole census — structural verdict, no invented thresholds ───
+
+def test_q2_census_self_test():
+    import centriole_census
+
+    assert centriole_census.self_test() == 0
+
+
+def test_q2_marker_free_control_must_be_zero(tmp_path):
+    """A marker-free strain showing foci means bleed-through — the sheet must be refused."""
+    import centriole_census
+
+    sheet = tmp_path / "c.csv"
+    sheet.write_text(
+        "animal_id,cell_id,cell_class,stage,strain,nuclei,foci_total,foci_nuc1,foci_nuc2,dapi_integrated,note\n"
+        "A01,int3V,ctrl,L2,ctrl,2,2,1,1,1000,\n"
+    )
+    with pytest.raises(ValueError):
+        centriole_census.census(centriole_census.load(str(sheet)))
+
+
+def test_q2_template_round_trips(tmp_path):
+    import centriole_census
+
+    sheet = tmp_path / "t.csv"
+    centriole_census.template(str(sheet))
+    res = centriole_census.census(centriole_census.load(str(sheet)))
+    assert res["verdict"] == centriole_census.VERDICT_INSUFFICIENT      # 2 cells is not evidence
+    assert res["marker_free_control_rows"] == 1
+    assert res["control_cells"] == 1

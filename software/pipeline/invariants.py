@@ -91,6 +91,8 @@ GATE_MODULES = (
     # 2026-11-19: the lineage/endomitosis gate decides whether an event counts as a
     # division, so it must be as inspectable as the scan gates (R3).
     "lineage.py",
+    # Q2 census: turns hand scoring into a verdict, so it must be inspectable too.
+    "centriole_census.py",
 )
 
 #: Modules that may talk to hardware (the microscope HTTP API) but still must not
