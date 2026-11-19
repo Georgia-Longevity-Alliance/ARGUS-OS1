@@ -1,7 +1,7 @@
-# PROTOCOL v0.2: Is there a Hayflick limit in immortalized fibroblasts? Division-rate dynamics of cells with the oldest and newest centriole
+# PROTOCOL v0.3: Is there a Hayflick limit in immortalized fibroblasts? Division-rate dynamics of cells with the oldest and newest centriole
 
 **Author:** Jaba Tqemaladze¹
-**Date:** 2026-10-21
+**Date:** 2026-10-21 · **v0.3:** 2026-11-12 (Amendment 2: sampling requirement, power, readout acceptance test)
 **Status:** 🟡 hypothesis-grade protocol for validation on the ARGUS platform. All parameters are calibrated by pre-tests (V1–V6, TRD §6). NOT a ready laboratory protocol before pre-test data.
 **Platform:** ARGUS (see `docs/ARGUS_TRD_v0.9b.md`)
 
@@ -190,6 +190,103 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
 
 ---
 
+## 4b. Amendment 2 (2026-11-12) — sampling requirement, power calculation and a readout acceptance test
+
+**Why this amendment exists.** The protocol fixed hypotheses, the stopping criterion and the senescence endpoint, but it never said what sampling the readout needs, or how many cells would be enough. Both were open questions until the readout was benchmarked against generated ground truth on 12 November 2026 (`phantom/`, script, seed and a checksum of the results are in the data room under *TRL evidence pack*). No images, lineages or pilot data existed when this amendment was written, so it remains prospective.
+
+### 4b.1 Sampling requirement — mandatory
+
+**Sampling at the sample must be 100 nm/px or finer; binning above 2×2 is not allowed.**
+
+| Sampling | What the benchmark measured |
+|---|---|
+| pairs 6–9 px apart (≈80 nm/px) | 0.38 px localisation RMSE, recall 0.78, precision 0.92 |
+| pairs 2–3 px apart (≈250 nm/px) | 1.25 px RMSE, recall 0.46, precision 0.99 |
+
+The failure mode is not graceful. Above roughly 150 nm/px the two centrioles of a pair merge into one object, the lineage still looks valid, and the OLD/NEW assignment becomes systematically wrong rather than noisy. A merged pair is worse than a missed detection, because it produces data that passes every downstream check.
+
+Consequence for hardware: with a 40×/0.95 objective and a sensor pitch of 1.55 µm, the sampling is about 39 nm/px — comfortably inside the requirement; the same objective with 4×4 binning (6.2 µm effective pitch) gives 155 nm/px and fails. Any change of objective, camera or binning after this amendment requires a re-run of the acceptance test in 4b.3 and a new numbered amendment.
+
+### 4b.2 Power — how many cells the question needs
+
+Detecting a 2-hour difference in interdivision interval between oldest-centriole and newest-centriole carriers, at α = 0.05 two-sided and power 0.8, with the between-cell interval spread observed in the literature range (σ ≈ 6 h) and the measured localisation error converted through the frame cadence:
+
+**n ≈ 115 cells per group** (≈ 230 tracked lineages in total per line, before attrition).
+
+Three consequences, stated plainly because they change the plan rather than decorate it:
+
+1. The pilot cannot be run on a dozen cells and reported as evidence in either direction; a null result from a small sample is uninformative, not reassuring.
+2. Attrition must be counted from the start: lineages lost to the removal procedure, to tracking failure and to senescence censoring all consume the budget. The recruitment target is therefore set at 150 per group per line, with 115 as the analysis floor.
+3. The three independent experiments in §4 are replication, not sample size. Each experiment carries its own cohort.
+
+If the true effect is smaller than 2 h, the required n grows as the inverse square: 1 h needs ≈ 460 per group, which is outside what this platform can carry in a single window and is the honest reason to state 2 h as the smallest effect of interest, in advance, rather than discovering it in the analysis.
+
+### 4b.3 Readout acceptance test — to be passed before the first imaging run
+
+The analysis chain (centriole detection, identity persistence, interval extraction) must clear, on the phantom with the frozen seed, at the configured sampling:
+
+| Metric | Threshold |
+|---|---|
+| localisation RMSE | ≤ 0.6 px |
+| detection recall | ≥ 0.75 |
+| detection precision | ≥ 0.90 |
+| interdivision interval MAE | ≤ 1.0 h (metric to be implemented; not yet scored) |
+
+The last row is the one that is not yet measured — the benchmark of 12 November counts divisions but does not score interval error, and the tracking stage in it is a reference implementation rather than the production lineage tracker. Implementing the interval metric and running the production tracker on the same phantom is a prerequisite for the pilot, and failing it is a stop condition, not a warning.
+
+### 4b.4 What this amendment does not fix
+
+- The phantom is a simulation. It calibrates the instrument and the analysis; it says nothing about whether the hypothesis is true.
+- Its cell model is crude: Gaussian body, two Gaussian centrioles, rigid motion, Gaussian PSF.
+- Sample-size assumptions use the literature range of between-cell interval spread, not a measured value from these lines; the pilot's own Phase 0 must replace it, and the analysis floor of 115 per group is recalculated then, before the primary endpoint is examined.
+
+---
+
+## 4c. Amendment 3 (2026-11-12) — feasibility of maintaining exactly two cells: what the design actually demands
+
+**Why this amendment exists.** Phase 2 says «exactly 2 single cells are studied, all other progeny are removed». Read quickly, that sounds like isolating a daughter pair at a moment in time. It is not, and the difference decides whether the design is buildable. Written before the removal method is fixed, so the feasibility claim can be audited against the spec rather than against my optimism.
+
+### 4c.1 What the design does not require
+
+- No micromanipulation of a pair at a single instant, no picking, no re-plating, no clonal colony.
+- No enzyme treatment of the tracked cells and no disturbance of their position: the chamber stays sealed for the whole run, identity is held by spatial registration (FR-12).
+- No dependence on the label-free channel. Markers plus continuous pedigree are the baseline (Phase 1); label-free assignment is an optional way to cut light dose under FR-7 and is used only if calibrated to ≥ 95 % against marker ground truth.
+
+### 4c.2 What it does require, in numbers
+
+The hard part is not isolation, it is a **repeated removal routine that keeps the field at two cells** for months:
+
+| Requirement | Value | Source |
+|---|---|---|
+| removals per pair | 1–2 per day | Phase 2 |
+| horizon | 6–12 months per experiment | §1.1a |
+| planned pairs | 6 (3 experiments × 2 lines) | §4 |
+| removal events per run-year, derived | ≈ 2,200–4,400 | 1–2/day × 365 × 6 pairs |
+| hit accuracy | ≤ 2 µm from target | NFR-2 / FR-5 |
+| survival of the observed cell | ≥ threshold set in V4 | FR-5 |
+| logging | 100 % of events, with coordinates, time, method | FR-11 |
+
+On the order of a thousand removal decisions per pair per year, each one an opportunity to hit the wrong object or to miss.
+
+### 4c.3 The consequence people underestimate: recoverability beats reliability
+
+At 99.9 % per-event reliability over 4,000 events the probability of a clean run is (1 − 0.001)^4000 ≈ 0.018 — two in a hundred. Perfection is not an achievable target, so the design cannot be built around it. What it is built around is recovery:
+
+1. **Detection latency below one doubling time.** A missed removal leaves a sister that begins to divide; the tracker runs at 5–15 min cadence against a ~24 h interdivision time in BJ-hTERT, so contamination is caught two orders of magnitude before it becomes a colony. Mitosis detection is specified at ≥ 90 % (FR-2) and every newly appearing cell is a trigger, not an exception.
+2. **Re-anchoring at every division.** OLD/NEW is re-derived at each mitosis from marker plus pedigree, so a single ambiguous frame cannot silently propagate a wrong lineage identity.
+3. **Every event logged and auditable.** A run with a removal failure is not discarded; the failure, its detection time and its correction are in the log (FR-11), and the affected interval is censored.
+4. **Selection artefact controlled, not assumed away.** Sham procedure and unpurified reference run in parallel (§4 Phase 4); if survivors shift systematically, that is the finding, and it is reported.
+
+### 4c.4 The one failure that stops the design
+
+If no level-1 removal method (laser, micromanipulators, per the companion comparison) meets both V4 survival and NFR-2 accuracy, Phase 2 changes shape rather than being waived: the pair is maintained by **periodic manual splitting at intervals**, with identity re-anchored by pedigree at each split. That costs handling steps, adds light and manipulation per split, and reduces the number of usable lineages per experiment — a real cost to sample size that must be re-costed against the 115-per-group floor of §4b.2. It is stated here, before the run, so that the fallback is a documented design change and not an unannounced substitution.
+
+### 4c.5 What remains genuinely unproven
+
+Removal-module survival on these lines (V4), necrosis and debris management (V5), and month-scale mechanical reliability of the stage and enclosure (V8). None of these is answered by argument, and none of them is answered by the synthetic benchmark, which calibrates optics and analysis only. They are answered by pre-tests that are already dated, and the answer can be negative.
+
+---
+
 ## 5. Success criteria (ARGUS acceptance, per TRD §8)
 
 | Function | Criterion |
@@ -252,3 +349,5 @@ Studying this process clarifies the picture of cancer origin. Requirement on ARG
 *v0.2 — primary goal changed to the fundamental fact (Hayflick limit in immortalized fibroblasts) and the instrumental task (OLD/NEW dynamics). Companion documents: TRD v0.9b (docs/ARGUS_TRD_v0.9b.md), Cell Removal Methods Comparison (docs/ARGUS_Cell_Removal_Methods_Comparison.md).*
 
 *Amendment 1 (2026-11-12): the senescence endpoint of stopping criterion (b) is operationally defined in §4a (SenNet, PMID 38831121), before any data were collected.*
+*Amendment 2 (2026-11-12): sampling requirement (≤ 100 nm/px), power calculation (n ≈ 115 per group) and the readout acceptance test fixed in §4b, from the synthetic benchmark deposited as DOI 10.5281/zenodo.24148459.*
+*Amendment 3 (2026-11-12): feasibility of maintaining exactly two cells, the recoverability argument and the stop condition for the removal module stated in §4c.*
