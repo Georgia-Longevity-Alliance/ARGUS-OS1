@@ -9,6 +9,37 @@
 # TODO — ARGUS-OS1
 
 <!-- lang:ru -->
+## 🔧 Платформа OFM — из форумной разведки 18 ноя 2026
+> Master: `docs/ARGUS_Forum_Intel_OFM_2026-11-18.md`; процедуры — `docs/ARGUS_OS1_Scan_Acceptance_Runbook_2026-11-18.md`; доказательства — `EVIDENCE.md` §«OpenFlexure Forum intel»; инструменты — `software/pipeline/` (7 тестов зелёные).
+
+- [x] ~~**F1 (P0)** — зафиксировать пару «сервер ↔ прошивка»~~ ✅ 18 ноя: **решение — сервер OS v2.11 + скетч Nano из инструкций workaround** (v3.0.0-beta — только после F2 на стенде; связка «v1.0.4 + v3.0.0-beta» в сообществе не подтверждена)
+- [ ] **F1-исполнение (P0, стенд)** — Connect подключается без предупреждения о прошивке + `motor_release()` по REST; при отказе прошить v1.0.4 через AVRDUDESS (`ATmega328P`, пресет Nano, старый бутлоадер; новый — baud 115200); заполнить `hardware/PROVENANCE_V6.md`
+- [x] ~~**F2 (P0)** — приёмочный чек-пункт скана~~ ✅ 18 ноя: `software/pipeline/qc.py scan` — декларация vs факт разрешения (грабли 1400↔2800), `capture_mode`, count, overlap, протяжённость в мм, оценка времени; exit 1 = FAIL; тест `test_scan_qc_catches_half_resolution_gotcha`. Осталось прогнать на реальном скане
+- [x] ~~**F3 (P1)** — overlap как параметр протокола~~ ✅ 18 ноя (часть 1): регистрация точна при overlap 0.15 / 0.35 / 0.70 (0 px ошибки), фантом 0.15 → 97 % резкости GT. Часть 2 открыта: утвердить 0.15/0.35/0.50 на живом образце с измеренным временем и фотодозой (PMID 28661494)
+- [x] ~~**F4 (P1)** — блендинг по рецепту форума~~ ✅ 18 ноя: `software/pipeline/blend.py` (feather НЧ + деталь из самого резкого поля + `libvips dzsave`). Фантом: PSNR **26.81** dB (feather 25.76), резкость **92 %** GT (feather 58 %), швы **0.99** (hard-paste 1.67); дефолты `lf_ratio=0.03`, `detail_power=8` из `sweep.py`. Осталось: прогнать на реальных тайлах V6
+- [x] ~~**F5 (P1)** — измерить ROM своего экземпляра~~ ✅ 18 ноя (инструмент): `measure_rom.py` — корреляция кадров траверса (метод PMID 42960477); на синтетике шаг 120 px измерен точно, измерено/скомандовано = **1.0000**, 59/59 связей. Осталось: прогнать на стенде, внести в `PARAMETERS.md`
+- [x] ~~**F6 (P2)** — гейт µm/px + цвет перед ML~~ ✅ 18 ноя: `qc.py gate` (38.8 нм/px PASS; 155 нм/px + 4×4 FAIL) и `qc.py colour` (аффинная нормализация по мозаике + provenance JSON). Осталось включить в скрипт скана
+- [ ] **F7 (P2)** — memory-профиль блендинга: сейчас мозаика целиком в RAM (ok для OS1, пересмотреть для OS2/20k+ тайлов)
+
+## 🧠 P1 — Внутренний цикл агента (idle inference, добавлено 12 ноя 2026)
+
+> Спека: `docs/ARGUS_Internal_Process_Idle_Inference_2026-11-12.md`. Код: `software/argus-agent` (= `~/Desktop/Services/argus-pre`).
+
+- [x] **M1** — `src/ledger/mod.rs` (Question/Cycle, log-odds update, seeded `select_next`, `extract_identifiers`, `gate_failed`) + CLI `think`/`ledger` — ✅ **12 ноя 2026**, 11 тестов, `cargo test --lib` = 57 passed
+- [x] **M1b** — засеять леджер 5 реальными открытыми вопросами ARGUS-OS1 — ✅ 12 ноя (`ledger seed`: fiducial-дрейф 72 ч, recall@250 нм/px, Amendment 3, P4 кросс-валидация маркеров, P2/P3 фототоксичность)
+- [x] **M2** — `src/verify/mod.rs` (PMID/DOI/arXiv, кэш 30 дней, офлайн, Resolved/NotFound/Unverified) + `src/probe/mod.rs` (epmc/corpus, ladder, фильтр релевантности) + CLI `--probe/--judge/--qid/--offline` — ✅ **12 ноя 2026**, 72 теста; поддельные ID → `Blocked` + гейт ❌ (живой прогон)
+- [x] **M3** — `src/budget/mod.rs` (20/час, 200k/сутки) + `think --loop` + суточный отчёт + systemd-таймер (`scripts/install_argus_think_timer.sh`) + ретраи 429 + фильтр релевантности (стем-доля + триграммы, порог 0.20) — ✅ **12 ноя 2026**, 86 тестов
+- [x] **M3+** — эксперимент CKA (`argus-cka`): T1 механика p=0.002; T2 qwen×llama p=0.189 (**сходимости нет**, инструмент вырожден) — `docs/EXPERIMENT_CKA_2026-11-12.md`
+- [x] **M3++** — `scripts/embed_server.py` + `argus-cka --a emb:<model>`; MiniLM × bge-small, n=60: CKA **0.904** против нуля 0.336 (p=0.002); контроль разных корпусов p=0.122 — ✅ 12 ноя
+- [x] **M4-инфра** — `argus-think.timer` (20 мин × 2 цикла) + `argus-report.timer` (09:00, окно 24 ч) + `--hours` — ✅ 12 ноя
+- [x] **M4-фиксы соака** — залипание (`consecutive_gaps` → `Gap`), `QKind::Lit/Lab` и маршрутизация канала, `think.lock` — ✅ 12 ноя
+- [ ] **M4-данные** — суточная таблица метрик (13 ноя 09:00, автоматически) + 3–5 литературных вопросов с реальными шансами на ответ
+- [x] **Выживание сервиса** — `systemd-inhibit --what=idle:sleep`, `Restart=always`, resume + догон пропущенных тиков, переоткрытие `Gap` через 6 ч, reload леджера — ✅ 12 ноя
+- [x] **Внимание = ошибка предсказания** — `Question.last_error` (|Δlogit|/3 · 0.35 · 0.1 · 1.0), затухание `exp(−ч/24)`, очередь по ней — ✅ 12 ноя
+- [ ] **M5** — LLM-проба (тогда заработает учёт токенов)
+- [ ] **M4** — пре-регистрированный 24-часовой тест из Correspondence (7 метрик, публикация результата даже отрицательного) — 2 нед
+- [ ] **Решение по §6 спеки** — если `fabricated_identifiers > 0` или `identifier_resolution_rate < 0.7` → цикл в `--dry-run`, запись в STATE.md
+
 ## 🔴 URGENT — August 2026
 - [x] Foresight Package: `grants/foresight_2026-07-31/SUBMISSION_PACKAGE.md`
 - [x] OSC Package: `grants/osc_2026-08-01/OSC_SUBMISSION_PACKAGE.md`
