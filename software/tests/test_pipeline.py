@@ -181,3 +181,104 @@ def test_acceptance_is_unknown_without_server():
     a1, a2, log = acceptance.check_a1_a2({"/api/v2/": (0, "unreachable")})
     assert a1["status"] == "UNKNOWN" and a2["status"] == "UNKNOWN"
     assert "not reachable" in log
+
+
+# ─── R2 (2026-11-19): verification is a deterministic gate, not a vote ───────────
+
+def test_r2_verification_path_is_model_free():
+    """No model dependency may enter the gate modules."""
+    import invariants
+
+    problems = invariants.check_all(PIPELINE)
+    assert problems == [], "R2 invariant violated:\n" + "\n".join(problems)
+
+
+def test_r2_checker_catches_a_planted_model_import(tmp_path):
+    """The checker must actually fail on a violation, or it proves nothing."""
+    import invariants
+
+    gate = tmp_path / "qc.py"
+    gate.write_text("import openai\n")
+    problems = invariants.check_all(str(tmp_path))
+    assert any("openai" in p for p in problems), problems
+
+
+def test_r2_gate_must_not_depend_on_the_network(tmp_path):
+    import invariants
+
+    gate = tmp_path / "qc.py"
+    gate.write_text("import urllib.request\n")
+    problems = invariants.check_all(str(tmp_path))
+    assert any("urllib" in p for p in problems), problems
+
+
+def test_r2_accepted_risk_is_named():
+    """We choose centralization and its single point of failure on purpose."""
+    import invariants
+
+    risk = invariants.accepted_failure_mode()
+    assert risk["architecture"] == "centralized verification"
+    assert "single point of failure" in risk["accepted_risk"]
+    assert "2512.08296" in risk["evidence"]
+
+
+# ─── R8 (2026-11-19): light-dose budget ─────────────────────────────────────────
+
+def test_r8_exposure_and_total_dose():
+    import light_dose as L
+
+    # 1 mW/cm^2 for 1000 ms = 1e-3 W/cm^2 * 1 s = 1e-3 J/cm^2
+    assert L.exposure_j_cm2(1.0, 1000.0) == pytest.approx(1e-3)
+    total = L.total_dose_j_cm2(0.5, 50, frames=400, z_slices=5)
+    assert total == pytest.approx(0.5e-3 * 0.050 * 400 * 5)  # = 5e-2 J/cm^2
+    assert total == pytest.approx(5e-2)
+
+
+def test_r8_unit_conventions_do_not_drift():
+    """1 W/m^2 == 0.1 mW/cm^2 == 1 uW/mm^2 — the 10x datasheet trap."""
+    import light_dose as L
+
+    assert L.to_mw_cm2(1.0, "w/m2") == pytest.approx(0.1)
+    assert L.to_mw_cm2(0.1, "mw/cm2") == pytest.approx(0.1)
+    assert L.to_mw_cm2(1.0, "uw/mm2") == pytest.approx(0.1)
+    assert L.to_mw_cm2(1.0, "w/cm2") == pytest.approx(1000.0)
+    with pytest.raises(ValueError):
+        L.to_mw_cm2(1.0, "candela")
+
+
+def test_r8_no_threshold_is_invented():
+    import light_dose as L
+
+    res = L.budget(0.5, 50, frames=400, z_slices=5)
+    assert res["verdict"] == "reported_only"          # no limit -> no verdict
+    over = L.budget(0.5, 50, frames=400, z_slices=5, max_j_cm2=0.01)
+    assert over["verdict"] == "exceeded"
+    under = L.budget(0.5, 50, frames=400, z_slices=5, max_j_cm2=1.0)
+    assert under["verdict"] == "pass"
+    with pytest.raises(ValueError):
+        L.budget(0.5, 50, frames=1, max_j_cm2=0)
+
+
+# ─── R3 (2026-11-19): N-scaling harness on the frozen QC set ─────────────────────
+
+def test_r3_harness_self_test():
+    """Aggregators, gate control and the frozen set must all hold."""
+    import n_scaling
+
+    assert n_scaling.self_test() == 0
+
+
+def test_r3_frozen_set_is_reproducible_and_balanced():
+    import n_scaling
+
+    items = n_scaling.build_items()
+    assert len(items) == 30
+    assert n_scaling.fingerprint(items) == n_scaling.fingerprint(n_scaling.build_items())
+    # a gate (deterministic rater) must be exact on every item, traps included
+    wrong = [i["id"] for i in items if n_scaling.rater_gate(i["report"]) != i["truth"]]
+    assert wrong == [], f"gate control mismatched on {wrong}"
+    # and voting must not change a perfect single rater
+    truth = [i["truth"] for i in items]
+    draws = [[n_scaling.rater_gate(i["report"])] * 9 for i in items]
+    for n in (1, 3, 5, 9):
+        assert n_scaling.nested_accuracy(draws, truth, n) == 1.0

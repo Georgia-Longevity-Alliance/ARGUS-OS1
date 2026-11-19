@@ -1,6 +1,8 @@
 //! argus-agent V3.6 — CLI entry: init / run / memory / skill / session / task / plugin / bench / eval / fusion / serve
 //! Patterns: P1 (loop + real LLM), P2 (file memory), P4 (session modes).
-use argus_pre::agent::{AgentLoop, LlmConfig, LlmModel, LoopConfig, Mode, StubModel};
+use argus_pre::agent::{
+    resolve_team_size, AgentLoop, LlmConfig, LlmModel, LoopConfig, Mode, StubModel, TaskStructure,
+};
 use argus_pre::memory::{Memory, NoteKind};
 use std::path::PathBuf;
 
@@ -51,7 +53,7 @@ fn main() {
   plugin add/list/remove    hooks: before_step|after_step|on_done|on_error
   bench                    smoke-бенчмарк (3 задачи)
   eval --evals <file>       GAIA-lite / GAIA-L1 subset
-  fusion \"задача\" --workers N
+  fusion \"задача\" --task-structure decomposable [--workers N]
   serve --port N --tick S   skill hub + планировщик задач
 \nОпции run:
   --url <http://host:port>   LLM-сервер (Ollama 11434 / LM Studio 1234)
@@ -1098,19 +1100,44 @@ fn cmd_bench(args: &[String], sdir: &std::path::Path) {
 
 /// Skill hub server: serves /skills and /skills/<name>.
 /// Fusion: the planner splits the task, a worker pool runs it in parallel.
+///
+/// R1 (2026-11-19): a team is started only when the task is declared decomposable.
+/// The gate and its evidence live in `agent::resolve_team_size`.
 fn cmd_fusion(args: &[String], sdir: &std::path::Path) {
     use std::time::Instant;
 
     let goal = args.get(2).cloned().unwrap_or_default();
     if goal.is_empty() {
         eprintln!(
-            "использование: argus-agent fusion \"задача\" [--workers N] [--model M] [--url U]"
+            "использование: argus-agent fusion \"задача\" --task-structure decomposable|sequential [--workers N] [--model M] [--url U]"
         );
         std::process::exit(1);
     }
-    let workers = flag(args, "--workers")
+    let requested_workers = flag(args, "--workers")
         .and_then(|s| s.parse::<usize>().ok())
         .unwrap_or(2);
+    // R1: structure must be declared. Undeclared = Unknown = no team.
+    let structure = match flag(args, "--task-structure") {
+        Some(v) => match TaskStructure::parse(&v) {
+            Some(s) => s,
+            None => {
+                eprintln!(
+                    "--task-structure: неизвестное значение '{v}' (decomposable | sequential | unknown)"
+                );
+                std::process::exit(1);
+            }
+        },
+        None => TaskStructure::Unknown,
+    };
+    let workers = match resolve_team_size(requested_workers, structure) {
+        Ok(n) => n,
+        Err(msg) => {
+            // Refuse loudly, and offer the single-agent path instead of degrading silently.
+            eprintln!("R1 gate: {msg}");
+            eprintln!("→ одиночный запуск: argus-agent run \"{goal}\"");
+            std::process::exit(2);
+        }
+    };
     let model = flag(args, "--model").unwrap_or_else(|| "qwen2.5:7b".into());
     let url = flag(args, "--url").unwrap_or_else(|| "http://127.0.0.1:11434".into());
     let cfg = LlmConfig {

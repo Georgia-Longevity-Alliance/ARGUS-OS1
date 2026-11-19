@@ -62,11 +62,94 @@ pub trait Model {
     fn distill_lesson(&self, tag: &str, notes: &str) -> Option<(String, String)>;
 }
 
+/// R1 (2026-11-19) — the structure of a task decides whether a team is admissible.
+///
+/// A team must not be chosen by intuition. Two independent lines of evidence say the
+/// applicable law depends on task structure:
+///   * Mieczkowski, Collins, Sucholutsky, Velez & Griffiths, "Language model teams as
+///     distributed systems", PNAS 123(47), 2026, doi:10.1073/pnas.2612825123 — team
+///     scaling follows classical distributed-computing laws *based on task structure*,
+///     and centralized/decentralized architectures fail asymmetrically.
+///   * Kim et al., "Towards a Science of Scaling Agent Systems", arXiv:2512.08296 —
+///     across 260 configurations, +80.8% on decomposable financial reasoning but
+///     **-70.0% on sequential planning** against a single agent.
+///
+/// Consequence enforced here: a team is started only for `Decomposable` tasks.
+/// `Unknown` is treated as sequential — the refusal is cheaper than the regression.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TaskStructure {
+    /// Independent sub-goals that can be worked in parallel and merged
+    /// (tile QC, per-embryo scoring, independent literature checks).
+    Decomposable,
+    /// Each step consumes the previous one (lineage assignment over frames,
+    /// protocol decisions): teams lose badly here.
+    Sequential,
+    /// Not declared. Fail-safe: no team.
+    Unknown,
+}
+
+impl TaskStructure {
+    pub fn parse(s: &str) -> Option<Self> {
+        match s.trim().to_ascii_lowercase().as_str() {
+            "decomposable" | "decomp" | "parallel" => Some(TaskStructure::Decomposable),
+            "sequential" | "serial" | "chain" => Some(TaskStructure::Sequential),
+            "unknown" | "auto" | "" => Some(TaskStructure::Unknown),
+            _ => None,
+        }
+    }
+
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            TaskStructure::Decomposable => "decomposable",
+            TaskStructure::Sequential => "sequential",
+            TaskStructure::Unknown => "unknown",
+        }
+    }
+
+    /// Only a decomposable task admits a team.
+    pub fn allows_team(&self) -> bool {
+        matches!(self, TaskStructure::Decomposable)
+    }
+
+    /// R1 cap: never more than 1 agent unless the task is decomposable.
+    pub fn max_agents(&self, requested: usize) -> usize {
+        if self.allows_team() {
+            requested.max(1)
+        } else {
+            1
+        }
+    }
+}
+
+/// R1 gate for callers that must not silently degrade: returns how many workers may
+/// be started, or the reason a team was refused. Refusing with a message is deliberate —
+/// a silent cap to 1 would hide the architectural mistake from the operator.
+pub fn resolve_team_size(requested: usize, structure: TaskStructure) -> Result<usize, String> {
+    let requested = requested.max(1);
+    if requested == 1 {
+        return Ok(1);
+    }
+    if structure.allows_team() {
+        return Ok(requested);
+    }
+    Err(format!(
+        "team of {} refused: task structure = {}. Only a `decomposable` task admits a team \
+         (PNAS 123(47) 2026, doi:10.1073/pnas.2612825123; arXiv:2512.08296: +80.8% on \
+         decomposable reasoning vs -70.0% on sequential planning against a single agent). \
+         Pass --task-structure decomposable only if the sub-goals are genuinely independent; \
+         otherwise one agent is the faster and cheaper path.",
+        requested,
+        structure.as_str()
+    ))
+}
+
 /// Loop config (P1) + P3 flags.
 #[derive(Debug, Clone)]
 pub struct LoopConfig {
     pub max_steps: u64,
     pub max_duration_min: u64,
+    /// R1: declared task structure; gates any team/fusion path.
+    pub task_structure: TaskStructure,
     // P3A: rewriter for short referential queries
     pub rewriter: bool,
     // P3B: sliding-window reflection
@@ -80,6 +163,7 @@ impl Default for LoopConfig {
         LoopConfig {
             max_steps: 1000,
             max_duration_min: 120,
+            task_structure: TaskStructure::Unknown,
             rewriter: true,
             reflection: true,
             reflection_every: 3,
@@ -2313,5 +2397,52 @@ mod tests {
         assert!(!is_safe_url("http://172.16.0.1/"));
         assert!(!is_safe_url("ftp://example.com"));
         assert!(!is_safe_url("file:///etc/passwd"));
+    }
+}
+
+#[cfg(test)]
+mod r1_task_structure_tests {
+    use super::{resolve_team_size, TaskStructure};
+
+    #[test]
+    fn parses_declared_structures() {
+        assert_eq!(TaskStructure::parse("decomposable"), Some(TaskStructure::Decomposable));
+        assert_eq!(TaskStructure::parse(" Decomposable "), Some(TaskStructure::Decomposable));
+        assert_eq!(TaskStructure::parse("sequential"), Some(TaskStructure::Sequential));
+        assert_eq!(TaskStructure::parse("auto"), Some(TaskStructure::Unknown));
+        assert_eq!(TaskStructure::parse(""), Some(TaskStructure::Unknown));
+        assert_eq!(TaskStructure::parse("whatever"), None);
+    }
+
+    #[test]
+    fn only_decomposable_admits_a_team() {
+        assert!(TaskStructure::Decomposable.allows_team());
+        assert!(!TaskStructure::Sequential.allows_team());
+        assert!(!TaskStructure::Unknown.allows_team());
+    }
+
+    #[test]
+    fn unknown_is_capped_to_one_agent() {
+        assert_eq!(TaskStructure::Unknown.max_agents(8), 1);
+        assert_eq!(TaskStructure::Sequential.max_agents(8), 1);
+        assert_eq!(TaskStructure::Decomposable.max_agents(8), 8);
+        assert_eq!(TaskStructure::Decomposable.max_agents(0), 1);
+    }
+
+    #[test]
+    fn gate_allows_single_agent_always() {
+        for s in [TaskStructure::Decomposable, TaskStructure::Sequential, TaskStructure::Unknown] {
+            assert_eq!(resolve_team_size(1, s), Ok(1));
+            assert_eq!(resolve_team_size(0, s), Ok(1));
+        }
+    }
+
+    #[test]
+    fn gate_refuses_team_on_sequential_and_unknown() {
+        let e = resolve_team_size(4, TaskStructure::Sequential).unwrap_err();
+        assert!(e.contains("refused"), "message must say the team was refused: {e}");
+        assert!(e.contains("2512.08296"), "message must carry the evidence id");
+        assert!(resolve_team_size(4, TaskStructure::Unknown).is_err());
+        assert_eq!(resolve_team_size(4, TaskStructure::Decomposable), Ok(4));
     }
 }
