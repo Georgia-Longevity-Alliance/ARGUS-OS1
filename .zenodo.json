@@ -1,0 +1,20 @@
+{
+    "title": "ARGUS-OS1",
+    "description": "ARGUS is an open microscopy platform for tracking centrioles in living embryos: does a centriole's pedigree — the sequence of division orientations — predict whether it will be kept or eliminated?",
+    "upload_type": "software",
+    "access_right": "open",
+    "creators": [
+        {
+            "name": "Tqemaladze, Jaba",
+            "orcid": "0000-0001-8651-7243",
+            "affiliation": "Georgia Longevity Alliance"
+        }
+    ],
+    "keywords": [
+        "longevity",
+        "centriole",
+        "aging",
+        "ARGUS-OS1"
+    ],
+    "license": "MIT"
+}
